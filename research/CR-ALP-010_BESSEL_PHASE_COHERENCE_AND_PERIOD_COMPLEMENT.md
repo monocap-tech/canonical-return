@@ -3,7 +3,9 @@
 **Canonical-Return / independent Alpöge-projection branch.** Opened 2026-11-23 PST.  
 **Standing:** SOURCE-INSPECTED + DERIVED FINITE-ALGEBRA LEMMA + EXECUTED EXACT SYMBOLIC AUDIT PASS. **No new Lean compilation, no numerical multiword theta-lift period instance, no arithmetic–Weil operator intertwiner, no RH or global Weil positivity claim.**
 
-**Source correction (CR-ALP-011):** The first source reading overlooked `D7.eMu_isom` and `D7.s_Cu_isom`; the canonical restricted source map is **isometric onto the ramified subspace**. Only its surjectivity onto the entire period source and corresponding complement control remain open. The prior version's implication of metric uncertainty inside that subspace was incorrect.\n\n## 0. Question and primary source custody
+**Source correction (CR-ALP-011):** The first source reading overlooked `D7.eMu_isom` and `D7.s_Cu_isom`; the canonical restricted source map is **isometric onto the ramified subspace**. Only its surjectivity onto the entire period source and corresponding complement control remain open. The prior version's implication of metric uncertainty inside that subspace was incorrect.
+
+## 0. Question and primary source custody
 
 CR-ALP-008–009 demonstrated that positive-frame rank, Hilbert–Schmidt squared magnitudes, and even every eigenvalue of an unlabelled frame fail to determine the *oriented complex* three-word cyclic trace. Does the actual \`BesselId\` statement supply more, and precisely where would its information cease to determine the **full** arithmetic period-kernel \`KD\`?
 
@@ -180,7 +182,8 @@ If this error is smaller than the **absolute imaginary part** of the reference c
 | Bilinear normalized three-cycle under \`BesselId\` | DERIVED / ANALYTIC PASS |
 | Exact symbolic finite regression | EXECUTED PASS |
 | Actual \`besS\` uses conjugate-linear \`sEE\` | SOURCE INSPECTED |
-| Source identification \(E_u\) isometric onto \(\mathrm{ramCu}(u)\) | **SOURCE-CONTRACT PASS** (D7 \`eMu_isom\`, \`s_Cu_isom\`) |\n| \(\mathrm{ramCu}(u)=D.s.Cu_u\) for arbitrary D7 | **NOT ESTABLISHED** (true in some explicit host-level examples only) |
+| Source identification \(E_u\) isometric onto \(\mathrm{ramCu}(u)\) | **SOURCE-CONTRACT PASS** (D7 \`eMu_isom\`, \`s_Cu_isom\`) |
+| \(\mathrm{ramCu}(u)=D.s.Cu_u\) for arbitrary D7 | **NOT ESTABLISHED** (true in some explicit host-level examples only) |
 | Restricted-pairing determination of full \`KD\` cycle | **DISPROVED IN FINITE ABSTRACT MODEL** |
 | Concrete multiword arithmetic \(D7\) period matrices | NOT RECOVERED |
 | Original Weil \((H,M)\) numerator-and-metric transfer | OPEN |
