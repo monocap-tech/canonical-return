@@ -24,3 +24,15 @@ q(y,y)\ge \frac{|q(u_+,y)|^2}{\mu_+}+\frac{|q(u_-,y)|^2}{\mu_-}\qquad\forall y\i
 \]
 
 **This inequality is not proved.** Moreover (E_\phi) has both pole moments zero, so it does not contain the two pole directions in the finite conditioning space of Andrews–Connes–La Gatta §8.6; an operator-domain and conditioning dictionary is independently required. Neither a positive finite compression nor its phase gap controls the infinite-dimensional spectral bottom.
+
+## T1D-E/F/G — mixed-source and sharp-rate frontier
+
+| Stage | Research note | Proven source-level statement | Unproved boundary |
+|---|---|---|---|
+| **E** | [T1D-E](CR-INT-T1D-E.md) | Explicit full signed Weil *one-sided* mixed L² representer and a positive rank-at-most-two Schur penalty | Actual infinite-dimensional complement lower bound |
+| **F** | [T1D-F](CR-INT-T1D-F.md) | For the fixed even shape, the two projected residuals have opposite parity, with zero mixed Gram entry; the *penalty* norm decays as O(1/log(1/ell)) | Certified finite-width residual Gram values and coercivity |
+| **G** | [T1D-G](CR-INT-T1D-G.md) | Exact **nonzero limits of the residual-square norms**, giving the *sharp* rate \(\log(1/\ell)\|\mathcal R_\ell\|\to V_{\psi}+V_{3,+}+C_{+}>18/5\). A fixed low-frequency-energy smooth test persists inside all selected narrow-source complements. | Certified \(V_\psi\), actual width-10⁻⁴ residual norms and positive complement coercivity |
+
+The T1D-G exact rational/SymPy script is `src/audits/canonical_return_t1d_g_sharp_rate.py` and is included in `tools/check_all.sh` along with earlier checks. The Fourier rescaling/concentration argument is documented in the research note; **running a finite algebra audit does not certify that analytic proof in Lean**.
+
+**Next — T1D-H:** perform certified integral enclosures for the *actual frozen-width* projected \(\beta_\pm^2\) and \(V_\psi\), then independently test a coercive estimate for the *actual* pole-null complementary Weil form (or record the exact mismatch with Connes's semilocal conditioned Sonin carrier).
