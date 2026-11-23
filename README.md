@@ -36,12 +36,13 @@ The full text of the twelve research and migration Space pages has been archived
 
 - [T1D-J](research/CR-INT-T1D-J.md): genuine two-dimensional translated/reflected smooth complement probes and a four-dimensional positive source compression. [Checker](src/audits/canonical_return_t1d_j_complement_probe.py).
 - **[T1D-K](research/CR-INT-T1D-K.md): second reflected prime-4 probe family, a six-dimensional complete signed-Weil positive compression \(q>11/2\), and quantitative four-probe residual capture and Schur testing.** The outside-residual comparison additionally imports T1D-I; no whole-complement coercivity. [Checker](src/audits/canonical_return_t1d_k_extended_probes.py).
+- **[T1D-L](research/CR-INT-T1D-L.md): explicit infinite-dimensional, very-high-frequency moment/Mellin-jet conditioned source with complete original Weil coercivity (>7) (at (B=2^{60})) and (>1800) (at (B=2^{2700})).** When importing the separate prior cross-block norm bounds, its authentic complement Schur condition holds on those deeply conditioned subspaces only; all unconditioned low-frequency and source-pole directions remain OPEN. [Checker](src/audits/canonical_return_t1d_l_frequency_tail.py).
 
 All new results are **analytic research assertions pending independent review**. Regression scripts check specified finite calculations and rational inequalities, not every functional-analytic step. Follow [Issue #1](https://github.com/monocap-tech/canonical-return/issues/1).
 
 ## Executable checks
 
-The regression runner includes **thirteen executable audits** covering T1B, T1C, and T1D-A through K. Each has limited scope. T1D-I combines previously certified G/H rational intervals with a direct, finite-width Gamma-multiplier error estimate, off-support Fourier-tail control, exact prime-translation geometry, and the physical pole projection. This proves **coarse two-sided source residual bounds**, not a completed operator or complementary positivity certificate.
+The regression runner includes **fourteen executable audits** covering T1B, T1C, and T1D-A through L. Each has limited scope. T1D-I combines previously certified G/H rational intervals with a direct, finite-width Gamma-multiplier error estimate, off-support Fourier-tail control, exact prime-translation geometry, and the physical pole projection. This proves **coarse two-sided source residual bounds**, not a completed operator or complementary positivity certificate.
 
 Run with Python 3:
 
