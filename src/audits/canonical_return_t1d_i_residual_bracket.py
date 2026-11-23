@@ -68,6 +68,10 @@ for n in non3:
             outside_low=q*e2_hi < 3*sq3_lo
             outside_high=q > e2_hi*3*sq3_hi
             assert (low or outside_low) and (high or outside_high),('boundary uncertified',n,sign,j)
+            if outside_low:
+                assert q*e2_hi/(1-ell/2)<3*sq3_lo
+            if outside_high:
+                assert q>e2_hi/(1-ell/2)*3*sq3_hi
             if low and high:trans.append((q,(n,j,sign)))
 assert len(trans)==48,len(trans)
 all_centers=sorted(base+trans)
