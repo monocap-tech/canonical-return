@@ -41,8 +41,8 @@ assert log_int(3)[1]<2
 # Every supported autocorrelation is inside (-2B,2B).
 # Exact von Mangoldt coefficients; no pseudo-prime 6 or 9-as-prime error.
 assert set(PRIME_POWERS)=={2,3,4,5,7,8,9}
-assert all(n==p**k for n,p in PRIME_POWERS.items()
-           for k in range(1,5) if p**k==n)
+assert all(any(n==p**k for k in range(1,5))
+           for n,p in PRIME_POWERS.items())
 
 # Rigorous sqrt lower: floor(10^6 sqrt(n))/10^6 using integer isqrt.
 scale=10**6
