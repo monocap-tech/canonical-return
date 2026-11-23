@@ -20,17 +20,24 @@ The full text of the twelve research and migration Space pages has been archived
 | 07 | Five-invariant comparison and formal compatibility model | [Integration](archive/space/07-integration.md) |
 | 08–10 | T1A complex trace, T1B mixed Gram pencil, T1C interval enclosures | [T1A](archive/space/08-t1a.md) · [T1B](archive/space/09-t1b.md) · [T1C](archive/space/10-t1c.md) |
 
-## New research (review branch)
+## New research (draft review branch)
 
-- [CR-INT-T1D-A: profile-uniform positivity and first prime-29 collision](research/CR-INT-T1D-A.md) — analytic restricted smooth-core result for all real bump profiles of width at most 1/16, preserving full signed form and physical mass. **Under review**, not a global spectral lower bound. [Exact comparison audit](src/audits/canonical_return_t1d_uniform_profile.py). Follow [Issue #1](https://github.com/monocap-tech/canonical-return/issues/1).
+[Draft PR #2](https://github.com/monocap-tech/canonical-return/pull/2) includes the source-level T1D sequence:
+
+- [T1D-A](research/CR-INT-T1D-A.md): profile-uniform restricted positivity; first prime-29 collision.
+- [T1D-B](research/CR-INT-T1D-B.md): prime-25 activation; wider two-cell positivity.
+- [T1D-C](research/CR-INT-T1D-C.md): prime-8 two-entry perturbation and bounded width profile family.
+- [T1D-D](research/CR-INT-T1D-D.md): prime-31/23/32 phase transport and exact complement Schur algebra.
+- [T1D-E](research/CR-INT-T1D-E.md): original signed Weil mixed Riesz representers and rank-two projected penalty.
+- [T1D-F](research/CR-INT-T1D-F.md): even/odd reduction and asymptotic Schur decoupling.
+- [T1D-G](research/CR-INT-T1D-G.md): sharp-rate asymptotic residual law; exact prime-power arithmetic floor.
+- **[T1D-H](research/CR-INT-T1D-H.md): rigorous actual smooth-profile Fourier-log variance and finite-width lower residual probes.** **Not** yet a two-sided enclosure of both full projected residual norms or complementary coercivity. [Exact-rational checker](src/audits/canonical_return_t1d_h_mellin_probe.py).
+
+All new results are **analytic research assertions pending independent review**. Regression scripts check specified finite calculations and rational inequalities, not every functional-analytic step. Follow [Issue #1](https://github.com/monocap-tech/canonical-return/issues/1).
 
 ## Executable checks
 
-The original T1B and T1C audit scripts are preserved, and a new T1D rational/symbolic checker is included:
-
-- [`src/audits/canonical_return_t1b_exact_audit.py`](src/audits/canonical_return_t1b_exact_audit.py): exact SymPy arithmetic for the rank-two Mellin-pole nullspace, two-dimensional Hermitian Gram pencil and selected splitting.
-- [`src/audits/canonical_return_t1c_rational_enclosures.py`](src/audits/canonical_return_t1c_rational_enclosures.py): exact-fraction outward analytical intervals for one explicit smooth test profile.
-- [`src/audits/canonical_return_t1d_uniform_profile.py`](src/audits/canonical_return_t1d_uniform_profile.py): exact-rational constants, restricted-matrix algebra and the new prime-29 threshold response; the analytic integration estimates are proved in the research note, **not by the checker alone**.
+The regression runner includes **ten executable audits** covering T1B, T1C, and T1D-A through H. Each audit states its own limited scope. The T1D-H checker derives true-frozen-profile variance enclosures using an exact triangular Mellin reference and proves nonzero finite-width mixed-coupling lower bounds with a smooth pole-null complement witness; this is **not** a completed operator spectral certificate.
 
 Run with Python 3:
 
