@@ -34,11 +34,14 @@ The full text of the twelve research and migration Space pages has been archived
 - [T1D-H](research/CR-INT-T1D-H.md): certified smooth-profile log-Fourier variance and nonzero finite-width mixed-coupling witnesses. [Checker](src/audits/canonical_return_t1d_h_mellin_probe.py).
 - **[T1D-I](research/CR-INT-T1D-I.md): two-sided analytical finite-width projected residual bounds, \(3.2<\beta_+^2<6.2\), \(2.4<\beta_-^2<5.1\); resulting Schur penalty between \(320/1393\) and \(155/182\).** Coarse source-level enclosures, not high-precision quadrature, complement coercivity or RH. [Rational checker](src/audits/canonical_return_t1d_i_residual_bracket.py).
 
+- [T1D-J](research/CR-INT-T1D-J.md): genuine two-dimensional translated/reflected smooth complement probes and a four-dimensional positive source compression. [Checker](src/audits/canonical_return_t1d_j_complement_probe.py).
+- **[T1D-K](research/CR-INT-T1D-K.md): second reflected prime-4 probe family, a six-dimensional complete signed-Weil positive compression \(q>11/2\), and quantitative four-probe residual capture and Schur testing.** The outside-residual comparison additionally imports T1D-I; no whole-complement coercivity. [Checker](src/audits/canonical_return_t1d_k_extended_probes.py).
+
 All new results are **analytic research assertions pending independent review**. Regression scripts check specified finite calculations and rational inequalities, not every functional-analytic step. Follow [Issue #1](https://github.com/monocap-tech/canonical-return/issues/1).
 
 ## Executable checks
 
-The regression runner includes **eleven executable audits** covering T1B, T1C, and T1D-A through I. Each has limited scope. T1D-I combines previously certified G/H rational intervals with a direct, finite-width Gamma-multiplier error estimate, off-support Fourier-tail control, exact prime-translation geometry, and the physical pole projection. This proves **coarse two-sided source residual bounds**, not a completed operator or complementary positivity certificate.
+The regression runner includes **thirteen executable audits** covering T1B, T1C, and T1D-A through K. Each has limited scope. T1D-I combines previously certified G/H rational intervals with a direct, finite-width Gamma-multiplier error estimate, off-support Fourier-tail control, exact prime-translation geometry, and the physical pole projection. This proves **coarse two-sided source residual bounds**, not a completed operator or complementary positivity certificate.
 
 Run with Python 3:
 
