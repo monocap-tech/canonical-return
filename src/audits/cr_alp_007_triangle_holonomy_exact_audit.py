@@ -7,12 +7,13 @@ ALL certification inequalities use Fraction, never floating point.
 No Lean compilation, theta-lift triple, operator completion or RH theorem.
 """
 from fractions import Fraction as Q
+from math import isqrt
 
 
 def primes_through(n):
     sieve = [True] * (n + 1)
     sieve[0] = sieve[1] = False
-    for p in range(2, int(n ** .5) + 1):
+    for p in range(2, isqrt(n) + 1):
         if sieve[p]:
             for j in range(p * p, n + 1, p):
                 sieve[j] = False
