@@ -40,17 +40,13 @@ The full text of the twelve research and migration Space pages has been archived
 
 - **[T1D-M](research/CR-INT-T1D-M.md): source-compatible log-prolate spectral conditioning and a reduced finite source Schur gate.** At \(B=2^{44}\), the original signed Weil form has a source-derived lower bound \(>15123/16000\) on an infinite-dimensional smooth pole-null subspace, with fewer than \(4B/3+951\) excluded prolate directions. Importing the separately derived T1D-I cross-block estimate gives a conditional Schur margin \(>136193/1456000\); **the finite low-mode block remains OPEN**. [Rational audit](src/audits/canonical_return_t1d_m_prolate_cutoff.py).
 
-- [T1D-J](research/CR-INT-T1D-J.md): exact smooth two-probe complementary Schur test and positive four-dimensional source.
-- [T1D-K](research/CR-INT-T1D-K.md): six-dimensional restricted positivity and uncaptured complement coupling.
-- [T1D-L](research/CR-INT-T1D-L.md): infinite-dimensional positivity with high-codimension Mellin-jet conditioning.
-- [T1D-M](research/CR-INT-T1D-M.md): source-compatible prolate conditioning and the unresolved smooth low-mode Schur gate.
 - **[T1D-N](research/CR-INT-T1D-N.md): new two-sided prolate rank estimate; at B=2^44, over 22 trillion genuine additional low-band constraints are necessary for T1D-M's uniform leakage condition, including a parity-sector lower bound.** [Exact-rational rank audit](src/audits/canonical_return_t1d_n_rank_barrier.py). This diagnoses the scale of the open gate; it does not solve it.
 
 All new results are **analytic research assertions pending independent review**. Regression scripts check specified finite calculations and rational inequalities, not every functional-analytic step. Follow [Issue #1](https://github.com/monocap-tech/canonical-return/issues/1).
 
 ## Executable checks
 
-The regression runner includes **fifteen executable audits** covering T1B, T1C, and T1D-A through M. Each has limited scope. T1D-I combines previously certified G/H rational intervals with a direct, finite-width Gamma-multiplier error estimate, off-support Fourier-tail control, exact prime-translation geometry, and the physical pole projection. This proves **coarse two-sided source residual bounds**. T1D-L/M additionally prove conditional-source coercivity on explicitly conditioned **infinite-dimensional** smooth subspaces, but **not** positivity on the unconditioned complement, the excluded finite block, or any completed operator.
+The regression runner includes **sixteen executable audits** covering T1B, T1C, and T1D-A through N. Each has limited scope. T1D-I combines previously certified G/H rational intervals with a direct, finite-width Gamma-multiplier error estimate, off-support Fourier-tail control, exact prime-translation geometry, and the physical pole projection. This proves **coarse two-sided source residual bounds**. T1D-L/M additionally prove conditional-source coercivity on explicitly conditioned **infinite-dimensional** smooth subspaces, but **not** positivity on the unconditioned complement, the excluded finite block, or any completed operator.
 
 Run with Python 3:
 
