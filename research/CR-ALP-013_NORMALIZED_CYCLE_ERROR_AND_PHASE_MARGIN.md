@@ -189,7 +189,7 @@ Their difference tends to zero, **exactly as (13.5) predicts**, while their phas
 
 ## 4. Reproducibility, disposition, next gate
 
-**Executed local audit:** \`src/audits/cr_alp_013_normalized_cycle_audit.py\`, using Python \`Fraction\` and SymPy exact algebra. It checks positive \(F,G_s\), complex cycles, rank law at \(p=3,5,11,101,1009\), offdiagonal LinkS-shaped bounds, comparability, complementary HS inequalities, normalized cycle orientation, and the (13.5) universal bound for exact rational \(\sigma,\beta\) samples. **PASS**. No new GitHub Actions or Lean compiler result is asserted.
+**Executed local audit:** \`src/audits/cr_alp_013_normalized_cycle_audit.py\`, using Python \`Fraction\` and SymPy exact algebra. It checks positive \(F,G_s\), an explicit positive **12-by-12** source Gram with typed block products at \(p=3\), complex cycles, rank law at \(p=3,5,11,101,1009\), offdiagonal LinkS-shaped bounds, comparability, complementary HS inequalities, normalized cycle orientation, and the (13.5) universal bound for exact rational \(\sigma,\beta\) samples. **PASS**. No new GitHub Actions or Lean compiler result is asserted.
 
 | Obligation | Status |
 |---|---|
