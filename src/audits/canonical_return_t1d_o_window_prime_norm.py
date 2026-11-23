@@ -128,11 +128,18 @@ assert max_m==715828537
 assert min_m-4==683290243
 assert F(22390054965613,max_m)>F(31000)
 
+def outward(lo,hi,digits=12):
+    unit=10**digits
+    floor=lo.numerator*unit//lo.denominator
+    ceil=-((-hi.numerator*unit)//hi.denominator)
+    def dec(v): return str(v//unit)+'.'+str(v%unit).zfill(digits)
+    return '['+dec(floor)+', '+dec(ceil)+']'
+
 # The old cut B=2^44 is NOT silently retained, and the new rank remains huge.
 print('PASS: 24 true prime powers, exact shift-chain path lengths (6,4,3,2)')
 print('PASS: rational positive Perron vectors give ||S_log(n)|| <= 65/36,13/8,99/70,1')
-print('Prime norm interval:',f'{float(sum_lo):.11f}',f'{float(sum_hi):.11f}', '< 55/4')
-print('Old whole-line bound 2S:',f'{float(old_lo):.11f}',f'{float(old_hi):.11f}', '; improvement >10')
+print('Prime norm outward interval (12 d.p.):', outward(sum_lo,sum_hi), '< 55/4')
+print('Old whole-line bound 2S outward interval:',outward(old_lo,old_hi), '; improvement >10')
 print('B=2^29:',B,' conditioned Weil lower >',coercivity)
 print('Conditional on T1D-I: Schur remainder >',schur_margin)
 print('Prolate excluded rank bracket:',min_m,'<= m_B <=',max_m)
