@@ -20,12 +20,17 @@ The full text of the twelve research and migration Space pages has been archived
 | 07 | Five-invariant comparison and formal compatibility model | [Integration](archive/space/07-integration.md) |
 | 08–10 | T1A complex trace, T1B mixed Gram pencil, T1C interval enclosures | [T1A](archive/space/08-t1a.md) · [T1B](archive/space/09-t1b.md) · [T1C](archive/space/10-t1c.md) |
 
+## New research (review branch)
+
+- [CR-INT-T1D-A: profile-uniform positivity and first prime-29 collision](research/CR-INT-T1D-A.md) — analytic restricted smooth-core result for all real bump profiles of width at most 1/16, preserving full signed form and physical mass. **Under review**, not a global spectral lower bound. [Exact comparison audit](src/audits/canonical_return_t1d_uniform_profile.py). Follow [Issue #1](https://github.com/monocap-tech/canonical-return/issues/1).
+
 ## Executable checks
 
-Two originally attached audit scripts are included verbatim:
+The original T1B and T1C audit scripts are preserved, and a new T1D rational/symbolic checker is included:
 
 - [`src/audits/canonical_return_t1b_exact_audit.py`](src/audits/canonical_return_t1b_exact_audit.py): exact SymPy arithmetic for the rank-two Mellin-pole nullspace, two-dimensional Hermitian Gram pencil and selected splitting.
 - [`src/audits/canonical_return_t1c_rational_enclosures.py`](src/audits/canonical_return_t1c_rational_enclosures.py): exact-fraction outward analytical intervals for one explicit smooth test profile.
+- [`src/audits/canonical_return_t1d_uniform_profile.py`](src/audits/canonical_return_t1d_uniform_profile.py): exact-rational constants, restricted-matrix algebra and the new prime-29 threshold response; the analytic integration estimates are proved in the research note, **not by the checker alone**.
 
 Run with Python 3:
 
