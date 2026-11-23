@@ -14,3 +14,4 @@ python3 src/audits/canonical_return_t1d_h_mellin_probe.py
 python3 src/audits/canonical_return_t1d_i_residual_bracket.py
 python3 src/audits/canonical_return_t1d_j_complement_probe.py
 python3 src/audits/canonical_return_t1d_k_extended_probes.py
+python3 src/audits/canonical_return_t1d_l_frequency_tail.py
