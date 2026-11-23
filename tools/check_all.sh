@@ -27,3 +27,4 @@ python3 src/audits/canonical_return_t1d_u_central_prime_gamma.py
 python3 src/audits/canonical_return_t1d_v_central_ritz_multiplicity.py
 python3 src/audits/canonical_return_t1d_v_wide_ritz.py
 python3 src/audits/canonical_return_t1d_w_full_central_gram.py
+python3 src/audits/canonical_return_t1d_x_satellite_coupling.py
