@@ -3,7 +3,7 @@
 **Canonical-Return / independent Alpöge-projection branch.** Opened 2026-11-23 PST.  
 **Standing:** SOURCE-INSPECTED + DERIVED FINITE-ALGEBRA LEMMA + EXECUTED EXACT SYMBOLIC AUDIT PASS. **No new Lean compilation, no numerical multiword theta-lift period instance, no arithmetic–Weil operator intertwiner, no RH or global Weil positivity claim.**
 
-## 0. Question and primary source custody
+**Source correction (CR-ALP-011):** The first source reading overlooked `D7.eMu_isom` and `D7.s_Cu_isom`; the canonical restricted source map is **isometric onto the ramified subspace**. Only its surjectivity onto the entire period source and corresponding complement control remain open. The prior version's implication of metric uncertainty inside that subspace was incorrect.\n\n## 0. Question and primary source custody
 
 CR-ALP-008–009 demonstrated that positive-frame rank, Hilbert–Schmidt squared magnitudes, and even every eigenvalue of an unlabelled frame fail to determine the *oriented complex* three-word cyclic trace. Does the actual \`BesselId\` statement supply more, and precisely where would its information cease to determine the **full** arithmetic period-kernel \`KD\`?
 
@@ -18,7 +18,7 @@ Original sources: Alpöge, *A remark* (20 November 2026), https://alpo.ge/remark
      \mathrm{Bu}_u(\phi,F)=a_u\,\mathrm{besS}_u(U_u\phi,VF).
    \]
    **One target isometry \(V\) is common to every word**, while the nonzero scalar \(a_u\) and source isometry \(U_u\) are word-dependent. This is a real coherence condition, not merely a list of independent norm-square inequalities.
-2. \`src/Formalism/LocalRingCardinality/RhoDetPrimeEqMuTildeMulChiPow.lean\`: source field \`sEE : what₂.EE →ₗᵢ⋆[ℂ] s.HH\` is **conjugate-linear isometric** (near line 307); \`eMu : ∀ u, what₂.Mu u ≃ₗ[ℂ] (mem u).A.Mram\` (line 165) and \`s_Cu : ∀ u, s.Cu u ≃ₗ[ℂ] (mem u).A.Mu0\` (line 233) are **linear equivalences, not declared isometries**. The same file defines
+2. \`src/Formalism/LocalRingCardinality/RhoDetPrimeEqMuTildeMulChiPow.lean\`: source field \`sEE : what₂.EE →ₗᵢ⋆[ℂ] s.HH\` is **conjugate-linear isometric** (near line 307); \`eMu : ∀ u, what₂.Mu u ≃ₗ[ℂ] (mem u).A.Mram\` (line 165) and \`s_Cu : ∀ u, s.Cu u ≃ₗ[ℂ] (mem u).A.Mu0\` (line 233) are **typed as linear equivalences; however, the same D7 record ALSO declares `eMu_isom` and `s_Cu_isom` (near lines 288–305), which imply that their composite gives a genuine isometric identification with the ramified subspace**. The same file defines
    \[
    \mathrm{besS}_u(\phi,F)
    =\langle D.sEE(F),\,D.s.Pu_u(E_u\phi)\rangle
@@ -95,7 +95,7 @@ up to the **common target antiunitary identification** induced by \`sEE\`. By co
 \]
 on all of \(D.s.Cu_u,D.s.Cu_v\).
 
-The source composite \(E_u\) lands in the ramified subspace and uses linear equivalences not declared isometric. Even if an idealized \(E_u\) **were an isometric embedding**, knowing \(P_uE_u\) would **not** determine \(P_u^\dagger P_v\) on the orthogonal complement. Neither \`BesselId\` alone nor \`BuRational\` supplies that missing completion information.
+**Correction established in CR-ALP-011:** the source composite \(E_u\) is **already an isometric linear equivalence onto** \(\mathrm{ramCu}(u)\), by D7's explicit \`eMu_isom\` and \`s_Cu_isom\` laws. It is not automatically onto the **whole** \(D.s.Cu_u\). Even with that verified isometry, knowing \(P_uE_u\) does **not** determine \(P_u^\dagger P_v\) on a nontrivial orthogonal complement. Neither \`BesselId\` alone nor \`BuRational\` supplies a completion inequality.
 
 ### 2a. Exact orientation-reversal *compression* countermodel
 
@@ -180,7 +180,7 @@ If this error is smaller than the **absolute imaginary part** of the reference c
 | Bilinear normalized three-cycle under \`BesselId\` | DERIVED / ANALYTIC PASS |
 | Exact symbolic finite regression | EXECUTED PASS |
 | Actual \`besS\` uses conjugate-linear \`sEE\` | SOURCE INSPECTED |
-| Source-to-period map \(E_u\) proven metric-isometric and onto | **NOT ESTABLISHED** |
+| Source identification \(E_u\) isometric onto \(\mathrm{ramCu}(u)\) | **SOURCE-CONTRACT PASS** (D7 \`eMu_isom\`, \`s_Cu_isom\`) |\n| \(\mathrm{ramCu}(u)=D.s.Cu_u\) for arbitrary D7 | **NOT ESTABLISHED** (true in some explicit host-level examples only) |
 | Restricted-pairing determination of full \`KD\` cycle | **DISPROVED IN FINITE ABSTRACT MODEL** |
 | Concrete multiword arithmetic \(D7\) period matrices | NOT RECOVERED |
 | Original Weil \((H,M)\) numerator-and-metric transfer | OPEN |
