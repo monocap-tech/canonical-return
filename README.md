@@ -47,6 +47,14 @@ The full text of the twelve research and migration Space pages has been archived
 
 All new results are **analytic research assertions pending independent review**. Regression scripts check specified finite calculations and rational inequalities, not every functional-analytic step. Follow [Issue #1](https://github.com/monocap-tech/canonical-return/issues/1).
 
+- [T1D-J](research/CR-INT-T1D-J.md): two authentic complement probes; four-dimensional restricted positivity.
+- [T1D-K](research/CR-INT-T1D-K.md): six-dimensional restricted positivity and uncaptured mixed-coupling mass.
+- [T1D-L](research/CR-INT-T1D-L.md): first source-level infinite-dimensional Mellin-jet-conditioned positivity.
+- [T1D-M](research/CR-INT-T1D-M.md): logarithmic prolate conditioning and its finite low-mode Schur gate.
+- [T1D-N](research/CR-INT-T1D-N.md): large necessary rank of the existing prolate leakage criterion.
+- [T1D-O](research/CR-INT-T1D-O.md): support-compressed prime-shift norm bound <55/4; prolate cutoff 2^29.
+- **[T1D-P](research/CR-INT-T1D-P.md): joint original prime-translation norm <93/10, verified by a rational three-step path sweep; prolate cutoff 2^22.** [Audit](src/audits/canonical_return_t1d_p_joint_prime_cubic.py). The whole low-mode Schur block remains unresolved.
+
 ## Executable checks
 
 The regression runner includes **seventeen executable audits** covering T1B, T1C, and T1D-A through O. Each has limited scope. T1D-I combines previously certified G/H rational intervals with a direct, finite-width Gamma-multiplier error estimate, off-support Fourier-tail control, exact prime-translation geometry, and the physical pole projection. This proves **coarse two-sided source residual bounds**. T1D-L/M additionally prove conditional-source coercivity on explicitly conditioned **infinite-dimensional** smooth subspaces, but **not** positivity on the unconditioned complement, the excluded finite block, or any completed operator.
