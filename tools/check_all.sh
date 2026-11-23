@@ -25,3 +25,4 @@ python3 src/audits/canonical_return_t1d_s_ritz_tail.py
 python3 src/audits/canonical_return_t1d_t_tail_schur.py
 python3 src/audits/canonical_return_t1d_u_central_prime_gamma.py
 python3 src/audits/canonical_return_t1d_v_central_ritz_multiplicity.py
+python3 src/audits/canonical_return_t1d_v_wide_ritz.py
