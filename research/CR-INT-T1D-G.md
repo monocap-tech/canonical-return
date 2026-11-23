@@ -132,7 +132,7 @@ The residual projection onto the **two windowed pole directions** tends to zero:
 
 ## 7. The complement does not become a high-frequency subspace merely because E localizes
 
-There is a separate **finite-codimension obstruction to a common shortcut**. Choose a nonzero real even \(b\in C_c^\infty(-1/100,1/100)\), and put \(b_0(x)=b(x)\), \(b_1(x)=b(x-1/5)+b(x+1/5)\). Both are even and have disjoint supports in \((-1/4,1/4)\). Let
+There is a separate **finite-codimension obstruction to a common shortcut**. Choose a nonzero real even nonnegative \(b\in C_c^\infty(-1/100,1/100)\), and put \(b_0(x)=b(x)\), \(b_1(x)=b(x-1/5)+b(x+1/5)\). Both are even and have disjoint supports in \((-1/4,1/4)\). Let
 
 \[
 \alpha=\frac{\int b_0(x)\cosh(x/2)dx}{\int b_1(x)\cosh(x/2)dx},\qquad y=b_0-\alpha b_1,
