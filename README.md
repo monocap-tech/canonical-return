@@ -42,7 +42,10 @@ The full text of the twelve research and migration Space pages has been archived
 
 - **[T1D-N](research/CR-INT-T1D-N.md): new two-sided prolate rank estimate; at B=2^44, over 22 trillion genuine additional low-band constraints are necessary for T1D-M's uniform leakage condition, including a parity-sector lower bound.** [Exact-rational rank audit](src/audits/canonical_return_t1d_n_rank_barrier.py). This diagnoses the scale of the open gate; it does not solve it.
 
-\n- **[T1D-O](research/CR-INT-T1D-O.md): exact physical-window prime-translation contraction** gives `||P_I|| < 55/4` (versus earlier `2 S_2 < 122/5`), lowering the admissible prolate cutoff from `B=2^44` to `B=2^29`. The complete signed Weil form is analytically `>164019/128000` on the corresponding infinite-dimensional conditioned smooth two-pole-null space. The further `>5005729/11648000` Schur margin **imports the separately unreviewed T1D-I residual bound**. The remaining roughly 683–716 million prolate low modes, full complement and pole directions are OPEN. [Rational audit](src/audits/canonical_return_t1d_o_window_prime_norm.py).\n\nAll new results are **analytic research assertions pending independent review**. Regression scripts check specified finite calculations and rational inequalities, not every functional-analytic step. Follow [Issue #1](https://github.com/monocap-tech/canonical-return/issues/1).
+
+- **[T1D-O](research/CR-INT-T1D-O.md): exact physical-window prime-translation contraction** gives `||P_I|| < 55/4` (versus earlier `2 S_2 < 122/5`), lowering the admissible prolate cutoff from `B=2^44` to `B=2^29`. The complete signed Weil form is analytically `>164019/128000` on the corresponding infinite-dimensional conditioned smooth two-pole-null space. The further `>5005729/11648000` Schur margin **imports the separately unreviewed T1D-I residual bound**. The remaining roughly 683–716 million prolate low modes, full complement and pole directions are OPEN. [Rational audit](src/audits/canonical_return_t1d_o_window_prime_norm.py).
+
+All new results are **analytic research assertions pending independent review**. Regression scripts check specified finite calculations and rational inequalities, not every functional-analytic step. Follow [Issue #1](https://github.com/monocap-tech/canonical-return/issues/1).
 
 ## Executable checks
 
