@@ -90,6 +90,40 @@ for sn,sd in ((1,1),(1,2),(1,5),(1,10),(1,100)):
         # Error bound for C=Dstar*T/(d_i*d_j*d_k).
         budget=6*(1+sigma)*sigma*S.sqrt(beta+sigma*S.sqrt(beta))
         assert S.simplify(budget-12*S.sqrt(2)*sigma)<=0
+# Materialize the smallest whole 12-by-12 global Gram (p=3, f=2),
+# ordered in three C^4 blocks, to test the actual typed cross-block products.
+p=3
+d=(p-1)**2
+r=(p-2)**2
+for sign in (-1,1):
+    aa,bb,cc=[S.Rational(z.numerator,z.denominator) for z in (a,b,c)]
+    Tt=S.Rational(t.numerator,t.denominator)
+    g=S.Matrix([[1,aa,bb],[aa,1,sign*I*cc],[bb,-sign*I*cc,1]])
+    whole=S.zeros(3*d)
+    for u in range(3):
+        for col in range(d):
+            whole[u*d+col,u*d+col]=1
+        for v in range(u+1,3):
+            whole[u*d,v*d]=Tt
+            whole[v*d,u*d]=Tt
+            whole[u*d+r,v*d+r]=g[u,v]
+            whole[v*d+r,u*d+r]=S.conjugate(g[u,v])
+    assert whole==whole.conjugate().T
+    assert S.simplify(whole.det()-S.Rational(40211,44100)*S.Rational(243,250))==0
+    # F = [[1,t,t],[t,1,t],[t,t,1]]: det=(1-t)^2(1+2t)=243/250.
+    def block(u,v):
+        return whole[u*d:(u+1)*d, v*d:(v+1)*d]
+    assert all(block(u,u)==S.eye(d) for u in range(3))
+    assert all(S.simplify(S.trace(block(u,v).conjugate().T*block(u,v)))
+                   == Tt**2+S.Abs(g[u,v])**2 for u in range(3)
+                   for v in range(3) if u!=v)
+    fullcycle=S.simplify(S.trace(block(0,1)*block(1,2)*block(2,0)))
+    assert fullcycle==S.Rational(1,1000)+sign*I/S.Integer(210)
+    R=S.diag(*([1]*r+[0]*(d-r)))
+    smallcycle=S.simplify(S.trace((R*block(0,1)*R)*(R*block(1,2)*R)*(R*block(2,0)*R)))
+    assert smallcycle==S.Rational(1,1000)
+print('PASS explicit 12x12 positive Gram and all typed K_uv cyclic blocks')
+
 print('CR-ALP-013 EXACT SYMBOLIC + RATIONAL AUDIT PASS')
 print('Normalized cyclic values converge together; their phases need NOT agree.')
 print('No evaluated arithmetic 3-word period operators, Lean compile, or RH claim.')
