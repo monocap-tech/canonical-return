@@ -54,10 +54,11 @@ All new results are **analytic research assertions pending independent review**.
 - [T1D-N](research/CR-INT-T1D-N.md): large necessary rank of the existing prolate leakage criterion.
 - [T1D-O](research/CR-INT-T1D-O.md): support-compressed prime-shift norm bound <55/4; prolate cutoff 2^29.
 - **[T1D-P](research/CR-INT-T1D-P.md): joint original prime-translation norm <93/10, verified by a rational three-step path sweep; prolate cutoff 2^22.** [Audit](src/audits/canonical_return_t1d_p_joint_prime_cubic.py). The whole low-mode Schur block remains unresolved.
+- **[T1D-Q](research/CR-INT-T1D-Q.md): original joint prime operator norm <203/25=8.12 via exact-rational weighted Schur supersolution; source-conditioned cutoff B=2^21, still ~2.7 million excluded low prolate modes.** The conditioned cross-block margin additionally imports T1D-I; no full complement result. [Audit](src/audits/canonical_return_t1d_q_positive_supersolution.py).
 
 ## Executable checks
 
-The regression runner includes **seventeen executable audits** covering T1B, T1C, and T1D-A through O. Each has limited scope. T1D-I combines previously certified G/H rational intervals with a direct, finite-width Gamma-multiplier error estimate, off-support Fourier-tail control, exact prime-translation geometry, and the physical pole projection. This proves **coarse two-sided source residual bounds**. T1D-L/M additionally prove conditional-source coercivity on explicitly conditioned **infinite-dimensional** smooth subspaces, but **not** positivity on the unconditioned complement, the excluded finite block, or any completed operator.
+The regression runner includes **nineteen executable audits** covering T1B, T1C, and T1D-A through Q. Each has limited scope. T1D-I combines previously certified G/H rational intervals with a direct, finite-width Gamma-multiplier error estimate, off-support Fourier-tail control, exact prime-translation geometry, and the physical pole projection. This proves **coarse two-sided source residual bounds**. T1D-L/M additionally prove conditional-source coercivity on explicitly conditioned **infinite-dimensional** smooth subspaces, but **not** positivity on the unconditioned complement, the excluded finite block, or any completed operator.
 
 Run with Python 3:
 
