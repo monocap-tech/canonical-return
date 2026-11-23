@@ -36,3 +36,12 @@ q(y,y)\ge \frac{|q(u_+,y)|^2}{\mu_+}+\frac{|q(u_-,y)|^2}{\mu_-}\qquad\forall y\i
 The T1D-G exact rational/SymPy script is `src/audits/canonical_return_t1d_g_sharp_rate.py` and is included in `tools/check_all.sh` along with earlier checks. The Fourier rescaling/concentration argument is documented in the research note; **running a finite algebra audit does not certify that analytic proof in Lean**.
 
 **Next — T1D-H:** perform certified integral enclosures for the *actual frozen-width* projected \(\beta_\pm^2\) and \(V_\psi\), then independently test a coercive estimate for the *actual* pole-null complementary Weil form (or record the exact mismatch with Connes's semilocal conditioned Sonin carrier).
+
+## T1D-H/I/J — finite-width numerical bounds and authentic complement probes
+
+- [T1D-H](CR-INT-T1D-H.md): exact-rational profile Fourier-log variance and nonzero one-sided mixed coupling at width `10^-4`.
+- [T1D-I](CR-INT-T1D-I.md): conservative two-sided finite-width residual bounds and rank-two Schur-penalty enclosure; the analytical steps require external review.
+- **[T1D-J](CR-INT-T1D-J.md):** an explicit **two-dimensional smooth pole-null physical-complement space** `V` carrying exact prime-2 selected cross coupling and a prime-4 internal interaction. On the frozen original T1C bump, direct complete signed Weil source bounds yield `q(y)>36/5 ||y||²` on `V`, `Schur(y)>7||y||²` on `V`, and a **four-dimensional** lower bound `q(f)>6||f||²` on `E⊕V`. **None** of these is a bound on *all* infinite-dimensional `F`.
+- Next: **T1D-K**, quantify `(I-Π_V)r_±` and test the unmeasured true complement directions before promoting any conditioning transfer conjecture.
+
+The companion J checker re-executes T1C's rational interval script, directly enumerates prime-power collision masks and the prime Gram, and checks conservative rational margins. **No Lean or new GitHub Actions evidence.**
