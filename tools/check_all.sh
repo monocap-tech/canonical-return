@@ -19,3 +19,4 @@ python3 src/audits/canonical_return_t1d_m_prolate_cutoff.py
 python3 src/audits/canonical_return_t1d_n_rank_barrier.py
 python3 src/audits/canonical_return_t1d_o_window_prime_norm.py
 python3 src/audits/canonical_return_t1d_p_joint_prime_cubic.py
+python3 src/audits/canonical_return_t1d_q_positive_supersolution.py
