@@ -62,9 +62,11 @@ All new results are **analytic research assertions pending independent review**.
 
 - **[T1D-T](research/CR-INT-T1D-T.md):** exact **quadratic** low/high Schur-tail certificate exploiting that `6I` does not mix Gamma eigenmodes; conditional imported T1D-I bound reduces the half-unit *tail-estimator Gamma-energy threshold* from 5760 to 275. Two new even/odd broad-support smooth, doubly pole-null trial functions have bounded H¹ frequency scales and zero prime self-interaction. **No Ritz top-eigenvalue enclosure or full complement positivity.** [Audit](src/audits/canonical_return_t1d_t_tail_schur.py).
 
+- **[T1D-U](research/CR-INT-T1D-U.md):** exact original seven-prime central-support image bound `||A P_J||<7/2`, and improved **true parity compact-spectrum lower witnesses** (even `>60/73`, odd `>300/377`) from sharp Gamma/Jensen estimates on the authentic broad smooth pole-null probes. [Exact rational/SymPy audit](src/audits/canonical_return_t1d_u_central_prime_gamma.py); [optional noncertifying FFT diagnostic](tools/diagnostic_t1d_u_fft.py). **No high/low Gamma projection estimate `eta_N`, eigenvalue upper bound below 1, or whole-complement positivity is established.**
+
 ## Executable checks
 
-The regression runner includes **22 executable audits** covering T1B, T1C, and T1D-A through T. Each has limited scope. T1D-I combines previously certified G/H rational intervals with a direct, finite-width Gamma-multiplier error estimate, off-support Fourier-tail control, exact prime-translation geometry, and the physical pole projection. This proves **coarse two-sided source residual bounds**. T1D-L/M additionally prove conditional-source coercivity on explicitly conditioned **infinite-dimensional** smooth subspaces, but **not** positivity on the unconditioned complement, the excluded finite block, or any completed operator.
+The regression runner includes **23 executable audits** covering T1B, T1C, and T1D-A through U. Each has limited scope. T1D-I combines previously certified G/H rational intervals with a direct, finite-width Gamma-multiplier error estimate, off-support Fourier-tail control, exact prime-translation geometry, and the physical pole projection. This proves **coarse two-sided source residual bounds**. T1D-L/M additionally prove conditional-source coercivity on explicitly conditioned **infinite-dimensional** smooth subspaces, but **not** positivity on the unconditioned complement, the excluded finite block, or any completed operator.
 
 Run with Python 3:
 
