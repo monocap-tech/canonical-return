@@ -58,9 +58,11 @@ All new results are **analytic research assertions pending independent review**.
 
 - **[T1D-R](research/CR-INT-T1D-R.md):** exact original Gamma multiplier floor and sharper **negative** full pole-null semibound \(q>-2699\|f\|_2^2/200\), plus a **conditional** compact parity-separated Birman–Schwinger criterion for the authentic smooth complement. This is an exact spectral *test*, **not a certified positive low-mode eigenvalue**. [Audit](src/audits/canonical_return_t1d_r_compact_schur.py).
 
+- **[T1D-S](research/CR-INT-T1D-S.md):** genuine parity Ritz **lower bounds** for the original compact Schur operators (even >7/25, odd >31/100), using 12 exact original smooth source cells; proves the old R.11 **generic tail estimator** requires an astronomical Dirichlet rank to become <1/2. **Not** a top-eigenvalue upper certificate or whole-complement positivity. [Audit](src/audits/canonical_return_t1d_s_ritz_tail.py).
+
 ## Executable checks
 
-The regression runner includes **nineteen executable audits** covering T1B, T1C, and T1D-A through Q. Each has limited scope. T1D-I combines previously certified G/H rational intervals with a direct, finite-width Gamma-multiplier error estimate, off-support Fourier-tail control, exact prime-translation geometry, and the physical pole projection. This proves **coarse two-sided source residual bounds**. T1D-L/M additionally prove conditional-source coercivity on explicitly conditioned **infinite-dimensional** smooth subspaces, but **not** positivity on the unconditioned complement, the excluded finite block, or any completed operator.
+The regression runner includes **21 executable audits** covering T1B, T1C, and T1D-A through S. Each has limited scope. T1D-I combines previously certified G/H rational intervals with a direct, finite-width Gamma-multiplier error estimate, off-support Fourier-tail control, exact prime-translation geometry, and the physical pole projection. This proves **coarse two-sided source residual bounds**. T1D-L/M additionally prove conditional-source coercivity on explicitly conditioned **infinite-dimensional** smooth subspaces, but **not** positivity on the unconditioned complement, the excluded finite block, or any completed operator.
 
 Run with Python 3:
 
