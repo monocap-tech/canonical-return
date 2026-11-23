@@ -8,3 +8,4 @@ python3 src/audits/canonical_return_t1d_b_25_collision.py
 python3 src/audits/canonical_return_t1d_c_8_collision.py
 python3 src/audits/canonical_return_t1d_d_31_schur.py
 python3 src/audits/canonical_return_t1d_e_mixed_bound.py
+python3 src/audits/canonical_return_t1d_f_parity_decoupling.py
