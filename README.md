@@ -31,13 +31,14 @@ The full text of the twelve research and migration Space pages has been archived
 - [T1D-E](research/CR-INT-T1D-E.md): original signed Weil mixed Riesz representers and rank-two projected penalty.
 - [T1D-F](research/CR-INT-T1D-F.md): even/odd reduction and asymptotic Schur decoupling.
 - [T1D-G](research/CR-INT-T1D-G.md): sharp-rate asymptotic residual law; exact prime-power arithmetic floor.
-- **[T1D-H](research/CR-INT-T1D-H.md): rigorous actual smooth-profile Fourier-log variance and finite-width lower residual probes.** **Not** yet a two-sided enclosure of both full projected residual norms or complementary coercivity. [Exact-rational checker](src/audits/canonical_return_t1d_h_mellin_probe.py).
+- [T1D-H](research/CR-INT-T1D-H.md): certified smooth-profile log-Fourier variance and nonzero finite-width mixed-coupling witnesses. [Checker](src/audits/canonical_return_t1d_h_mellin_probe.py).
+- **[T1D-I](research/CR-INT-T1D-I.md): two-sided analytical finite-width projected residual bounds, \(3.2<\beta_+^2<6.2\), \(2.4<\beta_-^2<5.1\); resulting Schur penalty between \(320/1393\) and \(155/182\).** Coarse source-level enclosures, not high-precision quadrature, complement coercivity or RH. [Rational checker](src/audits/canonical_return_t1d_i_residual_bracket.py).
 
 All new results are **analytic research assertions pending independent review**. Regression scripts check specified finite calculations and rational inequalities, not every functional-analytic step. Follow [Issue #1](https://github.com/monocap-tech/canonical-return/issues/1).
 
 ## Executable checks
 
-The regression runner includes **ten executable audits** covering T1B, T1C, and T1D-A through H. Each audit states its own limited scope. The T1D-H checker derives true-frozen-profile variance enclosures using an exact triangular Mellin reference and proves nonzero finite-width mixed-coupling lower bounds with a smooth pole-null complement witness; this is **not** a completed operator spectral certificate.
+The regression runner includes **eleven executable audits** covering T1B, T1C, and T1D-A through I. Each has limited scope. T1D-I combines previously certified G/H rational intervals with a direct, finite-width Gamma-multiplier error estimate, off-support Fourier-tail control, exact prime-translation geometry, and the physical pole projection. This proves **coarse two-sided source residual bounds**, not a completed operator or complementary positivity certificate.
 
 Run with Python 3:
 
