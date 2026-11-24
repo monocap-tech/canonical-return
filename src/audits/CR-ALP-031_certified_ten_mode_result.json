@@ -1,0 +1,29 @@
+{
+  "stage": "CR-ALP-031",
+  "status": "EXACT OUTWARD-INTEGER + INDEPENDENT RATIONAL LDL PASS, ANALYTIC CONTINUUM INPUT; NOT LEAN",
+  "individual_gamma_terms": 30000,
+  "monotone_grouped_gamma_kernels": 617,
+  "covered_gamma_index_range": "0<=m<350000; infinite m>=350000 tail omitted only from lower side",
+  "basis": "w3,w5,w7,w9,u1 and w4,w6,w8,w10,u2, true physical pole-null Gram",
+  "original_signs": "two original poles vanish; all seven paired von Mangoldt prime contributions negative; full original Gamma",
+  "physical_lower_bound_strict": "1/100000000000",
+  "verified_shifted_LDL_pivot_lower_fractions": {
+    "even physical": [
+      "351300420227911995/10^20",
+      "3472567124333379/10^20",
+      "223407041655748/10^20",
+      "224039655001263/10^20",
+      "2625193615934531736/10^20"
+    ],
+    "odd physical": [
+      "140100822120607614/10^20",
+      "2733954851060157/10^20",
+      "3197728013966507/10^20",
+      "193944005858445952/10^20",
+      "4149313691678114829/10^20"
+    ]
+  },
+  "input_sha256": "a8a827ff7ad0cca5d0e7e89c72c91798d9d96e8fd9d3d879af2ec8bfd152a187",
+  "matrix_intervals_sha256": "052490ae00ccbc88466b8134e04a0100950cc48bf811a094086d739e9bda5ba1",
+  "limitations": "No 15k finite Schur inequality; no cross-tail residual; no arbitrary support; no original RH; no Lean kernel certification"
+}
