@@ -34,3 +34,4 @@ python3 src/audits/canonical_return_t1d_aa_fourier_localized_second_schur.py
 python3 src/audits/canonical_return_t1d_ab_prolate_rank_window.py
 python3 src/audits/canonical_return_t1d_ac_weighted_transfer.py
 python3 src/audits/canonical_return_t1d_ad_constrained_concentration.py
+python3 src/audits/canonical_return_t1d_ae_neumann.py
