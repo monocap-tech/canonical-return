@@ -121,7 +121,7 @@ Consequently a fully certified finite matrix inequality
 \tag{25.6}
 \]
 
-would prove nonnegativity of the **entire two-pole-null original fixed collar**. It has **NOT** been evaluated. The use of μ^{-1}I for the unknown tail inverse gives a *sufficient*, not a necessary, test. A certified negative vector of H_N itself would be an actual original signed-Weil negative source; a failure of the sufficient inequality is otherwise inconclusive.
+would prove nonnegativity of the **entire two-pole-null original fixed collar**. It has **NOT** been evaluated. The use of μ^{-1}I for the unknown tail inverse gives a *sufficient*, not a necessary, test. A certified negative vector of H_N is an actual negative log-form-domain combination; by form-density and correction of the two continuous pole moments, sufficiently close compact smooth pole-null tests then give genuine signed-Weil negative witnesses. Failure of the sufficient inequality alone is inconclusive.
 
 ## 4. Effective finite input enclosure and remaining difficulty
 
