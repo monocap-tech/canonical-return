@@ -1,0 +1,32 @@
+Scheduled 30000 exact terms and 4219 monotone Loewner lower-tail groups through m=1999999
+Summed 5000 certified PSD Gamma kernels
+Summed 10000 certified PSD Gamma kernels
+Summed 15000 certified PSD Gamma kernels
+Summed 20000 certified PSD Gamma kernels
+Summed 25000 certified PSD Gamma kernels
+Summed 30000 certified PSD Gamma kernels
+even physical retained pivot 0 lower=35130042435318704255947 upper=35130042435318870736224
+even physical retained pivot 1 lower=347259546827749540324 upper=347259546830342392095
+even physical retained pivot 2 lower=22397135968414137525 upper=22397136288432834967
+even physical retained pivot 3 lower=29862442421133429427 upper=29862912875649471894
+even physical retained pivot 4 lower=285591470956631337556080 upper=285595066547047885181565
+even physical retained exact generalized lower numerator=223971359684141375250000000000000000000000000 denominator=11507093676505375438525887916870142558988178247387655483072 >1e-15=1
+odd physical pivot 0 lower=14010082895889460699240 upper=14010082895889645095801
+odd physical pivot 1 lower=273399279527210140829 upper=273399279529630902252
+odd physical pivot 2 lower=319881756154321474772 upper=319881756505289827857
+odd physical pivot 3 lower=19977718893559428713147 upper=19977736920773897422151
+odd physical pivot 4 lower=45673675807796561844 upper=45699543012878221727
+odd physical pivot 5 lower=380006643511439970464526 upper=380072494444396289156303
+odd physical exact generalized lower numerator=456736758077965618440000000000000000000000000 denominator=15770362706931526828237574404459324949699126369870929606700 >1e-15=1
+even physical retained at lambda=1e-11 shifted pivot 0 lower=35130042321690005513256 upper=35130042321690171993534
+even physical retained at lambda=1e-11 shifted pivot 1 lower=347258938569975631335 upper=347258938572568483141
+even physical retained at lambda=1e-11 shifted pivot 2 lower=22387250808727947261 upper=22387251128747328499
+even physical retained at lambda=1e-11 shifted pivot 3 lower=28715833342661262065 upper=28716303996368759316
+even physical retained at lambda=1e-11 shifted pivot 4 lower=282840336059836311549401 upper=282844211726546150090543
+odd physical at lambda=1e-11 shifted pivot 0 lower=14010082769735828251510 upper=14010082769736012648072
+odd physical at lambda=1e-11 shifted pivot 1 lower=273398748090067580212 upper=273398748092488341689
+odd physical at lambda=1e-11 shifted pivot 2 lower=319868320217350414753 upper=319868320568319743065
+odd physical at lambda=1e-11 shifted pivot 3 lower=19912353412142036176397 upper=19912371440204141033362
+odd physical at lambda=1e-11 shifted pivot 4 lower=40442063697541742179 upper=40468000605851202195
+odd physical at lambda=1e-11 shifted pivot 5 lower=376965817526752531344336 upper=377045791232499677151397
+CR-ALP-033 EXACT OUTWARD-INTEGER ORIGINAL SIGNED 11x11 SUBSPACE MARGIN >1e-11 PASS
