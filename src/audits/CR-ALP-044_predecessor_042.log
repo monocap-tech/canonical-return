@@ -1,0 +1,19 @@
+PASS exact source weights (upper numerators / 10^6): {2: 490130, 3: 634285, 4: 346574, 5: 719763, 7: 735485, 8: 245065, 9: 366205}
+power 1 cells 13 max row mass ~ 3.537507
+power 2 cells 43 max row mass ~ 8.868928775612
+power 3 cells 99 max row mass ~ 23.410903038085042
+power 4 cells 183 max row mass ~ 59.0819024659578
+power 5 cells 335 max row mass ~ 150.6061841427653
+power 6 cells 529 max row mass ~ 379.71370040837706
+power 7 cells 821 max row mass ~ 959.4228083247608
+power 8 cells 1151 max row mass ~ 2415.290874864721
+power 9 cells 1633 max row mass ~ 6084.14875400498
+power 10 cells 2189 max row mass ~ 15306.858409238293
+PASS ||positive original seven-prime translation sum|| < 21/8 via tenth power
+PASS N=172 R=117: original signed tail > 1/4 (rational lower ~ 0.2527107541)
+PASS N=200 R=135: original signed tail > 1/3 (rational lower ~ 0.3984759142)
+PASS N=242 R=165: original signed tail > 3/5 (rational lower ~ 0.6005638157)
+PASS N=300 R=200: original signed tail > 3/4 (rational lower ~ 0.7966545291)
+PASS N=15000 R=10000: original signed tail > 47/10 (rational lower ~ 4.7115543963)
+PASS CR-ALP-041 old-cutoff mixed theorem strengthened to tail margin 9/2
+CR-ALP-042 exact arithmetic PASS; continuum proofs conditional; whole-collar positivity OPEN
