@@ -1,0 +1,54 @@
+{
+  "stage": "CR-ALP-038",
+  "status": "exact rational bounds for two original signed one-dimensional cross-tail Schur tests; no 12-mode block/full 15k positivity",
+  "original_support_radius": "11/10",
+  "finite_tail_cutoff": 15000,
+  "premises": "CR-ALP-027 tail W(q,q)>=1/4||q||\u00b2; CR-ALP-034 W(p,p)>=3e-12||p||\u00b2 on E12; original seven negative primes and digamma coefficient identities",
+  "parity_tests": [
+    {
+      "label": "odd [3,5,7,9,11]",
+      "indices": [
+        3,
+        5,
+        7,
+        9,
+        11
+      ],
+      "rational_num": [
+        6872105,
+        -6735272,
+        2338391,
+        -188293,
+        -20112
+      ],
+      "D_lower_1e15": "1726711129543/10^15",
+      "D_upper_1e15": "1726711129544/10^15",
+      "tail_norm_upper_1e15": "17938508/10^15",
+      "low_weil_lower_1e25": "29428094178084/10^25",
+      "four_tail_sq_upper_1e25": "12871601962/10^25"
+    },
+    {
+      "label": "even [4,6,8,10,12]",
+      "indices": [
+        4,
+        6,
+        8,
+        10,
+        12
+      ],
+      "rational_num": [
+        -7021868,
+        6604165,
+        -1934708,
+        -26547,
+        43236
+      ],
+      "D_lower_1e15": "-5121198308040/10^15",
+      "D_upper_1e15": "-5121198308039/10^15",
+      "tail_norm_upper_1e15": "28376768/10^15",
+      "low_weil_lower_1e25": "29000188409045/10^25",
+      "four_tail_sq_upper_1e25": "32209636365/10^25"
+    }
+  ],
+  "not_claimed": "original full E12-plus-tail Schur; intermediate 12..15000 signed shell; Lean; RH"
+}
