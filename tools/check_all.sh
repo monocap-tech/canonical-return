@@ -31,3 +31,4 @@ python3 src/audits/canonical_return_t1d_x_satellite_coupling.py
 python3 src/audits/canonical_return_t1d_y_satellite_schur.py
 python3 src/audits/canonical_return_t1d_z_second_schur_highpass.py
 python3 src/audits/canonical_return_t1d_aa_fourier_localized_second_schur.py
+python3 src/audits/canonical_return_t1d_ab_prolate_rank_window.py
