@@ -1,0 +1,10 @@
+PASS anchor u_1: complete original Gamma < 1/170, seven-prime < 1/30, combined < 1/25
+PASS anchor u_2: complete original Gamma < 1/120, seven-prime < 1/23, combined < 1/19
+PASS entire original signed 6-mode parity plus infinite Q15000 mixed Schur [3, 5, 7, 9, 11, 1]
+  exact lower LDL pivots:  ['35130030468775997082569/10^25', '347258170162777733893/10^25', '22401443519452459110/10^25', '30502666027707017283/10^25', '7839492274217109422/10^25', '71664015340934032282668/10^25']
+  alpha upper 13303408345009163704 /10^25; beta² upper 62168104473 /10^25; anchor eps 1/25
+PASS entire original signed 6-mode parity plus infinite Q15000 mixed Schur [4, 6, 8, 10, 12, 2]
+  exact lower LDL pivots:  ['14010067593961196973808/10^25', '273399099233286262207/10^25', '319890093117990607494/10^25', '20032803263891287487617/10^25', '50488885597104271099/10^25', '49884032376053045649668/10^25']
+  alpha upper 13303408345009163704 /10^25; beta² upper 99462019971 /10^25; anchor eps 1/19
+  signed shifted interval matrix 72 entries SHA256: a631f3cc7b99e47e4749a7931cd1307af336b5e20fe28b28946aa819ba56af77
+CR-ALP-039 EXACT SOURCE-SIGNED TWELVE PLUS INFINITE TAIL AUDIT PASS
