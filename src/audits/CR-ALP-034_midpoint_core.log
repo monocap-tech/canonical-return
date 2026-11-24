@@ -1,0 +1,35 @@
+Scheduled 30000 exact terms and 4219 monotone Loewner lower-tail groups through m=1999999
+Summed 5000 certified PSD Gamma kernels
+Summed 10000 certified PSD Gamma kernels
+Summed 15000 certified PSD Gamma kernels
+Summed 20000 certified PSD Gamma kernels
+Summed 25000 certified PSD Gamma kernels
+Summed 30000 certified PSD Gamma kernels
+even six-mode with w11 pivot 0 lower=35130042472781429115900 upper=35130042472781595581841
+even six-mode with w11 pivot 1 lower=347259825843984989736 upper=347259825846577772799
+even six-mode with w11 pivot 2 lower=22402969908791482297 upper=22402970228799576791
+even six-mode with w11 pivot 3 lower=30651111617874284437 upper=30651581931369628117
+even six-mode with w11 pivot 4 lower=11026999093909476040 upper=11183151455786428688
+even six-mode with w11 pivot 5 lower=268243278522876343524036 upper=269095234781866613287424
+even six-mode with w11 exact generalized lower numerator=110269990939094760400000000000000000000000000 denominator=128936903717555888475968372695317559840106505771553885506274 >1e-15=0
+crude spectral lower estimate inconclusive; shifted LDL is definitive
+odd six-mode with w12 pivot 0 lower=14010082965786245343360 upper=14010082965786429702052
+odd six-mode with w12 pivot 1 lower=273399688498316139417 upper=273399688500736368529
+odd six-mode with w12 pivot 2 lower=319893727957840715315 upper=319893728308730540117
+odd six-mode with w12 pivot 3 lower=20042609829645911918989 upper=20042627852082590770406
+odd six-mode with w12 pivot 4 lower=51247190996901462036 upper=51272981341343771353
+odd six-mode with w12 pivot 5 lower=382607854544631934181353 upper=382662791133610875379637
+odd six-mode with w12 exact generalized lower numerator=512471909969014620360000000000000000000000000 denominator=12504459113705045304221646554675793041926332497454410245460 >1e-15=1
+even six-mode at lambda=3e-12 shifted pivot 0 lower=35130042438692819493092 upper=35130042438692985959034
+even six-mode at lambda=3e-12 shifted pivot 1 lower=347259643366653491408 upper=347259643369246274495
+even six-mode at lambda=3e-12 shifted pivot 2 lower=22400004369403603147 upper=22400004689411904425
+even six-mode at lambda=3e-12 shifted pivot 3 lower=30307423545915066262 upper=30307893919104906735
+even six-mode at lambda=3e-12 shifted pivot 4 lower=3583183386415032639 upper=3740898353052367461
+even six-mode at lambda=3e-12 shifted pivot 5 lower=244315357725838149006764 upper=249589927286394271077024
+odd physical at lambda=3e-12 shifted pivot 0 lower=14010082927940155609041 upper=14010082927940339967734
+odd physical at lambda=3e-12 shifted pivot 1 lower=273399529067175500641 upper=273399529069595729781
+odd physical at lambda=3e-12 shifted pivot 2 lower=319889697194641669194 upper=319889697545531788199
+odd physical at lambda=3e-12 shifted pivot 3 lower=20023002366875336731772 upper=20023020389566302528439
+odd physical at lambda=3e-12 shifted pivot 4 lower=49691906311734865410 upper=49717717337948363853
+odd physical at lambda=3e-12 shifted pivot 5 lower=381953606433327994594720 upper=382011221541023287367787
+CR-ALP-034 EXACT OUTWARD-INTEGER ORIGINAL SIGNED 12x12 SUBSPACE MARGIN >3e-12 PASS
