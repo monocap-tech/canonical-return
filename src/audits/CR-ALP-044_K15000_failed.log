@@ -1,0 +1,13 @@
+parity 1 rows 2000
+parity 1 rows 4000
+parity 1 rows 6000
+parity 1 band bound 9/50 min pivot 0.013145263676758655 radius 2.5887076829122392e-20
+parity 1 norms [0.0932140167257158, 0.12008653346666537, 0.0912228754580609] tail 18547/200000 total 54547/200000
+Traceback (most recent call last):
+  File "/mnt/data/cr_alp_044/cr_alp_044_fitted_matrix_audit.py", line 90, in <module>
+    if __name__=='__main__':run()
+                            ~~~^^
+  File "/mnt/data/cr_alp_044/cr_alp_044_fitted_matrix_audit.py", line 85, in run
+    assert rho<F(23,100)<F(1,4),(k,rho)
+           ^^^^^^^^^^^^^^^^^^^^
+AssertionError: (1, Fraction(54547, 200000))
