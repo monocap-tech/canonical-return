@@ -1,0 +1,52 @@
+{
+  "stage": "CR-ALP-038",
+  "status": "EXACT OUTWARD-INTEGER 10 interior mode + entire infinite Q15000 tail mixed Schur PASS",
+  "conditional_analytic_theorem": "W(p+q,p+q) > 10^-12||p||\u00b2 + (1/8)||q||\u00b2, for nonzero p in span(w3,...,w12), q in Q15000 pole-null log-form domain",
+  "premises": "CR-ALP-027 Q15000 coercivity, CR-ALP-034 original signed Hmid lower matrix; original seven negative primes and complete digamma Gamma analytical coefficient identities",
+  "Hmid_SHA256": "b6a31e623298272fdceac788fc56626ec704e280903ff6baff1dc8bfe0d45f92",
+  "source_input_SHA256": "bcb6017b9358343dc16fb97cf61c1c340592444d124a0e2e466296d9703f53a2",
+  "arithmetic_scale": "1/10^25, all operations outward rounded",
+  "blocks": [
+    {
+      "ids": [
+        3,
+        5,
+        7,
+        9,
+        11
+      ],
+      "positive_pivots": 5,
+      "pivot_lower_1e25": [
+        "35130038463871038521931/10^25",
+        "347259233399851164945/10^25",
+        "22401802104144955206/10^25",
+        "30525261394621109256/10^25",
+        "8322979157755083383/10^25"
+      ],
+      "alpha_rational_upper_1e25": "13303408345009163704/10^25",
+      "beta_squared_rational_upper_1e25": "62168104473/10^25",
+      "shifted_physical_coercivity": "1/10^12"
+    },
+    {
+      "ids": [
+        4,
+        6,
+        8,
+        10,
+        12
+      ],
+      "positive_pivots": 5,
+      "pivot_lower_1e25": [
+        "14010077833434320390313/10^25",
+        "273399456647622941629/10^25",
+        "319891620621051151838/10^25",
+        "20034983801422280015965/10^25",
+        "50649039019153296235/10^25"
+      ],
+      "alpha_rational_upper_1e25": "13303408345009163704/10^25",
+      "beta_squared_rational_upper_1e25": "99462019971/10^25",
+      "shifted_physical_coercivity": "1/10^12"
+    }
+  ],
+  "not_claimed": "two boundary anchors u1/u2, intermediate 12..15000 physical signed shell, full E15000 Schur, Lean, arbitrary-support, RH"
+}
