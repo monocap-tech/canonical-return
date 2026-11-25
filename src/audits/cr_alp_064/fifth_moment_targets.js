@@ -20,6 +20,8 @@ const z3=div(gapV,resV),z12=alpha.map((x,i)=>sub(x,mul(ad[i],z3)));
 const freeze=x=>q(Math.round(dec(x)*100000),100000);
 const Y=[yu1,yu2].map(freeze),Z=[...z12,z3].map(freeze);
 const ac=[],re=[],supportlo=[],supporthi=[];
+// Freeze a trial before corner enumeration: a convex quadratic-over-linear minimum need not lie at a corner.
+const supportTrials=[1,-1].map(sign=>{const m=v.slice(0,5),w=Array.from({length:4},(_,j)=>add(mul(s,m[j]),scale(sign,m[j+1])));return solve2([[w[0],w[1]],[w[1],w[2]]],[w[2],w[3]]);});
 for(let i=0;i<64;i++){
  const a=build(box.map((x,j)=>x[(i>>j)&1])),{G,M,N,T,S,K,h,j,r,b,c,A,d,e}=a;
  const [x,y]=Y,[z0,z1,z2]=Z;
@@ -30,7 +32,7 @@ for(let i=0;i<64;i++){
  // Positive weighted moment matrix for (s +/- p)dmu.
  for(const sign of [1,-1]){
    const m=[G,M,N,T,S],w=Array.from({length:4},(_,j)=>add(mul(s,m[j]),scale(sign,m[j+1])));
-   const D=[[w[0],w[1]],[w[1],w[2]]],d=[w[2],w[3]],c=dot(d,solve2(D,d));
+   const D=[[w[0],w[1]],[w[1],w[2]]],d=[w[2],w[3]],y=supportTrials[sign===1?0:1],c=sub(scale(2,dot(d,y)),dot(y,D.map(row=>dot(row,y))));
    if(sign===1)supportlo.push(sub(c,mul(s,S)));else supporthi.push(sub(mul(s,S),c));
  }
 }
