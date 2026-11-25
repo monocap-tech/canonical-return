@@ -45,7 +45,7 @@ int main(int argc,char**argv){
  vector<I> bs(nN),bc(nN);
  if(argc==5){
    I G;for(int p=0;p<np;p++){auto &z=panels[p];for(int j=0;j<96;j++){I t=z.m+z.h*gn[j],w=I(2)*z.h*gw[j],r=eval(t,piece[p]);G=G+w*sq59(r);basis(t,bs,bc);for(int i=0;i<nN;i++)rcoef[i]=rcoef[i]+w*r*bs[i];}if((p+1)%100==0)cerr<<"coeff panels "<<p+1<<"/"<<np<<"\n";}
-   out("G",widen(G,1e-12Q));for(int i=0;i<nN;i++)out("r"+to_string(2*(i+1)),widen(rcoef[i],1e-12Q));
+   assert(G.l>0&&G.h<1);out("G",widen(G,1e-12Q));for(int i=0;i<nN;i++){assert(rcoef[i].absmax()<2);out("r"+to_string(2*(i+1)),widen(rcoef[i],1e-12Q));}
  }else{
    // x is exact orthogonal projection of rational trial coordinates onto the finite pole-null sine band.
    ifstream xf(argv[5]),df(argv[6]);vector<I> x(nN),diag(nN),dx(nN);I cp,pp0;
@@ -72,8 +72,8 @@ int main(int argc,char**argv){
      }
      if((p+1)%100==0)cerr<<"response panels "<<p+1<<"/"<<np<<"\n";
    }
-   out("G",widen(G,1e-12Q));out("E",widen(E,1e-12Q));out("Y2",widen(Y2,1e-12Q));out("Yb",widen(Yb,1e-12Q));out("pole_st",st);
-   for(int i=0;i<nN;i++){out("y"+to_string(2*(i+1)),widen(ycoef[i],1e-12Q));out("pole"+to_string(2*(i+1)),poles[i]);}
+   assert(G.l>0&&G.h<1&&E.absmax()<100&&Y2.h<100&&Yb.absmax()<100);out("G",widen(G,1e-12Q));out("E",widen(E,1e-12Q));out("Y2",widen(Y2,1e-12Q));out("Yb",widen(Yb,1e-12Q));out("pole_st",st);
+   for(int i=0;i<nN;i++){assert(ycoef[i].absmax()<100&&poles[i].absmax()<10);out("y"+to_string(2*(i+1)),widen(ycoef[i],1e-12Q));out("pole"+to_string(2*(i+1)),poles[i]);}
  }
  mpfr_clear(mm);mpfr_clear(nn);mpfr_clear(oo);
 }
