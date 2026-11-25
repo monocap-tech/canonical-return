@@ -1,0 +1,18 @@
+{
+  "source_attachment": "CONDITIONAL: ||X_original-X_archived_projected|| <= 1e-10",
+  "status": "PASS_CONDITIONAL_RECEIVER",
+  "cap": "555992307/125000000",
+  "dmin": "26535863/100000000",
+  "dtail": "227867307/125000000",
+  "pole_bridge_overlap": true,
+  "correction_norm_upper": "354840233463698649/250000000000000000",
+  "correction_energy_lower": "116911605330827739/500000000000000000",
+  "correction_energy_upper": "233823210664202343/1000000000000000000",
+  "K_C_lower": "318166630254478367/1000000000000000000",
+  "energy_upper": "-3895685044626803/250000000000000000",
+  "Q_residual_norm2_upper": "311547567130180551/1000000000000000000",
+  "tail_norm2_upper": "76687079453149663/500000000000000000",
+  "weighted_residual_upper": "27247222252789193/100000000000000000",
+  "inverse_upper": "16059528681514303/62500000000000000",
+  "margin_lower": "61214171350249519/1000000000000000000"
+}
