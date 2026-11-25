@@ -1,0 +1,29 @@
+name: RETURN089 high band
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  audit:
+    if: github.head_ref == 'research/master-return-088-audit' || github.ref == 'refs/heads/research/master-return-088-audit'
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      PYTHONINTMAXSTRDIGITS: '0'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          bash archive/master-return/reconstruct.sh "$RUNNER_TEMP/archives"
+          mkdir -p "$RUNNER_TEMP/work"
+          unzip -q "$RUNNER_TEMP/archives/RETURN083_reproduction.zip" -d "$RUNNER_TEMP/work"
+          unzip -q "$RUNNER_TEMP/archives/RETURN086_audit.zip" -d "$RUNNER_TEMP/work"
+          pip install numpy scipy mpmath
+          python research/master-return-088/audit_high_band.py "$RUNNER_TEMP/work" "$RUNNER_TEMP/results"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: return089-high-band
+          path: ${{ runner.temp }}/results/
