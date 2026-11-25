@@ -1,0 +1,71 @@
+name: CR-ALP-067 direct even inverse response
+on:
+  push:
+    branches:
+      - 'research/cr-alp-001-ramp-gram-dictionary'
+    paths:
+      - '.github/workflows/cr-alp-067.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  response:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - theta: '0'
+            label: constant
+          - theta: '1/10'
+            label: weighted
+    env:
+      THETA: ${{ matrix.theta }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install arithmetic and candidate selection libraries
+        run: sudo apt-get update && sudo apt-get install -y libgmp-dev libmpfr-dev python3-numpy
+      - name: Frozen archive and exact predecessor verification
+        run: |
+          mkdir -p /tmp/cr-alp067
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/cr-alp067/package.zip
+          python3 -m zipfile -e /tmp/cr-alp067/package.zip /tmp/cr-alp067
+          cd /tmp/cr-alp067/cr_alp_058
+          sha256sum -c SHA256SUMS
+          python3 validate_geometry.py
+          python3 check_saved.py
+      - name: Exact Gamma diagonal arithmetic, geometry and compile
+        run: |
+          node src/audits/cr_alp_066_gamma_diagonal.js /tmp/cr-alp067/gamma.json
+          cmp /tmp/cr-alp067/gamma.json src/audits/CR-ALP-066_gamma_diagonal_result.json
+          python3 src/audits/cr_alp_067/mesh_response.py /tmp/cr-alp067
+          python3 -m py_compile src/audits/cr_alp_067/select_trial.py src/audits/cr_alp_067/check_response.py
+          g++ -O2 -std=gnu++17 -I/tmp/cr-alp067/cr_alp_058 src/audits/cr_alp_067/response.cpp -o /tmp/cr-alp067/response -lquadmath -l:libmpfr.so.6 -lgmp
+      - name: Full physical residual sine coordinates
+        run: |
+          set -o pipefail
+          P=/tmp/cr-alp067/cr_alp_058
+          /tmp/cr-alp067/response "$P/input_2.txt" "$P/mesh.txt" "$P/gauss.txt" "$P/response_mesh.txt" | tee /tmp/cr-alp067/coeff.log
+      - name: Numerical trial selection only
+        run: /usr/bin/python3 src/audits/cr_alp_067/select_trial.py /tmp/cr-alp067 /tmp/cr-alp067/gamma.json "$THETA"
+      - name: Full physical response and residual
+        run: |
+          set -o pipefail
+          P=/tmp/cr-alp067/cr_alp_058
+          /tmp/cr-alp067/response "$P/input_2.txt" "$P/mesh.txt" "$P/gauss.txt" "$P/response_mesh.txt" /tmp/cr-alp067/trial.txt /tmp/cr-alp067/diag.txt | tee /tmp/cr-alp067/response.log
+      - name: Exact rational inverse endpoint
+        run: |
+          python3 src/audits/cr_alp_067/check_response.py /tmp/cr-alp067 /tmp/cr-alp067/gamma.json /tmp/cr-alp067/cr_alp_058/verification_result.json "$THETA"
+          cat /tmp/cr-alp067/response_result.json
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cr-alp067-${{ matrix.label }}
+          path: |
+            /tmp/cr-alp067/coeff.log
+            /tmp/cr-alp067/trial.txt
+            /tmp/cr-alp067/diag.txt
+            /tmp/cr-alp067/response.log
+            /tmp/cr-alp067/response_result.json
+          if-no-files-found: warn
