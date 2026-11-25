@@ -1,0 +1,101 @@
+{
+  "small_uncentered": "647600/2483129",
+  "small_pole_centered": "6631424/5028336225",
+  "large_beta": "18483/10976",
+  "total_penalty": "93011524956499/55191018405600",
+  "certified_penalty": "7/4",
+  "theta": "1/10",
+  "bands": [
+    {
+      "j": 86,
+      "k": "122",
+      "gamma_diagonal_lower": "18111320921/15250000000",
+      "gain_over_gamma": "-25808679079/15250000000",
+      "blended_weil_diagonal_lower": "13078820921/152500000000"
+    },
+    {
+      "j": 124,
+      "k": "177",
+      "gamma_diagonal_lower": "69244625641/44250000000",
+      "gain_over_gamma": "-58195374359/44250000000",
+      "blended_weil_diagonal_lower": "54642125641/442500000000"
+    },
+    {
+      "j": 201,
+      "k": "287",
+      "gamma_diagonal_lower": "117814279141/57400000000",
+      "gain_over_gamma": "-47497720859/57400000000",
+      "blended_weil_diagonal_lower": "98872279141/574000000000"
+    },
+    {
+      "j": 321,
+      "k": "458",
+      "gamma_diagonal_lower": "9025828799/3578125000",
+      "gain_over_gamma": "-1279171201/3578125000",
+      "blended_weil_diagonal_lower": "7845047549/35781250000"
+    },
+    {
+      "j": 481,
+      "k": "686",
+      "gamma_diagonal_lower": "1004291026061/343000000000",
+      "gain_over_gamma": "16451026061/343000000000",
+      "blended_weil_diagonal_lower": "891101026061/3430000000000"
+    },
+    {
+      "j": 601,
+      "k": "858",
+      "gamma_diagonal_lower": "1352325158471/429000000000",
+      "gain_over_gamma": "116805158471/429000000000",
+      "blended_weil_diagonal_lower": "1210755158471/4290000000000"
+    },
+    {
+      "j": 701,
+      "k": "1001",
+      "gamma_diagonal_lower": "3310063533779/1001000000000",
+      "gain_over_gamma": "427183533779/1001000000000",
+      "blended_weil_diagonal_lower": "2979733533779/10010000000000"
+    },
+    {
+      "j": 851,
+      "k": "1215",
+      "gamma_diagonal_lower": "170141468653/48600000000",
+      "gain_over_gamma": "30173468653/48600000000",
+      "blended_weil_diagonal_lower": "154103468653/486000000000"
+    },
+    {
+      "j": 961,
+      "k": "1372",
+      "gamma_diagonal_lower": "155317563643/42875000000",
+      "gain_over_gamma": "31837563643/42875000000",
+      "blended_weil_diagonal_lower": "141168813643/428750000000"
+    },
+    {
+      "j": 1251,
+      "k": "1786",
+      "gamma_diagonal_lower": "3470746248573/893000000000",
+      "gain_over_gamma": "898906248573/893000000000",
+      "blended_weil_diagonal_lower": "3176056248573/8930000000000"
+    },
+    {
+      "j": 2049,
+      "k": "2925",
+      "gamma_diagonal_lower": "512502821803/117000000000",
+      "gain_over_gamma": "175542821803/117000000000",
+      "blended_weil_diagonal_lower": "473892821803/1170000000000"
+    },
+    {
+      "j": 4097,
+      "k": "5850",
+      "gamma_diagonal_lower": "29682052099/5850000000",
+      "gain_over_gamma": "12834052099/5850000000",
+      "blended_weil_diagonal_lower": "27751552099/58500000000"
+    },
+    {
+      "j": 8193,
+      "k": "11699",
+      "gamma_diagonal_lower": "67469158911253/11699000000000",
+      "gain_over_gamma": "33776038911253/11699000000000",
+      "blended_weil_diagonal_lower": "63608488911253/116990000000000"
+    }
+  ]
+}
