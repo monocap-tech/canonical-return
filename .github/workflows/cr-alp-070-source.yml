@@ -1,0 +1,49 @@
+name: CR-ALP-070 original correction custody
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/cr-alp-070-source.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reconstruct frozen source and original correction
+        run: |
+          mkdir -p /tmp/cr-alp070
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/cr-alp070/package.zip
+          python3 -m zipfile -e /tmp/cr-alp070/package.zip /tmp/cr-alp070
+          cd /tmp/cr-alp070
+          for d in cr_alp_056 cr_alp_057 cr_alp_058; do (cd "$d" && sha256sum -c SHA256SUMS); done
+          python3 cr_alp_056/check_saved.py _extended
+          python3 cr_alp_058/check_saved.py
+          echo 'BEGIN archived files'
+          find cr_alp_057 cr_alp_058 -maxdepth 1 -type f | sort
+          echo 'END archived files'
+          for f in cr_alp_057/assemble.py cr_alp_058/prepare.py cr_alp_058/prepare_result.json; do
+            echo "BEGIN $f"; cat "$f"; echo "END $f"
+          done
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib
+          p=Path('cr_alp_058/input_2.txt')
+          raw=p.read_bytes()
+          print('input_2.txt SHA256',hashlib.sha256(raw).hexdigest())
+          it=iter(raw.decode().split())
+          assert next(it)=='2'
+          f=[next(it),next(it)];db=[next(it),next(it)]
+          n=int(next(it));assert n==425
+          print('BEGIN original_trial_input')
+          print('2')
+          print(*db)
+          print(n)
+          for i in range(n):
+              j=next(it);sl,sh,tl,th=(next(it) for _ in range(4))
+              assert int(j)==2*(i+1)
+              print(j,tl,th)
+          print('END original_trial_input')
+          PY
