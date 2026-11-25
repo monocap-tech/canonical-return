@@ -1,0 +1,10 @@
+1 affine pivots 43 shift 1/100 frozen witness lower 0.02458085633226299
+1 chebyshev_4 pivots 43 shift 1/16 frozen witness lower 0.10822314261456333
+1 chebyshev_8 pivots 43 shift 1/16 frozen witness lower 0.12361103362879888
+1 chebyshev_12 pivots 43 shift 1/16 frozen witness lower 0.12488786063556706
+conditional 1 missing norm 1/250 margin 0.0011372549019607844
+2 affine pivots 42 shift 1/32 frozen witness lower 0.04388470323925967
+2 chebyshev_4 pivots 42 shift 1/16 frozen witness lower 0.08642185753959875
+2 chebyshev_8 pivots 42 shift 1/16 frozen witness lower 0.09343092092897085
+2 chebyshev_12 pivots 42 shift 1/16 frozen witness lower 0.09409850840636134
+conditional 2 missing norm 1/60 margin 0.00349400871459695
