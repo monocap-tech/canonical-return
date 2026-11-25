@@ -1,0 +1,4 @@
+bridge fraction lower 0.8460228355264937
+parity 1 positive pivots 43 outside Gram witness lower 0.3264397505876309 target squared 0.0625 comparison witness upper -0.553361606122423 target falsified True scalar correction falsified True
+bridge fraction lower 0.7167227639872024
+parity 2 positive pivots 42 outside Gram witness lower 0.32732761457731674 target squared 0.030625 comparison witness upper -0.6580891254752878 target falsified True scalar correction falsified True
