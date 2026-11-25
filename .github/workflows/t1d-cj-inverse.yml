@@ -1,0 +1,61 @@
+name: T1D CJ separated inverse response error
+on:
+  push:
+    branches: [research/cr-int-t1d-cj-inverse-error]
+permissions:
+  contents: write
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      OPENBLAS_NUM_THREADS: "4"
+      OMP_NUM_THREADS: "4"
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install numerical environment
+        run: |
+          mkdir -p custody/cj/generated
+          python -m pip install numpy==2.3.5 scipy==1.17.0
+          python --version > custody/cj/generated/python-version.txt
+          python -m pip freeze > custody/cj/generated/pip-freeze.txt
+      - name: Verify committed CF files and reconstruct original source
+        run: |
+          (cd custody/cf/generated && sha256sum -c sha256.txt)
+          (cd custody/cg/generated && sha256sum -c sha256.txt)
+          (cd custody/ch/generated && sha256sum -c sha256.txt)
+          python custody/ce/reconstruct.py
+          python - <<'PY'
+          import csv
+          def read(path):
+              with open(path) as f: return {r.get('archive',r.get('name')):(int(r['bytes']),r['sha256']) for r in csv.DictReader(f,delimiter='\t')}
+          assert read('custody/ce/evidence/archive-sha256.tsv')==read('ce-output/archive-verification.tsv')
+          print('ALL 56 CE DIGESTS MATCH')
+          PY
+      - name: Verify recorded inherited paths
+        run: python custody/recover_t1d_dependencies.py ce-output/archives ce-output/pristine --ledger custody/missing_inherited.tsv --report custody/cj/generated/recovery.tsv
+      - name: Matched four-column trials
+        run: bash custody/cj/run.sh
+      - name: Manifest and permanent evidence
+        if: always()
+        run: |
+          mkdir -p custody/cj/generated
+          (cd custody/cj/generated && find . -type f ! -name sha256.txt -print0 | sort -z | xargs -0 -r sha256sum > sha256.txt && sha256sum -c sha256.txt)
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          branch="research/cr-int-t1d-cj-evidence-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git switch -c "$branch"
+          git add -f custody/cj/generated/
+          git commit -m "CJ exact comparison evidence run ${GITHUB_RUN_ID}"
+          git push origin "HEAD:refs/heads/$branch"
+      - name: Artifact fallback
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: t1d-cj-evidence
+          path: custody/cj/generated/
+          retention-days: 90
