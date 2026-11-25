@@ -1,0 +1,103 @@
+name: CR-ALP-071 correlated physical response
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/cr-alp-071-response.yml'
+      - 'src/audits/cr_alp_071_common_trials.py'
+permissions:
+  contents: read
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install arithmetic and numerical candidate libraries
+        run: sudo apt-get update && sudo apt-get install -y libgmp-dev libmpfr-dev python3-numpy
+      - name: Regenerate authenticated source bank
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp071
+          mkdir -p "$P"
+          python3 src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+          python3 -m zipfile -e "$P/package.zip" "$P"
+          python3 src/audits/cr_alp_071_source_bank.py "$P" "$P/bank"
+          cd "$P/bank"
+          sha256sum -c <<'EOF'
+          b2d5f187293de20f05a9e510c1f54aeb1828fc2a20f55a0e4127546a7d99f71e  bank.json
+          f70358f279994211c4231ac43cdce46a20ca619a1f6d985e95d440e58b34923b  input_2_first.txt
+          4ebaabb0fd5a5f965d92822e4a919f3a752bd47583b451fd2bc847d69747da57  input_2_minus.txt
+          67f5f3734c2b73d190633f7373237b12ecadef6b46c76b00703749aa420755ad  input_2_plus.txt
+          185d9a51218712afa45169b6069856dc360b000f4b66bfd67da08b79270bf3a0  input_2_second.txt
+          EOF
+      - name: Verify original geometry and compile inherited evaluator
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp071
+          (cd "$P/cr_alp_058"; sha256sum -c SHA256SUMS; python3 validate_geometry.py; python3 check_saved.py)
+          node src/audits/cr_alp_066_gamma_diagonal.js "$P/gamma.json"
+          cmp "$P/gamma.json" src/audits/CR-ALP-066_gamma_diagonal_result.json
+          python3 src/audits/cr_alp_067/mesh_response.py "$P"
+          g++ -O2 -std=gnu++17 -I"$P/cr_alp_058" src/audits/cr_alp_067/response.cpp -o "$P/response" -lquadmath -l:libmpfr.so.6 -lgmp
+      - name: Integrate second-source coordinates and freeze one common trial
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp071
+          S="$P/cr_alp_058"
+          "$P/response" "$P/bank/input_2_second.txt" "$S/mesh.txt" "$S/gauss.txt" "$S/response_mesh.txt" | tee "$P/coeff.log"
+          /usr/bin/python3 src/audits/cr_alp_067/select_trial.py "$P" "$P/gamma.json" 1/10
+          python3 src/audits/cr_alp_071_common_trials.py "$P/bank" src/audits/cr_alp_067/evidence "$P"
+          cp "$P/coeff.log" "$P/bank/second_coeff.log"
+          cd "$P/bank"
+          sha256sum bank.json input_2_*.txt trial_*.txt diag.txt second_coeff.log > SHA256SUMS
+          sha256sum -c SHA256SUMS
+          cat SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CR-ALP-071-common-trial-bank
+          path: /tmp/cr-alp071/bank/
+          if-no-files-found: error
+          retention-days: 90
+  physical:
+    needs: freeze
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      matrix:
+        direction: [second, plus, minus]
+    env:
+      DIRECTION: ${{ matrix.direction }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install arithmetic libraries
+        run: sudo apt-get update && sudo apt-get install -y libgmp-dev libmpfr-dev
+      - uses: actions/download-artifact@v4
+        with:
+          name: CR-ALP-071-common-trial-bank
+          path: /tmp/cr-alp071/bank/
+      - name: Authenticate frozen trials and original geometry
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp071
+          (cd "$P/bank"; sha256sum -c SHA256SUMS)
+          python3 src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+          python3 -m zipfile -e "$P/package.zip" "$P"
+          (cd "$P/cr_alp_058"; sha256sum -c SHA256SUMS; python3 validate_geometry.py; python3 check_saved.py)
+          python3 src/audits/cr_alp_067/mesh_response.py "$P"
+          g++ -O2 -std=gnu++17 -I"$P/cr_alp_058" src/audits/cr_alp_067/response.cpp -o "$P/response" -lquadmath -l:libmpfr.so.6 -lgmp
+      - name: Collect candidate full physical response
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp071
+          S="$P/cr_alp_058"
+          "$P/response" "$P/bank/input_2_${DIRECTION}.txt" "$S/mesh.txt" "$S/gauss.txt" "$S/response_mesh.txt" "$P/bank/trial_${DIRECTION}.txt" "$P/bank/diag.txt" | tee "$P/response_${DIRECTION}.log"
+          sha256sum "$P/response_${DIRECTION}.log"
+          echo 'Candidate interval logs only; per-source analytic envelope and original matrix receiving gate remain open.'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-071-physical-${{ matrix.direction }}
+          path: /tmp/cr-alp071/response_*.log
+          if-no-files-found: warn
+          retention-days: 90
