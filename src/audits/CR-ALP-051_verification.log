@@ -1,0 +1,7 @@
+parity 1 degree 4 pivots 43 margin 1/8 witness lower 0.43846399846158507 PASS
+parity 1 degree 8 pivots 43 margin 1/4 witness lower 0.5017657928402092 PASS
+parity 1 degree 12 pivots 43 margin 1/4 witness lower 0.5059250204722645 PASS
+parity 2 degree 4 pivots 42 margin 1/8 witness lower 0.42233187492246854 PASS
+parity 2 degree 8 pivots 42 margin 1/8 witness lower 0.5295622635915015 PASS
+parity 2 degree 12 pivots 42 margin 1/8 witness lower 0.5384470500894498 PASS
+PASS: both finite polynomial comparisons and explicit conditional outside-band targets; no infinite leakage computation
