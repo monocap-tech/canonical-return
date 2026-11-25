@@ -1,0 +1,49 @@
+gamma floor 72/25 scalar remainder 51/200
+interval coefficients 20
+interval coefficients 40
+interval coefficients 60
+interval coefficients 80
+interval coefficients 100
+interval coefficients 120
+interval coefficients 140
+interval coefficients 160
+interval coefficients 180
+interval coefficients 200
+interval coefficients 220
+interval coefficients 240
+interval coefficients 260
+interval coefficients 280
+interval coefficients 300
+interval coefficients 320
+interval coefficients 340
+interval coefficients 360
+interval coefficients 380
+interval coefficients 400
+interval coefficients 420
+interval coefficients 440
+interval coefficients 460
+interval coefficients 480
+interval coefficients 500
+interval coefficients 520
+interval coefficients 540
+interval coefficients 560
+interval coefficients 580
+interval coefficients 600
+interval coefficients 620
+interval coefficients 640
+interval coefficients 660
+interval coefficients 680
+interval coefficients 700
+interval coefficients 720
+interval coefficients 740
+interval coefficients 760
+interval coefficients 780
+interval coefficients 800
+interval coefficients 820
+interval coefficients 840
+parity 1 coefficient matrices built
+parity 1 high only eig 0.05461120196127217 bridge included eig 0.32643975058763064 comparison eig -0.5533616061224237
+witness lower 0.3264397505876309 comparison upper -0.553361606122423
+parity 2 coefficient matrices built
+parity 2 high only eig 0.09965509296545784 bridge included eig 0.32732761457731685 comparison eig -0.6580891254752884
+witness lower 0.32732761457731674 comparison upper -0.6580891254752878
