@@ -42,3 +42,31 @@ jobs:
         with:
           name: return088-archive-inventory
           path: ${{ runner.temp }}/return-archives/archive_inventory.json
+  odd-tail-gram:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reconstruct authenticated archives and install verifier dependencies
+        run: |
+          bash archive/master-return/reconstruct.sh "$RUNNER_TEMP/return-archives"
+          mkdir -p "$RUNNER_TEMP/return-work"
+          python -m zipfile -e "$RUNNER_TEMP/return-archives/RETURN083_reproduction.zip" "$RUNNER_TEMP/return-work"
+          python -m pip install numpy scipy mpmath
+          python -m py_compile research/master-return-088/audit_tail_gram.py
+      - name: Independently reconstruct and compare odd augmented Gram
+        env:
+          PYTHONINTMAXSTRDIGITS: '0'
+          OPENBLAS_NUM_THREADS: '1'
+        run: |
+          python research/master-return-088/audit_tail_gram.py "$RUNNER_TEMP/return-work" "$RUNNER_TEMP/return088-results"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: return088-odd-tail-gram
+          path: ${{ runner.temp }}/return088-results/
