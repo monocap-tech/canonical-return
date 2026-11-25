@@ -1,0 +1,11 @@
+{
+  "method": "Q85 projection contractivity on original and archived finite high-sine coefficient differences; pole component killed exactly",
+  "all_sine_coordinates": 425,
+  "high_sine_coordinates": 383,
+  "scale": "1000000000000000000000000000000",
+  "all_sine_l2_error_upper_numerator": "235714615506018",
+  "pole_error_upper_numerator": "451211789928575",
+  "projected_correction_l2_error_upper_numerator": "91100125120330",
+  "receiver_tolerance": "1/10000000000",
+  "status": "PASS_ATTACHMENT"
+}
