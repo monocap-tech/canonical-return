@@ -18,7 +18,30 @@ jobs:
           python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/cr-alp070/package.zip
           python3 -m zipfile -e /tmp/cr-alp070/package.zip /tmp/cr-alp070
           cd /tmp/cr-alp070
-          for d in cr_alp_056 cr_alp_057 cr_alp_058; do (cd "$d" && sha256sum -c SHA256SUMS); done
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,re
+          root=Path.cwd().resolve()
+          for stage in ('cr_alp_056','cr_alp_057','cr_alp_058'):
+              manifest=root/stage/'SHA256SUMS'
+              count=0
+              for line in manifest.read_text().splitlines():
+                  if not line.strip(): continue
+                  m=re.fullmatch(r'([0-9a-fA-F]{64}) [ *](.+)',line)
+                  assert m,line
+                  expected,name=m.groups()
+                  p=Path(name)
+                  assert not p.is_absolute() and '..' not in p.parts,name
+                  candidates={q.resolve() for q in (root/p,root/stage/p) if q.is_file()}
+                  assert len(candidates)==1,(stage,name,candidates)
+                  target=candidates.pop()
+                  assert target.is_relative_to(root),target
+                  assert hashlib.sha256(target.read_bytes()).hexdigest()==expected.lower(),target
+                  print(f'{stage}: {target.relative_to(root)}: OK')
+                  count+=1
+              assert count>0,stage
+              print(f'PASS {stage} manifest: {count} entries')
+          PY
           python3 cr_alp_056/check_saved.py _extended
           python3 cr_alp_058/check_saved.py
           echo 'BEGIN archived files'
