@@ -1,0 +1,80 @@
+name: T1D CE clean custody replay and fourth even trial
+on:
+  push:
+    branches: [research/cr-int-t1d-ce-clean-replay]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      OPENBLAS_NUM_THREADS: "4"
+      OMP_NUM_THREADS: "4"
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install numerical environment
+        run: |
+          python -m pip install numpy==2.3.5 scipy==1.17.0
+          python --version
+          python -m pip freeze
+      - name: Reconstruct all archives
+        run: python custody/ce/reconstruct.py
+      - name: Audit inherited hashes
+        run: |
+          set +e
+          python custody/recover_t1d_dependencies.py ce-output/archives ce-output/pristine --ledger custody/missing_inherited.tsv --report ce-output/recovery.tsv
+          code=$?
+          echo "$code" > ce-output/recovery-exit.txt
+          test -f ce-output/recovery.tsv
+      - name: Replay original CA and CB
+        run: |
+          set -o pipefail
+          python ce-output/pristine/cr_int_t1d_ca/bx_restrict.py --fixed | tee ce-output/ca-even.log
+          python ce-output/pristine/cr_int_t1d_ca_odd/bv_joint_trial.py odd --fixed | tee ce-output/ca-odd.log
+          python ce-output/pristine/cr_int_t1d_cb/cb_matrix.py --fixed | tee ce-output/cb.log
+      - name: Reproduce CD
+        run: |
+          set -o pipefail
+          cp custody/ce/cd_secant.py ce-output/pristine/
+          cp -r custody/ce/cd_results ce-output/pristine/
+          python ce-output/pristine/cd_secant.py even --fixed | tee ce-output/cd-even.log
+          python ce-output/pristine/cd_secant.py odd --fixed | tee ce-output/cd-odd.log
+      - name: Generate four-column response
+        run: |
+          set -o pipefail
+          python custody/ce/prepare_four.py
+          python ce-output/trial4/cr_int_t1d_ca/bx_prepare.py | tee ce-output/four-prepare.log
+          for n in 0 1 2; do python ce-output/trial4/cr_int_t1d_ca/bu_circle.py "$n" | tee "ce-output/four-circle-$n.log"; done
+          python ce-output/trial4/cr_int_t1d_ca/bx_combine.py | tee ce-output/four-combine.log
+          python ce-output/trial4/cr_int_t1d_ca/bv_joint_action.py even 2048 | tee ce-output/four-action.log
+      - name: Compare four-dimensional lower bound
+        run: |
+          set -o pipefail
+          python ce-output/trial4/ce_four.py even | tee ce-output/four-comparison.log
+          cd ce-output/trial4
+          sha256sum ce_four.py cr_int_t1d_ca/bx_prepare.py cr_int_t1d_ca/bu_trial.npz cr_int_t1d_ca/even_joint_proposal.npz cr_int_t1d_ca/raw_part*.npz cr_int_t1d_ca/joint_circle.npz cr_int_t1d_ca/even_joint_Uaction.npz cd_results/even.json > ../four-generated.sha256
+      - name: Preserve evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: t1d-ce-replay-evidence
+          path: |
+            ce-output/*.tsv
+            ce-output/*.txt
+            ce-output/*.log
+            ce-output/*.sha256
+            ce-output/trial4/ce_four.py
+            ce-output/trial4/cd_results/even.json
+            ce-output/trial4/cr_int_t1d_ca/bx_prepare.py
+            ce-output/trial4/cr_int_t1d_ca/bu_trial.npz
+            ce-output/trial4/cr_int_t1d_ca/even_joint_proposal.npz
+            ce-output/trial4/cr_int_t1d_ca/raw_part*.npz
+            ce-output/trial4/cr_int_t1d_ca/joint_circle.npz
+            ce-output/trial4/cr_int_t1d_ca/even_joint_Uaction.npz
+          retention-days: 90
