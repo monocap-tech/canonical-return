@@ -1,0 +1,3 @@
+# CI — full existing symbol resolution and directional loss audit (pending)
+
+CH exact lower -39/50000. Reproduce its 8192/8192 exact control; then expand exterior to all 16384 existing symbol rows, then interior to all 16384 rows. Preserve physical arrays, all exact comparisons, full directed-action arrays and rational directional Rayleigh breakdown. The direction comes from a numerical eigensolver and is a diagnostic only; no lower certificate follows from its Rayleigh quotient. All component quotients are exact and sum to the comparison Rayleigh quotient. No new analytic bound or RH claim. Conditional index <=225 pending acceptance. Full existing symbol bank does not mean full infinite operator.
