@@ -31,6 +31,10 @@ assert sum(2*h for _,h,_,_ in panels)==end
 # Trial coefficient sums <100, translated sum <800, so Cx<1e25 on disks.
 # Original proxy <1e40; y and 2r-Cx <3e40. All products <1e82.
 assert F(2048*10,7*64)<46
+# e<11/4 by summing its series through degree 5 and a geometric tail.
+from math import factorial
+assert sum((F(1,factorial(k)) for k in range(6)),F(0))+F(7,6*factorial(6))<F(11,4)
+assert F(11,4)**46<10**21
 assert 4*d*F(4,3)*10**82/4**192<F(1,10**12)
 # Shift displacement of trial: amplitude <100, derivative <100*3000.
 # Zero extension is continuous (finite sine sum), so L2 shift error is
