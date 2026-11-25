@@ -1,0 +1,76 @@
+name: CR-ALP-061 global third moment
+on:
+  pull_request:
+    paths:
+      - 'src/audits/cr_alp_061/**'
+      - '.github/workflows/cr-alp-061.yml'
+  push:
+    branches:
+      - 'research/cr-alp-001-ramp-gram-dictionary'
+    paths:
+      - '.github/workflows/cr-alp-061.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [1, 2]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install arithmetic libraries
+        run: sudo apt-get update && sudo apt-get install -y libgmp-dev libmpfr-dev
+      - name: Reconstruct and check frozen archive
+        run: |
+          mkdir -p /tmp/cr-alp061
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/cr-alp061/package.zip
+          python3 -m zipfile -e /tmp/cr-alp061/package.zip /tmp/cr-alp061
+          cd /tmp/cr-alp061/cr_alp_058
+          sha256sum -c SHA256SUMS
+          python3 validate_geometry.py
+          python3 check_saved.py
+      - name: Recheck second moments and cubic thresholds
+        run: |
+          python3 src/audits/cr_alp_059/sharp_scalar_postcheck.py /tmp/cr-alp061/cr_alp_058/verification_result.json src/audits/cr_alp_059/evidence/second_result.json /tmp/cr-alp061/sharp.json
+          python3 -c 'import json; assert json.load(open("/tmp/cr-alp061/sharp.json")) == json.load(open("src/audits/cr_alp_059/evidence/sharp_scalar_result.json"))'
+      - name: Exact third moment mesh and compile
+        run: |
+          python3 src/audits/cr_alp_059/mesh_second.py /tmp/cr-alp061
+          python3 src/audits/cr_alp_061/mesh_third.py /tmp/cr-alp061
+          g++ -O2 -std=gnu++17 -I/tmp/cr-alp061/cr_alp_058 src/audits/cr_alp_061/third.cpp -o /tmp/cr-alp061/third -lquadmath -l:libmpfr.so.6 -lgmp
+      - name: Global third physical integration
+        env:
+          K: ${{ matrix.sector }}
+        run: |
+          set -o pipefail
+          /tmp/cr-alp061/third "/tmp/cr-alp061/cr_alp_058/input_$K.txt" /tmp/cr-alp061/cr_alp_058/mesh.txt /tmp/cr-alp061/cr_alp_058/gauss.txt /tmp/cr-alp061/cr_alp_058/second_mesh.txt /tmp/cr-alp061/cr_alp_058/third_mesh.txt | tee "/tmp/cr-alp061/third_$K.log"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cr-alp061-sector-${{ matrix.sector }}
+          path: /tmp/cr-alp061/third_*.log
+          if-no-files-found: warn
+  endpoints:
+    needs: replay
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: cr-alp061-sector-*
+          merge-multiple: true
+          path: /tmp/cr-alp061
+      - name: Independent rational transport
+        run: |
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/cr-alp061/package.zip
+          python3 -m zipfile -e /tmp/cr-alp061/package.zip /tmp/cr-alp061
+          python3 src/audits/cr_alp_061/check_third.py /tmp/cr-alp061 /tmp/cr-alp061 src/audits/cr_alp_059/evidence/second_result.json src/audits/cr_alp_059/evidence/sharp_scalar_result.json
+          cat /tmp/cr-alp061/third_result.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cr-alp061-endpoints
+          path: /tmp/cr-alp061/third_result.json
