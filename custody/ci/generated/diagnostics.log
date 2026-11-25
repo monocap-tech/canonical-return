@@ -1,0 +1,4 @@
+base uniform finite error 9.654520167388056e-10 dd 0.0004818260127172602 tail errors 3.6775896607302305e-10 2.5427259325896336e-13 1.2212537749023213e-11
+CH EXACT MATRIX MATCH -39/50000
+CI RAYLEIGH {"center": 0.019290400687029773, "comparison": -0.0007709755584065433, "terms": {"mixed_energy_Q": 3.968336980581425e-06, "mixed_energy_X": 3.968342356502677e-06, "energy_D": 5.577947956527978e-07, "residual_base": 0.018099160696367023, "omitted_shifted_gram": 0.0001550435564352542, "omitted_inverse_gram": 0.00015504354920852339, "source_Y_and_tail": 0.0012453682869750969, "source_U_and_tail": 0.00039816116649250437, "representation": 1.0451582517644212e-07}, "mu": 0.0017}
+CI UNIVERSAL {"upper": {"uniform": -0.0007709755584034234, "split": -0.0007708741910083522}, "excluded": {"uniform": true, "split": true}}
