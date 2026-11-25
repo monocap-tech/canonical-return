@@ -69,4 +69,40 @@ jobs:
               assert int(j)==2*(i+1)
               print(j,tl,th)
           print('END original_trial_input')
+          # The archived input is a contracted midpoint, not the exact X interval.
+          from fractions import Fraction as F
+          import json
+          def load_checked(path,sha):
+              raw=Path(path).read_bytes()
+              assert hashlib.sha256(raw).hexdigest()==sha,path
+              return json.loads(raw)
+          t=load_checked('cr_alp_057/trial.json','6576fb333c7b2fdec6a4c236d70b3257b4bdedcb9208ae77a10e3e1931f512b0')
+          w=load_checked('cr_alp_056/result_extended_2.json','4017c7a656e43fe9fa97da91c37f35a9eda5a78dd3efaa2863b40de71177ac36')
+          S=int(t['scale']);assert S==10**100
+          z=w['comparison_witness']['z'];assert 0<F(sum(v*v for v in z),10**24)<F(1000001,1000000)
+          t=t['sectors']['2'];assert t['ids']==list(range(2,851,2))
+          def contract(row):
+              assert len(row)==len(z)
+              lo=hi=mid=0
+              for (l,h),v in zip(row,z):
+                  l,h=int(l),int(h);assert l<=h
+                  a,b=l*v,h*v
+                  lo+=min(a,b);hi+=max(a,b);mid+=((l+h)//2)*v
+              return F(lo,S*10**12),F(hi,S*10**12),F(mid,S*10**12)
+          def check_mid(pair,row):
+              l,h,m=contract(row)
+              assert l<=m<=h and F(pair[0])<=m<=F(pair[1])
+              return l,h
+          it=iter(raw.decode().split());assert next(it)=='2';next(it);next(it)
+          db=check_mid([next(it),next(it)],t['Db'][0]);assert next(it)=='425'
+          exact=[]
+          for j,row in zip(t['ids'],t['D']):
+              assert int(next(it))==j
+              next(it);next(it)
+              l,h=check_mid([next(it),next(it)],row)
+              exact.append(f'{j} {l} {h}')
+          print('PASS exact interval contraction and all 426 archived midpoint matches')
+          print('BEGIN original_exact_trial')
+          print('2');print(*db);print(425);print('\n'.join(exact))
+          print('END original_exact_trial')
           PY
