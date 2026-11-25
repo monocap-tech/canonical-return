@@ -1,0 +1,40 @@
+# CR-INT-T1D-BS — Direct physical residual Gram and original arithmetic inverse slack
+
+**Status:** local directed-grid and rational LDL audits PASS. Direct odd Schur-positive dimension 5 of 119; conditional negative-index upper bound <=235 =121 even +114 odd. Same original fixed interval (-2,2), double Mellin-pole-null smooth source, all 24 signed prime powers, inherited AP/AM/BK/BO/BP/BQ/BR comparisons, source closure/core transfer and ordinary binary64 exact-integer-dot model. No new correctors, even execution, frequency-deficit scan, Lean, remote CI or independent mathematical review.
+
+## 1. Joint variational positive inverse
+BK gives L_C>=mu Dphys|_C, mu=53/10000 odd, and Dphys>=I+R Delta^-1 R*+B, Delta=diag(1-alpha)>0. B=(6/5)(lambda I-A), lambda=399/50, 0<=B<=b I, b=2394/125=19.152 from AM. Restriction of the variational dual to C only decreases the full-space inverse energy. Subtract F and g representers from a physical residual head without changing its functional on C. For arbitrary trial t and v_t=y-Rt, the Woodbury variational formula gives
+
+  y*(I+B+R Delta^-1 R*)^-1 y = min_t [v_t*(I+B)^-1 v_t+t*Delta t].
+
+Functional calculus on [0,b] yields (I+B)^-1<=I-B/(1+b), hence the joint upper bound
+
+  ||y||_(C,*)^2 <= (||v_t||^2+t*Delta t-v_t*Bv_t/(1+b))/mu.
+
+No exact H inverse residual is needed for this variant. Both fixed surplus and arithmetic trials use the same rational t. The head bound is a matrix bound, with full signed corrected energy minus residual matrix before sign testing. Add original head action and infinite tail uncertainty via triangle in the retained inverse norm (<=L2); no projection/frequency commutation assumed.
+
+## 2. Actual direct residual representation
+Use BR's existing 1882 surplus modes, BQ's 16 odd exact moment-null correctors, BP/BO normalized lift and full action; keep all original signed-energy K,D and error allowances. The first four columns are exactly BR's saved Q,X,T; a separate nested 8-column proposal uses the same X and BR central eigenvectors with surplus trial t rounded to 10^12. Numerical choices only propose rational columns. For Bq=[Q;XQ], form y=Y Bq-F V Bq-g v Bq, and v_t=y-Rt. F=Pi_g T E. Build actual rational physical representative v0 using 8192 orthonormal Neumann head modes, 5143 original deficit circular modes, 1882 retained surplus circular modes, and g=sinh(x/2). Convert Neumann modes to unweighted circular sines at indices 2m with exact sqrt(2) and sign enclosure. All 15217 trigonometric input modes distinct. Directed sqrt weights, coefficient floors, pole pairing and norm uncertainties included in L2 representation error. Five-dimensional Frobenius error <3.569e-6. Direct Gram action uses exact integrals of sin(j*pi*x/8)/2 against sin(k*pi*x/8)/2 on (-2,2): (2/pi)[sin((j-k)*pi/4)/(j-k)-sin((j+k)*pi/4)/(j+k)], difference-zero term 1/2. Mixed periodic and antiperiodic sine indices are used solely as physical finite functions, not asserted to be one orthogonal basis. For g use exact hyperbolic primitive, Machin pi, rational Taylor exp and directed roots. Products on 10^12 grid use inherited BP radix-split exact integer dots with absolute limb bound <2^53. Evaluate all input dictionary rows and all positive odd circular rows <32768, union size 26217; 4 saved row blocks. Direct norm Gram uses all 15217 inputs plus g, not truncated Fourier Parseval. Five-dimensional direct Gram row error <3.105e-9. All 96 supplementary high-precision scalar-integral action overlaps PASS (8 rows x12 columns).
+
+## 3. Original signed circular arithmetic lower bound
+AP's zero-extension into the antiperiodic circle gives exact A energy (no physical wrap since shifts <4). Let a_j=2 sum_{p^k<=54} kappa cos(j*pi*log(p^k)/8). Signed slack symbol b_j=(6/5)(lambda-a_j) need not be nonnegative on the unconstrained circle. Compute global upper weight sum U=12191645931/500000000; bmin=(6/5)(lambda-U)=-24604937793/1250000000. Directed phase/weight arithmetic for 16384 odd indices gives nonnegative lower w_j<=b_j-bmin, because shifted symbol is globally nonnegative by the triangle bound. Then for physical v0,
+
+  <v0,Bv0> >= bmin ||v0||^2 + sum_{j<32768, odd} w_j |<u_j,v0>|^2.
+
+Uncomputed terms of shifted symbol are nonnegative; negative bmin is charged to the full physical norm. This does not clamp the original signed symbol. For each subspace let G be direct physical Gram, V the finite weighted coefficient Gram, J=t*Delta t, c=1/(1+b). Matrix upper H=(1-c*bmin)G-c V+J plus directed Gram/coefficient errors and representation uncertainty. For representation error e and central norm n, use 2ne+e^2, since 0<=I-cB<=I. With c=0 recover matched surplus-only comparison. Full dual upper <=(H + (2 sqrt(h) d+d^2)I)/mu, h upper bound on H including errors, d original normalized action error plus complete infinite tail from BO/BQ (restricted coefficient norms). Exact energy lower matrix E uses BQ K,D and BO relative energy, with explicit directed error. Subtract H/mu before rational LDL. Round central Schur matrix down on 10^12 grid and subtract dimension/grid I (symmetric entry rounding norm); exact Fraction LDL verifies positivity of shifted small matrix on 10^-5 lower-bound grid. No float eigensolve is used for sign acceptance.
+
+## 4. Executed matched comparisons
+| trial | surplus-only lower diagnostic | arithmetic lower diagnostic |
+|---|---:|---:|
+| fixed BR four | .7454520471 | .8425343600 |
+| nested five | -.1127766557 | .2090790392 |
+| nested six | -.1564837969 | -.0820449601 |
+| nested seven | -1.7480425461 | -.6027345915 |
+| nested eight | -2.6585934657 | -1.0654747298 |
+Fixed BR Q,X,T unchanged; BR old uniform separate energy/residual lower .2798510531. New direct Gram and joint matrix comparison improve even without B. For nested five, arithmetic head upper <.002058131, representation error <3.569e-6, exact LDL lower >209/1000*(1+delta_Q), hence >209/1000 in BO normalized coordinates. Independently preceding Gershgorin test passed with lower .1904029960. Arithmetic shifted-symbol lower diagnostic via separate Gershgorin can be negative (e.g. -.0001221 at 5D); the full matrix comparison, not a scalar lower gain, certifies sign. Sixth and larger tested trials fail; no negativity or optimality claim. Five replaces BR/BQ four, no cumulative count. Conditional index <=235, original BK complement margins unchanged, no new global margin.
+
+## 5. Custody/reproduction
+Run with OPENBLAS_NUM_THREADS=4 in this directory and actual sibling upstream inputs. `bs_prepare.py`; `bs_circle.py 32768 0`, `1`, `2`, `3` (separate invocations); `bs_combine.py 32768`; `bs_symbol.py`; `bs_gershgorin.py`; `bs_cert.py`; `bs_check.py`. The initial all-rows circle run timed out before save; completed four chunks pass. Initial exact unrounded Fraction LDL run timed out near final trial; final directed 10^12 rounded matrix with norm allowance completes all trials. Reproduction uses exact stored rational proposal and actual Gram/action blocks, no numerical eigensolve for sign acceptance. 34 manifest checks PASS; historical H digest also checked by prepare. Exact fixed representation reconstruction and 96 independent scalar-integral overlap checks PASS; all saved lower comparisons in JSON. Local archive contains new actual matrices, proposal, row blocks, scripts and logs; upstream BR/BQ/BP/BK/BC/BI/BN inputs needed for full reproduction. No independent hardware/kernel verification.
+
+## Next BT
+Use the direct physical Gram method for an even-sector pilot and optimize the surplus response and residual representative jointly in the arithmetic-weighted metric, rather than retain BR's older numerical response. A possible stronger scalar-polynomial inverse comparison is (I+B)^-1 <= I-B/(1+b)-B(bI-B)/(1+b)^2, proved by the scalar identity for 0<=x<=b: 1-x/(1+b)-1/(1+x)=x(b-x)/((1+b)(1+x)). Evaluating the additional term requires a verified physical B^2 energy, not a square of the unconstrained circle symbol after compression. Complete fixed-window/global positivity, Suzuki–Connes transfer, Phase IV and RH remain unresolved.
