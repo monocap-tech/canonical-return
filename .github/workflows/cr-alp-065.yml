@@ -1,4 +1,4 @@
-name: CR-ALP-065 even fifth moment
+name: CR-ALP-065 even fifth moment recovery
 on:
   pull_request:
     paths:
@@ -16,6 +16,10 @@ jobs:
   replay:
     runs-on: ubuntu-latest
     timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        shift: [2, 3, 4, 5, 6]
     steps:
       - uses: actions/checkout@v4
       - name: Install arithmetic libraries
@@ -55,17 +59,19 @@ jobs:
           python3 src/audits/cr_alp_059/mesh_second.py /tmp/cr-alp065
           python3 src/audits/cr_alp_063/mesh_fourth.py /tmp/cr-alp065
           python3 src/audits/cr_alp_065/mesh_fifth.py /tmp/cr-alp065
-          g++ -O2 -std=gnu++17 -I/tmp/cr-alp065/cr_alp_058 src/audits/cr_alp_065/fifth.cpp -o /tmp/cr-alp065/fifth -lquadmath -l:libmpfr.so.6 -lgmp
-      - name: Global even fifth physical integration
+          g++ -O2 -std=gnu++17 -I/tmp/cr-alp065/cr_alp_058 src/audits/cr_alp_065/fifth_shard.cpp -o /tmp/cr-alp065/fifth -lquadmath -l:libmpfr.so.6 -lgmp
+      - name: Selected even prime correlation
+        env:
+          SHIFT: ${{ matrix.shift }}
         run: |
           set -o pipefail
           P=/tmp/cr-alp065/cr_alp_058
-          /tmp/cr-alp065/fifth "$P/input_2.txt" "$P/mesh.txt" "$P/gauss.txt" "$P/second_mesh.txt" "$P/fourth_mesh.txt" "$P/fifth_mesh.txt" | tee /tmp/cr-alp065/fifth_2.log
+          /tmp/cr-alp065/fifth "$P/input_2.txt" "$P/mesh.txt" "$P/gauss.txt" "$P/second_mesh.txt" "$P/fourth_mesh.txt" "$P/fifth_mesh.txt" "$SHIFT" | tee "/tmp/cr-alp065/fifth_shift_$SHIFT.log"
       - uses: actions/upload-artifact@v4
         if: always()
         with:
-          name: cr-alp065-even
-          path: /tmp/cr-alp065/fifth_2.log
+          name: cr-alp065-shift-${{ matrix.shift }}
+          path: /tmp/cr-alp065/fifth_shift_${{ matrix.shift }}.log
           if-no-files-found: warn
   endpoints:
     needs: replay
@@ -74,15 +80,16 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/download-artifact@v4
         with:
-          name: cr-alp065-even
+          pattern: cr-alp065-shift-*
+          merge-multiple: true
           path: /tmp/cr-alp065
       - name: Independent exact fifth-moment transport
         run: |
           python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/cr-alp065/package.zip
           python3 -m zipfile -e /tmp/cr-alp065/package.zip /tmp/cr-alp065
-          python3 src/audits/cr_alp_065/check_fifth.py /tmp/cr-alp065 /tmp/cr-alp065 src/audits
-          cat /tmp/cr-alp065/fifth_result.json
+          python3 src/audits/cr_alp_065/combine_shards.py /tmp/cr-alp065 /tmp/cr-alp065 src/audits
+          cat /tmp/cr-alp065/fifth_sharded_result.json
       - uses: actions/upload-artifact@v4
         with:
           name: cr-alp065-endpoints
-          path: /tmp/cr-alp065/fifth_result.json
+          path: /tmp/cr-alp065/fifth_sharded_result.json
