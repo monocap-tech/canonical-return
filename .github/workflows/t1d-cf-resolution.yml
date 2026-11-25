@@ -1,0 +1,70 @@
+name: T1D CF matched inverse and exterior resolution
+on:
+  push:
+    branches: [research/cr-int-t1d-cf-inverse-resolution]
+permissions:
+  contents: write
+concurrency:
+  group: t1d-cf-resolution
+  cancel-in-progress: false
+jobs:
+  trial:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      OPENBLAS_NUM_THREADS: "4"
+      OMP_NUM_THREADS: "4"
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Install numerical environment
+        run: |
+          mkdir -p custody/cf/generated
+          python -m pip install numpy==2.3.5 scipy==1.17.0
+          python --version | tee custody/cf/generated/python-version.txt
+          python -m pip freeze > custody/cf/generated/pip-freeze.txt
+      - name: Reconstruct archives and verify all 56 baseline hashes
+        run: |
+          python custody/ce/reconstruct.py
+          python - <<'PY'
+          import csv
+          def read(path):
+              with open(path) as f: return {r.get('archive',r.get('name')):(int(r['bytes']),r['sha256']) for r in csv.DictReader(f,delimiter='\t')}
+          assert read('custody/ce/evidence/archive-sha256.tsv')==read('ce-output/archive-verification.tsv')
+          print('ALL 56 CE DIGESTS MATCH')
+          PY
+          cp ce-output/archive-verification.tsv custody/cf/generated/
+      - name: Verify all 578 inherited paths
+        run: |
+          python custody/recover_t1d_dependencies.py ce-output/archives ce-output/pristine --ledger custody/missing_inherited.tsv --report custody/cf/generated/recovery.tsv
+      - name: Matched four-column trials
+        run: bash custody/cf/run.sh
+      - name: Generate evidence manifest
+        if: always()
+        run: |
+          mkdir -p custody/cf/generated
+          cd custody/cf/generated
+          find . -type f ! -name sha256.txt -print0 | sort -z | xargs -0 -r sha256sum > sha256.txt
+      - name: Preserve artifact fallback
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: t1d-cf-evidence
+          path: custody/cf/generated/
+          retention-days: 90
+      - name: Commit generated evidence to isolated branch
+        if: always()
+        run: |
+          cd custody/cf/generated
+          sha256sum -c sha256.txt
+          cd ../../..
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          branch="research/cr-int-t1d-cf-evidence-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git switch -c "$branch"
+          git add -f custody/cf/generated/
+          git commit -m "CF generated exact comparisons and source evidence, run ${GITHUB_RUN_ID}"
+          git push origin "HEAD:refs/heads/$branch"
