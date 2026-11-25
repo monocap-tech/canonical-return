@@ -1,0 +1,9 @@
+# CE completed — clean historical recovery and four-column comparison
+
+Both GitHub Actions jobs succeeded from the committed archives. Original inputs at 47a37df96e649fb76339debeefb8e9354c7f2eed; workflow commits 063bb2d9fd53abad7a3866926b7a71f2e16402ed and 7c13bbb90f065208a434c8281f0c9cda1be2c028.
+- Primary run 45576917807, job 139077009157, artifact 15005431318, SHA256 14135613dfa8dcabd2af7656aa62d71ab87c3191169326bea7a80637c57878e1.
+- Secondary run 45576961148, job 139077146953, artifact 15005276646, SHA256 27bb880e11023982d6958c83335ebb839d0fd3b52dc6ade48f57bc9ad3f0e1f9.
+- Both archive manifests identical (56/56 CRC and exact byte size; eight pre-existing original digest pins matched; other 48 reconstructed digest baselines, not independent original pins).
+- Both recorded inherited ledgers 578 PASS, 0 missing, 0 mismatch. AF executable located in AG, AH and BL. Six original local manifest groups and three BK input hashes pass. Original CA/CB and CD acceptance replay pass.
+- Four-column response generation: representation PASS 12495; max error 1.521917095496994e-08; directed Uaction PASS even 16384 2048 2048 max A error 379. Fixed rational comparison at theta=1/14, gamma=1/40 returns -7/1250 in both. INCONCLUSIVE, not an actual negative direction. Conditional index <=225 unchanged.
+- Actual job logs and reconstructed archive digest manifest stored here. New generated arrays and detailed report remain in Actions artifacts (expire 2027-02-23), not yet durably stored in Git. Artifact digests and metadata inspected, actual ZIPs not independently downloaded. No claim of full historical source regeneration, unrecorded file completeness, or RH. Next mathematical test: increase retained inverse modes to 4096 on same four-column proposal and inspect directional inverse error, without changing the physical representation; exact acceptance required.

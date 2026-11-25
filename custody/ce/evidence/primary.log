@@ -1,0 +1,540 @@
+﻿2026-11-25T08:30:54.3932450Z Current runner version: '2.338.2'
+2026-11-25T08:30:54.3957330Z ##[group]Runner Image Provisioner
+2026-11-25T08:30:54.3958363Z Hosted Compute Agent
+2026-11-25T08:30:54.3958972Z Version: 20261111.635
+2026-11-25T08:30:54.3959628Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-25T08:30:54.3960429Z Build Date: 2026-11-11T01:49:01Z
+2026-11-25T08:30:54.3961149Z Worker ID: {235392e4-2b5d-46d4-9c2a-620fdd2307a8}
+2026-11-25T08:30:54.3962189Z Region: westus
+2026-11-25T08:30:54.3962821Z Cloud: Azure
+2026-11-25T08:30:54.3963363Z ##[endgroup]
+2026-11-25T08:30:54.3964919Z ##[group]Operating System
+2026-11-25T08:30:54.3965657Z Ubuntu
+2026-11-25T08:30:54.3966169Z 26.04.1
+2026-11-25T08:30:54.3966746Z LTS
+2026-11-25T08:30:54.3967254Z ##[endgroup]
+2026-11-25T08:30:54.3967825Z ##[group]Runner Image
+2026-11-25T08:30:54.3968468Z Image: ubuntu-26.04
+2026-11-25T08:30:54.3969026Z Version: 20261116.202.1
+2026-11-25T08:30:54.3970730Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261116.202/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-25T08:30:54.3972530Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261116.202
+2026-11-25T08:30:54.3973654Z ##[endgroup]
+2026-11-25T08:30:54.3974806Z ##[group]GITHUB_TOKEN Permissions
+2026-11-25T08:30:54.3976728Z Contents: read
+2026-11-25T08:30:54.3977335Z Metadata: read
+2026-11-25T08:30:54.3978023Z ##[endgroup]
+2026-11-25T08:30:54.3980219Z Secret source: Actions
+2026-11-25T08:30:54.3981231Z Cache mode: write
+2026-11-25T08:30:54.3982335Z Prepare workflow directory
+2026-11-25T08:30:54.4400856Z Prepare all required actions
+2026-11-25T08:30:54.4451907Z Getting action download info
+2026-11-25T08:30:54.7735068Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-25T08:30:54.8684315Z Download action repository 'actions/setup-python@v5' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-11-25T08:30:54.9363833Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-25T08:30:55.1204005Z Complete job name: replay
+2026-11-25T08:30:55.2124426Z ##[group]Run actions/checkout@v4
+2026-11-25T08:30:55.2125508Z with:
+2026-11-25T08:30:55.2125998Z   repository: monocap-tech/canonical-return
+2026-11-25T08:30:55.2129933Z   token: ***
+2026-11-25T08:30:55.2130376Z   ssh-strict: true
+2026-11-25T08:30:55.2130818Z   ssh-user: git
+2026-11-25T08:30:55.2131261Z   persist-credentials: true
+2026-11-25T08:30:55.2131923Z   clean: true
+2026-11-25T08:30:55.2132403Z   sparse-checkout-cone-mode: true
+2026-11-25T08:30:55.2132923Z   fetch-depth: 1
+2026-11-25T08:30:55.2133364Z   fetch-tags: false
+2026-11-25T08:30:55.2133812Z   show-progress: true
+2026-11-25T08:30:55.2134261Z   lfs: false
+2026-11-25T08:30:55.2134681Z   submodules: false
+2026-11-25T08:30:55.2135126Z   set-safe-directory: true
+2026-11-25T08:30:55.2135635Z   allow-unsafe-pr-checkout: false
+2026-11-25T08:30:55.2136428Z env:
+2026-11-25T08:30:55.2136864Z   OPENBLAS_NUM_THREADS: 4
+2026-11-25T08:30:55.2137342Z   OMP_NUM_THREADS: 4
+2026-11-25T08:30:55.2137824Z   PYTHONUNBUFFERED: 1
+2026-11-25T08:30:55.2138309Z ##[endgroup]
+2026-11-25T08:30:55.5086378Z Syncing repository: monocap-tech/canonical-return
+2026-11-25T08:30:55.5090010Z ##[group]Getting Git version info
+2026-11-25T08:30:55.5091706Z Working directory is '/home/runner/work/canonical-return/canonical-return'
+2026-11-25T08:30:55.5093930Z [command]/usr/bin/git version
+2026-11-25T08:30:55.5122596Z git version 2.56.1
+2026-11-25T08:30:55.5146957Z ##[endgroup]
+2026-11-25T08:30:55.5173875Z Temporarily overriding HOME='/home/runner/work/_temp/a18d1166-c09f-4500-9fbd-d1e7876575d1' before making global git config changes
+2026-11-25T08:30:55.5176771Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-25T08:30:55.5193515Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/canonical-return/canonical-return
+2026-11-25T08:30:55.5245649Z Deleting the contents of '/home/runner/work/canonical-return/canonical-return'
+2026-11-25T08:30:55.5257243Z ##[group]Initializing the repository
+2026-11-25T08:30:55.5267945Z [command]/usr/bin/git init /home/runner/work/canonical-return/canonical-return
+2026-11-25T08:30:55.5390907Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-25T08:30:55.5393112Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-25T08:30:55.5394872Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-25T08:30:55.5396254Z hint: call:
+2026-11-25T08:30:55.5396987Z hint:
+2026-11-25T08:30:55.5397896Z hint: 	git config --global init.defaultBranch <name>
+2026-11-25T08:30:55.5399008Z hint:
+2026-11-25T08:30:55.5400084Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-25T08:30:55.5401969Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-25T08:30:55.5403394Z hint:
+2026-11-25T08:30:55.5404241Z hint: 	git branch -m <name>
+2026-11-25T08:30:55.5405227Z hint:
+2026-11-25T08:30:55.5406563Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-25T08:30:55.5408739Z Initialized empty Git repository in /home/runner/work/canonical-return/canonical-return/.git/
+2026-11-25T08:30:55.5416213Z [command]/usr/bin/git remote add origin https://github.com/monocap-tech/canonical-return
+2026-11-25T08:30:55.5474150Z ##[endgroup]
+2026-11-25T08:30:55.5475846Z ##[group]Disabling automatic garbage collection
+2026-11-25T08:30:55.5477543Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-25T08:30:55.5515542Z ##[endgroup]
+2026-11-25T08:30:55.5516882Z ##[group]Setting up auth
+2026-11-25T08:30:55.5522935Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-25T08:30:55.5559425Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-25T08:30:55.6012488Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-25T08:30:55.6067356Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-25T08:30:55.6417748Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-25T08:30:55.6456541Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-25T08:30:55.6743465Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-25T08:30:55.6787068Z ##[endgroup]
+2026-11-25T08:30:55.6796726Z ##[group]Fetching the repository
+2026-11-25T08:30:55.6798801Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +063bb2d9fd53abad7a3866926b7a71f2e16402ed:refs/remotes/origin/research/cr-int-t1d-ce-clean-replay
+2026-11-25T08:33:36.2078663Z From https://github.com/monocap-tech/canonical-return
+2026-11-25T08:33:36.2080221Z  * [new ref]         063bb2d9fd53abad7a3866926b7a71f2e16402ed -> origin/research/cr-int-t1d-ce-clean-replay
+2026-11-25T08:33:36.2085844Z ##[endgroup]
+2026-11-25T08:33:36.2086545Z ##[group]Determining the checkout info
+2026-11-25T08:33:36.2089205Z ##[endgroup]
+2026-11-25T08:33:36.2096121Z [command]/usr/bin/git sparse-checkout disable
+2026-11-25T08:33:36.2157131Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-25T08:33:36.2192516Z ##[group]Checking out the ref
+2026-11-25T08:33:36.2198443Z [command]/usr/bin/git checkout --progress --force -B research/cr-int-t1d-ce-clean-replay refs/remotes/origin/research/cr-int-t1d-ce-clean-replay
+2026-11-25T08:33:37.2646048Z Updating files:  19% (333/1718)
+2026-11-25T08:33:37.3237434Z Updating files:  20% (344/1718)
+2026-11-25T08:33:37.3843202Z Updating files:  21% (361/1718)
+2026-11-25T08:33:37.4457577Z Updating files:  22% (378/1718)
+2026-11-25T08:33:37.5029422Z Updating files:  23% (396/1718)
+2026-11-25T08:33:37.5560578Z Updating files:  24% (413/1718)
+2026-11-25T08:33:37.6129888Z Updating files:  25% (430/1718)
+2026-11-25T08:33:37.6696833Z Updating files:  26% (447/1718)
+2026-11-25T08:33:37.7304374Z Updating files:  27% (464/1718)
+2026-11-25T08:33:37.7890947Z Updating files:  28% (482/1718)
+2026-11-25T08:33:37.8490836Z Updating files:  29% (499/1718)
+2026-11-25T08:33:37.9087881Z Updating files:  30% (516/1718)
+2026-11-25T08:33:37.9660718Z Updating files:  31% (533/1718)
+2026-11-25T08:33:38.0248998Z Updating files:  32% (550/1718)
+2026-11-25T08:33:38.0796119Z Updating files:  33% (567/1718)
+2026-11-25T08:33:38.1372527Z Updating files:  34% (585/1718)
+2026-11-25T08:33:38.1948570Z Updating files:  35% (602/1718)
+2026-11-25T08:33:38.2292073Z Updating files:  36% (619/1718)
+2026-11-25T08:33:38.2537925Z Updating files:  36% (629/1718)
+2026-11-25T08:33:38.3137353Z Updating files:  37% (636/1718)
+2026-11-25T08:33:38.3851701Z Updating files:  38% (653/1718)
+2026-11-25T08:33:38.4352595Z Updating files:  39% (671/1718)
+2026-11-25T08:33:38.4930544Z Updating files:  40% (688/1718)
+2026-11-25T08:33:38.5205020Z Updating files:  41% (705/1718)
+2026-11-25T08:33:38.5778155Z Updating files:  42% (722/1718)
+2026-11-25T08:33:38.6380322Z Updating files:  43% (739/1718)
+2026-11-25T08:33:38.6986873Z Updating files:  44% (756/1718)
+2026-11-25T08:33:38.7572321Z Updating files:  45% (774/1718)
+2026-11-25T08:33:38.8195086Z Updating files:  46% (791/1718)
+2026-11-25T08:33:38.8771247Z Updating files:  47% (808/1718)
+2026-11-25T08:33:38.9342251Z Updating files:  48% (825/1718)
+2026-11-25T08:33:38.9802184Z Updating files:  49% (842/1718)
+2026-11-25T08:33:39.0248253Z Updating files:  50% (859/1718)
+2026-11-25T08:33:39.0849702Z Updating files:  51% (877/1718)
+2026-11-25T08:33:39.1481152Z Updating files:  52% (894/1718)
+2026-11-25T08:33:39.2084670Z Updating files:  53% (911/1718)
+2026-11-25T08:33:39.2274199Z Updating files:  54% (928/1718)
+2026-11-25T08:33:39.2736373Z Updating files:  54% (933/1718)
+2026-11-25T08:33:39.3362432Z Updating files:  55% (945/1718)
+2026-11-25T08:33:39.3932775Z Updating files:  56% (963/1718)
+2026-11-25T08:33:39.4503290Z Updating files:  57% (980/1718)
+2026-11-25T08:33:39.4859930Z Updating files:  58% (997/1718)
+2026-11-25T08:33:39.5432472Z Updating files:  59% (1014/1718)
+2026-11-25T08:33:39.6014419Z Updating files:  60% (1031/1718)
+2026-11-25T08:33:39.6634813Z Updating files:  61% (1048/1718)
+2026-11-25T08:33:39.7237849Z Updating files:  62% (1066/1718)
+2026-11-25T08:33:39.7839471Z Updating files:  63% (1083/1718)
+2026-11-25T08:33:39.8417941Z Updating files:  64% (1100/1718)
+2026-11-25T08:33:39.8990611Z Updating files:  65% (1117/1718)
+2026-11-25T08:33:39.9565349Z Updating files:  66% (1134/1718)
+2026-11-25T08:33:39.9693184Z Updating files:  67% (1152/1718)
+2026-11-25T08:33:39.9823401Z Updating files:  68% (1169/1718)
+2026-11-25T08:33:39.9958122Z Updating files:  69% (1186/1718)
+2026-11-25T08:33:40.0093097Z Updating files:  70% (1203/1718)
+2026-11-25T08:33:40.0216797Z Updating files:  71% (1220/1718)
+2026-11-25T08:33:40.0352595Z Updating files:  72% (1237/1718)
+2026-11-25T08:33:40.0621139Z Updating files:  73% (1255/1718)
+2026-11-25T08:33:40.0914478Z Updating files:  74% (1272/1718)
+2026-11-25T08:33:40.1051185Z Updating files:  75% (1289/1718)
+2026-11-25T08:33:40.1180192Z Updating files:  76% (1306/1718)
+2026-11-25T08:33:40.1317978Z Updating files:  77% (1323/1718)
+2026-11-25T08:33:40.1448250Z Updating files:  78% (1341/1718)
+2026-11-25T08:33:40.1577947Z Updating files:  79% (1358/1718)
+2026-11-25T08:33:40.1707559Z Updating files:  80% (1375/1718)
+2026-11-25T08:33:40.1844226Z Updating files:  81% (1392/1718)
+2026-11-25T08:33:40.1970863Z Updating files:  82% (1409/1718)
+2026-11-25T08:33:40.2112293Z Updating files:  83% (1426/1718)
+2026-11-25T08:33:40.2240607Z Updating files:  84% (1444/1718)
+2026-11-25T08:33:40.2270054Z Updating files:  85% (1461/1718)
+2026-11-25T08:33:40.2371605Z Updating files:  85% (1465/1718)
+2026-11-25T08:33:40.2501001Z Updating files:  86% (1478/1718)
+2026-11-25T08:33:40.2635114Z Updating files:  87% (1495/1718)
+2026-11-25T08:33:40.2779403Z Updating files:  88% (1512/1718)
+2026-11-25T08:33:40.2910929Z Updating files:  89% (1530/1718)
+2026-11-25T08:33:40.3046684Z Updating files:  90% (1547/1718)
+2026-11-25T08:33:40.3155010Z Updating files:  91% (1564/1718)
+2026-11-25T08:33:40.3169797Z Updating files:  92% (1581/1718)
+2026-11-25T08:33:40.3183778Z Updating files:  93% (1598/1718)
+2026-11-25T08:33:40.3196918Z Updating files:  94% (1615/1718)
+2026-11-25T08:33:40.3210018Z Updating files:  95% (1633/1718)
+2026-11-25T08:33:40.3225369Z Updating files:  96% (1650/1718)
+2026-11-25T08:33:40.3242694Z Updating files:  97% (1667/1718)
+2026-11-25T08:33:40.3253254Z Updating files:  98% (1684/1718)
+2026-11-25T08:33:40.3264678Z Updating files:  99% (1701/1718)
+2026-11-25T08:33:40.3267318Z Updating files: 100% (1718/1718)
+2026-11-25T08:33:40.3267773Z Updating files: 100% (1718/1718), done.
+2026-11-25T08:33:40.3297245Z Switched to a new branch 'research/cr-int-t1d-ce-clean-replay'
+2026-11-25T08:33:40.3303503Z branch 'research/cr-int-t1d-ce-clean-replay' set up to track 'origin/research/cr-int-t1d-ce-clean-replay'.
+2026-11-25T08:33:40.3496726Z ##[endgroup]
+2026-11-25T08:33:40.3553897Z [command]/usr/bin/git log -1 --format=%H
+2026-11-25T08:33:40.3586967Z 063bb2d9fd53abad7a3866926b7a71f2e16402ed
+2026-11-25T08:33:40.3866205Z ##[group]Run actions/setup-python@v5
+2026-11-25T08:33:40.3866523Z with:
+2026-11-25T08:33:40.3866734Z   python-version: 3.13
+2026-11-25T08:33:40.3866961Z   check-latest: false
+2026-11-25T08:33:40.3869461Z   token: ***
+2026-11-25T08:33:40.3869678Z   update-environment: true
+2026-11-25T08:33:40.3869926Z   allow-prereleases: false
+2026-11-25T08:33:40.3870160Z   freethreaded: false
+2026-11-25T08:33:40.3870370Z env:
+2026-11-25T08:33:40.3870556Z   OPENBLAS_NUM_THREADS: 4
+2026-11-25T08:33:40.3870781Z   OMP_NUM_THREADS: 4
+2026-11-25T08:33:40.3870990Z   PYTHONUNBUFFERED: 1
+2026-11-25T08:33:40.3871207Z ##[endgroup]
+2026-11-25T08:33:40.5305505Z ##[group]Installed versions
+2026-11-25T08:33:40.5436130Z (node:2461) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-25T08:33:40.5436945Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-25T08:33:40.5437809Z Successfully set up CPython (3.13.18)
+2026-11-25T08:33:40.5438865Z ##[endgroup]
+2026-11-25T08:33:40.5582072Z ##[group]Run python -m pip install numpy==2.3.5 scipy==1.17.0
+2026-11-25T08:33:40.5582637Z [36;1mpython -m pip install numpy==2.3.5 scipy==1.17.0[0m
+2026-11-25T08:33:40.5583031Z [36;1mpython --version[0m
+2026-11-25T08:33:40.5583284Z [36;1mpython -m pip freeze[0m
+2026-11-25T08:33:40.5919101Z shell: /usr/bin/bash -e {0}
+2026-11-25T08:33:40.5919410Z env:
+2026-11-25T08:33:40.5919630Z   OPENBLAS_NUM_THREADS: 4
+2026-11-25T08:33:40.5919868Z   OMP_NUM_THREADS: 4
+2026-11-25T08:33:40.5920088Z   PYTHONUNBUFFERED: 1
+2026-11-25T08:33:40.5920385Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:33:40.5920877Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.18/x64/lib/pkgconfig
+2026-11-25T08:33:40.5921305Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:33:40.5921866Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:33:40.5922259Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:33:40.5922705Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.18/x64/lib
+2026-11-25T08:33:40.5923031Z ##[endgroup]
+2026-11-25T08:33:44.1512100Z Collecting numpy==2.3.5
+2026-11-25T08:33:44.2023311Z   Downloading numpy-2.3.5-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+2026-11-25T08:33:44.3543924Z Collecting scipy==1.17.0
+2026-11-25T08:33:44.3676002Z   Downloading scipy-1.17.0-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl.metadata (62 kB)
+2026-11-25T08:33:44.4013154Z Downloading numpy-2.3.5-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (16.6 MB)
+2026-11-25T08:33:44.5112177Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 16.6/16.6 MB 172.0 MB/s  0:00:00
+2026-11-25T08:33:44.5244236Z Downloading scipy-1.17.0-cp313-cp313-manylinux_2_27_x86_64.manylinux_2_28_x86_64.whl (35.0 MB)
+2026-11-25T08:33:44.6691949Z    ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 35.0/35.0 MB 244.9 MB/s  0:00:00
+2026-11-25T08:33:44.9525014Z Installing collected packages: numpy, scipy
+2026-11-25T08:33:51.4490799Z 
+2026-11-25T08:33:51.4502778Z Successfully installed numpy-2.3.5 scipy-1.17.0
+2026-11-25T08:33:51.5245137Z Python 3.13.18
+2026-11-25T08:33:51.7516387Z numpy==2.3.5
+2026-11-25T08:33:51.7516732Z scipy==1.17.0
+2026-11-25T08:33:51.7877709Z ##[group]Run python custody/ce/reconstruct.py
+2026-11-25T08:33:51.7878116Z [36;1mpython custody/ce/reconstruct.py[0m
+2026-11-25T08:33:51.7913235Z shell: /usr/bin/bash -e {0}
+2026-11-25T08:33:51.7913511Z env:
+2026-11-25T08:33:51.7913718Z   OPENBLAS_NUM_THREADS: 4
+2026-11-25T08:33:51.7913954Z   OMP_NUM_THREADS: 4
+2026-11-25T08:33:51.7914176Z   PYTHONUNBUFFERED: 1
+2026-11-25T08:33:51.7914491Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:33:51.7914954Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.18/x64/lib/pkgconfig
+2026-11-25T08:33:51.7915394Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:33:51.7915775Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:33:51.7916156Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:33:51.7916538Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.18/x64/lib
+2026-11-25T08:33:51.7916864Z ##[endgroup]
+2026-11-25T08:33:51.8331024Z ZIP PASS CR-INT-T1D-AG-reproducibility.zip 11684 6dd09b218045805454596cd7d2abc5e56b6589cda38bdb700363862ae9a07d9a
+2026-11-25T08:33:51.8338915Z ZIP PASS CR-INT-T1D-AH-reproducibility.zip 13452 3ce1f4c8e91b96132da589a0c3cd2c03f92d890df3ea1726eb1e0612960e3738
+2026-11-25T08:33:51.8346039Z ZIP PASS CR-INT-T1D-AI-reproducibility.zip 11442 3844e67ae5b95d6fa5f3f9d6b961e771409e89cced428899e182438e29a1362c
+2026-11-25T08:33:51.8357229Z ZIP PASS CR-INT-T1D-AJ-reproducibility.zip 21773 b015db79fff2ce20a9f82a5290c35c67954617e507ed25e815840cea5435661b
+2026-11-25T08:33:51.8365977Z ZIP PASS CR-INT-T1D-AK-reproducibility.zip 13873 b67175bfd208d180600701d8c8b8afe89300593f3d0df0cf14aad4f667ff4665
+2026-11-25T08:33:51.8375837Z ZIP PASS CR-INT-T1D-AL-reproducibility.zip 18542 e36bbab7514ef173706204bdd5bf50a6d8f83f66f635f24d07364479e6a9db9a
+2026-11-25T08:33:51.8386050Z ZIP PASS CR-INT-T1D-AM-reproducibility.zip 17706 52529ba3c21926ada5bbb1a97cb8175660b94a510c4e57b4d248f042c417aa2d
+2026-11-25T08:33:51.8393135Z ZIP PASS CR-INT-T1D-AN-reproducibility.zip 13251 2d8bed29ea7ee3999ab79627a703602f83c06f000b13f60e201da22ca42967c3
+2026-11-25T08:33:51.8399241Z ZIP PASS CR-INT-T1D-AO-reproducibility.zip 9597 de295f4e799f01e0d20c3a19792fb8cba9ac08fa23425dc31a67862ba3d8eb80
+2026-11-25T08:33:51.8405614Z ZIP PASS CR-INT-T1D-AP-reproducibility.zip 8584 4da87232b78c256a630cdc21e80f8332519d9c9d71af593687f2e13dfc9a536c
+2026-11-25T08:33:51.8424245Z ZIP PASS CR-INT-T1D-AQ-reproducibility.zip 114738 919b3b5922c74445259e511f8a91e5f65dbbcebbd2dc30c01fdfaee3d33b4c76
+2026-11-25T08:33:51.8439201Z ZIP PASS CR-INT-T1D-AR-reproducibility.zip 73059 bf0a439c988bf1f74294c8c9bc9993353028dedf99e294ac3edf1655d88ebd0d
+2026-11-25T08:33:51.8472836Z ZIP PASS CR-INT-T1D-AS-reproducibility.zip 223091 fb0ced8a42e2c0ee286f6b2f39df0125a41f78e2ed4a91945aaef17bab06fb0b
+2026-11-25T08:33:51.8503936Z ZIP PASS CR-INT-T1D-AT-reproducibility.zip 226064 9f6bda35f7aaf9ecfc03db83ac4c329c4b464296779bd866b41f8d1e9f820414
+2026-11-25T08:33:51.8535884Z ZIP PASS CR-INT-T1D-AU-reproducibility.zip 223060 164f8ad3f4a59ee36c615981041ff774757e95d9b4f7dd15b31f393ee53b10fc
+2026-11-25T08:33:51.8569725Z ZIP PASS CR-INT-T1D-AV-reproducibility.zip 226729 7ac4c541559552f33cc28cc32bf52445e586a23faba8ded80240b2b8c4982b83
+2026-11-25T08:33:51.8610364Z ZIP PASS CR-INT-T1D-AW-reproducibility.zip 248937 bb40cf5b9eea5237c8d5d315fae49647e9b04b273550b33056cb068f20309b3b
+2026-11-25T08:33:52.0459208Z ZIP PASS CR-INT-T1D-AX-reproducibility.zip 19098753 8ca72f10814bc341466bdcd3a6c463e9e1655e9fe10ca81d71bec64cc027f468
+2026-11-25T08:33:52.0501829Z ZIP PASS CR-INT-T1D-AY-reproducibility.zip 273347 408c9e17f0134790bd6cdec00af0b55d8934963a6a67b97592ff6d7d9f28cde9
+2026-11-25T08:33:52.0556290Z ZIP PASS CR-INT-T1D-AZ-reproducibility.zip 294843 8febf674b2242365d87798cbe42f2dec99af0258ef399dfc361512a7c1beeb62
+2026-11-25T08:33:52.0617715Z ZIP PASS CR-INT-T1D-BA-reproducibility.zip 311300 70e80cccd5c63cd3de757131d13c7d300257f884139d98b5bf262f68201b437b
+2026-11-25T08:33:52.0699984Z ZIP PASS CR-INT-T1D-BB-reproducibility.zip 459475 1eacae8ceb00d4c70144e1988b7dee18b3f771c7ba844f9ec960895286c0aaaa
+2026-11-25T08:33:52.9181237Z ZIP PASS CR-INT-T1D-BC-projected-checkpoint.zip 89551559 a9d9d7e9d3bce8c4fd65040fc044d9cfc88537afb2c19dd3dc9570ab97833da6
+2026-11-25T08:33:52.9256010Z ZIP PASS CR-INT-T1D-BC-reproducibility.zip 334500 b26bf77b36940b7563c57013651baa2684cd46396be39882df37e64ff2d40e83
+2026-11-25T08:33:53.7268162Z ZIP PASS CR-INT-T1D-BD-projected-checkpoint.zip 84405596 8dcd5f1931200fe3fb20a475aa04fa3651dfe5b6d7efbdf4fb6950e46cd328f9
+2026-11-25T08:33:53.7326623Z ZIP PASS CR-INT-T1D-BD-reproducibility.zip 299529 0fdff945137c129a2b6ef3d57881c56a6d87ba2ceaab45165d33c8dadb16b1e3
+2026-11-25T08:33:54.7133876Z ZIP PASS CR-INT-T1D-BE-projected-checkpoint.zip 103795590 15bfede77c51df59f6e07d71c97f668444f925b2ba2bdac3c5ece934bf5cea27
+2026-11-25T08:33:54.7152135Z ZIP PASS CR-INT-T1D-BE-reproducibility.zip 22910 6cc849790eb56db857ff41a5540fe89c126d58ec3d6ba82b7439f4ce6cb88bad
+2026-11-25T08:33:55.7672295Z ZIP PASS CR-INT-T1D-BF-projected-checkpoint.zip 111644969 8c5b21cc7ffbbbe6c6c4112f785cea5a816fc7cef0ef532c7608a25295f1f405
+2026-11-25T08:33:55.7690711Z ZIP PASS CR-INT-T1D-BF-reproducibility.zip 20947 0d3fa02bbc1039387a0c671dfa6616f234889bcf85f754045a8a1e71fbd35d71
+2026-11-25T08:33:56.8352550Z ZIP PASS CR-INT-T1D-BG-projected-checkpoint.zip 115040268 7998a888e55109875644d022ac383fbd4dc26fa17b23abc736d6a64023e0b020
+2026-11-25T08:33:56.8372778Z ZIP PASS CR-INT-T1D-BG-reproducibility.zip 28492 8e6cd7b520eae245e63a7fa434f491a561034d4e5b736a8c225bb86bbeaf2f61
+2026-11-25T08:33:57.8678526Z ZIP PASS CR-INT-T1D-BH-projected-checkpoint.zip 110995149 1126ca71f2052cf4a763bafd0612c13cf4f9e780177465fd30445617ba9843b5
+2026-11-25T08:33:57.8698912Z ZIP PASS CR-INT-T1D-BH-reproducibility.zip 29351 c9647cac28203ee6e215736a600d4d2a0d6498c329bcfeea9d70054eaff3ba19
+2026-11-25T08:33:58.9126322Z ZIP PASS CR-INT-T1D-BI-even-projected-checkpoint.zip 111791850 649b2ff7d909fa85bb3319489a25d236fb9285fb9c08f42e0f8240ff0e0291e9
+2026-11-25T08:33:59.9627120Z ZIP PASS CR-INT-T1D-BI-odd-projected-checkpoint.zip 115503553 184ea2bf757fd6f85958ac5e8df296c207cf73115e65bb91d6de9686852a8d7c
+2026-11-25T08:33:59.9652879Z ZIP PASS CR-INT-T1D-BI-reproducibility.zip 41807 56917699df9020ceac051300aaf0dc503792f9bc02cd3df49d7fe1dc2573d2a7
+2026-11-25T08:33:59.9688089Z ZIP PASS CR-INT-T1D-BJ-reproducibility.zip 216032 ae6cf92586765e7141d4d5fa38f39ad6cdb3031519bd7b1519efe8fa1439aa06
+2026-11-25T08:33:59.9859414Z ZIP PASS CR-INT-T1D-BK-reproducibility.zip 2992441 805fa6a91f0bdb9dbfffde06a9c8a774df744c0ef7b1df74690447e0454669ac
+2026-11-25T08:34:00.0757459Z ZIP PASS CR-INT-T1D-BL-reproducibility.zip 14042715 8270a06341eff213ee253173e775d63447abeaf22267f53d6e10f80c2601542e
+2026-11-25T08:34:00.0773814Z ZIP PASS CR-INT-T1D-BM-reproducibility.zip 72284 552709f462899d70dc517e332d35ffb6980d89bd9791c51ef6a81ab5ab67bfe0
+2026-11-25T08:34:00.2230033Z ZIP PASS CR-INT-T1D-BN-reproducibility.zip 22719420 bbacffd4300d895415b7506d69bd51cbc8437e6017b2851e2f62879ee35b3d5a
+2026-11-25T08:34:00.3238894Z ZIP PASS CR-INT-T1D-BO-reproducibility.zip 16449059 de9ed042d12afda71513b8110d0cf10cab84451e20aa4e7546d9dde2dfb54fb4
+2026-11-25T08:34:00.3790758Z ZIP PASS CR-INT-T1D-BP-reproducibility.zip 8887439 e82efaa2bd8360221d574e43d0fa5eb55f7de281f180d83eca6f1adc951624be
+2026-11-25T08:34:00.4478638Z ZIP PASS CR-INT-T1D-BQ-reproducibility.zip 11131426 214242be17ed53736fbd624312b11addab1a908961c56c958cfd063a9098402a
+2026-11-25T08:34:00.5657459Z ZIP PASS CR-INT-T1D-BR-reproducibility.zip 12055019 fbd6a10df5e4f1be4e930d8fe0210d778366644371850a99f665bae29580d8bc
+2026-11-25T08:34:00.6205974Z ZIP PASS CR-INT-T1D-BS-reproducibility.zip 8112156 892a7c143a79cf87c608dc3bf3eb89f30b8f3f7f33c2864a83d25ce24559ff8c
+2026-11-25T08:34:00.6536309Z ZIP PASS CR-INT-T1D-BT-reproducibility.zip 4884132 a67ec45b190f9de3a69aca2abcaa933229efaa2371f1672a4f9f40848c7f2aea
+2026-11-25T08:34:00.8820982Z ZIP PASS CR-INT-T1D-BU-reproducibility.zip 35864643 55ab94bd18a384b019fd66d0de0989076b0a1a726556469db1418fab93800bb2
+2026-11-25T08:34:01.0677604Z ZIP PASS CR-INT-T1D-BV-reproducibility.zip 28581031 9c398ff6cad8e3c17ef022bb6993948a74f5a196f55c2893b23cbae2bd67eae9
+2026-11-25T08:34:01.1272292Z ZIP PASS CR-INT-T1D-BW-reproducibility.zip 9224360 96739a3dff9e47cfd77285f111ee835227e03b1b7d5cd51f143bcab36b5ea7fe
+2026-11-25T08:34:01.1537182Z ZIP PASS CR-INT-T1D-BX-reproducibility.zip 3777637 850591be33dd56abc29b7efb2c31e118d85da43587684e5d9ee34ed05a60f8a2
+2026-11-25T08:34:01.5013518Z ZIP PASS CR-INT-T1D-BY-reproducibility.zip 57018123 9f2bbbfc07cfd079bd641e88c8640684ce6e046f8cb993ef4f970661ec64785f
+2026-11-25T08:34:01.5918266Z ZIP PASS CR-INT-T1D-BZ-reproducibility.zip 14263265 b2ed0f3554db37543dbb04708158cd700271eacd5214977954daf6014816dabd
+2026-11-25T08:34:01.8729037Z ZIP PASS CR-INT-T1D-CA-reproducibility.zip 45359073 08510d58bcdc3dac6923e60d7a8439d24f124de71460297490528c0a21181209
+2026-11-25T08:34:02.0056962Z ZIP PASS CR-INT-T1D-CB-reproducibility.zip 21832298 7225e8a6870aaaf7b87f996cc74e7200ed10f79d87c8746e65d3d165ba917911
+2026-11-25T08:34:02.0059300Z AF source locations [('CR-INT-T1D-AG-reproducibility.zip', 'canonical_return_t1d_af_neumann_ritz.py'), ('CR-INT-T1D-AH-reproducibility.zip', 'canonical_return_t1d_af_neumann_ritz.py'), ('CR-INT-T1D-BL-reproducibility.zip', 'cr_int_t1d_af/canonical_return_t1d_af_neumann_ritz.py')]
+2026-11-25T08:34:02.6595766Z ORIGINAL MANIFEST PASS bp
+2026-11-25T08:34:02.6672250Z ORIGINAL MANIFEST PASS bs
+2026-11-25T08:34:02.6728233Z ORIGINAL MANIFEST PASS bt
+2026-11-25T08:34:02.7024479Z ORIGINAL MANIFEST PASS bu
+2026-11-25T08:34:02.7169901Z ORIGINAL MANIFEST PASS ca
+2026-11-25T08:34:02.7340137Z ORIGINAL MANIFEST PASS cb
+2026-11-25T08:34:02.7345536Z BK ORIGINAL HASH PASS cr_int_t1d_bk/even/physical_dictionary.npz
+2026-11-25T08:34:02.7355618Z BK ORIGINAL HASH PASS cr_int_t1d_bk/even/exceptional.npz
+2026-11-25T08:34:02.7358140Z BK ORIGINAL HASH PASS cr_int_t1d_bk/even/pole.npz
+2026-11-25T08:34:02.7458008Z ##[group]Run set +e
+2026-11-25T08:34:02.7458279Z [36;1mset +e[0m
+2026-11-25T08:34:02.7458935Z [36;1mpython custody/recover_t1d_dependencies.py ce-output/archives ce-output/pristine --ledger custody/missing_inherited.tsv --report ce-output/recovery.tsv[0m
+2026-11-25T08:34:02.7459641Z [36;1mcode=$?[0m
+2026-11-25T08:34:02.7459894Z [36;1mecho "$code" > ce-output/recovery-exit.txt[0m
+2026-11-25T08:34:02.7460216Z [36;1mtest -f ce-output/recovery.tsv[0m
+2026-11-25T08:34:02.7493535Z shell: /usr/bin/bash -e {0}
+2026-11-25T08:34:02.7493793Z env:
+2026-11-25T08:34:02.7494007Z   OPENBLAS_NUM_THREADS: 4
+2026-11-25T08:34:02.7494242Z   OMP_NUM_THREADS: 4
+2026-11-25T08:34:02.7494458Z   PYTHONUNBUFFERED: 1
+2026-11-25T08:34:02.7494741Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:34:02.7495192Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.18/x64/lib/pkgconfig
+2026-11-25T08:34:02.7495619Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:34:02.7496034Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:34:02.7496415Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:34:02.7496818Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.18/x64/lib
+2026-11-25T08:34:02.7497136Z ##[endgroup]
+2026-11-25T08:34:13.9525614Z PASS: 578
+2026-11-25T08:34:13.9525981Z MISSING: 0
+2026-11-25T08:34:13.9526263Z MISMATCH: 0
+2026-11-25T08:34:13.9526728Z Reports: ce-output/recovery.tsv ce-output/recovery_archives.tsv
+2026-11-25T08:34:13.9527640Z Recorded ledger only; not a full source replay or proof of dependency closure.
+2026-11-25T08:34:13.9655782Z ##[group]Run set -o pipefail
+2026-11-25T08:34:13.9656120Z [36;1mset -o pipefail[0m
+2026-11-25T08:34:13.9656577Z [36;1mpython ce-output/pristine/cr_int_t1d_ca/bx_restrict.py --fixed | tee ce-output/ca-even.log[0m
+2026-11-25T08:34:13.9657274Z [36;1mpython ce-output/pristine/cr_int_t1d_ca_odd/bv_joint_trial.py odd --fixed | tee ce-output/ca-odd.log[0m
+2026-11-25T08:34:13.9657962Z [36;1mpython ce-output/pristine/cr_int_t1d_cb/cb_matrix.py --fixed | tee ce-output/cb.log[0m
+2026-11-25T08:34:13.9691535Z shell: /usr/bin/bash -e {0}
+2026-11-25T08:34:13.9691831Z env:
+2026-11-25T08:34:13.9692037Z   OPENBLAS_NUM_THREADS: 4
+2026-11-25T08:34:13.9692281Z   OMP_NUM_THREADS: 4
+2026-11-25T08:34:13.9692509Z   PYTHONUNBUFFERED: 1
+2026-11-25T08:34:13.9692805Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:34:13.9693261Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.18/x64/lib/pkgconfig
+2026-11-25T08:34:13.9693747Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:34:13.9694141Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:34:13.9694527Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:34:13.9694914Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.18/x64/lib
+2026-11-25T08:34:13.9695240Z ##[endgroup]
+2026-11-25T08:34:14.7163827Z U tail 2.339246469854404e-09 Bvu error 1.6829398263496737e-06 Bu error 6.844766842173534e-08 B2u error 1.4095123025309236e-06
+2026-11-25T08:34:14.7167883Z trial even Cnorm 1.003329454892 head 9.442035014665083e-05 allow 0.0072570135791951386 lower 0.9229629864208049 central eigenvalues skipped fixed
+2026-11-25T08:34:14.7175537Z restricted even 1 normalized lower 0.9229629864206749
+2026-11-25T08:34:15.1530208Z U tail 6.450382235895975e-09 Bvu error 5.8507651761704474e-06 Bu error 1.8874612104279452e-07 B2u error 3.0880634028378e-06
+2026-11-25T08:34:15.1540394Z trial even Cnorm 1.0068207422065487 head 0.00046863990133120875 allow 0.019602547350389292 lower 0.5498874526496107 central eigenvalues skipped fixed
+2026-11-25T08:34:15.1555981Z restricted even 2 normalized lower 0.5498874526488997
+2026-11-25T08:34:15.7085068Z U tail 3.9504316811974104e-08 Bvu error 3.3033303360565774e-05 Bu error 1.1559094203094286e-06 B2u error 1.351844671271926e-05
+2026-11-25T08:34:15.7104859Z trial even Cnorm 1.006821785867983 head 0.0009487297330590033 allow 0.06323759132799672 lower 0.2854024086720033 central eigenvalues skipped fixed
+2026-11-25T08:34:15.7122493Z restricted even 3 normalized lower 0.2854024086714804
+2026-11-25T08:34:21.7537912Z U tail 2.6042470828897326e-07 Bvu error 0.0001627077122672714 Bu error 7.620186671053844e-06 B2u error 0.00011214506638336842
+2026-11-25T08:34:21.8081062Z trial odd Cnorm 1.0 head 0.0061059427528884925 allow 0.0961223012699915 lower -0.08913230126999148 central eigenvalues skipped fixed
+2026-11-25T08:34:21.8391115Z direct rotated 1 0.9031876987240449
+2026-11-25T08:34:21.8904221Z direct rotated 2 0.8970976987228413
+2026-11-25T08:34:21.9717809Z direct rotated 3 0.8856276987226723
+2026-11-25T08:34:22.0864857Z direct rotated 4 0.8772976987224923
+2026-11-25T08:34:22.2384414Z direct rotated 5 0.8125276987224858
+2026-11-25T08:34:22.4309741Z direct rotated 6 0.757137698722722
+2026-11-25T08:34:22.6679013Z direct rotated 7 0.7307776987225044
+2026-11-25T08:34:22.9531909Z direct rotated 8 0.570357698723832
+2026-11-25T08:34:23.2902845Z direct rotated 9 0.4786576987243983
+2026-11-25T08:34:23.6832772Z direct rotated 10 0.38066769872542944
+2026-11-25T08:34:24.1371156Z direct rotated 11 0.1530776987278319
+2026-11-25T08:34:24.6534919Z direct rotated 12 -0.0891323012705026
+2026-11-25T08:34:24.6538292Z fixed PASS 11 0.1530776987278319
+2026-11-25T08:34:28.9589815Z U tail 2.6042470828897326e-07 Bvu error 0.0001627077122672714 Bu error 7.620186671053844e-06 B2u error 0.00011214506638336842
+2026-11-25T08:34:29.0233079Z trial odd Cnorm 1.2700257861754036 head 0.0062586284276474865 allow 0.1267031548508965 lower -0.1191331548508965 central eigenvalues skipped fixed
+2026-11-25T08:34:29.0548175Z opt rotated 1 0.8726068451430106
+2026-11-25T08:34:29.1059701Z opt rotated 2 0.8665168451428573
+2026-11-25T08:34:29.1874959Z opt rotated 3 0.8550468451425203
+2026-11-25T08:34:29.3072268Z opt rotated 4 0.8467468451420846
+2026-11-25T08:34:29.4612067Z opt rotated 5 0.7819468451419964
+2026-11-25T08:34:29.6585928Z opt rotated 6 0.726646845141869
+2026-11-25T08:34:29.8973513Z opt rotated 7 0.7002368451420268
+2026-11-25T08:34:30.1861579Z opt rotated 8 0.5398368451433007
+2026-11-25T08:34:30.5282721Z opt rotated 9 0.4481168451437782
+2026-11-25T08:34:30.9217651Z opt rotated 10 0.35047684514464544
+2026-11-25T08:34:31.3744535Z opt rotated 11 0.12306684514700258
+2026-11-25T08:34:31.8905516Z opt rotated 12 -0.11913315485161703
+2026-11-25T08:34:31.8909363Z fixed PASS 11 0.12306684514700258
+2026-11-25T08:34:37.8921229Z base uniform finite error 2.3510140981970423e-08 dd 0.0004099030419970696 tail errors 1.5397987955611638e-08 5.949100011912738e-12 2.824050114094984e-10
+2026-11-25T08:34:37.9400849Z parameters [Fraction(1, 50), Fraction(4, 1), Fraction(1, 175)] head upper 0.005018979418162364 exact lower 0.04506999999971855
+2026-11-25T08:34:37.9402299Z fixed PASS
+2026-11-25T08:34:37.9792010Z ##[group]Run set -o pipefail
+2026-11-25T08:34:37.9792350Z [36;1mset -o pipefail[0m
+2026-11-25T08:34:37.9792646Z [36;1mcp custody/ce/cd_secant.py ce-output/pristine/[0m
+2026-11-25T08:34:37.9793039Z [36;1mcp -r custody/ce/cd_results ce-output/pristine/[0m
+2026-11-25T08:34:37.9793533Z [36;1mpython ce-output/pristine/cd_secant.py even --fixed | tee ce-output/cd-even.log[0m
+2026-11-25T08:34:37.9794113Z [36;1mpython ce-output/pristine/cd_secant.py odd --fixed | tee ce-output/cd-odd.log[0m
+2026-11-25T08:34:37.9827520Z shell: /usr/bin/bash -e {0}
+2026-11-25T08:34:37.9827783Z env:
+2026-11-25T08:34:37.9827983Z   OPENBLAS_NUM_THREADS: 4
+2026-11-25T08:34:37.9828214Z   OMP_NUM_THREADS: 4
+2026-11-25T08:34:37.9828429Z   PYTHONUNBUFFERED: 1
+2026-11-25T08:34:37.9828724Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:34:37.9829180Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.18/x64/lib/pkgconfig
+2026-11-25T08:34:37.9829643Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:34:37.9830032Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:34:37.9830411Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:34:37.9830802Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.18/x64/lib
+2026-11-25T08:34:37.9831141Z ##[endgroup]
+2026-11-25T08:34:38.9787312Z base uniform finite error 8.492936983423372e-10 dd 0.00042087192833687354 tail errors 3.4612925596161857e-10 1.3576839757893017e-13 6.358087819514908e-12
+2026-11-25T08:34:41.3477259Z exact PASS even 3 164375000000000000000000/500000000000916013198983 0.32874999999939775 theta,gamma 1/15 1/65 W row upper 8.472225346140151e-06
+2026-11-25T08:34:47.4388966Z base uniform finite error 2.3510140981970423e-08 dd 0.0004099030419970696 tail errors 1.5397987955611638e-08 5.949100011912738e-12 2.824050114094984e-10
+2026-11-25T08:35:08.1648280Z exact PASS odd 12 49270000000000000000000/1000000000006244646926501 0.049269999999692324 theta,gamma 1/41 1/175 W row upper 5.634798602268931e-05
+2026-11-25T08:35:08.2133632Z ##[group]Run set -o pipefail
+2026-11-25T08:35:08.2133957Z [36;1mset -o pipefail[0m
+2026-11-25T08:35:08.2134221Z [36;1mpython custody/ce/prepare_four.py[0m
+2026-11-25T08:35:08.2134689Z [36;1mpython ce-output/trial4/cr_int_t1d_ca/bx_prepare.py | tee ce-output/four-prepare.log[0m
+2026-11-25T08:35:08.2135413Z [36;1mfor n in 0 1 2; do python ce-output/trial4/cr_int_t1d_ca/bu_circle.py "$n" | tee "ce-output/four-circle-$n.log"; done[0m
+2026-11-25T08:35:08.2136096Z [36;1mpython ce-output/trial4/cr_int_t1d_ca/bx_combine.py | tee ce-output/four-combine.log[0m
+2026-11-25T08:35:08.2136745Z [36;1mpython ce-output/trial4/cr_int_t1d_ca/bv_joint_action.py even 2048 | tee ce-output/four-action.log[0m
+2026-11-25T08:35:08.2169187Z shell: /usr/bin/bash -e {0}
+2026-11-25T08:35:08.2169625Z env:
+2026-11-25T08:35:08.2169823Z   OPENBLAS_NUM_THREADS: 4
+2026-11-25T08:35:08.2170060Z   OMP_NUM_THREADS: 4
+2026-11-25T08:35:08.2170278Z   PYTHONUNBUFFERED: 1
+2026-11-25T08:35:08.2170606Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:35:08.2171050Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.18/x64/lib/pkgconfig
+2026-11-25T08:35:08.2171780Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:35:08.2172162Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:35:08.2172545Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:35:08.2172943Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.18/x64/lib
+2026-11-25T08:35:08.2173286Z ##[endgroup]
+2026-11-25T08:35:08.3082872Z FOUR COLUMN SCRATCH PREPARED
+2026-11-25T08:35:09.5602961Z representation PASS 12495 max error 1.521917095496994e-08
+2026-11-25T08:35:22.6363228Z raw part PASS 0 8192 12.87
+2026-11-25T08:35:35.6810110Z raw part PASS 1 8192 12.9
+2026-11-25T08:35:38.3242335Z raw part PASS 2 1605 2.5
+2026-11-25T08:35:39.3252145Z joint Gram diagonal [0.00067434 0.00317582 0.00490577 0.00024702] max Gram row error 2.8460375572053445e-10
+2026-11-25T08:35:50.6575072Z exact directed Uaction PASS even 16384 2048 2048 max A error 379
+2026-11-25T08:35:50.6940104Z ##[group]Run set -o pipefail
+2026-11-25T08:35:50.6940418Z [36;1mset -o pipefail[0m
+2026-11-25T08:35:50.6940802Z [36;1mpython ce-output/trial4/ce_four.py even | tee ce-output/four-comparison.log[0m
+2026-11-25T08:35:50.6941240Z [36;1mcd ce-output/trial4[0m
+2026-11-25T08:35:50.6942639Z [36;1msha256sum ce_four.py cr_int_t1d_ca/bx_prepare.py cr_int_t1d_ca/bu_trial.npz cr_int_t1d_ca/even_joint_proposal.npz cr_int_t1d_ca/raw_part*.npz cr_int_t1d_ca/joint_circle.npz cr_int_t1d_ca/even_joint_Uaction.npz cd_results/even.json > ../four-generated.sha256[0m
+2026-11-25T08:35:50.6977077Z shell: /usr/bin/bash -e {0}
+2026-11-25T08:35:50.6977323Z env:
+2026-11-25T08:35:50.6977523Z   OPENBLAS_NUM_THREADS: 4
+2026-11-25T08:35:50.6977772Z   OMP_NUM_THREADS: 4
+2026-11-25T08:35:50.6977989Z   PYTHONUNBUFFERED: 1
+2026-11-25T08:35:50.6978273Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:35:50.6978719Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.18/x64/lib/pkgconfig
+2026-11-25T08:35:50.6979191Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:35:50.6979567Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:35:50.6979948Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:35:50.6980331Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.18/x64/lib
+2026-11-25T08:35:50.6980651Z ##[endgroup]
+2026-11-25T08:35:51.8663529Z base uniform finite error 8.874073677150032e-10 dd 0.0004818260127172602 tail errors 3.6775896607302305e-10 1.4859897269846575e-13 6.9711634521962396e-12
+2026-11-25T08:35:55.9281248Z float proposal (np.float64(-0.005596297902998891), (Fraction(1, 14), Fraction(1, 40)))
+2026-11-25T08:35:55.9353350Z exact comparison INCONCLUSIVE even 4 -7/1250 -0.0056 theta,gamma 1/14 1/40 W row upper 8.997293438286657e-06
+2026-11-25T08:35:55.9824231Z ##[group]Run actions/upload-artifact@v4
+2026-11-25T08:35:55.9824718Z with:
+2026-11-25T08:35:55.9824927Z   name: t1d-ce-replay-evidence
+2026-11-25T08:35:55.9826473Z   path: ce-output/*.tsv
+ce-output/*.txt
+ce-output/*.log
+ce-output/*.sha256
+ce-output/trial4/ce_four.py
+ce-output/trial4/cd_results/even.json
+ce-output/trial4/cr_int_t1d_ca/bx_prepare.py
+ce-output/trial4/cr_int_t1d_ca/bu_trial.npz
+ce-output/trial4/cr_int_t1d_ca/even_joint_proposal.npz
+ce-output/trial4/cr_int_t1d_ca/raw_part*.npz
+ce-output/trial4/cr_int_t1d_ca/joint_circle.npz
+ce-output/trial4/cr_int_t1d_ca/even_joint_Uaction.npz
+
+2026-11-25T08:35:55.9828039Z   retention-days: 90
+2026-11-25T08:35:55.9828264Z   if-no-files-found: warn
+2026-11-25T08:35:55.9828498Z   compression-level: 6
+2026-11-25T08:35:55.9828726Z   overwrite: false
+2026-11-25T08:35:55.9828938Z   include-hidden-files: false
+2026-11-25T08:35:55.9829168Z env:
+2026-11-25T08:35:55.9829564Z   OPENBLAS_NUM_THREADS: 4
+2026-11-25T08:35:55.9829827Z   OMP_NUM_THREADS: 4
+2026-11-25T08:35:55.9830041Z   PYTHONUNBUFFERED: 1
+2026-11-25T08:35:55.9830319Z   pythonLocation: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:35:55.9830752Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.13.18/x64/lib/pkgconfig
+2026-11-25T08:35:55.9831178Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:35:55.9831787Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:35:55.9832168Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.13.18/x64
+2026-11-25T08:35:55.9832552Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.13.18/x64/lib
+2026-11-25T08:35:55.9832880Z ##[endgroup]
+2026-11-25T08:35:56.1578721Z (node:2630) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-25T08:35:56.1579679Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-25T08:35:56.1924640Z With the provided path, there will be 28 files uploaded
+2026-11-25T08:35:56.1926690Z Artifact name is valid!
+2026-11-25T08:35:56.1927313Z Root directory input is valid!
+2026-11-25T08:35:56.5950859Z Beginning upload of artifact content to blob storage
+2026-11-25T08:35:56.8114126Z (node:2630) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-25T08:35:57.6742595Z Uploaded bytes 4933051
+2026-11-25T08:35:57.7569228Z Finished uploading artifact content to blob storage!
+2026-11-25T08:35:57.7570210Z SHA256 digest of uploaded artifact zip is 14135613dfa8dcabd2af7656aa62d71ab87c3191169326bea7a80637c57878e1
+2026-11-25T08:35:57.7571586Z Finalizing artifact upload
+2026-11-25T08:35:58.1584546Z Artifact t1d-ce-replay-evidence.zip successfully finalized. Artifact ID 15005431318
+2026-11-25T08:35:58.1585921Z Artifact t1d-ce-replay-evidence has been successfully uploaded! Final size is 4933051 bytes. Artifact ID is 15005431318
+2026-11-25T08:35:58.1592513Z Artifact download URL: https://github.com/monocap-tech/canonical-return/actions/runs/45576917807/artifacts/15005431318
+2026-11-25T08:35:58.1806390Z Post job cleanup.
+2026-11-25T08:35:58.3094182Z (node:2643) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-25T08:35:58.3095372Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-25T08:35:58.3313902Z Post job cleanup.
+2026-11-25T08:35:58.4325143Z [command]/usr/bin/git version
+2026-11-25T08:35:58.4381272Z git version 2.56.1
+2026-11-25T08:35:58.4451501Z Temporarily overriding HOME='/home/runner/work/_temp/5e24c10f-9e4b-460f-8a1f-657326f48d2c' before making global git config changes
+2026-11-25T08:35:58.4453274Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-25T08:35:58.4454562Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/canonical-return/canonical-return
+2026-11-25T08:35:58.4512709Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-25T08:35:58.4583751Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-25T08:35:58.5046103Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-25T08:35:58.5092708Z http.https://github.com/.extraheader
+2026-11-25T08:35:58.5116084Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-25T08:35:58.5169691Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-25T08:35:58.5553620Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-25T08:35:58.5599446Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-25T08:35:58.6047693Z Cleaning up orphan processes
+2026-11-25T08:35:58.6417029Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/setup-python@v5, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
