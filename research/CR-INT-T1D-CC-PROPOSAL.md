@@ -1,0 +1,5 @@
+# CC — recovered analytical proposal only (not an executed gate)
+
+CB uses two separately bounded omitted circular arithmetic cross terms. For exact same-space tail coefficient maps v_T,u_T,h_T and self-adjoint signed multiplier J=mI+D with ||D||<=r, the sum of the two genuine terms is -2 Re <Ju_T,v_T+h_T>. With w_T=v_T+h_T, the exact identity and Young's inequality give
+-2 Re <Ju_T,w_T> <= -2m Re <u_T,w_T> + r(theta ||w_T||²+theta^-1 ||u_T||²), theta>0.
+For matrix-valued coefficient maps, W_T=V_T+H_T+X_T+X_T*, X_T=v_T* h_T. This is a Loewner comparison, retaining directional overlap. It requires a verified enclosure of both W_T and the combined midpoint cross Gram, in the same omitted coefficient space, and all inherited signed energy, physical inverse/exterior and action-tail errors. Improvement is not guaranteed. Test against CB's existing separate-tail method. No new computation, accepted even fourth direction, or odd thirteenth direction. CC conditional target 224; actual frontier remains 225. Custody closure blocks promotion.

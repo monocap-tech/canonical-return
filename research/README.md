@@ -1,3 +1,7 @@
+# Current custody and research frontier
+
+**CB — conditional negative index <=225; CC not executed.** See [complete custody reconciliation](../custody/README.md), [stage note index](../custody/T1D-stage-notes.tsv), [CB](CR-INT-T1D-CB.md), and [CC analytical proposal](CR-INT-T1D-CC-PROPOSAL.md). The historical index below is retained as historical context, not the current frontier.
+
 # Canonical Return — Phase T1D research index
 
 **Scope:** original signed Weil form on selected, two-Mellin-pole-null, four-cell source families at support radius \(a=2\). These notes are **analytical research** with independent finite symbolic/rational checks, **not Lean-certified, not complete operator-domain comparisons, not global Weil positivity, and not RH**. The public repository's `main` branch remains unchanged until independent review of [draft PR #2](https://github.com/monocap-tech/canonical-return/pull/2).
