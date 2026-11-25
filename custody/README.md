@@ -15,3 +15,7 @@ CA-CB-terminal-matrices.json contains actual extracted conservative shifted comp
 
 ## Stop rule
 No CC numerical promotion until transitive input bytes, source scripts, data, failures, exact commands and environment are recovered and hash-verified. A new full recovery audit must inventory dependencies recursively, preserve them outside a transient workspace, and perform original fixed checks and source replay from a clean checkout. Do not silently drop a failed trial. New work must record both mathematical and custody dispositions.
+
+## Repository readback verification
+
+The full [578-entry missing inherited dependency ledger](missing_inherited.tsv) is now stored directly in Git, with byte-exact SHA-256 `6d8e153678078ef716aebafc28c4e4b64ad5c2ad3873e9bfaa5521aaf4645844` checked before upload and after repository readback (commit `be7dd4b296807c9a6c480b22659174d6703d93cb`). The five terminal matrices were independently read back from commit `9e8b7e1919d55593d374bc0df2237a160d860218` and all 29 leading principal minors passed fraction-free exact integer Bareiss elimination. These are connector readback checks, not GitHub Actions or source-level replay. Archive bytes remain outside Git and full custody remains open.
