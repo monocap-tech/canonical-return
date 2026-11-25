@@ -3,6 +3,9 @@ on:
   push:
     branches: [research/master-return-088-audit]
     paths: ['.github/workflows/master-return-088.yml']
+  pull_request:
+    branches: [research/master-return-083-087-archive-custody]
+    paths: ['.github/workflows/master-return-088.yml']
   workflow_dispatch:
 permissions:
   contents: read
