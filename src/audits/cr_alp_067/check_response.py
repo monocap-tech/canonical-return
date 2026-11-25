@@ -36,6 +36,10 @@ for row,j in zip(di,range(86,N+1,2)):
     i,l,h=row.split();assert int(i)==j and F(l)==F(h)==dg(j)
 s=F(21,8);dmin=dg(86)-s;dtail=dg(N+1)-s
 assert dmin>0 and dtail>=dmin
+assert all(dg(bands[i]['j'])<=dg(bands[i+1]['j']) for i in range(len(bands)-1))
+# Reproduced proxy norm must overlap the archived source norm interval.
+G=tuple(map(F,old['proxy_G']))
+assert max(G[0],r['G'][0])<=min(G[1],r['G'][1])
 assert all(dg(j+2)>=dg(j) for j in range(86,N,2))
 assert r['pole_st'][0]>F(3,1000)
 # Q85 projection of the unprojected residual y: remove low sines and orthogonal pole bridge.
