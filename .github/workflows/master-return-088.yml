@@ -1,0 +1,72 @@
+name: MASTER-RETURN-088 archive reconstruction
+on:
+  push:
+    branches: [research/master-return-088-audit]
+    paths: ['.github/workflows/master-return-088.yml']
+  pull_request:
+    branches: [research/master-return-083-087-archive-custody]
+    paths: ['.github/workflows/master-return-088.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Authenticate and reconstruct frozen archives
+        shell: bash
+        run: |
+          bash archive/master-return/reconstruct.sh "$RUNNER_TEMP/return-archives"
+          python - <<'PY'
+          import os, pathlib, zipfile, json
+          root = pathlib.Path(os.environ['RUNNER_TEMP']) / 'return-archives'
+          receipt = {}
+          for name in ('RETURN083_reproduction.zip','RETURN084_audit.zip','RETURN086_audit.zip','RETURN087_audit.zip'):
+              p = root / name
+              with zipfile.ZipFile(p) as z:
+                  bad = z.testzip()
+                  if bad is not None:
+                      raise RuntimeError((name, bad))
+                  receipt[name] = {'bytes':p.stat().st_size,'members':len(z.infolist()),'names':z.namelist()}
+                  print(name, p.stat().st_size, len(z.infolist()), 'CRC PASS')
+                  for n in z.namelist():
+                      if n.endswith(('.py','.md')):
+                          print(n)
+          (root / 'archive_inventory.json').write_text(json.dumps(receipt,indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: return088-archive-inventory
+          path: ${{ runner.temp }}/return-archives/archive_inventory.json
+  odd-tail-gram:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reconstruct authenticated archives and install verifier dependencies
+        run: |
+          bash archive/master-return/reconstruct.sh "$RUNNER_TEMP/return-archives"
+          mkdir -p "$RUNNER_TEMP/return-work"
+          python -m zipfile -e "$RUNNER_TEMP/return-archives/RETURN083_reproduction.zip" "$RUNNER_TEMP/return-work"
+          python -m pip install numpy scipy mpmath
+          python -m py_compile research/master-return-088/audit_tail_gram.py
+      - name: Independently reconstruct and compare odd augmented Gram
+        env:
+          PYTHONINTMAXSTRDIGITS: '0'
+          OPENBLAS_NUM_THREADS: '1'
+        run: |
+          python research/master-return-088/audit_tail_gram.py "$RUNNER_TEMP/return-work" "$RUNNER_TEMP/return088-results"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: return088-odd-tail-gram
+          path: ${{ runner.temp }}/return088-results/
