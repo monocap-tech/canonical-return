@@ -1,0 +1,3 @@
+base uniform finite error 9.3154567102774e-10 dd 0.0004818260127172602 tail errors 3.6775896607302305e-10 2.0261867898037162e-13 9.736216375463158e-12
+float proposal (np.float64(-0.003861531044353851), (Fraction(1, 11), Fraction(1, 40)))
+exact comparison INCONCLUSIVE even 4 -387/100000 -0.00387 theta,gamma 1/11 1/40 W row upper 6.64704533973069e-06
