@@ -1,0 +1,1 @@
+CE runner: reconstruct all 56 original ZIPs, verify eight independently pinned archive hashes, audit 578 inherited paths, replay CA/CB/CD and regenerate the four-column even trial. A failed lower comparison is inconclusive. No promotion until exact output and generated artifacts are read back and durably stored. This push starts the runner on the isolated CE branch.
