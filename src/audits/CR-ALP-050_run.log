@@ -1,0 +1,43 @@
+gamma floor 72/25 scalar remainder 51/200
+interval coefficients 20
+interval coefficients 40
+interval coefficients 60
+interval coefficients 80
+interval coefficients 100
+interval coefficients 120
+interval coefficients 140
+interval coefficients 160
+interval coefficients 180
+interval coefficients 200
+interval coefficients 220
+interval coefficients 240
+interval coefficients 260
+interval coefficients 280
+interval coefficients 300
+interval coefficients 320
+interval coefficients 340
+interval coefficients 360
+interval coefficients 380
+interval coefficients 400
+interval coefficients 420
+interval coefficients 440
+interval coefficients 460
+interval coefficients 480
+interval coefficients 500
+interval coefficients 520
+interval coefficients 540
+interval coefficients 560
+interval coefficients 580
+interval coefficients 600
+parity 1 coefficient matrices built
+parity 1 old/new min eigen diagnostic 0.38737295991748455 0.293685750444056
+parity 1 finite energy margin 1/4 43
+parity 1 trial residual upper 2.7125642786201973e-27 checked residual row upper 0.5149947169681073
+parity 1 checked-band min diagnostic -0.427742897039301 pivots 12
+exact negative witness -0.42774289703918256
+parity 2 coefficient matrices built
+parity 2 old/new min eigen diagnostic 0.2594725270292435 0.2013114649933762
+parity 2 finite energy margin 1/8 42
+parity 2 trial residual upper 8.521160815506571e-27 checked residual row upper 0.6924596155949795
+parity 2 checked-band min diagnostic -1.0027022528670408 pivots 12
+exact negative witness -1.002702252867781
