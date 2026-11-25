@@ -1,0 +1,46 @@
+name: CR-ALP-074 balanced rank-20 source bank
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/cr-alp-074-source.yml'
+      - 'src/audits/cr_alp_074_*.py'
+permissions:
+  contents: read
+jobs:
+  source-bank:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate predecessor and construct two parity banks
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp074
+          mkdir -p "$P"
+          python3 src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+          python3 -m zipfile -e "$P/package.zip" "$P"
+          python3 src/audits/cr_alp_074_source_bank.py "$P" "$P/bank"
+      - name: Validate actual selected-source absolute coefficient and geometry budgets
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp074
+          cp -a "$P/cr_alp_058" "$P/check"
+          for f in "$P"/bank/input_*.txt; do
+            k=$(basename "$f" | cut -d_ -f2)
+            cp "$P/cr_alp_058/input_1.txt" "$P/check/input_1.txt"
+            cp "$P/cr_alp_058/input_2.txt" "$P/check/input_2.txt"
+            cp "$f" "$P/check/input_${k}.txt"
+            echo "BEGIN $(basename "$f")"
+            python3 "$P/check/validate_geometry.py"
+            echo "END $(basename "$f")"
+          done
+          cd "$P/bank"
+          sha256sum selection.json source_bank.json input_*.txt > SHA256SUMS
+          sha256sum -c SHA256SUMS
+          cat SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CR-ALP-074-balanced-source-bank
+          path: /tmp/cr-alp074/bank/
+          if-no-files-found: error
+          retention-days: 90
