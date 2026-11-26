@@ -105,7 +105,21 @@ def pick(bank,parent,label):
 f87=load(r87/'finite_bank.json');b87=load(r87/'band_1.json')
 print('RETURN087 finite root keys',list(f87) if isinstance(f87,dict) else type(f87).__name__,flush=True)
 print('RETURN087 band root keys',list(b87) if isinstance(b87,dict) else type(b87).__name__,flush=True)
-early,pe=pick(f87,base.c,'cumulative 2192 actual rows')
+# RETURN079 keeps TT/U in its parity blocks but the odd restoration
+# matrix at the top level. Bind all three to the same archive object.
+assert isinstance(base.c['blocks'],list) and len(base.c['blocks'])==2
+early_parent=dict(base.c['blocks'][1],restoration_cross=base.c['restoration_cross'])
+def describe(o,path=(),depth=0):
+ if depth>4:return
+ if isinstance(o,dict):
+  print('schema',path,list(o),flush=True)
+  for k,v in o.items():
+   if k not in keys and isinstance(v,(dict,list)):describe(v,path+(str(k),),depth+1)
+ elif isinstance(o,list) and o and isinstance(o[0],dict):
+  for i,v in enumerate(o):describe(v,path+(str(i),),depth+1)
+describe(f87,('finite',));describe(b87,('band',))
+print('parent odd schema',list(early_parent),list(base.new['blocks'][1]),list(base.gap['blocks'][1]),flush=True)
+early,pe=pick(f87,early_parent,'cumulative 2192 actual rows')
 late,pl=pick(f87,base.new['blocks'][1],'increment 5919 actual rows')
 band,pb=pick(b87,base.gap['blocks'][1],'8192 weighted feature rows')
 assert pe!=pl
