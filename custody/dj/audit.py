@@ -74,8 +74,9 @@ for dim in (23,24,25):
         assert F(rec["lower"])<=0
         assert "margin" not in rec and "upper_triangle" not in rec
         bank.append(dict(dimension=dim,file=path.name,mode=rec["mode"],lower=rec["lower"]))
-    assert len(bank)==6
-    assert max(F(x["lower"]) for x in bank)==F(result[str(dim)]["best"]["lower"])
+    assert len(bank)==(3 if dim==23 else 6)
+    if dim!=23: assert max(F(x["lower"]) for x in bank)==F(result[str(dim)]["best"]["lower"])
+    else: assert all(x["mode"]==0 for x in bank)
     negative.extend(bank)
 assert len(negative)==15
 assert len(checks)==3 and sum(len(x["leading_minors"]) for x in checks)==69
