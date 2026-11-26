@@ -27,7 +27,9 @@ jobs:
               z.extractall('/tmp/alp122c')
           PY
           cd /tmp/alp122c
-          for stage in 056 057 058; do (cd "cr_alp_$stage"; sha256sum -c SHA256SUMS); done
+          # 056 and 057 manifests are archive-root-relative; 058 is stage-relative.
+          for stage in 056 057; do sha256sum -c "cr_alp_$stage/SHA256SUMS"; done | tee /tmp/alp122c-evidence/manifest.log
+          (cd cr_alp_058; sha256sum -c SHA256SUMS) | tee -a /tmp/alp122c-evidence/manifest.log
       - name: Replay exact source and physical correction generators
         run: |
           set -euo pipefail
