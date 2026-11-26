@@ -1,0 +1,770 @@
+{
+  "status": "SOURCE_ONLY",
+  "entries": [
+    {
+      "parity": "1",
+      "coordinate_zero_based": 0,
+      "norm2": "1",
+      "file": "input_1_0.txt",
+      "sha256": "7e5b9452487bcb386a9d54edc4ff0f9bf02f6a87ae492d6ff4aa7bb6b52c5ebf",
+      "omitted_group_midpoint_norm_upper": "95338572897713077470550081/2500000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 34,
+      "norm2": "1",
+      "file": "input_1_34.txt",
+      "sha256": "e26ae0de1c9b31484a597b1fbcc166938149c37b34b620fd0f32506233aed4e8",
+      "omitted_group_midpoint_norm_upper": "299818982226472584952176369/2000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 25,
+      "norm2": "1",
+      "file": "input_1_25.txt",
+      "sha256": "9976204c709a7a0b4974b58df78c21d5d67f0e52ecdd6cb52d07bf4f0ff69960",
+      "omitted_group_midpoint_norm_upper": "1104432927783133760676215007/5000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 35,
+      "norm2": "1",
+      "file": "input_1_35.txt",
+      "sha256": "83cf475362c7370d3b7bd6f444a35b47483c87415d5e304a89732f408a88b706",
+      "omitted_group_midpoint_norm_upper": "1009821344843602416802005059/5000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 1,
+      "norm2": "1",
+      "file": "input_1_1.txt",
+      "sha256": "ba97f2fc63f992028c1aab22f5f3d0c8b544db4011a5e52daa4bd88a69dfb60b",
+      "omitted_group_midpoint_norm_upper": "695698294034827267495690273/5000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 22,
+      "norm2": "1",
+      "file": "input_1_22.txt",
+      "sha256": "e17cb7b71e870f631823b6c0c5e07990aa863822563b26d29ff17d6facc029e4",
+      "omitted_group_midpoint_norm_upper": "365269095253931216807844377/625000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 32,
+      "norm2": "1",
+      "file": "input_1_32.txt",
+      "sha256": "0be7172a7cff2c71e27b259108f6adad1e32c0dfdc3ad764536b53b5819419ee",
+      "omitted_group_midpoint_norm_upper": "6037442084083544969251860479/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 39,
+      "norm2": "1",
+      "file": "input_1_39.txt",
+      "sha256": "ccc380d7d724ef4bf52628f820f9e656453a78e494fdf77b595d603509d9df41",
+      "omitted_group_midpoint_norm_upper": "1165088359836870437555275377/2500000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 2,
+      "norm2": "1",
+      "file": "input_1_2.txt",
+      "sha256": "3dfc57f0230781441b6769c6b4607b18a95c03685b9bbd900ca1608b278ac77f",
+      "omitted_group_midpoint_norm_upper": "1095834191872766872262954599/5000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 40,
+      "norm2": "1",
+      "file": "input_1_40.txt",
+      "sha256": "4cf27f362be1f2b73bdcf5e50110216afa16960ede5b5f740eef7f703f4cd2a7",
+      "omitted_group_midpoint_norm_upper": "3919683974386762493229743033/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 29,
+      "norm2": "1",
+      "file": "input_1_29.txt",
+      "sha256": "80d713f3245de7d9728f21d11eea46057bea85adf604c7bafd83bb9a82d0961b",
+      "omitted_group_midpoint_norm_upper": "1105613681470560431982204909/1250000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 3,
+      "norm2": "1",
+      "file": "input_1_3.txt",
+      "sha256": "4e10ad35c331487c5672e4a317cf167076c1dad9b74d069330e51bd9c858f942",
+      "omitted_group_midpoint_norm_upper": "2641113479328152334902442551/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 14,
+      "norm2": "1",
+      "file": "input_1_14.txt",
+      "sha256": "c8431a257cd0f70aebf2c4829b1c9f2c783d35ade44326320c14cebef349af48",
+      "omitted_group_midpoint_norm_upper": "1528177971937997202314274421/1250000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 33,
+      "norm2": "1",
+      "file": "input_1_33.txt",
+      "sha256": "a412f4a1af9eb06f533b14f1e83c47b6dce752004bb4e002dd373b901fc2643e",
+      "omitted_group_midpoint_norm_upper": "2015883378522124791881132891/2000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 41,
+      "norm2": "1",
+      "file": "input_1_41.txt",
+      "sha256": "7ef18319913d0368c92acec42f6ee3a6aacf32b2a17deff8c0e3bcaa950b0bfd",
+      "omitted_group_midpoint_norm_upper": "1096990295430576717526295941/2500000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 4,
+      "norm2": "1",
+      "file": "input_1_4.txt",
+      "sha256": "a4be9923197f491942135f22269c6bd1bc4412bf88e6411cd8b14d3524534b1d",
+      "omitted_group_midpoint_norm_upper": "4135541942682843976336838411/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 36,
+      "norm2": "1",
+      "file": "input_1_36.txt",
+      "sha256": "3971c067ec0d1f9e0e0c20867cad57a28d14708b5b1f64f32c1ec34b428b382b",
+      "omitted_group_midpoint_norm_upper": "2162487314470865687048444691/2500000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 5,
+      "norm2": "1",
+      "file": "input_1_5.txt",
+      "sha256": "a47307ac9e794e43ce74c74b55cbb022202b3b33b4a3cb15ec4c3a599a4b0486",
+      "omitted_group_midpoint_norm_upper": "4551769310272447196292151653/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 21,
+      "norm2": "1",
+      "file": "input_1_21.txt",
+      "sha256": "3f7b39f0c2d53a55f181fd73bf673a510d3c5108e32b3cadb09c94be74f7cbb0",
+      "omitted_group_midpoint_norm_upper": "9092831167303864277703786337/5000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 8,
+      "norm2": "1",
+      "file": "input_1_8.txt",
+      "sha256": "92f3ba1ab7d0c231ceb02f0774307a35d20c240169fca73ef5e7b7afeea72d17",
+      "omitted_group_midpoint_norm_upper": "2902564809396473000973041203/5000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 31,
+      "norm2": "1",
+      "file": "input_1_31.txt",
+      "sha256": "b55cdd7e91c9c66e76122370a53d56217ee6505bb55a74f3358f6ed3bd7ae55b",
+      "omitted_group_midpoint_norm_upper": "15004383235835566756611682157/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 16,
+      "norm2": "1",
+      "file": "input_1_16.txt",
+      "sha256": "abf4a2f23454a76c485233ee8a97261151a7d8eabb6e47626eae76e1b3d1af0f",
+      "omitted_group_midpoint_norm_upper": "12967841421095286404291368927/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 28,
+      "norm2": "1",
+      "file": "input_1_28.txt",
+      "sha256": "2a99df5878dd154fae0efb9faa1cac91ad41aad4d52f28b33a9dbef1e798a021",
+      "omitted_group_midpoint_norm_upper": "15805197261062389923347710233/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 13,
+      "norm2": "1",
+      "file": "input_1_13.txt",
+      "sha256": "2c667c2a5c75d41a5e4b6fccb1b212cf3b1ddbfcbb68fc9bc737c52c0ba2e35d",
+      "omitted_group_midpoint_norm_upper": "1662979240671338141611413213/1250000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 38,
+      "norm2": "1",
+      "file": "input_1_38.txt",
+      "sha256": "c7d5d1b3f4b86f841442187bf2de7f458a1071082feb0af632f85ce387ae9b63",
+      "omitted_group_midpoint_norm_upper": "1110933060108153929711849483/1000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 26,
+      "norm2": "1",
+      "file": "input_1_26.txt",
+      "sha256": "de8f922d3d4917e2d7c54dea4746bc7e2ba59e04a83363c252cd08e954472177",
+      "omitted_group_midpoint_norm_upper": "131110660556808397246530281/78125000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 11,
+      "norm2": "1",
+      "file": "input_1_11.txt",
+      "sha256": "8f47375b49c90b37c3da7251efe93adb7f3cf2135794c617954d5e47018ff34a",
+      "omitted_group_midpoint_norm_upper": "4618709863632975816276246447/5000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 37,
+      "norm2": "1",
+      "file": "input_1_37.txt",
+      "sha256": "1093f17377d9b2f157ea7f3ba457f72c7d61b49b7f4751a665d179fc5cdee48b",
+      "omitted_group_midpoint_norm_upper": "11664974262874980238282357871/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 18,
+      "norm2": "1",
+      "file": "input_1_18.txt",
+      "sha256": "47b5f0c9f878acf8e0233b9afd720a0057b63ef8bbd43eacd8cdaa2987c5c9f3",
+      "omitted_group_midpoint_norm_upper": "3030990923660718950222150691/2000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 6,
+      "norm2": "1",
+      "file": "input_1_6.txt",
+      "sha256": "349c30c16fb8f471d940784a656476ea4145735dab6cf746e63319cce068bcd0",
+      "omitted_group_midpoint_norm_upper": "6642142935688024170760226703/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 15,
+      "norm2": "1",
+      "file": "input_1_15.txt",
+      "sha256": "52efabb050cc493a92ad3b8b3d6d723bd1fdeeab8f44f6cc75e5fe4055a1cb75",
+      "omitted_group_midpoint_norm_upper": "1392857084527674561036588089/1000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 27,
+      "norm2": "1",
+      "file": "input_1_27.txt",
+      "sha256": "91efb92373362d12f09c31ad9f1e0fa1a986bce9ae426fda471e12091a5a35df",
+      "omitted_group_midpoint_norm_upper": "9934345975966848655532658871/5000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 7,
+      "norm2": "1",
+      "file": "input_1_7.txt",
+      "sha256": "eb2cf6eed12784892fa960d1b0ee7bd7e396e996cc7bf9a93dc6ad6fb0df0627",
+      "omitted_group_midpoint_norm_upper": "7764883084524139026703958819/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 19,
+      "norm2": "1",
+      "file": "input_1_19.txt",
+      "sha256": "45c9da1a24dbdec06c5d9ce8c25b9609fd469d1b57a63fb72184e9ab567c40e9",
+      "omitted_group_midpoint_norm_upper": "4286241309321681652779357361/2500000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 10,
+      "norm2": "1",
+      "file": "input_1_10.txt",
+      "sha256": "bb56d579afc1a478d66bf19ad2180ae272614ad0573f395490adab1e35b64975",
+      "omitted_group_midpoint_norm_upper": "4795834803274115927928528903/5000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 42,
+      "norm2": "1",
+      "file": "input_1_42.txt",
+      "sha256": "e0f7aa91832def9a352f3749319600cdfed5ba3d551337af5206521c02b69fd3",
+      "omitted_group_midpoint_norm_upper": "270174884928726058418237145867442431/2500000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 23,
+      "norm2": "1",
+      "file": "input_1_23.txt",
+      "sha256": "edb049646f2768a57673f6cb32bee4bf971c508744538bc7f1c128b424c0a0af",
+      "omitted_group_midpoint_norm_upper": "22330224328454797174469431197/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 9,
+      "norm2": "1",
+      "file": "input_1_9.txt",
+      "sha256": "b8d557392970879679d9487d3a2b061935400a81422fcbc85fdf230d7283eb3b",
+      "omitted_group_midpoint_norm_upper": "1145428665539412254712060919/1250000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 17,
+      "norm2": "1",
+      "file": "input_1_17.txt",
+      "sha256": "9486b05d7c6b6632d38b2fe1f40fbd935fa78b2eab140279cfe30a2bb8e0d4af",
+      "omitted_group_midpoint_norm_upper": "17381890884464892147097625301/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 24,
+      "norm2": "1",
+      "file": "input_1_24.txt",
+      "sha256": "f9d90b8460c06f5ca36a0533d300aca9d0e164ee8c0de1fd9a98c0cc00cae82c",
+      "omitted_group_midpoint_norm_upper": "23559746958432107224076371749/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 20,
+      "norm2": "1",
+      "file": "input_1_20.txt",
+      "sha256": "03eb3571c529a4de51032835275d9f2f4799a614b473afa65064d0e90f5d17a7",
+      "omitted_group_midpoint_norm_upper": "21023247783789989298634404963/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 30,
+      "norm2": "1",
+      "file": "input_1_30.txt",
+      "sha256": "f744129daf1af7b77e255c3c9bee2e4b094a1e6c054892882c24174a5a66e0fa",
+      "omitted_group_midpoint_norm_upper": "25323632639324416834902250567/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "1",
+      "coordinate_zero_based": 12,
+      "norm2": "1",
+      "file": "input_1_12.txt",
+      "sha256": "29bcbd172f515a8815af06baf7275cf9057b0f9296521c14156e453e590ab6aa",
+      "omitted_group_midpoint_norm_upper": "2987285910407121293400414331/2000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 37,
+      "norm2": "1",
+      "file": "input_2_37.txt",
+      "sha256": "185d9a51218712afa45169b6069856dc360b000f4b66bfd67da08b79270bf3a0",
+      "omitted_group_midpoint_norm_upper": "130559754544524021386396417/1000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 0,
+      "norm2": "1",
+      "file": "input_2_0.txt",
+      "sha256": "3e03188b8dab7745ae269d8eda014779f4a0947a721ed3c4d96eaca377180edb",
+      "omitted_group_midpoint_norm_upper": "10677784917982092232823967/156250000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 25,
+      "norm2": "1",
+      "file": "input_2_25.txt",
+      "sha256": "1dab69d326e79bc69df1f6e169a980c7ce6c7fa95c978bd6ed83ba21cef47f69",
+      "omitted_group_midpoint_norm_upper": "1934811476596534313653347083/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 1,
+      "norm2": "1",
+      "file": "input_2_1.txt",
+      "sha256": "6b7b35bc42194ffe6b7bec63b1af2a14cc3ebe225379ee2c6c8e79e05f39fbf4",
+      "omitted_group_midpoint_norm_upper": "1746194678729259386271587/19531250000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 38,
+      "norm2": "1",
+      "file": "input_2_38.txt",
+      "sha256": "f4f6a5872c1a9c13d8376de2f22d04f542162fd0328566d69fa1dfaa917a6306",
+      "omitted_group_midpoint_norm_upper": "736462033208228237066102753/5000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 2,
+      "norm2": "1",
+      "file": "input_2_2.txt",
+      "sha256": "36f524b36aa9900be862b3edccac34b2ec6bf94c895d15cea2cf067ce7b82a8a",
+      "omitted_group_midpoint_norm_upper": "374738607328915103115553601/2500000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 27,
+      "norm2": "1",
+      "file": "input_2_27.txt",
+      "sha256": "686eede1d13cdcb925861a017f698e6356d597487f1385624543a21ccedfcc89",
+      "omitted_group_midpoint_norm_upper": "2597103832351619424432689999/5000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 3,
+      "norm2": "1",
+      "file": "input_2_3.txt",
+      "sha256": "3c1c92f2a0c8b636228700ca0f432fbdc88f5908c0599d09f646d534b2ee3104",
+      "omitted_group_midpoint_norm_upper": "2446959961119411192654019967/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 29,
+      "norm2": "1",
+      "file": "input_2_29.txt",
+      "sha256": "8ecd00958ac514ed78a0c71354f756f837820ae7f35d617b5c4fc42b15ff0964",
+      "omitted_group_midpoint_norm_upper": "208454482487547200710362831/312500000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 4,
+      "norm2": "1",
+      "file": "input_2_4.txt",
+      "sha256": "0e2f553845f41c8cde72684a4801d123b3c02287ff6af16f65d200c924879b47",
+      "omitted_group_midpoint_norm_upper": "1395743308627005712246985083/5000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 32,
+      "norm2": "1",
+      "file": "input_2_32.txt",
+      "sha256": "de38567ef69b48d5b42bd7cd7c0ce3fe215b7c3e8645798a058e0cbb42dda88c",
+      "omitted_group_midpoint_norm_upper": "6279738979047202489474290951/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 35,
+      "norm2": "1",
+      "file": "input_2_35.txt",
+      "sha256": "da37eb76931524cd553a73c3f6ca2e5cfc4bea79b1f5b75aca2d6311c298db9a",
+      "omitted_group_midpoint_norm_upper": "143943507885003952661254581/200000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 36,
+      "norm2": "1",
+      "file": "input_2_36.txt",
+      "sha256": "d7230a295fbd646adcac531c1529f9ef0fa317abdd3bbec4c9f20e0ca7ecd9ab",
+      "omitted_group_midpoint_norm_upper": "1365963792703967591481277949/5000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 13,
+      "norm2": "1",
+      "file": "input_2_13.txt",
+      "sha256": "ffd1c4000a55f0872eb209090112e8126250964f8bce7140c048452daf84d752",
+      "omitted_group_midpoint_norm_upper": "10311533102004923183240879857/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 22,
+      "norm2": "1",
+      "file": "input_2_22.txt",
+      "sha256": "e69d04807ac21f96eb9580432280f1601f1f5265b76992babcdd06e22d7a93d7",
+      "omitted_group_midpoint_norm_upper": "1500363695050239102567622469/1000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 39,
+      "norm2": "1",
+      "file": "input_2_39.txt",
+      "sha256": "36290b82ab9c5111f4632d41021b56da24e50a10bb80096ca613763371ecce4b",
+      "omitted_group_midpoint_norm_upper": "4763347505240644571002957807/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 5,
+      "norm2": "1",
+      "file": "input_2_5.txt",
+      "sha256": "fd7067523f682b71d140b4e560cd987f4801e8b0430e09d1919b878e4fe411e0",
+      "omitted_group_midpoint_norm_upper": "4444814723259954224136907841/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 6,
+      "norm2": "1",
+      "file": "input_2_6.txt",
+      "sha256": "04bf8fbb576fb5e29e16c892aebe1a7c115896dd48f9f8ff6b323edcb9794042",
+      "omitted_group_midpoint_norm_upper": "4574753392863517385473802357/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 18,
+      "norm2": "1",
+      "file": "input_2_18.txt",
+      "sha256": "ac118e4b2375aed31a38edf148efaea07d2cf68278c6206850e0f8978946e7e8",
+      "omitted_group_midpoint_norm_upper": "11966566456367391050029151761/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 33,
+      "norm2": "1",
+      "file": "input_2_33.txt",
+      "sha256": "8ef4a01092dbf52f514e724c919f41a94680af72156016bf99fe5a55aa4fc446",
+      "omitted_group_midpoint_norm_upper": "674221948189293632804297353/625000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 14,
+      "norm2": "1",
+      "file": "input_2_14.txt",
+      "sha256": "fdd1d6fc816016ec6e16ff27aedc61385414f344c44729265f8db5b8f9b814b5",
+      "omitted_group_midpoint_norm_upper": "1114676390798535118489137517/1000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 34,
+      "norm2": "1",
+      "file": "input_2_34.txt",
+      "sha256": "3ed1dcad91727b9766d2433a7bbed99b94a9508bb34d0d1578ecb5fe2ffedb6a",
+      "omitted_group_midpoint_norm_upper": "11262910672062830132184842899/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 21,
+      "norm2": "1",
+      "file": "input_2_21.txt",
+      "sha256": "58d8b1827e4ed94d9e2785798ecf9cfd5706b981dfa44a7fc058104dfcadcc30",
+      "omitted_group_midpoint_norm_upper": "3905893342683674918247472639/2500000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 31,
+      "norm2": "1",
+      "file": "input_2_31.txt",
+      "sha256": "6f3f9b4e753f13cb4bd836bfd629b86a751e57125b896af6718fb51abe151bd0",
+      "omitted_group_midpoint_norm_upper": "314721933333528606497613721/250000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 7,
+      "norm2": "1",
+      "file": "input_2_7.txt",
+      "sha256": "1b4146c725e7b9f57d7a99c8a6d8d18bec379baf9aa45850aded151fd2ed03f3",
+      "omitted_group_midpoint_norm_upper": "5812486522377809282689982211/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 40,
+      "norm2": "1",
+      "file": "input_2_40.txt",
+      "sha256": "c211fd7738249736185cca3eaa93816fa3fddcecfa3872e40c251282266173cb",
+      "omitted_group_midpoint_norm_upper": "628678089683603368328596529/1000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 12,
+      "norm2": "1",
+      "file": "input_2_12.txt",
+      "sha256": "c8e79fe0a38aca5f63146fc6ccb17e48c7838c67255a79dcda4a6b28e7ab8a4f",
+      "omitted_group_midpoint_norm_upper": "2629892409090831952723915681/2500000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 20,
+      "norm2": "1",
+      "file": "input_2_20.txt",
+      "sha256": "80569678b1a6ebf48d31c362c5abdf317f769ba8e3ac22ea4b9c62c3b78e4a6a",
+      "omitted_group_midpoint_norm_upper": "622359737105687614392497277/400000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 11,
+      "norm2": "1",
+      "file": "input_2_11.txt",
+      "sha256": "c651fc7b9972163753bfd3e97cce69ce58e164277869625ca559a4c766709fe6",
+      "omitted_group_midpoint_norm_upper": "9035391778870086013955180161/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 16,
+      "norm2": "1",
+      "file": "input_2_16.txt",
+      "sha256": "8be9d99c0d71eb7546430de689b34174263cb073b4947b8b731bb9e0e5936867",
+      "omitted_group_midpoint_norm_upper": "3322110469551743353913789659/2500000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 24,
+      "norm2": "1",
+      "file": "input_2_24.txt",
+      "sha256": "d2d815ae91d47ecdbed8d003f36e94b7d0f6c70f698cd440e853af530d21ef49",
+      "omitted_group_midpoint_norm_upper": "9485354613348825861628335471/5000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 9,
+      "norm2": "1",
+      "file": "input_2_9.txt",
+      "sha256": "409968f966624de8f4f7306c8a6742bc7cf6b327327a45280a44c4644458ed99",
+      "omitted_group_midpoint_norm_upper": "3648120631162564182237841303/5000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 28,
+      "norm2": "1",
+      "file": "input_2_28.txt",
+      "sha256": "21720f24368592248d6f89c1b0fc37f82c6f904f9d50b759ac0bfa3c9b7e3456",
+      "omitted_group_midpoint_norm_upper": "17277154242062614487108695419/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 19,
+      "norm2": "1",
+      "file": "input_2_19.txt",
+      "sha256": "9953e7095ac1896f76ffff23dc3546efac03bfeb037f9cef577757393f8df5b7",
+      "omitted_group_midpoint_norm_upper": "15988584297227522920897293297/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 8,
+      "norm2": "1",
+      "file": "input_2_8.txt",
+      "sha256": "96137b01b6f39bb4f417666d75d5453148a14e6ec3975717991891b56cfdd258",
+      "omitted_group_midpoint_norm_upper": "7074707860765731678607510461/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 30,
+      "norm2": "1",
+      "file": "input_2_30.txt",
+      "sha256": "02bbd14e1685c417ebd3ab7f02a72441e6a1d7b1ee63263942b9c7565e21b143",
+      "omitted_group_midpoint_norm_upper": "9071146602876587108562631647/5000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 17,
+      "norm2": "1",
+      "file": "input_2_17.txt",
+      "sha256": "7e96262da6f5f44e8bc5aeab6a363c0c6903e431ddfdff05797530fa5b24e8f5",
+      "omitted_group_midpoint_norm_upper": "15335633045914555816593940347/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 10,
+      "norm2": "1",
+      "file": "input_2_10.txt",
+      "sha256": "f172c718cdaff7a2487e24ceae5cd4b3fa5a321d11645e2ea2eeb96d2e52a38a",
+      "omitted_group_midpoint_norm_upper": "2285889323810955354528054731/2500000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 23,
+      "norm2": "1",
+      "file": "input_2_23.txt",
+      "sha256": "9f2cd3c13ae182efb0b72073494835c7e181068459c996c412b303a1f7d923d0",
+      "omitted_group_midpoint_norm_upper": "19904954014605219488280849729/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 15,
+      "norm2": "1",
+      "file": "input_2_15.txt",
+      "sha256": "4aa74638d35831e74111d023f430e1e3de74960f7ec691a45d10e4ec8b3e980c",
+      "omitted_group_midpoint_norm_upper": "891321300135858010430260543/625000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 26,
+      "norm2": "1",
+      "file": "input_2_26.txt",
+      "sha256": "6cd9693fd5f02e46ce9013e620a656ccbc13575b21849dc3d01f17916d6be19d",
+      "omitted_group_midpoint_norm_upper": "21585343519247708859477837993/10000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    },
+    {
+      "parity": "2",
+      "coordinate_zero_based": 41,
+      "norm2": "1",
+      "file": "input_2_41.txt",
+      "sha256": "4914cd2aa6ea6dfdb455b2e89d6eb76a53e32820c2dec062df998c99c4932235",
+      "omitted_group_midpoint_norm_upper": "565092497784728279691948744075268103/5000000000000000000000000000000000000000",
+      "residual_norm_ceiling": null
+    }
+  ]
+}
