@@ -1,0 +1,15 @@
+{
+  "old_inner": 4096,
+  "new_inner": 8192,
+  "shared_indices": 4096,
+  "matching_fields": {
+    "Q": true,
+    "X": true,
+    "v0": true,
+    "g0": true,
+    "t": true,
+    "alpha": true,
+    "central": true
+  },
+  "physical_bank": "CV frozen 160 columns"
+}
