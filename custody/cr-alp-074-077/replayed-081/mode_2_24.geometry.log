@@ -1,0 +1,4 @@
+96 independent exact root and weight brackets PASS
+sector 1 source/trial/boundary coefficient budgets PASS
+sector 2 source/trial/boundary coefficient budgets PASS
+direct product quadrature and shift displacement budgets PASS
