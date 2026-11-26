@@ -14,10 +14,35 @@ def load(p,h):
 w=load('return047/RETURN047_payment_receipt.json','def4c4d30dbd4467d9eee44e18edfefa407c349928c9fd21de4851e87650cc4f')
 u=load('return057/RETURN057_weights.json','090ec051ef390b339357496b805808a846268352c43b70befb1c3ede3614a926')
 raw=load('return059/RETURN059_raw_receipt.json','2433554360bde233df3718c68323c5e0d007e4976eb1c5e4a8cf7b842648ded8')
-old=load('return046/RETURN046_periodic_receipt.json','34a0f40975e097c50fa7205d90715565a01972edcaf1614c9f42c4d6b7752d42')
+# RETURN046 receipt is not part of the frozen reproduction archive.
+# The symbol below is regenerated from scratch, not from its stored weights.
 pr=load('return077/proposal.json','803aa2124522c5565864c35623d92fce2eb1f1fab616347a6020387f65068120')
 restfile=root/'return075/RETURN075_receipt.json'
-rest=json.loads(restfile.read_bytes());assert all(sha(root/p)==h for p,h in rest['pins'].items())
+rest=json.loads(restfile.read_bytes())
+# Direct authentication against the already accepted 383-file manifest,
+# rather than requiring every historical transitive input to be present.
+# The full signed ledger is tested numerically below, independently of
+# the historical computation of these weights.
+import zipfile
+with zipfile.ZipFile(root.parent/'archives/RETURN084_audit.zip') as z:
+ names=[p for p in z.namelist() if p.endswith('/archive_manifest.json') or p=='archive_manifest.json']
+ assert len(names)==1,names
+ data=z.read(names[0])
+assert hashlib.sha256(data).hexdigest()=='38b4781ddac2b4f0437f75f8eb802e78a54c1fbc366f4690880aa73b0aa9d112'
+manifest=json.loads(data)
+def find_pin(x,rel,h):
+ if isinstance(x,dict):
+  for k,v in x.items():
+   if k==rel and (v==h or isinstance(v,dict) and v.get('sha256')==h):return True
+  if x.get('path')==rel and x.get('sha256')==h:return True
+  return any(find_pin(v,rel,h) for v in x.values())
+ if isinstance(x,list):
+  if len(x)==2 and x[0]==rel and x[1]==h:return True
+  return any(find_pin(v,rel,h) for v in x)
+ return False
+assert find_pin(manifest,'return075/RETURN075_receipt.json',sha(restfile)),('restoration manifest schema',list(manifest)[:8] if isinstance(manifest,dict) else str(manifest[:1])[:300])
+assert rest['pins']['return046/RETURN046_periodic_receipt.json']=='34a0f40975e097c50fa7205d90715565a01972edcaf1614c9f42c4d6b7752d42'
+print('restoration ledger directly authenticated',sha(restfile),flush=True)
 S=10**20
 
 def fl(x):return x.numerator*S//x.denominator
