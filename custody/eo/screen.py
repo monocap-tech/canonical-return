@@ -115,36 +115,57 @@ assert G.shape==(oldp['G'].shape[0]+16,oldp['G'].shape[1]+16)
 best=ei['best'];delta0,t0=map(lambda s:float(F(s)),best['parameters'][1:3])
 basews=list(map(lambda s:float(F(s)),best['weights']));assert len(basews)==21 and abs(sum(basews)-1)<1e-12
 aq=float(F(ei['head_allowance']));er=float(F(ei['representation_error']))
-def calc(delta,t,mass,ideal=False):
-    assert 0<mass<1
-    ws=[(1-mass)*v for v in basews[:-1]]+[mass,(1-mass)*basews[-1]]
-    assert len(ws)==22 and min(ws)>0 and abs(sum(ws)-1)<1e-12
-    rho0=np.empty(m)
-    for i,b in enumerate(newext['physical_blocks']):
+# Remove the sixteen new coordinates, retaining the identical head and exceptional features.
+oldidx=np.r_[np.arange(d+352),np.arange(n,G.shape[0])]
+G0=G[np.ix_(oldidx,oldidx)];H0=Hinv[np.ix_(oldidx,oldidx)]
+E0=np.load(root/'custody/dv/generated/merged/odd_BQ_energy.npz')
+K0=E0['K'].astype(float)/float(E0['scale']);D0=E0['D'].astype(float)/float(E0['scale'])
+def calc(delta,t,mass,ideal=False,baseline=False):
+    if baseline:
+        Gc,Hc,Kc,Dc=G0,H0,K0,D0
+        mc=352;nc=d+mc;blocks=ext['physical_blocks'];ws=basews
+    else:
+        assert 0<mass<1
+        Gc,Hc,Kc,Dc=G,Hinv,K,D
+        mc=m;nc=n;blocks=newext['physical_blocks']
+        ws=[(1-mass)*v for v in basews[:-1]]+[mass,(1-mass)*basews[-1]]
+    assert len(ws)==len(blocks)+2 and min(ws)>0 and abs(sum(ws)-1)<1e-12
+    rho0=np.empty(mc)
+    for i,b in enumerate(blocks):
         rho0[b['lo']:b['hi']]=float(F(b['allowance']))**2/ws[i+1]
     gamma=0 if ideal else delta*(1+t)
-    H=G+gamma*Hinv
-    proj=np.linalg.solve(H[n:,n:],H[n:,:n]);J=H[:n,:n]-H[:n,n:]@proj;J=(J+J.T)/2
-    rho=np.zeros(m) if ideal else (1+1/delta)*rho0/mu
+    H=Gc+gamma*Hc
+    proj=np.linalg.solve(H[nc:,nc:],H[nc:,:nc]);J=H[:nc,:nc]-H[:nc,nc:]@proj;J=(J+J.T)/2
+    rho=np.zeros(mc) if ideal else (1+1/delta)*rho0/mu
     head=0 if ideal else (1+1/delta)*(aq*aq/ws[0]+er*er/ws[-1])/mu
-    A=J[d:,d:]/mu-D+np.diag(rho);A=(A+A.T)/2
+    A=J[d:,d:]/mu-Dc+np.diag(rho);A=(A+A.T)/2
     amin=float(np.linalg.eigvalsh(A)[0]);assert amin>0
-    X=np.linalg.solve(A,K-J[d:,:d]/mu);V=proj@np.vstack([np.eye(d),X]);W=np.vstack([np.eye(d),X,-V])
-    M=(1-eps)*np.eye(d)+K.T@X+X.T@K+X.T@D@X-W.T@G@W/mu;M=(M+M.T)/2
-    P=M-gamma*(W.T@Hinv@W)/mu-X.T@(rho[:,None]*X)-head*np.eye(d);P=(P+P.T)/2
+    X=np.linalg.solve(A,Kc-J[d:,:d]/mu);V=proj@np.vstack([np.eye(d),X]);W=np.vstack([np.eye(d),X,-V])
+    M=(1-eps)*np.eye(d)+Kc.T@X+X.T@Kc+X.T@Dc@X-W.T@Gc@W/mu;M=(M+M.T)/2
+    P=M-gamma*(W.T@Hc@W)/mu-X.T@(rho[:,None]*X)-head*np.eye(d);P=(P+P.T)/2
     ev,Q=np.linalg.eigh(P)
     R=Q[:,-32:][:,::-1]
     record=dict(delta=delta,t=t,new_block_weight=mass,ideal=ideal,proxy31=float(ev[-31]),proxy32=float(ev[-32]),proxy33=float(ev[-33]),nominal_on_trial32=float(np.linalg.eigvalsh(R.T@M@R)[0]),hessian_min=amin)
     return record,(X,V,R)
+previous=json.loads((root/'custody/ek/generated/screen.json').read_text())
+baseline_ideal,_=calc(1,0,0,True,True)
+baseline_best,_=calc(previous['best']['delta'],previous['best']['t'],0,False,True)
+replay_error=max(abs(baseline_ideal['proxy32']-previous['ideal']['proxy32']),abs(baseline_best['proxy32']-previous['best']['proxy32']))
+assert replay_error<1e-7,('EK baseline replay drift',replay_error)
 ideal,_=calc(1,0,0.01,True);rows=[];candidate=None;bestrec=None
+positive_t_rec=None;positive_t_candidate=None
 # Retain EK's parameter grid for the first pass; test three new-block masses.
 for mass in (0.005,0.02,0.05):
     for delta in sorted(set([delta0]+[delta0*10**v for v in np.linspace(-1,1,9)])):
         for t in (0,t0,2*t0):
             rec,arr=calc(delta,t,mass);rows.append(rec)
             if bestrec is None or rec['proxy32']>bestrec['proxy32']:bestrec,candidate=rec,arr
+            if t>0 and (positive_t_rec is None or rec['proxy32']>positive_t_rec['proxy32']):positive_t_rec,positive_t_candidate=rec,arr
 X,V,R=candidate
 np.savez_compressed(out/'candidate32.npz',X=X,V=V,Q=R,delta=bestrec['delta'],t=bestrec['t'],new_block_weight=bestrec['new_block_weight'])
-report=dict(scope='sampled numerical screen only; inherited EI representation penalty is a proxy, exact residual and enclosure terms omitted, t=0 not admissible in exact comparison',physical_columns=368,previous_screen=json.loads((root/'custody/ek/generated/screen.json').read_text())['best'],physical_cutoff=65536,sample_count=N,gram_replay_error=gram_err,symbol_interval_violation=symbol_violation,old_nominal32=float(np.linalg.eigvalsh(oldp['central'])[-32]),ideal=ideal,best=bestrec,rows=rows)
+assert positive_t_rec is not None
+X,V,R=positive_t_candidate
+np.savez_compressed(out/'candidate32_positive_t.npz',X=X,V=V,Q=R,delta=positive_t_rec['delta'],t=positive_t_rec['t'],new_block_weight=positive_t_rec['new_block_weight'])
+report=dict(baseline_ideal=baseline_ideal,baseline_best=baseline_best,baseline_replay_error=replay_error,best_positive_t=positive_t_rec,scope='sampled numerical screen only; inherited EI representation penalty is a proxy, exact residual and enclosure terms omitted, t=0 not admissible in exact comparison',physical_columns=368,previous_screen=json.loads((root/'custody/ek/generated/screen.json').read_text())['best'],physical_cutoff=65536,sample_count=N,gram_replay_error=gram_err,symbol_interval_violation=symbol_violation,old_nominal32=float(np.linalg.eigvalsh(oldp['central'])[-32]),ideal=ideal,best=bestrec,rows=rows)
 (out/'screen.json').write_text(json.dumps(report,indent=2)+'\n')
 print('EO SPECTRUM',ideal,bestrec,flush=True)
