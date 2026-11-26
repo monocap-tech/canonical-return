@@ -1,0 +1,34 @@
+name: RETURN096-B original signed symbol ledger
+on:
+  push:
+    branches: [research/master-return-090-restricted-audit]
+    paths:
+      - 'research/master-return-096b/**'
+      - '.github/workflows/master-return-096b.yml'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Authenticate original archive
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/work" "$RUNNER_TEMP/results"
+          bash archive/master-return/reconstruct.sh "$RUNNER_TEMP/archives"
+          unzip -q "$RUNNER_TEMP/archives/RETURN083_reproduction.zip" -d "$RUNNER_TEMP/work"
+          python -m py_compile research/master-return-096b/symbol_attachment.py
+      - name: Check complete signed ledger and all tail cutoffs
+        run: python research/master-return-096b/symbol_attachment.py "$RUNNER_TEMP/work" "$RUNNER_TEMP/results"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: return096b-original-signed-symbol-ledger
+          path: ${{ runner.temp }}/results/
