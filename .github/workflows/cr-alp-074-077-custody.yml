@@ -1,0 +1,72 @@
+name: CR-ALP 074-077 durable artifact custody
+on:
+  push:
+    branches: ['custody/cr-alp-074-077-20261125']
+    paths: ['.github/workflows/cr-alp-074-077-custody.yml']
+permissions:
+  contents: write
+  actions: read
+jobs:
+  preserve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download and authenticate pinned artifacts
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = custody/cr-alp-074-077-20261125
+          export ROOT=custody/cr-alp-074-077
+          python3 - <<'PY'
+          import json,os,subprocess,hashlib,zipfile,pathlib
+          root=pathlib.Path(os.environ['ROOT'])
+          bank=json.loads((root/'index.json').read_text())
+          dest=root/'archives';dest.mkdir(exist_ok=True)
+          checks=[]
+          for row in bank['native_artifacts']:
+              p=dest/row['file']
+              api=f"repos/{os.environ['GITHUB_REPOSITORY']}/actions/artifacts/{row['id']}"
+              meta=json.loads(subprocess.check_output(['gh','api',api]))
+              assert meta['workflow_run']['id']==row['run']
+              assert not meta['expired']
+              assert meta['digest']=='sha256:'+row['sha256']
+              assert meta['size_in_bytes']==row['bytes']
+              with p.open('wb') as f:subprocess.run(['gh','api',api+'/zip'],stdout=f,check=True)
+              assert p.stat().st_size==row['bytes']
+              assert hashlib.sha256(p.read_bytes()).hexdigest()==row['sha256']
+              with zipfile.ZipFile(p) as z:
+                  assert z.testzip() is None
+                  names=z.namelist();assert len(names)==len(set(names))
+                  n=0
+                  for member in names:
+                      if pathlib.PurePosixPath(member).name.startswith('SHA256SUMS'):
+                          for line in z.read(member).decode().splitlines():
+                              if not line.strip():continue
+                              h,name=line.split(maxsplit=1)
+                              path=str(pathlib.PurePosixPath(member).parent/name.lstrip('* '))
+                              assert hashlib.sha256(z.read(path)).hexdigest()==h,(member,path)
+                              n+=1
+                  checks.append(dict(row,entries=len(names),manifest_checks=n,crc='PASS',sha256_check='PASS'))
+              print('PASS',row['file'],n,flush=True)
+          assert len(checks)==10
+          (dest/'SHA256SUMS').write_text(''.join(x['sha256']+'  '+x['file']+'\n' for x in checks))
+          (root/'native_custody_receipt.json').write_text(json.dumps({'status':'AUTHENTICATED_BEFORE_GIT_PUSH','run_id':os.environ['GITHUB_RUN_ID'],'execution_commit':os.environ['GITHUB_SHA'],'archives':checks,'local_only':bank['local_only']},indent=2)+'\n')
+          PY
+      - name: Commit native archives to dedicated branch and verify remote readback
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-074-077
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- "$ROOT/archives" "$ROOT/native_custody_receipt.json"
+          git commit -m 'CR-ALP custody: preserve ten original native artifact ZIPs [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          COMMIT=$(git rev-parse HEAD)
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse FETCH_HEAD)" = "$COMMIT"
+          mkdir -p /tmp/custody-readback
+          git archive FETCH_HEAD "$ROOT/archives" | tar -x -C /tmp/custody-readback
+          (cd "/tmp/custody-readback/$ROOT/archives"; sha256sum -c SHA256SUMS)
+          printf 'DURABLE CUSTODY PASS %s %s\n' "$GITHUB_RUN_ID" "$COMMIT"
