@@ -18,6 +18,7 @@ from cr_alp_082_inertia_receiver import inertia
 from cr_alp_093_envelope_duality import outer,sub,fmat
 from cr_alp_078_moment_receiver import sha
 from cr_alp_111_even_response import main as replay_physical
+from cr_alp_weighted_majorant import candidates as weighted_candidates
 def grid(A,upper):
     n=len(A);C=[[floor(v*S) for v in row] for row in A]
     assert C==transpose(C)
@@ -398,8 +399,18 @@ def main(root,bank,prior,block,correction,terminal,capped,received,dual,adaptive
             attach('physical_C_scalar_117_'+name,[[x] for x in q],[[bounds[name][1]]])
         scalarterms=list(terms)
         terms=list(scalarterms)+[blockterms[-1]]
+        uniform_combined=list(terms)
+        majorants=weighted_candidates(C,R)
+        assert len(majorants)==11 and majorants['uniform']==A5
+        for label,A in majorants.items():
+            if label=='uniform':continue
+            assert spd(A)
+            attach('physical_C_block_117_'+label,Z5,A)
+        weighted_combined=list(terms)
+        assert len(weighted_combined)==len(uniform_combined)+10
         scenarios={'baseline':baseline,'block_only_addition':blockterms,
-                   'scalar_only_addition':scalarterms,'combined':terms}
+                   'scalar_only_addition':scalarterms,'combined':uniform_combined,
+                   'weighted_combined':weighted_combined}
         comparisons={};bestcandidate=None;passing=None
         for name,ts in scenarios.items():
             val,w,V,lp,M,L=search(K,ts)
@@ -418,6 +429,7 @@ def main(root,bank,prior,block,correction,terminal,capped,received,dual,adaptive
         ans=dict(comparisons[name],rank=best,selected_scenario=name,comparisons=comparisons,
                  full_constraint_labels=[t[0] for t in terms],
                  replayed_block_scalar_count=len(cases),block_dimension=m,
+                 weighted_majorants={label:[[str(x) for x in row] for row in A] for label,A in majorants.items()},
                  adaptive_bound_115=str(bnew11))
         if best<n:
             v0=[t['relaxation_counterexample']['v'] for t in dr['sectors'][k]['tests'] if 'relaxation_counterexample' in t]
