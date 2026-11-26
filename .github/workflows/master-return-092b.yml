@@ -1,0 +1,38 @@
+name: RETURN092-B common auxiliary saddles
+on:
+  push:
+    branches: [research/master-return-090-restricted-audit]
+    paths:
+      - 'research/master-return-092b/**'
+      - '.github/workflows/master-return-092b.yml'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      PYTHONINTMAXSTRDIGITS: '0'
+      OPENBLAS_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Reconstruct and authenticate original input archive
+        run: |
+          set -euo pipefail
+          bash archive/master-return/reconstruct.sh "$RUNNER_TEMP/archives"
+          mkdir -p "$RUNNER_TEMP/work" "$RUNNER_TEMP/results"
+          unzip -q "$RUNNER_TEMP/archives/RETURN083_reproduction.zip" -d "$RUNNER_TEMP/work"
+          python -m pip install numpy
+          python -m py_compile research/master-return-092b/common_saddle.py
+      - name: Independently reconstruct both common auxiliary saddles
+        run: python research/master-return-092b/common_saddle.py "$RUNNER_TEMP/work" "$RUNNER_TEMP/results"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: return092b-common-auxiliary-saddles
+          path: ${{ runner.temp }}/results/
