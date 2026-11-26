@@ -1,0 +1,27 @@
+sample shape (16384, 591)
+solved 0
+solved 24
+solved 48
+solved 72
+solved 96
+solved 120
+solved 144
+solved 168
+solved 192
+solved 216
+solved 240
+solved 264
+solved 288
+solved 312
+solved 336
+solved 360
+solved 384
+solved 408
+solved 432
+solved 456
+solved 480
+solved 504
+solved 528
+solved 552
+solved 576
+DZ PROPOSAL {'scope': 'numerical proposal only', 'proxy': 0.0003846984882673268, 'nominal_on_trial': 0.0007098488725599073, 'rounded_q_defect': 3.9455508033187645e-12, 'sampled_parameter_t': 0.0}
