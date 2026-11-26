@@ -1,0 +1,68 @@
+name: CR-ALP-122H historical bridge bank replay
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-122h-bridge-replay.yml']
+permissions:
+  contents: write
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate bridge inputs
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/alp122h /tmp/alp122h-evidence
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/alp122h.zip
+          python3 - <<'PY'
+          import zipfile,hashlib,json
+          from pathlib import Path
+          inv=json.load(open('custody/cr-alp-122b-source-census/inventory.json'))
+          with zipfile.ZipFile('/tmp/alp122h.zip') as z:
+              assert z.testzip() is None
+              for r in inv['members']:
+                  if r.get('preserved'): assert hashlib.sha256(z.read(r['path'])).hexdigest()==r['sha256']
+              z.extractall('/tmp/alp122h')
+          PY
+          cd /tmp/alp122h
+          sha256sum cr_alp_054/bank_{1,2}.json cr_alp_055/bank_{1,2}.json > /tmp/alp122h-evidence/frozen.sha256
+          cat /tmp/alp122h-evidence/frozen.sha256
+          python3 -m pip install numpy mpmath
+      - name: Replay both complete bridge banks
+        run: |
+          set -euo pipefail
+          cd /tmp/alp122h
+          export OPENBLAS_NUM_THREADS=1
+          export PYTHONINTMAXSTRDIGITS=0
+          for stage in 054 055; do
+            for parity in 1 2; do
+              python3 "cr_alp_$stage/generate.py" "$parity" | tee "/tmp/alp122h-evidence/generate-$stage-$parity.log"
+            done
+            grep "cr_alp_$stage/" /tmp/alp122h-evidence/frozen.sha256 | sha256sum -c - | tee "/tmp/alp122h-evidence/replay-$stage.log"
+          done
+          sha256sum -c /tmp/alp122h-evidence/frozen.sha256 | tee /tmp/alp122h-evidence/replay.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-122H-bridge-replay
+          path: /tmp/alp122h-evidence/
+          if-no-files-found: error
+      - name: Preserve exact bridge replay evidence
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-122h-bridge-replay
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          git checkout --detach FETCH_HEAD
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp122h-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum *.log frozen.sha256 > SHA256SUMS; sha256sum -c SHA256SUMS)
+          git add "$ROOT"
+          git commit -m 'CR-ALP-122H: durable historical bridge replay [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)"
+          echo "DURABLE CR-ALP-122H $(git rev-parse HEAD)"
