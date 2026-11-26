@@ -363,7 +363,8 @@ def main(root,bank,prior,block,correction,terminal,capped,received,dual,adaptive
         for name,q in cases.items():
             ad=block117/'selection'/name;rs=block117/'cases'/name
             one=json.loads((ad/'result.json').read_text());ap=one['sectors'][k]['adaptive_source']
-            assert one['sectors']['1']['certificate']==fs['certificate']
+            assert one['sectors']['1']['certificate']==report['1']['certificate']==sel['sectors']['1']['certificate']
+            assert one['sectors']['1']['replayed_inertia']==report['1']['replayed_inertia']==[43,0,0]
             assert ap['coordinates']==J and list(map(F,ap['coefficients']))==q
             raw,eps=input_for(bank,E,k,J,eye,q);f=ad/'input_2_adaptive.txt'
             assert f.read_text()==raw and sha(f)==ap['input_sha256'] and eps==F(ap['error_upper'])
