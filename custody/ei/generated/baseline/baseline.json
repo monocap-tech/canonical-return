@@ -1,0 +1,7 @@
+{
+  "scope": "frozen EB baseline exact matrix replay",
+  "scalar_control": "-157/100000",
+  "block_control": "-9/10000",
+  "centered_control": "-3/5000",
+  "matrix_match": true
+}

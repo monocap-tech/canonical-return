@@ -1,0 +1,25 @@
+{
+  "scope": "finite physical representative only",
+  "source_head_sha256": "cca6d3682cac1d0ee76be0b18491b7a46ed2f336baa733696511f8ad17a40ffc",
+  "source_frozen_trial_sha256": "599dce394bb522bff9087190c48fa2ecf4eb50bf96be0709b515e64cc46066cf",
+  "prefix_exact": true,
+  "rows": 32768,
+  "columns": 31,
+  "additional_rows": 24576,
+  "max_new_rounding_allowance": 9.149613886971265e-11,
+  "max_combined_column_error": 7.169912603904879e-09,
+  "frozen_fields": [
+    "Q",
+    "X",
+    "t",
+    "v0",
+    "g0",
+    "js",
+    "c",
+    "gc",
+    "scale",
+    "a",
+    "eps",
+    "mu"
+  ]
+}

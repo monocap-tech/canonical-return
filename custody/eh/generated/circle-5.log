@@ -1,0 +1,6 @@
+circle output rows 50793 inputs 39793
+through 94602 elapsed 0.2
+through 102590 elapsed 8.5
+through 110602 elapsed 16.6
+through 118654 elapsed 24.7
+part PASS 5 8192
