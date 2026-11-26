@@ -25,6 +25,8 @@ jobs:
           gh api "repos/${{ github.repository }}/actions/runs/$run/artifacts" > "$P/artifacts.json"
           id=$(jq -er '[.artifacts[]|select(.name=="CR-ALP-074-balanced-source-bank" and .expired==false)]|if length==1 then .[0].id else error("artifact count") end' "$P/artifacts.json")
           digest=$(jq -er --argjson id "$id" '.artifacts[]|select(.id==$id)|.digest|select(test("^sha256:[a-f0-9]{64}$"))|sub("^sha256:";"")' "$P/artifacts.json")
+          test "$id" = 15074051280
+          test "$digest" = fbf7c66ecdf4f900508c53c2ba499246f974b91b988fab1303c11474d1504980
           gh api "repos/${{ github.repository }}/actions/artifacts/$id/zip" > "$P/bank.zip"
           echo "$digest  $P/bank.zip" | sha256sum -c -
           python3 -m zipfile -e "$P/bank.zip" "$P/bank"
@@ -110,10 +112,16 @@ jobs:
           P=/tmp/cr-alp074
           (cd "$P/logs"; sha256sum -c SHA256SUMS.1; sha256sum -c SHA256SUMS.2)
           python3 src/audits/cr_alp_074_norm_receiver.py "$P/bank" "$P/logs" "$P/result.json"
-          sha256sum "$P/result.json"
+          python3 src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+          python3 -m zipfile -e "$P/package.zip" "$P"
+          python3 src/audits/cr_alp_074_full_energy_receiver.py --selftest
+          python3 src/audits/cr_alp_074_full_energy_receiver.py "$P" "$P/result.json" "$P/full_energy_result.json"
+          sha256sum "$P/result.json" "$P/full_energy_result.json"
       - uses: actions/upload-artifact@v4
         with:
           name: CR-ALP-074-physical-receiver-result
-          path: /tmp/cr-alp074/result.json
+          path: |
+            /tmp/cr-alp074/result.json
+            /tmp/cr-alp074/full_energy_result.json
           if-no-files-found: error
           retention-days: 90
