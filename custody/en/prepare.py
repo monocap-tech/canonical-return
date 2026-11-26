@@ -7,8 +7,13 @@ with zipfile.ZipFile(r/'ce-output/archives/CR-INT-T1D-BO-reproducibility.zip') a
         member='cr_int_t1d_bo/'+name
         (bo/name).write_bytes(z.read(member))
         print('BO source',member,hashlib.sha256((bo/name).read_bytes()).hexdigest(),flush=True)
+# The directed action and historical prefix combiner must match EG/EE custody.
+frozen=r/'custody/ee/generated/sources/cr_int_t1d_ca_odd'
+for n in ('bq_action.py','combine.py'):
+    assert (old/n).read_bytes()==(frozen/n).read_bytes(),n
 for n in ['bn_energy.py','bq_action.py','combine.py','by_action_check.py','by_energy.py']:
     shutil.copyfile(old/n,new/n)
+    assert (old/n).read_bytes()==(new/n).read_bytes(),n
 # Keep historical reconstruction immutable; explicit frozen DV bank as merge input.
 prior=w/'cr_int_t1d_en_prior';prior.mkdir(exist_ok=False)
 for name in ['odd_merged_corrector.npz','odd_combined_projection.npz','odd_merged_tail.npz','odd_BQ_energy.npz']:
