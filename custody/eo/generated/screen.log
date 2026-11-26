@@ -1,0 +1,27 @@
+EO solved 0
+EO solved 24
+EO solved 48
+EO solved 72
+EO solved 96
+EO solved 120
+EO solved 144
+EO solved 168
+EO solved 192
+EO solved 216
+EO solved 240
+EO solved 264
+EO solved 288
+EO solved 312
+EO solved 336
+EO solved 360
+EO solved 384
+EO solved 408
+EO solved 432
+EO solved 456
+EO solved 480
+EO solved 504
+EO solved 528
+EO solved 552
+EO solved 576
+EO solved 600
+EO SPECTRUM {'delta': 1, 't': 0, 'new_block_weight': 0.01, 'ideal': True, 'proxy31': 0.0008877767754453321, 'proxy32': -1.5093381996891753e-05, 'proxy33': -2.1910730245922188e-05, 'nominal_on_trial32': -1.5093381986528808e-05, 'hessian_min': 7.326080045497505} {'delta': np.float64(0.026738747941747694), 't': 0, 'new_block_weight': 0.005, 'ideal': False, 'proxy31': 0.0008858534866837026, 'proxy32': -1.554087153670197e-05, 'proxy33': -2.2256198240496598e-05, 'nominal_on_trial32': -1.5094297316634498e-05, 'hessian_min': 7.360393093714945}
