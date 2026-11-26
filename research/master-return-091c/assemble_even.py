@@ -1,7 +1,7 @@
 """RETURN091-C: independently assemble even TT/U and replay both frozen
 RETURN086 terminal variants. Auxiliary saddle and raw H are shared inputs.
 """
-import sys,json,math,hashlib
+import sys,json,math,hashlib,runpy
 from pathlib import Path
 from fractions import Fraction as F
 import numpy as np
@@ -33,9 +33,27 @@ assert [(v['start'],v['end']) for v in even]==[(0,1680),(1680,2192),(2192,8111)]
 p79=load(root/'return079/RETURN079_contract.json')
 p81=load(root/'return081/contract.json');p80=load(root/'return080/band.json')
 assert p79['scale']==p81['scale']==p80['scale']==O
-assert p79['ks']==list(range(3520,4544,2))
-assert p81['ks']==list(range(4544,16386,2))
+# The complementary coordinate ledger is not a contiguous even grid:
+# some retained coordinates are excluded. Replay the authenticated
+# RETURN087 partition verifier, then bind each bank to its exact labels.
+ledger=r87/'verify.py'
+print('RETURN087 partition verifier',sha(ledger),flush=True)
+for line in ledger.read_text().splitlines():
+ if any(t in line for t in ('ids=','ids =','len(ids)','ks','partition','range(')):print(line,flush=True)
+sys.path.insert(0,str(r87))
+try:
+ ns=runpy.run_path(str(ledger),run_name='__main__')
+finally:
+ sys.path.pop(0)
+ids=sorted(map(int,ns['ids']))
+assert len(ids)==len(set(ids))==8111
+assert p79['ks']==ids[1680:2192],('RETURN079 partition',len(p79['ks']))
+assert p81['ks']==ids[2192:8111],('RETURN081 partition',len(p81['ks']))
 assert p80['ks']==list(range(16386,32770,2))
+assert not set(ids)&set(p80['ks'])
+excluded=sorted(set(range(4544,16386,2))-set(p81['ks']))
+print('even finite partition verified',len(ids),len(p80['ks']),'excluded in 4544..16384',excluded,flush=True)
+(out/'partition.json').write_text(json.dumps({'explicit_rows':len(ids),'feature_rows':len(p80['ks']),'excluded_in_late_grid':excluded,'ledger_sha256':sha(ledger)},indent=2)+'\n')
 high=load(banks/'089'/'bank_0.json');tail=load(out/'even_tail.json')
 assert tail['K']==262144
 source={}
