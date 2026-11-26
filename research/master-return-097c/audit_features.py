@@ -22,7 +22,16 @@ exec(compile(src.split(anchor)[0],str(p),'exec'),ns)
 iv=ns['iv'];psi=ns['psi'];g0=ns['g0'];psi0=ns['psi0'];enc=ns['enc'];shifts=ns['shifts']
 mom=ns['mom'];K=16384;N=12;S=10**10
 oldfile=root/'return080/features.json'
-assert sha(oldfile)=='58511871afd99900a4fb8c6b5439c88005d7c964c5107eb65ee8f2f04cdf7029'
+# Authenticate against the accepted literal archive manifest.
+import zipfile
+with zipfile.ZipFile(root.parent/'archives/RETURN084_audit.zip') as z:
+ names=[n for n in z.namelist() if n.endswith('/archive_manifest.json') or n=='archive_manifest.json']
+ assert len(names)==1,names
+ data=z.read(names[0])
+assert hashlib.sha256(data).hexdigest()=='38b4781ddac2b4f0437f75f8eb802e78a54c1fbc366f4690880aa73b0aa9d112'
+manifest=json.loads(data)
+assert len(manifest)==383 and sha(oldfile)==manifest['return080/features.json']
+print('original feature bank authenticated',sha(oldfile),flush=True)
 old=json.loads(oldfile.read_bytes())
 ks=list(range(K+2,32768+1,2));assert old['ks']==ks and old['S']==S and len(ks)==8192
 scales=[]
