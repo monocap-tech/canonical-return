@@ -1,0 +1,26 @@
+EK solved 0
+EK solved 24
+EK solved 48
+EK solved 72
+EK solved 96
+EK solved 120
+EK solved 144
+EK solved 168
+EK solved 192
+EK solved 216
+EK solved 240
+EK solved 264
+EK solved 288
+EK solved 312
+EK solved 336
+EK solved 360
+EK solved 384
+EK solved 408
+EK solved 432
+EK solved 456
+EK solved 480
+EK solved 504
+EK solved 528
+EK solved 552
+EK solved 576
+EK SPECTRUM {'delta': 1, 't': 0, 'ideal': True, 'proxy31': 0.0007164610844185263, 'proxy32': -2.0809580067707064e-05, 'proxy33': -2.1962575785675057e-05, 'nominal_on_trial32': -2.0809580052386864e-05, 'hessian_min': 7.328378154701536} {'delta': np.float64(0.026738747941747694), 't': 0, 'ideal': False, 'proxy31': 0.0007133817752559772, 'proxy32': -2.1229438241003805e-05, 'proxy33': -2.2309437196509663e-05, 'nominal_on_trial32': -2.0810425615543635e-05, 'hessian_min': 7.362698740885779}
