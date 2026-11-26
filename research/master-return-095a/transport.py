@@ -3,7 +3,7 @@ RETURN085 error receipt recovered from the user evidence library; its
 original input pins are checked against the authenticated archive.
 This does not establish the original form/domain or scalar error hypotheses.
 """
-import sys,json,hashlib
+import sys,json,hashlib,math
 from pathlib import Path
 from fractions import Fraction as F
 sys.set_int_max_str_digits(0)
@@ -28,12 +28,21 @@ for par in (0,1):
  assert sqrtcap**2>=target
  rs=[r for r in E['results'] if r['parity']==par]
  assert [r['K'] for r in rs]==[16384,32768,262144]
- caps=[F(r['error_norm_upper']) for r in rs]
- for r,e in zip(rs,caps):
-  assert e>=0 and 0<=F(r['squared_error_upper'])<=e*e<F(r['inherited_target_squared'])
+ # Stored squared caps and separately serialized norm caps were rounded
+ # independently. Use a fresh directed square root of the larger bound.
+ caps=[];Q=10**40
+ for r in rs:
+  x=F(r['squared_error_upper']);stored=F(r['error_norm_upper'])
+  assert x>=0 and stored>=0
+  n=math.isqrt(x.numerator*Q*Q//x.denominator)
+  if F(n*n,Q*Q)<x:n+=1
+  e=max(F(n,Q),stored)
+  assert 0<=x<=e*e<F(r['inherited_target_squared'])
+  print('directed error cap',par,r['K'],'old cap squared below serialized square',stored*stored<x,'repaired cap',str(e),flush=True)
+  caps.append(e)
  eps=sum(caps,F(0))
  p85=next(r for r in E['parity'] if r['parity']==par)
- assert eps<=F(p85['error_norm_sum'])
+ print('error sum change',par,str(eps-F(p85['error_norm_sum'])),flush=True)
  # Exact rational upper bound; independently avoid rounding from receipt.
  true=(sqrtcap+eps)**2
  assert true<1
