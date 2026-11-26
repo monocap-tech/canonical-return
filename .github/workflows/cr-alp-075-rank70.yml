@@ -1,0 +1,168 @@
+name: CR-ALP-075 isolated rank-70 receiver
+on:
+  push:
+    branches: ['execution/cr-alp-075-rank70-20261125']
+    paths: ['.github/workflows/cr-alp-075-rank70.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      contents: write
+      actions: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Record isolated run identifier
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          test "$GITHUB_REF_NAME" = execution/cr-alp-075-rank70-20261125
+          jq -n --arg run "$GITHUB_RUN_ID" --arg sha "$GITHUB_SHA" '{run_id:$run,source_commit:$sha}' >/tmp/cr-alp075-run.json
+          gh api --method PUT "repos/$GITHUB_REPOSITORY/contents/research/CR-ALP-075_EXECUTION_${GITHUB_RUN_ID}.json" -f branch="$GITHUB_REF_NAME" -f message="CR-ALP-075 isolated run $GITHUB_RUN_ID [skip ci]" -f content="$(base64 -w0 /tmp/cr-alp075-run.json)"
+      - name: Authenticate old physical bank and construct expanded source bank
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp075
+          mkdir -p "$P/old-bank" "$P/old-logs" "$P/bank"
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/15076286428/zip" > "$P/old-bank.zip"
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/15077380786/zip" > "$P/old-1.zip"
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/15076439118/zip" > "$P/old-2.zip"
+          echo "0abdda5692e80b226eb6ad30e387b9c49697a578756ca2e50ae54df488cd3a8c  $P/old-bank.zip" | sha256sum -c -
+          echo "522c80515eda146f4a8762e8279ebe8ea903bb3482e2e2760be92dfef93aca5f  $P/old-1.zip" | sha256sum -c -
+          echo "b77a973c6ec16f90480ab559dd217933028263b981ef9985298cd3574dac5487  $P/old-2.zip" | sha256sum -c -
+          python3 -m zipfile -e "$P/old-bank.zip" "$P/old-bank"
+          for k in 1 2; do python3 -m zipfile -e "$P/old-$k.zip" "$P/old-logs"; done
+          (cd "$P/old-bank"; sha256sum -c SHA256SUMS)
+          (cd "$P/old-logs"; sha256sum -c SHA256SUMS.1; sha256sum -c SHA256SUMS.2)
+          python3 src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+          python3 -m zipfile -e "$P/package.zip" "$P"
+          (cd "$P/cr_alp_058"; sha256sum -c SHA256SUMS)
+          python3 src/audits/cr_alp_075_source_bank.py "$P" "$P/bank"
+          count=0
+          for f in "$P"/old-bank/input_*.txt; do
+            cmp "$f" "$P/bank/$(basename "$f")"
+            count=$((count+1))
+          done
+          test "$count" -eq 20
+          echo "PASS exact reuse of twenty native physical inputs"
+          (cd "$P/bank"; sha256sum selection.json source_bank.json input_*.txt > SHA256SUMS)
+      - name: Check all new source coefficient and geometry budgets
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp075
+          cp -a "$P/cr_alp_058" "$P/check"
+          count=0
+          for f in "$P"/bank/input_*.txt; do
+            test ! -f "$P/old-bank/$(basename "$f")" || continue
+            k=$(basename "$f" | cut -d_ -f2)
+            cp "$P/cr_alp_058/input_1.txt" "$P/check/input_1.txt"
+            cp "$P/cr_alp_058/input_2.txt" "$P/check/input_2.txt"
+            cp "$f" "$P/check/input_${k}.txt"
+            python3 "$P/check/validate_geometry.py"
+            count=$((count+1))
+          done
+          test "$count" -eq 50
+          echo "PASS fifty new sources"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CR-ALP-075-source-bank
+          path: /tmp/cr-alp075/bank/
+          if-no-files-found: error
+          retention-days: 90
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CR-ALP-075-reused-native-norms
+          path: /tmp/cr-alp075/old-logs/
+          if-no-files-found: error
+          retention-days: 90
+  physical:
+    needs: freeze
+    strategy:
+      fail-fast: false
+      matrix:
+        parity: ['1','2']
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: CR-ALP-075-source-bank
+          path: /tmp/cr-alp075/bank
+      - uses: actions/download-artifact@v4
+        with:
+          name: CR-ALP-075-reused-native-norms
+          path: /tmp/cr-alp075/old-logs
+      - name: Compile and integrate only new physical columns
+        env:
+          PARITY: ${{ matrix.parity }}
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp075
+          (cd "$P/bank"; sha256sum -c SHA256SUMS)
+          (cd "$P/old-logs"; sha256sum -c SHA256SUMS.1; sha256sum -c SHA256SUMS.2)
+          python3 src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+          python3 -m zipfile -e "$P/package.zip" "$P"
+          (cd "$P/cr_alp_058"; sha256sum -c SHA256SUMS; python3 validate_geometry.py)
+          g++ -O2 -std=gnu++17 -I"$P/cr_alp_058" src/audits/cr_alp_074_norm.cpp -o "$P/norm" -lquadmath -l:libmpfr.so.6 -lgmp
+          mkdir -p "$P/logs"
+          cp -a "$P/cr_alp_058" "$P/check"
+          count=0
+          for f in "$P"/bank/input_"${PARITY}"_*.txt; do
+            tag=$(basename "$f" .txt | sed 's/^input_//')
+            test ! -f "$P/old-logs/norm_${tag}.log" || continue
+            cp "$f" "$P/check/input_${PARITY}.txt"
+            python3 "$P/check/validate_geometry.py"
+            "$P/norm" "$f" "$P/cr_alp_058/mesh.txt" "$P/cr_alp_058/gauss.txt" > "$P/logs/norm_${tag}.log" 2> "$P/logs/radius_${tag}.txt"
+            echo "$tag"
+            cat "$P/logs/radius_${tag}.txt" "$P/logs/norm_${tag}.log"
+            count=$((count+1))
+          done
+          test "$count" -eq 25
+          (cd "$P/logs"; sha256sum norm_*.log radius_*.txt > SHA256SUMS.new${PARITY})
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-075-new-norms-${{ matrix.parity }}
+          path: /tmp/cr-alp075/logs/
+          if-no-files-found: error
+          retention-days: 90
+  receive:
+    needs: [freeze,physical]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: CR-ALP-075-source-bank
+          path: /tmp/cr-alp075/bank
+      - uses: actions/download-artifact@v4
+        with:
+          name: CR-ALP-075-reused-native-norms
+          path: /tmp/cr-alp075/logs
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: CR-ALP-075-new-norms-*
+          path: /tmp/cr-alp075/logs
+          merge-multiple: true
+      - name: Exact conditional prefix receiving comparisons
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp075
+          (cd "$P/logs"; for m in SHA256SUMS.1 SHA256SUMS.2 SHA256SUMS.new1 SHA256SUMS.new2; do sha256sum -c "$m"; done)
+          test "$(find "$P/logs" -name 'norm_*.log' | wc -l)" -eq 70
+          python3 src/audits/cr_alp_075_prefix_receiver.py "$P/bank" "$P/logs" "$P/result.json"
+          sha256sum "$P/result.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CR-ALP-075-prefix-receiver
+          path: /tmp/cr-alp075/result.json
+          if-no-files-found: error
+          retention-days: 90
