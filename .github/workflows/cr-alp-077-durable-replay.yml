@@ -1,0 +1,92 @@
+name: CR-ALP-077 durable source replay
+on:
+  push:
+    branches: ['custody/cr-alp-074-077-20261125']
+    paths: ['.github/workflows/cr-alp-077-durable-replay.yml']
+permissions:
+  contents: write
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Register run
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          jq -n --arg run "$GITHUB_RUN_ID" --arg sha "$GITHUB_SHA" '{run_id:$run,source_commit:$sha}' >/tmp/run.json
+          gh api --method PUT "repos/$GITHUB_REPOSITORY/contents/custody/cr-alp-074-077/replay_run_${GITHUB_RUN_ID}.json" -f branch="$GITHUB_REF_NAME" -f message="CR-ALP-077 replay run $GITHUB_RUN_ID [skip ci]" -f content="$(base64 -w0 /tmp/run.json)"
+      - name: Authenticate durable bank and regenerate original source
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp077
+          A="$PWD/custody/cr-alp-074-077/archives"
+          (cd "$A"; sha256sum -c SHA256SUMS)
+          mkdir -p "$P/bank" "$P/old-logs" "$P/old-result" "$P/new"
+          python3 -m zipfile -e "$A/CR-ALP-075-source-bank.zip" "$P/bank"
+          python3 -m zipfile -e "$A/CR-ALP-075-prefix-receiver.zip" "$P/old-result"
+          for name in reused-native-norms new-norms-1 new-norms-2; do
+            python3 -m zipfile -e "$A/CR-ALP-075-$name.zip" "$P/old-logs"
+          done
+          (cd "$P/bank"; sha256sum -c SHA256SUMS)
+          (cd "$P/old-logs"; for m in SHA256SUMS.1 SHA256SUMS.2 SHA256SUMS.new1 SHA256SUMS.new2; do sha256sum -c "$m"; done)
+          python3 src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+          python3 -m zipfile -e "$P/package.zip" "$P"
+          (cd "$P/cr_alp_058"; sha256sum -c SHA256SUMS; python3 validate_geometry.py)
+          python3 src/audits/cr_alp_075_source_bank.py "$P" "$P/rebuilt"
+          for f in "$P"/rebuilt/*; do cmp "$f" "$P/bank/$(basename "$f")"; done
+          python3 src/audits/cr_alp_075_prefix_receiver.py "$P/bank" "$P/old-logs" "$P/replayed-prefix.json"
+          cmp "$P/replayed-prefix.json" "$P/old-result/result.json"
+          python3 src/audits/cr_alp_077_durable_replay.py prepare "$P/bank" "$P/new"
+      - name: Independently evaluate four polarizations and signed-prime moment
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp077
+          g++ -O2 -std=gnu++17 -I"$P/cr_alp_058" src/audits/cr_alp_074_norm.cpp -o "$P/norm" -lquadmath -l:libmpfr.so.6 -lgmp
+          g++ -O2 -std=gnu++17 "$P/cr_alp_058/validated.cpp" -o "$P/moment" -lquadmath -l:libmpfr.so.6 -lgmp
+          cp -a "$P/cr_alp_058" "$P/check"
+          for f in "$P"/new/*.txt; do
+            tag=$(basename "$f" .txt)
+            cp "$f" "$P/check/input_2.txt"
+            python3 "$P/check/validate_geometry.py" > "$P/new/$tag.geometry.log"
+            exe="$P/norm"
+            test "$tag" != mode12 || exe="$P/moment"
+            "$exe" "$f" "$P/cr_alp_058/mesh.txt" "$P/cr_alp_058/gauss.txt" > "$P/new/$tag.log" 2> "$P/new/$tag.radius.log"
+            echo "$tag"
+            cat "$P/new/$tag.geometry.log" "$P/new/$tag.log" "$P/new/$tag.radius.log"
+          done
+      - name: Exact independent rank-70 receiving test
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp077
+          python3 src/audits/cr_alp_077_durable_replay.py receive "$P" "$P/bank" "$P/new" "$P/replayed-prefix.json" src/audits/CR-ALP-077_inverse_diagonal_screen.json "$P/new/result.json"
+          (cd "$P/new"; sha256sum *.txt *.log result.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-077-independent-durable-replay
+          path: /tmp/cr-alp077/new/
+          if-no-files-found: error
+          retention-days: 90
+      - name: Preserve successful replay evidence in Git
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-074-077/replayed-077
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          git checkout --detach FETCH_HEAD
+          mkdir -p "$ROOT"
+          cp /tmp/cr-alp077/new/* "$ROOT/"
+          git add "$ROOT"
+          git commit -m 'CR-ALP-077: preserve independently regenerated native rank-70 replay [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          COMMIT=$(git rev-parse HEAD)
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse FETCH_HEAD)" = "$COMMIT"
+          mkdir -p /tmp/remote-check
+          git archive FETCH_HEAD "$ROOT" | tar -x -C /tmp/remote-check
+          (cd "/tmp/remote-check/$ROOT"; sha256sum -c SHA256SUMS)
+          echo "DURABLE CR-ALP-077 REPLAY PASS $COMMIT"
