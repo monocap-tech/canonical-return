@@ -1,0 +1,102 @@
+name: T1D DV joint odd directions 31 through 34 on 352 correctors, nested 31 and 32 trials, 8192 inverse modes
+on:
+  push:
+    branches: [research/cr-int-t1d-dv-joint-odd-thirty-one-four]
+permissions:
+  contents: write
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      OPENBLAS_NUM_THREADS: "4"
+      OMP_NUM_THREADS: "4"
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Static source preflight
+        run: |
+          for f in custody/dv/*.sh; do bash -n "$f"; done
+          python - <<'PY'
+          import ast, pathlib, json
+          for p in pathlib.Path('custody/dv').glob('*.py'):
+              ast.parse(p.read_text(), filename=str(p))
+          r=json.loads(pathlib.Path('custody/du/generated/result.json').read_text())
+          assert not r['31']['best']['positive'] and not r['32']['best']['positive']
+          assert r['32']['physical_correctors']==336
+          print('DV SOURCE PREFLIGHT PASS')
+          PY
+      - name: Install numerical environment
+        run: |
+          mkdir -p custody/dv/generated
+          python -m pip install numpy==2.3.5 scipy==1.17.0
+          python --version > custody/dv/generated/python-version.txt
+          python -m pip freeze > custody/dv/generated/pip-freeze.txt
+      - name: Verify committed CF files and reconstruct original source
+        run: |
+          (cd custody/cf/generated && sha256sum -c sha256.txt)
+          (cd custody/cg/generated && sha256sum -c sha256.txt)
+          (cd custody/ch/generated && sha256sum -c sha256.txt)
+          (cd custody/cj/generated && sha256sum -c sha256.txt)
+          (cd custody/ck/generated && sha256sum -c sha256.txt)
+          (cd custody/cl/generated && sha256sum -c sha256.txt)
+          (cd custody/cm/generated && sha256sum -c sha256.txt)
+          (cd custody/cn/generated && sha256sum -c sha256.txt)
+          (cd custody/co/generated && sha256sum -c sha256.txt)
+          (cd custody/cp/generated && sha256sum -c sha256.txt)
+          (cd custody/cq/generated && sha256sum -c sha256.txt)
+          (cd custody/cr/generated && sha256sum -c sha256.txt)
+          (cd custody/cs/generated && sha256sum -c sha256.txt)
+          (cd custody/ct/generated && sha256sum -c sha256.txt)
+          (cd custody/cu/generated && sha256sum -c sha256.txt)
+          (cd custody/cv/generated && sha256sum -c sha256.txt)
+          (cd custody/cw/generated && sha256sum -c sha256.txt)
+          (cd custody/cx/generated && sha256sum -c sha256.txt)
+          (cd custody/cy/generated && sha256sum -c sha256.txt)
+          (cd custody/cz/generated && sha256sum -c sha256.txt)
+          (cd custody/da/generated && sha256sum -c sha256.txt)
+          (cd custody/db/generated && sha256sum -c sha256.txt)
+          (cd custody/dc/generated && sha256sum -c sha256.txt)
+          (cd custody/de/generated && sha256sum -c sha256.txt)
+          (cd custody/dg/generated && sha256sum -c sha256.txt)
+          (cd custody/di/generated && sha256sum -c sha256.txt)
+          (cd custody/dk/generated && sha256sum -c sha256.txt)
+          (cd custody/dm/generated && sha256sum -c sha256.txt)
+          (cd custody/dn/generated && sha256sum -c sha256.txt)
+          (cd custody/dq/generated && sha256sum -c sha256.txt)
+          (cd custody/ds/generated && sha256sum -c sha256.txt)
+          (cd custody/du/generated && sha256sum -c sha256.txt)
+          python custody/ce/reconstruct.py
+          python - <<'PY'
+          import csv
+          def read(path):
+              with open(path) as f: return {r.get('archive',r.get('name')):(int(r['bytes']),r['sha256']) for r in csv.DictReader(f,delimiter='\t')}
+          assert read('custody/ce/evidence/archive-sha256.tsv')==read('ce-output/archive-verification.tsv')
+          print('ALL 56 CE DIGESTS MATCH')
+          PY
+      - name: Verify recorded inherited paths
+        run: python custody/recover_t1d_dependencies.py ce-output/archives ce-output/pristine --ledger custody/missing_inherited.tsv --report custody/dv/generated/recovery.tsv
+      - name: Targeted selection, exact action, merger and comparison
+        run: bash custody/dv/run.sh
+      - name: Manifest and permanent evidence
+        if: always()
+        run: |
+          mkdir -p custody/dv/generated
+          (cd custody/dv/generated && find . -type f ! -name sha256.txt -print0 | sort -z | xargs -0 -r sha256sum > sha256.txt && sha256sum -c sha256.txt)
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          branch="research/cr-int-t1d-dv-evidence-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git switch -c "$branch"
+          git add -f custody/dv/generated/
+          git commit -m "DV exact response and Schur evidence run ${GITHUB_RUN_ID}"
+          git push origin "HEAD:refs/heads/$branch"
+      - name: Artifact fallback
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: t1d-dv-evidence
+          path: custody/dv/generated/
+          retention-days: 90
