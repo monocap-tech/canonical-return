@@ -1,0 +1,2 @@
+# DJ — independent DI terminal audit (pending)
+Frozen DI evidence 9afe2c0a0ab3dbab589cb6f03aa8ecab6bf22574. Three mode-1 positive dimension-23 comparisons; three mode-0 nonpassing and twelve nonpassing dimensions 24/25. Reconstruct 69 leading principal minors, authenticate inherited manifests, preserve all 15 nonpassing controls. DH accepted conditional index <=214; <=213 candidate pending DJ. Terminal arithmetic only, not regeneration of scalar enclosures or unconditional RH.
