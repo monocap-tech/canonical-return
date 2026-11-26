@@ -1,0 +1,105 @@
+name: CR-ALP-122C historical source replay
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-122c-source-replay.yml']
+permissions:
+  contents: write
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate and extract historical archive
+        run: |
+          set -euo pipefail
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/alp-source.zip
+          mkdir -p /tmp/alp122c /tmp/alp122c-evidence
+          python3 - <<'PY'
+          import zipfile,json,hashlib
+          from pathlib import Path
+          d=json.load(open('custody/cr-alp-122b-source-census/inventory.json'))
+          with zipfile.ZipFile('/tmp/alp-source.zip') as z:
+              assert set(z.namelist())=={r['path'] for r in d['members']}
+              for r in d['members']:
+                  if r.get('preserved'): assert hashlib.sha256(z.read(r['path'])).hexdigest()==r['sha256']
+              z.extractall('/tmp/alp122c')
+          PY
+          cd /tmp/alp122c
+          for stage in 056 057 058; do (cd "cr_alp_$stage"; sha256sum -c SHA256SUMS); done
+      - name: Replay exact source and physical correction generators
+        run: |
+          set -euo pipefail
+          python3 -m pip install numpy
+          cd /tmp/alp122c
+          sha256sum cr_alp_057/result.json cr_alp_057/trial.json cr_alp_057/assembled_summary.json > /tmp/alp122c-evidence/frozen.sha256
+          python3 cr_alp_057/audit.py | tee /tmp/alp122c-evidence/source.log
+          python3 cr_alp_057/trial.py | tee /tmp/alp122c-evidence/trial.log
+          python3 cr_alp_057/assemble.py | tee /tmp/alp122c-evidence/assemble.log
+          sha256sum -c /tmp/alp122c-evidence/frozen.sha256 | tee /tmp/alp122c-evidence/replay.log
+          python3 cr_alp_057/verify_group.py | tee /tmp/alp122c-evidence/groups.log
+      - name: Independently enclose energy coordinate congruence
+        run: |
+          set -euo pipefail
+          cd /tmp/alp122c
+          python3 - <<'PY' | tee /tmp/alp122c-evidence/coordinate.log
+          import json,hashlib
+          from fractions import Fraction as F
+          from pathlib import Path
+          def read(p,h):
+              raw=Path(p).read_bytes(); assert hashlib.sha256(raw).hexdigest()==h
+              return json.loads(raw)
+          bank=read('cr_alp_046/CR-ALP-046_full_E85_intervals.json','d877bf95dd203c9492174afcb48c91a90bb24d9e2f5bbb6ddce5138c83c52a22')
+          S=10**100
+          def cd(n,d): return -((-n)//d)
+          def enclose(x,scale):
+              l,h=map(int,x); assert l<=h
+              return l*S//scale,cd(h*S,scale)
+          def mat(A,scale): return [[enclose(x,scale) for x in row] for row in A]
+          def tr(A): return list(map(list,zip(*A)))
+          def mul(A,B):
+              result=[]
+              for a in A:
+                  row=[]
+                  for b in tr(B):
+                      lo=hi=0
+                      for (x,y),(u,v) in zip(a,b):
+                          t=(x*u,x*v,y*u,y*v);lo+=min(t);hi+=max(t)
+                      row.append((lo//S,cd(hi,S)))
+                  result.append(row)
+              return result
+          pins={1:'47c63e3ac654b0992c5dc97d3aa4287d92aec45b2241debeaad16ccbe9279ee3',2:'9632a259df1194aa7fbde145081b2918437db7e0387fde365d2ae794f48b930c'}
+          for b in bank['blocks']:
+              k=b['parity'];n=43 if k==1 else 42
+              v=read(f'cr_alp_049/result_{k}.json',pins[k])
+              H=mat(b['H'],int(bank['scale']));V=mat(v['V'],int(v['scale']))
+              assert len(H)==len(V)==n and all(len(r)==n for r in H+V)
+              E=mul(mul(tr(V),H),V)
+              err=max(sum(max(abs(l-(S if i==j else 0)),abs(h-(S if i==j else 0))) for j,(l,h) in enumerate(row)) for i,row in enumerate(E))
+              assert F(err,S)<F(1,10**12)
+              print(k,'PASS invertible coordinate map, row norm upper',str(F(err,S)))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-122C-source-replay
+          path: /tmp/alp122c-evidence/
+          if-no-files-found: error
+      - name: Durable source replay custody
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-122c-source-replay
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          git checkout --detach FETCH_HEAD
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp122c-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum *.log frozen.sha256 > SHA256SUMS; sha256sum -c SHA256SUMS)
+          git add "$ROOT"
+          git commit -m 'CR-ALP-122C: durable historical source replay [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)"
+          echo "DURABLE CR-ALP-122C $(git rev-parse HEAD)"
