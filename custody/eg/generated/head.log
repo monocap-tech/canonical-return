@@ -1,0 +1,30 @@
+EM remainder bounds 37766618438079587110 / 100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000 25112348883502270910 / 100000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000
+odd frozen BP normalized head error 9.74848e-07
+odd scalar prelude and EM overlap PASS
+odd through 16895 tile error 3.0464e-08 elapsed 2.5
+odd through 18943 tile error 3.0464e-08 elapsed 15.0
+odd through 20991 tile error 3.0464e-08 elapsed 27.7
+odd through 23039 tile error 3.0464e-08 elapsed 40.8
+odd through 25087 tile error 3.0464e-08 elapsed 54.3
+odd through 27135 tile error 3.0464e-08 elapsed 68.0
+odd through 29183 tile error 3.0464e-08 elapsed 81.9
+odd through 31231 tile error 3.0464e-08 elapsed 96.0
+odd through 33279 tile error 3.0464e-08 elapsed 110.6
+odd through 35327 tile error 3.0464e-08 elapsed 125.5
+odd through 37375 tile error 3.0464e-08 elapsed 140.6
+odd through 39423 tile error 3.0464e-08 elapsed 155.9
+odd through 41471 tile error 3.0464e-08 elapsed 171.4
+odd through 43519 tile error 3.0464e-08 elapsed 187.0
+odd through 45567 tile error 3.0464e-08 elapsed 203.1
+odd through 47615 tile error 3.0464e-08 elapsed 219.0
+odd through 49663 tile error 3.0464e-08 elapsed 235.3
+odd through 51711 tile error 3.0464e-08 elapsed 251.6
+odd through 53759 tile error 3.0464e-08 elapsed 268.2
+odd through 55807 tile error 3.0464e-08 elapsed 285.1
+odd through 57855 tile error 3.0464e-08 elapsed 302.3
+odd through 59903 tile error 3.0464e-08 elapsed 319.6
+odd through 61951 tile error 3.0464e-08 elapsed 337.1
+odd through 63999 tile error 3.0464e-08 elapsed 354.7
+odd through 65535 tile error 3.0464e-08 elapsed 368.0
+odd complete normalized head 65536 rows 32768 error 3.899392e-06 Frobenius 22.484221201877 phase overlap checks 4608
+odd BP full head PASS
