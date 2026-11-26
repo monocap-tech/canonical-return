@@ -1,0 +1,60 @@
+name: CR-ALP-122F original signed finite matrix replay
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-122f-original-finite-replay.yml']
+permissions:
+  contents: write
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate original matrix bank
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/alp122f /tmp/alp122f-evidence
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/alp122f.zip
+          python3 - <<'PY'
+          import zipfile,hashlib
+          from pathlib import Path
+          p='cr_alp_046/CR-ALP-046_full_E85_intervals.json'
+          with zipfile.ZipFile('/tmp/alp122f.zip') as z: data=z.read(p)
+          assert hashlib.sha256(data).hexdigest()=='d877bf95dd203c9492174afcb48c91a90bb24d9e2f5bbb6ddce5138c83c52a22'
+          Path('/tmp/alp122f/frozen.json').write_bytes(data)
+          PY
+          cp src/audits/cr_alp_046_full_finite.py src/audits/cr_alp_046_check_saved.py /tmp/alp122f/
+          sha256sum /tmp/alp122f/*.py /tmp/alp122f/frozen.json | tee /tmp/alp122f-evidence/inputs.log
+      - name: Rebuild original signed Gamma and prime entries
+        run: |
+          set -euo pipefail
+          cd /tmp/alp122f
+          PYTHONINTMAXSTRDIGITS=0 python3 cr_alp_046_full_finite.py | tee /tmp/alp122f-evidence/generate.log
+          cmp frozen.json CR-ALP-046_full_E85_intervals.json
+          sha256sum CR-ALP-046_full_E85_intervals.json | tee /tmp/alp122f-evidence/matrix.log
+          python3 cr_alp_046_check_saved.py | tee /tmp/alp122f-evidence/independent.log
+          cp CR-ALP-046_result.json CR-ALP-046_independent_result.json /tmp/alp122f-evidence/
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-122F-original-finite-replay
+          path: /tmp/alp122f-evidence/
+          if-no-files-found: error
+      - name: Preserve source matrix replay evidence
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-122f-original-finite-replay
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          git checkout --detach FETCH_HEAD
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp122f-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum *.log *.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+          git add "$ROOT"
+          git commit -m 'CR-ALP-122F: preserve exact original signed matrix replay [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)"
+          echo "DURABLE CR-ALP-122F $(git rev-parse HEAD)"
