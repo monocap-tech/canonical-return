@@ -1,0 +1,120 @@
+{
+  "stage": "CR-ALP-042",
+  "source_weight_upper_numerators": {
+    "2": 490130,
+    "3": 634285,
+    "4": 346574,
+    "5": 719763,
+    "7": 735485,
+    "8": 245065,
+    "9": 366205
+  },
+  "weight_scale": 1000000,
+  "power_steps": [
+    {
+      "power": 1,
+      "cells": 13,
+      "max_row_mass_numerator": "3537507",
+      "denominator": "1000000"
+    },
+    {
+      "power": 2,
+      "cells": 43,
+      "max_row_mass_numerator": "8868928775612",
+      "denominator": "1000000000000"
+    },
+    {
+      "power": 3,
+      "cells": 99,
+      "max_row_mass_numerator": "23410903038085042664",
+      "denominator": "1000000000000000000"
+    },
+    {
+      "power": 4,
+      "cells": 183,
+      "max_row_mass_numerator": "59081902465957804400080998",
+      "denominator": "1000000000000000000000000"
+    },
+    {
+      "power": 5,
+      "cells": 335,
+      "max_row_mass_numerator": "150606184142765298196744449433151",
+      "denominator": "1000000000000000000000000000000"
+    },
+    {
+      "power": 6,
+      "cells": 529,
+      "max_row_mass_numerator": "379713700408377080987814088247152246794",
+      "denominator": "1000000000000000000000000000000000000"
+    },
+    {
+      "power": 7,
+      "cells": 821,
+      "max_row_mass_numerator": "959422808324760839719788638658335664662209398",
+      "denominator": "1000000000000000000000000000000000000000000"
+    },
+    {
+      "power": 8,
+      "cells": 1151,
+      "max_row_mass_numerator": "2415290874864721031154172660275411735244744071536531",
+      "denominator": "1000000000000000000000000000000000000000000000000"
+    },
+    {
+      "power": 9,
+      "cells": 1633,
+      "max_row_mass_numerator": "6084148754004980317091534294287096448691651941881757253394",
+      "denominator": "1000000000000000000000000000000000000000000000000000000"
+    },
+    {
+      "power": 10,
+      "cells": 2189,
+      "max_row_mass_numerator": "15306858409238293405134184753033878801746910636705348970868988259",
+      "denominator": "1000000000000000000000000000000000000000000000000000000000000"
+    }
+  ],
+  "prime_norm_upper": "21/8",
+  "cutoffs": [
+    {
+      "N": 172,
+      "R": 117,
+      "leakage_upper": "976283/500000000",
+      "Gamma_high_lower": "338724241/117000000",
+      "tail_lower": "4927859705274599/19500000000000000",
+      "certified_margin": "1/4"
+    },
+    {
+      "N": 200,
+      "R": 135,
+      "leakage_upper": "375717/200000000",
+      "Gamma_high_lower": "41046199/13500000",
+      "tail_lower": "1075884968250317/2700000000000000",
+      "certified_margin": "1/3"
+    },
+    {
+      "N": 242,
+      "R": 165,
+      "leakage_upper": "197537/100000000",
+      "Gamma_high_lower": "21409237/6600000",
+      "tail_lower": "396372118350731/660000000000000",
+      "certified_margin": "3/5"
+    },
+    {
+      "N": 300,
+      "R": 200,
+      "leakage_upper": "1765407/1000000000",
+      "Gamma_high_lower": "3438317/1000000",
+      "tail_lower": "796654529099981/1000000000000000",
+      "certified_margin": "3/4"
+    },
+    {
+      "N": 15000,
+      "R": 10000,
+      "leakage_upper": "1765371/1000000000",
+      "Gamma_high_lower": "368007/50000",
+      "tail_lower": "235577719814403/50000000000000",
+      "certified_margin": "47/10"
+    }
+  ],
+  "old_E14_Q15000_tail_margin": "9/2",
+  "not_claimed": "E14 plus Q172 mixed positivity; E172 finite or Schur certificate; full collar; Lean; RH"
+}
