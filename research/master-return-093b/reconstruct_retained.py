@@ -107,6 +107,33 @@ assert len(raw['ks'])==44
 # retained even modes, as specified by authenticated RETURN086 capture.
 records=[];r86=root/'return086';sys.path.insert(0,str(r86))
 from check_terminal import check
+# Independently test exact positive definiteness of the new congruence
+# if its sufficient row-dominance test fails. Fraction-free symmetric
+# Bareiss elimination: positive leading principal minors imply PD.
+def bareiss_positive(A):
+ A=[[int(v) for v in row] for row in A];n=len(A);prev=1
+ for k in range(n):
+  pivot=A[k][k]
+  if pivot<=0:return k
+  for i in range(k+1,n):
+   for j in range(i,n):
+    v,r=divmod(A[i][j]*pivot-A[i][k]*A[k][j],prev)
+    assert r==0,('Bareiss exact division',k,i,j)
+    A[i][j]=A[j][i]=v
+  prev=pivot
+ return n
+# Preserve the archived checker. Construct a separate exact-PD variant
+# by changing only its final sufficient test and receipt fields.
+src=(r86/'check_terminal.py').read_text()
+anchor=';assert margin>0,(path.name,float(margin))'
+assert src.count(anchor)==1
+src=src.replace(anchor, '\
+ pivots=87 if margin>0 else bareiss_positive(Nv)\
+ assert pivots==87,(path.name,float(margin),pivots)')
+src=src.replace("margin=str(margin),status='PASS'","margin=str(margin),positive_pivots=pivots,method='diagonal_dominance' if margin>0 else 'fraction_free_LDL',status='PASS'")
+env={'__file__':str(r86/'check_terminal.py'),'__name__':'return093_exact_pd','bareiss_positive':bareiss_positive}
+exec(compile(src,str(r86/'check_terminal.py'),'exec'),env)
+check_pd=env['check']
 for par in (0,1):
  cols=([[(zero,iv.mpc(1))]] if par==0 else [])+[modes(k,par) for k in ks if k>0]
  if par:cols.append([((1,0),iv.mpc(iv.mpf(1)/2)),((-1,0),iv.mpc(-iv.mpf(1)/2))])
@@ -137,7 +164,22 @@ for par in (0,1):
   # Independent enclosure, never intersect with archived matrix.
   d['Hraw']=H.tolist();d['HS']=S
   q=out/('reconstructed_'+name);q.write_text(json.dumps(d,separators=(',',':')))
-  rec=check(q);rec.update(parity=par,variant=suffix or 'generator',contained=int(contained.sum()),entries=contained.size,source_sha256=sha(p));records.append(rec)
+  # A containment transfer is rigorous regardless of the new lower
+  # comparison's diagonal-dominance or LDL outcome. Recheck the
+  # parent certificate independently, then prove literal subset.
+  parent_rec=None
+  if np.all(contained):
+   parent_rec=check(p)
+   assert parent_rec['status']=='PASS'
+  try:
+   rec=check_pd(q)
+  except AssertionError as e:
+   print('new direct PD check did not certify',repr(e),flush=True)
+   if parent_rec is None:raise
+   rec={'status':'PASS','method':'containment_transfer','parent_receipt':parent_rec,'direct_PD_failure':repr(e),'sha256':sha(q)}
+  rec.update(parity=par,variant=suffix or 'generator',contained=int(contained.sum()),entries=contained.size,source_sha256=sha(p))
+  if parent_rec is not None:rec['containment_transfer_verified']=True
+  records.append(rec)
  (out/f'H_{par}.json').write_text(json.dumps({'scale':S,'parity':par,'Hraw':H.tolist()},separators=(',',':')))
  # Free cached entry and decay products before second parity if necessary.
 (out/'receipt.json').write_text(json.dumps({'status':'PASS','scope':'alternate scalar retained energy evaluation; shared analytic form identity and mpmath elementary interval operations; all four fixed terminal checks','records':records},indent=2)+'\n')
