@@ -12,3 +12,6 @@ Execution sequence after CL acceptance:
 5. Preserve all intermediate arrays, exact matrices, hashes and logs. If positive, independently audit terminal integer comparison and inherited premises before changing conditional index.
 
 No workflow added or activated. Staged merge source is not tested against CL arrays. Conditional index <=224 remains.
+
+## Independent corrector receiver audit
+Run cm_audit_corrector.py on CL's odd_corrector.npz, the authenticated BO odd_joint.npz and archived 64-column odd_merged_corrector.npz. Recompute rho, range-restricted solve error, rounding and exact coefficient structure. Reproduce the actual outward-rounded bq_action input allowance instead of assuming BY's historical tighter threshold. This checks the stored interval Gram premises, not independent regeneration of all scalar intervals. Source only, pending CL inputs.
