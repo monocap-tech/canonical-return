@@ -105,7 +105,17 @@ assert er==F(result['representation_error'])
 def cf(A,s):return [[F(int(v),s) for v in row] for row in A]
 Q=cf(q.T@q,S*S);X=cf(x.T@x,S**4)
 Xb=[cf(x[lo:hi].T@x[lo:hi],S**4) for lo,hi,_,_ in block]
-en=np.load(dv/'merged/odd_BQ_energy.npz');K=en['K'].astype(object);D=en['D'].astype(object);KS=int(en['scale'])
+# NPZ arbitrary-precision integer grids are serialized as decimal strings.
+# astype(object) alone preserves strings; explicit Python int decoding is required.
+obj=lambda A:np.vectorize(int,otypes=[object])(A)
+en=np.load(dv/'merged/odd_BQ_energy.npz');K=obj(en['K']);D=obj(en['D']);KS=int(en['scale'])
+assert K.shape==(352,119) and D.shape==(352,352) and KS>0
+assert all(type(v) is int for v in K.flat) and all(type(v) is int for v in D.flat)
+assert np.array_equal(D,D.T)
+# Regression: exact integer conversion, multiplication, and contraction above int64.
+test=obj(np.array([[str(10**80),'-3'],['7',str(-10**90)]]))
+assert (test@np.array([[2],[5]],object)).tolist()==[[2*10**80-15],[14-5*10**90]]
+print('EJ SYNTHESIS AND BUDGET REPLAY PASS; arbitrary precision energy grid decoded',flush=True)
 E=cf((x.T@K@q+q.T@K.T@x)*S+x.T@D@x,KS*S**4)
 eps=F(str(a['eps']));mu=F(str(a['mu']));ek=F(str(en['Kerror']));ed=F(str(en['Derror']))
 assert mu>0 and ek>=0 and ed>=0
@@ -162,5 +172,6 @@ assert max(F(v['lower']) for v in published)==F(result['best']['lower'])
 assert result['best'] in published
 accepted=bool(result['best']['positive'] and any(F(v['lower'])==F(result['best']['lower']) for v in checks))
 report=dict(scope='independent synthesis contraction, directed-budget attachment and terminal rational matrix/integer positivity audit; primitive circle and analytical enclosures not independently regenerated',full_synthesis_rows=32768,columns=n,physical_blocks=19,comparison_assemblies=len(paths),positive_checks=checks,leading_minor_count=n*len(checks),best_margin_audited=accepted)
+assert accepted and len(checks)==8 and n*len(checks)==248
 (out/'audit.json').write_text(json.dumps(report,indent=2)+'\n')
 print('EJ AUDIT',len(paths),len(checks),accepted,flush=True)

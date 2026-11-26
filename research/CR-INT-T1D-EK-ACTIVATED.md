@@ -1,0 +1,2 @@
+# EK — activation after independent acceptance
+EJ run 45893009483 passed all 248 positive leading minors and 10 comparison reconstructions. Conditional negative-index upper bound <=205 under inherited analytical enclosures; dimension 31 strict margin 1/2500. Attach literal EH, EI, EJ generated subtrees and repaired audit source from ef597389a5e9fd6d45f8745e3f9904e061d675a5. EK screens dimensions 31–33 on extended action; numerical proposal only, no change to accepted bound. No new physical correctors. No RH claim.
