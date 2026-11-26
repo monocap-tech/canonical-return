@@ -66,7 +66,7 @@ def witness(K,terms,M,L,V,old):
         q=np.einsum('i,kij,j->k',u,M,u)
         return .999*u/np.sqrt(max(q))
     starts=[V[:,j] for j in range(6)]
-    starts += [np.linalg.solve(L,np.array(list(map(float,v)))) for v in old]
+    starts += [np.linalg.solve(L,np.array([float(F(x)) for x in v])) for v in old]
     starts += [V[:,:6]@rng.normal(size=6) for _ in range(8)]
     best=None
     def fun(u):return -float(u@u)
