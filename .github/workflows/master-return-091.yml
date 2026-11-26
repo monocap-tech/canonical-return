@@ -1,0 +1,55 @@
+name: RETURN091-A odd signed assembly
+on:
+  push:
+    branches: [research/master-return-090-restricted-audit]
+    paths:
+      - 'research/master-return-091/**'
+      - '.github/workflows/master-return-091.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      PYTHONINTMAXSTRDIGITS: '0'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Retrieve and authenticate completed independent banks
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/banks"
+          get_bank() {
+            local label="$1" id="$2" digest="$3"
+            local z="$RUNNER_TEMP/$label.zip"
+            curl -fsSL --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$id/zip" -o "$z"
+            echo "$digest  $z" | sha256sum -c -
+            unzip -tq "$z"
+            unzip -q "$z" -d "$RUNNER_TEMP/banks/$label"
+          }
+          get_bank 088 15038759268 e7e6e14a76c36fdd6cb85d261347e6d6f8ce9583f8d69eb6de0822a0ce95e1f6
+          get_bank 089 15041090806 7bdaf470f0934e1675d2136e3922252b41a6aa870892aa6d01f9cbca75525b2c
+          get_bank 090 15091140507 9ee514e19a7d3d2a418b3edf0ba64e2acb5d3c9fc6e6a177974f5a4486d444bf
+          get_bank 090b 15092621662 160c21357fdf1682b940d4f4280f61224d80efde72d411de2031c5761e039cdd
+      - name: Reconstruct baseline and execute frozen trial verification
+        run: |
+          python -m py_compile research/master-return-091/assemble_odd.py
+          bash archive/master-return/reconstruct.sh "$RUNNER_TEMP/archives"
+          mkdir -p "$RUNNER_TEMP/work"
+          unzip -q "$RUNNER_TEMP/archives/RETURN083_reproduction.zip" -d "$RUNNER_TEMP/work"
+          pip install numpy scipy mpmath
+          python research/master-return-091/assemble_odd.py "$RUNNER_TEMP/work" "$RUNNER_TEMP/banks" "$RUNNER_TEMP/results"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: return091a-odd-signed-assembly
+          path: ${{ runner.temp }}/results/
