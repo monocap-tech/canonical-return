@@ -1,0 +1,2 @@
+# CL — targeted odd physical response expansion
+CK 13-dimensional exact lower -1743/100000. Select 16 unused odd physical sine modes against the 13th heuristic eigenvector using original BY weighted residual overlap. Preserve numerical selection as proposal only; build exact constraint/moment-null correctors and high-order tail bounds using original BQ source, authenticated BO and BK inputs. This gate does not yet assemble the signed action or merge into the 80-corrector space. Conditional index <=224 unchanged. The selection heuristic is not a proven optimal choice.
