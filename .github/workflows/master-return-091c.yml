@@ -1,0 +1,50 @@
+name: RETURN091-C independent even baseline
+on:
+  push:
+    branches: [research/master-return-090-restricted-audit]
+    paths:
+      - 'research/master-return-091c/**'
+      - '.github/workflows/master-return-091c.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      PYTHONINTMAXSTRDIGITS: '0'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Authenticate and reconstruct archive banks
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/banks/089" "$RUNNER_TEMP/work" "$RUNNER_TEMP/results"
+          z="$RUNNER_TEMP/089.zip"
+          curl -fsSL --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/15041090806/zip" -o "$z"
+          echo "7bdaf470f0934e1675d2136e3922252b41a6aa870892aa6d01f9cbca75525b2c  $z" | sha256sum -c -
+          unzip -tq "$z"
+          unzip -q "$z" -d "$RUNNER_TEMP/banks/089"
+          bash archive/master-return/reconstruct.sh "$RUNNER_TEMP/archives"
+          for i in 083_reproduction 086_audit 087_audit; do
+            unzip -o -q "$RUNNER_TEMP/archives/RETURN$i.zip" -d "$RUNNER_TEMP/work"
+          done
+          python -m pip install numpy mpmath
+          python -m py_compile research/master-return-091c/*.py
+      - name: Independently reconstruct even infinite tail
+        run: python research/master-return-091c/even_tail.py "$RUNNER_TEMP/work" "$RUNNER_TEMP/results"
+      - name: Assemble source banks and check both frozen comparisons
+        run: python research/master-return-091c/assemble_even.py "$RUNNER_TEMP/work" "$RUNNER_TEMP/banks" "$RUNNER_TEMP/results"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: return091c-independent-even-baseline
+          path: ${{ runner.temp }}/results/
