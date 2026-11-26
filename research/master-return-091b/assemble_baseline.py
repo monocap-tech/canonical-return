@@ -62,9 +62,8 @@ g0=read_bank('088','gram_262144.json',['gram'],10**40)
 g2=read_bank('088','gram_65536.json',['gram'],10**40)
 K=sym(plus(Kbase,scale(plus(scale(g0,-theta),scale(diff(g2,g0),-theta2)),F(KS,10**40))))
 # RETURN087 banks are read directly from the authenticated archive, not
-# regenerated or substituted by parent values. Require a unique full
-# three-matrix containment match to the explicitly identified parent section.
-# Ambiguity or absent schema stops the gate, with source paths in the log.
+# regenerated or substituted by parent values. Bind the explicit archived parity and row-range sections, then require
+# full three-matrix containment against their parent sections.
 r87=root/'return087'
 pins={'finite_bank.json':'c6a1df49ff86806810e8763c10223b3b4b2e331b0243693802f1372eb14c443f',
       'band_0.json':'624d811d17b570bdc58d39d7e47350bad0f91524443e8e2fad0cba91a7c6db58',
@@ -73,56 +72,37 @@ for name,sha in pins.items():
  assert hashlib.sha256((r87/name).read_bytes()).hexdigest()==sha,name
 keys=('tt','U','restoration_cross')
 shapes={'tt':(87,87,2),'U':(519,87,2),'restoration_cross':(8,87,2)}
-def groups(obj,path=(),sc=O):
- if isinstance(obj,dict):
-  if isinstance(obj.get('scale'),int):sc=obj['scale']
-  if all(k in obj for k in keys):
-   try:
-    a={k:arr(obj[k]) for k in keys}
-    if all(a[k].shape==shapes[k] for k in keys):
-     yield path,{k:scale(a[k],F(O,sc)) for k in keys}
-   except (ValueError,TypeError):pass
-  for k,v in obj.items():
-   if k not in keys and isinstance(v,(dict,list)):
-    yield from groups(v,path+(str(k),),sc)
- elif isinstance(obj,list) and obj and isinstance(obj[0],dict):
-  for i,v in enumerate(obj):yield from groups(v,path+(str(i),),sc)
 def contained(a,b):
  return np.all(a[:,:,0]>=b[:,:,0]) and np.all(a[:,:,1]<=b[:,:,1])
-def pick(bank,parent,label):
- assert all(k in parent for k in keys),(label,'parent keys',list(parent))
- p={k:arr(parent[k]) for k in keys}
- assert all(p[k].shape==shapes[k] for k in keys),(label,{k:p[k].shape for k in keys})
- matches=[]
- for path,m in groups(bank):
-  print('RETURN087 candidate',label,path,{k:bool(contained(m[k],p[k])) for k in keys},flush=True)
-  if all(contained(m[k],p[k]) for k in keys):matches.append((path,m))
- assert matches,(label,'no fully contained three-matrix bank')
- path,m=matches[0]
- assert all(all(np.array_equal(v[k],m[k]) for k in keys) for _,v in matches),(label,'ambiguous distinct matching banks')
- print('RETURN087 selected',label,path,flush=True)
- return m,list(path)
+def checked(bank,sc,parent,label):
+ assert all(k in bank and k in parent for k in keys),(label,list(bank),list(parent))
+ result={}
+ for k in keys:
+  a=scale(arr(bank[k]),F(O,sc));p=arr(parent[k])
+  assert a.shape==p.shape==shapes[k],(label,k,a.shape,p.shape)
+  inside=(a[:,:,0]>=p[:,:,0])&(a[:,:,1]<=p[:,:,1])
+  print('RETURN087 containment',label,k,int(inside.sum()),inside.size,flush=True)
+  assert np.all(inside),(label,k,'not contained')
+  result[k]=a
+ return result
 f87=load(r87/'finite_bank.json');b87=load(r87/'band_1.json')
-print('RETURN087 finite root keys',list(f87) if isinstance(f87,dict) else type(f87).__name__,flush=True)
-print('RETURN087 band root keys',list(b87) if isinstance(b87,dict) else type(b87).__name__,flush=True)
-# RETURN079 keeps TT/U in its parity blocks but the odd restoration
-# matrix at the top level. Bind all three to the same archive object.
-assert isinstance(base.c['blocks'],list) and len(base.c['blocks'])==2
-early_parent=dict(base.c['blocks'][1],restoration_cross=base.c['restoration_cross'])
-def describe(o,path=(),depth=0):
- if depth>4:return
- if isinstance(o,dict):
-  print('schema',path,list(o),flush=True)
-  for k,v in o.items():
-   if k not in keys and isinstance(v,(dict,list)):describe(v,path+(str(k),),depth+1)
- elif isinstance(o,list) and o and isinstance(o[0],dict):
-  for i,v in enumerate(o):describe(v,path+(str(i),),depth+1)
-describe(f87,('finite',));describe(b87,('band',))
-print('parent odd schema',list(early_parent),list(base.new['blocks'][1]),list(base.gap['blocks'][1]),flush=True)
-early,pe=pick(f87,early_parent,'cumulative 2192 actual rows')
-late,pl=pick(f87,base.new['blocks'][1],'increment 5919 actual rows')
-band,pb=pick(b87,base.gap['blocks'][1],'8192 weighted feature rows')
-assert pe!=pl
+# Bind using the audited bank's parity and ordered row ranges, not a
+# search for a favorable numerical containment match.
+odd=[(i,v) for i,v in enumerate(f87['banks']) if v['parity']==1]
+assert len(odd)==3
+print('RETURN087 odd partitions',[(i,v['start'],v['end']) for i,v in odd],flush=True)
+assert all(odd[i][1]['end']<odd[i+1][1]['end'] for i in range(2))
+ie,eb=odd[1];il,lb=odd[2]
+assert ie==4 and il==5
+ep=base.c['blocks'][1]
+print('RETURN079 finite keys',list(ep['finite']),'scales',ep['scales'],'root scale',base.c['scale'],flush=True)
+early_parent=dict(ep['finite'],restoration_cross=base.c['restoration_cross'])
+assert base.c['scale']==O
+early=checked(eb['cumulative'],f87['scale'],early_parent,'cumulative 2192 actual rows')
+late=checked(lb['increment'],f87['scale'],base.new['blocks'][1],'increment 5919 actual rows')
+assert b87['record']['parity']==1
+band=checked(b87['bank'],O,base.gap['blocks'][1],'8192 weighted feature rows')
+pe=['banks',str(ie),'cumulative'];pl=['banks',str(il),'increment'];pb=['bank']
 # The independently audited source partition is 8111 actual rows,
 # 8192 weighted-model rows, full finite high band, and infinite tail.
 # The restricted band is a signed correction to the finite high band only.
