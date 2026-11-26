@@ -53,7 +53,12 @@ def receive(root,bank,prior,block,terminal,work,out):
             for j,xj in zip(J,x):
                 l,h=map(int,w['K'][i][j]);a,c=F(l,scale)*xi*xj,F(h,scale)*xi*xj
                 kl+=min(a,c);kh+=max(a,c)
-        r=read(work/k/'response.log');I=ids(k)
+        I=ids(k);Jhi=[j for j in I if j>85]
+        diag=[line.split() for line in (work/k/'diag.txt').read_text().splitlines()]
+        assert len(diag)==len(Jhi) and all(int(j)==i and F(l)==F(h)==F(72,25) for (j,l,h),i in zip(diag,Jhi))
+        trialrows=[line.split() for line in (work/k/'trial.txt').read_text().splitlines()]
+        assert len(trialrows)==len(Jhi) and all(int(j)==i and F(l)==F(h) for (j,l,h),i in zip(trialrows,Jhi))
+        r=read(work/k/'response.log')
         assert set(r)=={'X2','G','E','Y2','Yb','pole_st',*(f'y{j}' for j in I),*(f'pole{j}' for j in I)}
         old=read(terminal/f'mode_{k}_terminal.log')['G']
         assert max(old[0],r['G'][0])<=min(old[1],r['G'][1])
