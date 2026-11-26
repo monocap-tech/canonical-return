@@ -1,0 +1,2 @@
+# EM-R1 — selection module shadowing repair
+Run 45896792488 failed after source and inherited-path authentication, before any numerical selection, at SciPy importing subprocess importing select. Local custody/em/select.py shadowed the standard-library extension and re-entered the selection module. Rename to targeted_selection.py, remove old path, update runner and add regression import from the script directory. No change to selection code, frozen EK inputs or allocation. Original failed run preserved its evidence. Conditional index <=205; no new correctors accepted.

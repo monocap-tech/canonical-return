@@ -40,6 +40,7 @@ jobs:
         run: |
           mkdir -p custody/em/generated
           python -m pip install numpy==2.3.5 scipy==1.17.0
+          (cd custody/em && python -c "import select, subprocess; from scipy.sparse.linalg import cg; assert callable(select.select) and callable(cg); print('EM IMPORT REGRESSION PASS', select.__file__)")
           python --version > custody/em/generated/python-version.txt
           python -m pip freeze > custody/em/generated/pip-freeze.txt
       - name: Verify committed CF files and reconstruct original source
