@@ -1,0 +1,3 @@
+BR PRODUCTION CROSS {'archive': 'CR-INT-T1D-BR-reproducibility.zip', 'member': 'odd_surplus_cross.npz', 'sha256': 'd2d175023c316bc110f16557ef7c5794ed4c0e97fa67df5c2c7aaa3403f1d9a7', 'pilot_sha256': '9c16c2c08039ec41d6fa0b10530fa71188fc06e15ab413705af6246426ad7247', 'production_weights_match_both': True, 'rows': 1882}
+THIRTEEN COLUMN PROPOSAL SOURCE READY
+DN 304 CORRECTOR INPUT SHAPES PASS
