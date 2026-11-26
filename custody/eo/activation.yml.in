@@ -5,6 +5,9 @@ on:
 permissions:
   contents: write
   actions: read
+defaults:
+  run:
+    shell: bash
 jobs:
   optimize:
     runs-on: ubuntu-latest
@@ -111,7 +114,29 @@ jobs:
       - name: Verify recorded inherited paths
         run: python custody/recover_t1d_dependencies.py ce-output/archives ce-output/pristine --ledger custody/missing_inherited.tsv --report custody/eo/generated/recovery.tsv
       - name: Matched baseline and extended numerical screen
-        run: python custody/eo/screen.py | tee custody/eo/generated/screen.log
+        run: |
+          set -euo pipefail
+          python custody/eo/screen.py | tee custody/eo/generated/screen.log
+          python - <<'PY'
+          import json, math
+          from pathlib import Path
+          import numpy as np
+          p=Path('custody/eo/generated')
+          r=json.loads((p/'screen.json').read_text())
+          assert r['physical_columns']==368 and r['physical_cutoff']==65536
+          assert r['baseline_replay_error']<1e-7
+          for k in ('ideal','best','best_positive_t'):
+              assert all(math.isfinite(r[k][v]) for v in ('proxy31','proxy32','proxy33','nominal_on_trial32','hessian_min'))
+              assert r[k]['hessian_min']>0
+          assert r['best_positive_t']['t']>0
+          for name,key in [('candidate32.npz','best'),('candidate32_positive_t.npz','best_positive_t')]:
+              with np.load(p/name) as a:
+                  assert a['X'].shape==(368,119) and a['Q'].shape==(119,32)
+                  assert a['V'].ndim==2 and a['V'].shape[1]==119
+                  assert all(np.isfinite(a[k]).all() for k in ('X','V','Q'))
+                  assert all(float(a[k])==r[key][k] for k in ('delta','t','new_block_weight'))
+          print('EO OUTPUT CONTRACT PASS (numerical only)')
+          PY
       - name: Manifest and permanent evidence
         if: always()
         run: |
