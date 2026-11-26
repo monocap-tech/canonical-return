@@ -5,7 +5,7 @@ r=Path(__file__).resolve().parents[2];w=r/'ce-output/pristine';cb=w/'cr_int_t1d_
 src=(r/'custody/ck/prepare.py').read_text().split("for n in ['bw_prepare.py'")[0].replace("custody/ck/generated","custody/ct/generated")
 exec(compile(src,str(r/'custody/ck/prepare.py'),'exec'),dict(__file__=str(r/'custody/ck/prepare.py')))
 bo=w/'cr_int_t1d_bo';bo.mkdir(exist_ok=True)
-with zipfile.ZipFile(r/'ce-output/archives/CT-INT-T1D-BO-reproducibility.zip') as z:
+with zipfile.ZipFile(r/'ce-output/archives/CR-INT-T1D-BO-reproducibility.zip') as z:
     for name in ['odd_joint.npz','odd_overlap.npz']:
         hits=[n for n in z.namelist() if Path(n).name==name]
         assert len(hits)==1,hits

@@ -2,7 +2,7 @@ from pathlib import Path
 import zipfile,shutil,hashlib
 r=Path(__file__).resolve().parents[2];w=r/'ce-output/pristine';old=w/'cr_int_t1d_ca_odd';new=w/'cr_int_t1d_ct_new';new.mkdir(exist_ok=False)
 bo=w/'cr_int_t1d_bo';bo.mkdir(exist_ok=True)
-with zipfile.ZipFile(r/'ce-output/archives/CT-INT-T1D-BO-reproducibility.zip') as z:
+with zipfile.ZipFile(r/'ce-output/archives/CR-INT-T1D-BO-reproducibility.zip') as z:
     for name in ['odd_joint.npz','odd_overlap.npz']:
         member='cr_int_t1d_bo/'+name
         (bo/name).write_bytes(z.read(member))

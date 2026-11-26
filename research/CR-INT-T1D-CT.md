@@ -1,2 +1,5 @@
 # CT — targeted odd direction 16 (pending)
 CS independently verified all six positive 14-dimensional CR comparisons (84/84 principal minors); conditional index <=222. CR numerical candidates 15=+0.00147268883, 16=-0.000484029042. Select 16 unused modes against direction 16 alone, audit receiver and action, merge to 144 correctors on 283 support indices. Generate 16-column proposal and recompute nested 15- and 16-dimensional directed comparisons at unchanged 4096 inverse/exterior resolution. Preserve intermediate arrays. No acceptance before independent terminal audit. Selection is heuristic; no global positivity or RH claim.
+
+## First execution repair
+Run 45741091516 passed 578 inherited dependency hashes but stopped before selection because the stage-name substitution erroneously renamed the immutable BO archive prefix CR-INT-T1D to CT-INT-T1D in select.py and action_prepare.py. Failure evidence preserved at f8092be733904155501cae9dbbea8648f74db89e. Restore only these two literal paths; no mathematical parameters or inputs changed. All CT Python and shell source inspected for stage references and shape checks.
