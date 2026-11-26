@@ -1,6 +1,6 @@
 {
   "schema": "return099c-custody-inventory-v1",
-  "scope": "API metadata inventory only; not local archive authentication or permanent custody; RETURN099-B pending; no proof promotion",
+  "scope": "API metadata inventory only; not local archive authentication or permanent custody; no proof promotion",
   "repository": "monocap-tech/canonical-return",
   "artifacts": [
     {
@@ -192,8 +192,18 @@
       "expired": false,
       "expires": "2027-02-24T22:35:59Z",
       "head": "149a67eb230dfa0b78ab5f93cd785e7b10e74145"
+    },
+    {
+      "run": 45906093959,
+      "id": 15158236154,
+      "name": "return099b-joint-conditional-evidence",
+      "sha256": "6e3e2b3bd4fe699213b3d398af35a8c29a4e3e2f1699dfedb3bfecb3f16aed4f",
+      "bytes": 2027,
+      "expired": false,
+      "expires": "2027-02-24T22:38:38Z",
+      "head": "33bfa108769c841af9266404ac4356429cfa25f2"
     }
   ],
-  "total_bytes": 128207239,
+  "total_bytes": 128209266,
   "earliest_expiry": "2027-02-23T15:59:09Z"
 }
