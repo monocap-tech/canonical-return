@@ -33,7 +33,11 @@ jobs:
           branch="research/cr-int-t1d-ej-evidence-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
           git switch -c "$branch"
           git add -f custody/ej/generated/
-          git commit -m "EJ independent terminal audit evidence run ${GITHUB_RUN_ID}"
+          if git diff --cached --quiet; then
+            echo 'No new audit evidence to commit'
+          else
+            git commit -m "EJ independent terminal audit evidence run ${GITHUB_RUN_ID}"
+          fi
           git push origin "HEAD:refs/heads/$branch"
       - uses: actions/upload-artifact@v4
         if: always()
