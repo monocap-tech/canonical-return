@@ -1,0 +1,2 @@
+# EM — targeted dimension-32 corrector selection
+EK finished with negative ideal and penalized direction32; EL withheld. Rebuild two sampled residual inverse solves, select sixteen unused odd indices from 3–16383, twelve targeted at direction32 and four at direction31. FFT overlaps checked against direct sample contractions. Selection heuristic is not an improvement proof. Run inherited exact corrector and tail construction and independent receiver audit, no full action or energy yet. Conditional index <=205. No RH claim.
