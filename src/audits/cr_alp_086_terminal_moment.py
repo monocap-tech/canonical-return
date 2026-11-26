@@ -89,11 +89,12 @@ def prepare(root,bank,prior,block,out):
         # Turn the floating threshold proposal into an exact positive comparison.
         # A tiny shrink is not assumed sufficient; back off until exact SPD.
         a=F(int(val*10**15),10**15)*F(99,100)
-        while a>0:
+        for _ in range(20):
+            assert a>0
             B=update(A,q,a,tau)
             if exact_spd(full(H,D,W,DP,B,eta)):break
             a*=F(9,10)
-        assert a>0
+        else:raise AssertionError('No exact positive threshold found')
         raw,eps=input_for(bank,E,k,J,Z,q);f=out/f'input_{k}_terminal.txt';f.write_text(raw)
         base=sum(x*y for x,y in zip(q,[r[0] for r in mm(A,[[x] for x in q])]))
         report[k]={'q':list(map(str,q)),'eta':str(eta),'tau':str(tau),
@@ -111,7 +112,9 @@ def receive(root,bank,prior,block,out):
         raw,eps=input_for(bank,E,k,J,Z,q);f=out/f'input_{k}_terminal.txt'
         assert raw==f.read_text() and sha(f)==p['input_sha256'] and eps==F(p['error_upper'])
         r=moments(out/f'mode_{k}_terminal.log',out/f'second_{k}_terminal.log',eps)
-        a=min(F(r['inverse_upper']),F(p['prior_affine_ceiling']))
+        base=sum(x*y for x,y in zip(q,[r[0] for r in mm(A,[[x] for x in q])]))
+        assert base==F(p['prior_affine_ceiling'])
+        a=min(F(r['inverse_upper']),base)
         n=len(H);best=n-1
         # Verify inherited rank 83 with a fixed saved eta in the unrefined block.
         assert inertia(full(H,D,W,DP,A,F(1,10)))[0]>=best
