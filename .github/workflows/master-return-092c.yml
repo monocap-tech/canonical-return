@@ -1,0 +1,56 @@
+name: RETURN092-C restoration and terminal auxiliary replacement
+on:
+  push:
+    branches: [research/master-return-090-restricted-audit]
+    paths:
+      - 'research/master-return-092c/**'
+      - '.github/workflows/master-return-092c.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      PYTHONINTMAXSTRDIGITS: '0'
+      OPENBLAS_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Authenticate all frozen source and terminal banks
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/banks" "$RUNNER_TEMP/work" "$RUNNER_TEMP/results"
+          while read -r label id digest; do
+            z="$RUNNER_TEMP/$label.zip"
+            curl -fsSL --retry 3 -H "Authorization: Bearer $GH_TOKEN" -H 'Accept: application/vnd.github+json' "https://api.github.com/repos/$GITHUB_REPOSITORY/actions/artifacts/$id/zip" -o "$z"
+            echo "$digest  $z" | sha256sum -c -
+            unzip -tq "$z"
+            mkdir -p "$RUNNER_TEMP/banks/$label"
+            unzip -q "$z" -d "$RUNNER_TEMP/banks/$label"
+          done <<'BANKS'
+          092b 15148420383 892fe209f064f9dfd8912c03d39ab0c95f99a5771c0b9d4e16c9086df06a57f5
+          088 15038759268 e7e6e14a76c36fdd6cb85d261347e6d6f8ce9583f8d69eb6de0822a0ce95e1f6
+          091c 15142039146 d70bd348a098cb334e0037ee7cb1522418af79d1b28943c37e5eb2627a9047f2
+          092a 15142054118 d6deba079dbcbe699dc112a8c39c329a426744d0f08541ebf65ee01bde478fd0
+          BANKS
+          bash archive/master-return/reconstruct.sh "$RUNNER_TEMP/archives"
+          for i in 083_reproduction 086_audit; do
+            unzip -o -q "$RUNNER_TEMP/archives/RETURN$i.zip" -d "$RUNNER_TEMP/work"
+          done
+          python -m pip install numpy scipy mpmath
+          python -m py_compile research/master-return-092c/*.py
+      - name: Reconstruct odd restoration and check all four auxiliary replacements
+        run: python research/master-return-092c/augment_and_check.py "$RUNNER_TEMP/work" "$RUNNER_TEMP/results" "$RUNNER_TEMP/banks"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: return092c-restoration-and-auxiliary-terminals
+          path: ${{ runner.temp }}/results/
