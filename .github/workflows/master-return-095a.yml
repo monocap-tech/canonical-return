@@ -39,7 +39,9 @@ jobs:
           094a 15150541588 64541bc860f0dc888de33e0f12f9f00776e432fd639f4c1a959c7de6facda22a
           BANKS
           bash archive/master-return/reconstruct.sh "$RUNNER_TEMP/archives"
-          unzip -q "$RUNNER_TEMP/archives/RETURN083_reproduction.zip" -d "$RUNNER_TEMP/work"
+          for i in 083_reproduction 084_audit; do
+            unzip -o -q "$RUNNER_TEMP/archives/RETURN$i.zip" -d "$RUNNER_TEMP/work"
+          done
           python -m py_compile research/master-return-095a/transport.py
       - name: Verify exact conditional Schur transport and chart bindings
         run: python research/master-return-095a/transport.py "$RUNNER_TEMP/work" "$RUNNER_TEMP/banks" "$RUNNER_TEMP/results"
