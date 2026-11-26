@@ -1,0 +1,44 @@
+name: T1D CZ independent CY terminal arithmetic audit
+on:
+  push:
+    branches: [research/cr-int-t1d-cz-terminal-audit]
+permissions:
+  contents: write
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Authenticate permanent inputs
+        run: |
+          for stage in cf cg ch cj ck cl cm cn co cp cq cr cs ct cu cv cw cx cy; do
+            (cd custody/$stage/generated && sha256sum -c sha256.txt)
+          done
+      - name: Independent exact certificate reconstruction
+        run: |
+          mkdir -p custody/cz/generated
+          set -o pipefail
+          python custody/cz/audit.py | tee custody/cz/generated/audit.log
+      - name: Permanent audit evidence
+        if: always()
+        run: |
+          mkdir -p custody/cz/generated
+          (cd custody/cz/generated && find . -type f ! -name sha256.txt -print0 | sort -z | xargs -0 -r sha256sum > sha256.txt && sha256sum -c sha256.txt)
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          branch="research/cr-int-t1d-cz-evidence-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git switch -c "$branch"
+          git add -f custody/cz/generated/
+          git commit -m "CZ independent terminal arithmetic evidence"
+          git push origin "HEAD:refs/heads/$branch"
+      - name: Artifact fallback
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: t1d-cz-evidence
+          path: custody/cz/generated/
+          retention-days: 90
