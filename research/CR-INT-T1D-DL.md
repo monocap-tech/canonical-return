@@ -1,0 +1,2 @@
+# DL — independent DK terminal audit (pending)
+Frozen DK evidence 553cc652a46c85fabbc309038da7760910c809bd. Reconstruct twelve positive comparisons in dimensions 24 and 25, 294 exact leading minors, preserve six nonpassing dimension-26 controls; authenticate ancestral manifests. DJ accepted conditional index <=213, <=211 candidate pending DL. Terminal arithmetic only; no regeneration of scalar enclosures or unconditional RH.
