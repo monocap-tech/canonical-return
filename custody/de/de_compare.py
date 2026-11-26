@@ -22,8 +22,8 @@ Gu=b['Gu'];Gvu=b['Gvu'];full=d['G']+b['HG']+s*s*Gu-s*(Gvu+Gvu.T)
 err=rows(d['Ge'])+b['HGe']+s*s*b['Gue']+2*abs(s)*b['Gvue']+rows(wwe/S**4)
 W=full-ww/S**4+err*eye
 assert np.array_equal(W,W.T)
-c,ce=cross(U,Ue,Y,Ye,np.ones(len(U),object));mide=cf(c,S**4);mide=norm(ce,S**4)
-base=b['base']-(d['bmax']+b['b2max'])*b['U']+c0*b['U']+m*(mide+mide.T)+2*abs(m)*mide*eye
+c,ce=cross(U,Ue,Y,Ye,np.ones(len(U),object));midc=cf(c,S**4);mide=norm(ce,S**4)
+base=b['base']-(d['bmax']+b['b2max'])*b['U']+c0*b['U']+m*(midc+midc.T)+2*abs(m)*mide*eye
 Q=cf(d['q'].T@d['q'],S*S);X=cf(d['x'].T@d['x'],S**4);aq=d['eY']+sqrtup(d['tau']);ax=d['eU']+sqrtup(d['tauU']);er=d['e'];nq=sqrtup(rows(Q));nx=sqrtup(rows(X));v=[aq*nq,ax*nx,er];total=sum(v);lamb=[vi/total for vi in v];assert all(li>0 for li in lamb) and sum(lamb)==1
 D2=aq**2/lamb[0]*Q+ax**2/lamb[1]*X+er**2/lamb[2]*eye
 eta=nx/nq;assert eta>0
@@ -74,7 +74,7 @@ if '--control' in sys.argv:
     assert str(low)==str(old['lower'])
     assert np.array_equal(np.array(L,str),old['L']) and np.array_equal(np.array(H,str),old['H'])
     assert low>0
-    print('CB EXADE MATRIX MATCH',str(low),flush=True)
+    print('CB EXACT MATRIX MATCH',str(low),flush=True)
     (out/'cb-control.json').write_text(json.dumps(dict(lower=str(low),parameters=list(map(str,pp)),matrix_match=True))+'\n')
 bp=(F(1,50),F(1,175),eta,lamb)
 rec=publish('secant-control',bp)
