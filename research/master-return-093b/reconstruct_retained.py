@@ -127,9 +127,7 @@ def bareiss_positive(A):
 src=(r86/'check_terminal.py').read_text()
 anchor=';assert margin>0,(path.name,float(margin))'
 assert src.count(anchor)==1
-src=src.replace(anchor, '\
- pivots=87 if margin>0 else bareiss_positive(Nv)\
- assert pivots==87,(path.name,float(margin),pivots)')
+src=src.replace(anchor, '\n pivots=87 if margin>0 else bareiss_positive(Nv)\n assert pivots==87,(path.name,float(margin),pivots)')
 src=src.replace("margin=str(margin),status='PASS'","margin=str(margin),positive_pivots=pivots,method='diagonal_dominance' if margin>0 else 'fraction_free_LDL',status='PASS'")
 env={'__file__':str(r86/'check_terminal.py'),'__name__':'return093_exact_pd','bareiss_positive':bareiss_positive}
 exec(compile(src,str(r86/'check_terminal.py'),'exec'),env)
