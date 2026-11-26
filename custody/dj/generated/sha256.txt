@@ -1,0 +1,2 @@
+3c9d8be6cf22509137a31ee303634baefad2f1008b5db2ab7d7acfc157de41ed  ./audit.json
+9c14a5f7e38cff2ccc6cdd353a389f540086bcee354becabfa263601c019c52f  ./audit.log
