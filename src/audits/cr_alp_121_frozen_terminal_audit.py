@@ -345,7 +345,7 @@ def main(root,bank,prior,block,correction,terminal,capped,received,dual,adaptive
             assert fr9['sectors'][k]['certificate']==sel2['sectors'][k]['certificate']==br2['odd_certificate']==fs['certificate']
             assert sel2['sectors'][k]['replayed_inertia']==ii
             assert frozen120['sectors'][k]['certificate']==fs['certificate'] and frozen120['sectors'][k]['labels']==[t[0] for t in terms]
-            report[k]={'rank':n,'labels':[t[0] for t in terms],'certificate':fs['certificate'],'audit':exact_frozen_audit(K,terms,fs['certificate'])}
+            report[k]={'rank':n,'labels':[t[0] for t in terms],'certificate':fs['certificate'],'replayed_inertia':ii,'audit':exact_frozen_audit(K,terms,fs['certificate'])}
             print(k,'PASS frozen exact certificate',ii,flush=True)
             continue
         assert k=='2' and fs['rank']==n-1
