@@ -28,8 +28,12 @@ candidates=[]
 for f in sorted((root/'return077').glob('*.json')):
  d=load(f)
  if d.get('proposal_sha256')==sha(proposal) and 'R' in d:candidates.append((f,d))
-assert len(candidates)==1,[f.name for f,d in candidates]
-f,d=candidates[0];R=[[F(v) for v in row] for row in d['R']]
+assert {f.name for f,d in candidates}=={'RETURN077_receipt.json','RETURN077_replay.json'}
+f,d=next((f,d) for f,d in candidates if f.name=='RETURN077_receipt.json')
+R=[[F(v) for v in row] for row in d['R']]
+for p0,d0 in candidates:
+ assert d0['rank']==8 and [[F(v) for v in row] for row in d0['R']]==R, p0.name
+ print('restoration metric agrees with',p0.name,sha(p0),flush=True)
 assert len(R)==8 and all(len(row)==8 for row in R)
 assert d['rank']==8
 # Recover the scalar from one exact entry; prove it is a positive
@@ -68,6 +72,6 @@ def rank(A):
  return r
 assert rank(B)==8
 assert all(R[i][j]==pi1*pi1*M[i][j] for i in range(8) for j in range(8))
-record={'status':'PASS','scope':'exact weighted restoration metric factorization and pi upper bound; factor recovered from one archived entry, remaining 63 checked; independent row rank','entries':64,'independent_cross_checks':63,'rank':8,'positive_weights':500,'pi_factor_matches_062_upper':pi1==pu,'pi_factor':str(pi1),'pins':{str(v.relative_to(root)):sha(v) for v in (proposal,cert,weights_file,f,pi_bank)}}
+record={'status':'PASS','scope':'exact weighted restoration metric factorization and pi upper bound; factor recovered from one archived entry, remaining 63 checked; independent row rank','entries':64,'reference_variants':2,'independent_cross_checks':63,'rank':8,'positive_weights':500,'pi_factor_matches_062_upper':pi1==pu,'pi_factor':str(pi1),'pins':{str(v.relative_to(root)):sha(v) for v in (proposal,cert,weights_file,pi_bank,*[p0 for p0,d0 in candidates])}}
 (out/'receipt.json').write_text(json.dumps(record,indent=2)+'\n')
 print('RETURN094-A RESTORATION METRIC FACTORIZATION PASS',flush=True)
