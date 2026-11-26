@@ -1,0 +1,17 @@
+# CR-ALP-122C — Recovered generator identity and source-only replay gate
+
+Research-only. Source recovery 45905439102 PASS, durable 6e184de3c149682614b980b598307647aabb55b1. The archive has 93 entries, 33 preserved source/manifest members. Independent terminal audit 121 still executing at this stage.
+
+## Actual source readback
+
+Reopened 054/generate.py, 055/generate.py and build.py, 056/core.py, correct.py, extended.py, build.py, 057/audit.py, trial.py, assemble.py, and 058/VALIDATION.md from authenticated census. 054/055 and 056 use the identical pinned 046 H bank and identical 049 V hashes. Their exact interval check ||V^* H V-I||_infinity<1e-12 implies invertibility of the square V whenever H is the actual enclosed matrix. It does not require exact energy orthonormality. 057/audit.py uses these same V columns; in the basis w_i=e_i-(c_i/c_k)e_k for i!=k, u_k=e_k-(c_k/B)b, its d and f formulas are exactly the coefficients of the transformed source. The archive contains 049 result banks but not the original 049 generator.
+
+054 reconstructs the old frozen 053 free rows, imposes the finite pole constraint by solving its final coefficient, and adds the complete unit bridge. It computes EV-cross-cross.T+X.T Laug X and residual Uaug-Laug X. Its projected F600/D band rows and bridge give redundant orthogonal coordinates: an isometric embedding of the constrained space into a larger Euclidean space, not an independent unconstrained physical basis. 055 adds the second complete orthogonal bridge. On the range of this embedding, the projected Pbig and gamma I act as the physical compressed L; the discarded pole lines do not enter the residual. 056/correct.py implements the degree-12 rational Chebyshev recurrence on these rows and stores Z, corrected K and residual Gram. 056/extended.py reconstructs the actual X+Z from projected band rows and both bridge coefficients, with the complete pole term Db. Its K is exactly the correction bank K rescaled to 100 decimals. 057/trial.py executes the same reconstruction source fragment with archive path redirection, rather than a separately proposed trial. 057/assemble.py transports full coefficient rounding radii into the residual proxy norm, using ||P||<=21/8 and ||L||<=1101/200. 058/VALIDATION.md states the actual binary128/MPFR and quadrature assumptions; they remain numerical enclosure premises.
+
+## Next executable gate
+
+Reassemble the original archive into a disposable tree. Verify hashes of every member against the recovered inventory where SHA256 is available; independently hash the pinned 046/049/055/056/057 files. Replay 057/audit.py, trial.py, assemble.py and verify_group.py from the authenticated inputs, compare regenerated source and trial hashes against the original frozen outputs, and independently check the exact V^* H V positivity bound via outward integer interval products. Do not rerun physical quadrature or mutate original evidence. The 056 degree-12 correction recurrence is a distinct, more expensive replay and is not included in this first gate. A hash mismatch must stop promotion. Even a complete source replay is not an independent verification of the original 046 analytic matrix entry enclosures or the whole 058 physical error proof.
+
+## Scope
+
+The source-level coordinate and correction identities now have direct historical generator evidence. The numerical replay and original signed matrix/physical validation assumptions are not yet discharged. Tail Gamma form-order replay remains open. No fixed-collar or RH promotion.
