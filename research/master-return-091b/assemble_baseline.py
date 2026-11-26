@@ -74,6 +74,7 @@ keys=('tt','U','restoration_cross')
 shapes={'tt':(87,87,2),'U':(519,87,2),'restoration_cross':(8,87,2)}
 def contained(a,b):
  return np.all(a[:,:,0]>=b[:,:,0]) and np.all(a[:,:,1]<=b[:,:,1])
+failures=[]
 def checked(bank,sc,parent,label):
  assert all(k in bank and k in parent for k in keys),(label,list(bank),list(parent))
  result={}
@@ -81,8 +82,9 @@ def checked(bank,sc,parent,label):
   a=scale(arr(bank[k]),F(O,sc));p=arr(parent[k])
   assert a.shape==p.shape==shapes[k],(label,k,a.shape,p.shape)
   inside=(a[:,:,0]>=p[:,:,0])&(a[:,:,1]<=p[:,:,1])
-  print('RETURN087 containment',label,k,int(inside.sum()),inside.size,flush=True)
-  assert np.all(inside),(label,k,'not contained')
+  overlap=(a[:,:,0]<=p[:,:,1])&(p[:,:,0]<=a[:,:,1])
+  print('RETURN087 containment',label,k,int(inside.sum()),inside.size,'overlap',int(overlap.sum()),'sample',a[0,0].tolist(),p[0,0].tolist(),flush=True)
+  failures.append((label,k,int(inside.sum()),inside.size))
   result[k]=a
  return result
 f87=load(r87/'finite_bank.json');b87=load(r87/'band_1.json')
@@ -91,7 +93,7 @@ f87=load(r87/'finite_bank.json');b87=load(r87/'band_1.json')
 odd=[(i,v) for i,v in enumerate(f87['banks']) if v['parity']==1]
 assert len(odd)==3
 print('RETURN087 odd partitions',[(i,v['start'],v['end']) for i,v in odd],flush=True)
-assert all(odd[i][1]['end']<odd[i+1][1]['end'] for i in range(2))
+assert [(v['start'],v['end']) for _,v in odd]==[(0,1680),(1680,2192),(2192,8111)]
 ie,eb=odd[1];il,lb=odd[2]
 assert ie==4 and il==5
 ep=base.c['blocks'][1]
@@ -99,9 +101,25 @@ print('RETURN079 finite keys',list(ep['finite']),'scales',ep['scales'],'root sca
 early_parent=dict(ep['finite'],restoration_cross=base.c['restoration_cross'])
 assert base.c['scale']==O
 early=checked(eb['cumulative'],f87['scale'],early_parent,'cumulative 2192 actual rows')
-late=checked(lb['increment'],f87['scale'],base.new['blocks'][1],'increment 5919 actual rows')
+# Compare against original serialized input, not mutable objects imported
+# from a legacy assembly module. Print archived verifier's binding code
+# and exact metadata before evaluating all three banks.
+for f in (root/'return083/setup.py',r87/'verify.py'):
+ print('authenticated source binding',str(f.relative_to(root)),flush=True)
+ for line in f.read_text().splitlines():
+  if any(t in line for t in ('contract.json','contract_alt.json','band.json','finite_bank','increment','new=','gap=','mb=','scale','base.new')):print(line,flush=True)
+raw_late=load(root/'return081/contract.json')
+raw_band=load(root/'return080/band.json')
+assert raw_late['scale']==raw_band['scale']==O
+assert len(raw_late['ks'])==5919 and raw_late['ks'][0]==4544 and raw_late['ks'][-1]==16384
+assert len(raw_band['ks'])==8192 and raw_band['ks'][0]==16386 and raw_band['ks'][-1]==32768
+for label,raw,loaded in [('late',raw_late,base.new),('band',raw_band,base.gap)]:
+ print('raw/legacy equality',label,{k:bool(np.array_equal(arr(raw['blocks'][1][k]),arr(loaded['blocks'][1][k]))) for k in keys},flush=True)
+late=checked(lb['increment'],f87['scale'],raw_late['blocks'][1],'increment 5919 actual rows')
 assert b87['record']['parity']==1
-band=checked(b87['bank'],O,base.gap['blocks'][1],'8192 weighted feature rows')
+band=checked(b87['bank'],O,raw_band['blocks'][1],'8192 weighted feature rows')
+(out/'containment.json').write_text(json.dumps(failures,indent=2)+'\\n')
+assert all(n==d for _,_,n,d in failures),failures
 pe=['banks',str(ie),'cumulative'];pl=['banks',str(il),'increment'];pb=['bank']
 # The independently audited source partition is 8111 actual rows,
 # 8192 weighted-model rows, full finite high band, and infinite tail.
