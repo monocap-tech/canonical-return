@@ -1,0 +1,2 @@
+# DH — independent DG terminal audit (pending)
+DG frozen evidence 77751bd5dfae8cc526ca2621377f2e02efbea1d0: six positive dimension-22 comparisons; independently reconstruct all six integer certificates and 132 leading principal minors, authenticate inherited manifests, preserve twelve nonpassing dimension-23/24 controls. DF evidence 3bac1e14480a1bae033068cdb0e7c4cae554f903 independently accepts bound <=215; <=214 producer candidate until DH passes. Terminal arithmetic only, no independent scalar enclosure regeneration or global positivity/RH claim.
