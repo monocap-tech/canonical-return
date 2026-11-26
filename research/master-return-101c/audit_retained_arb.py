@@ -102,11 +102,20 @@ for p in (0,1):
  for suffix in ('','_alt'):
   name=f'matrices_{p}{suffix}.json'
   for label,path in [('original',root/'return086'/name),('alternate',bank/('reconstructed_'+name))]:
-   d=load(path);Q=d['HS'];assert Q==10**75 and d['C']==raw['blocks'][p]['C'] and d['CS']==raw['T']
+   d=load(path);Q=d['HS'];T=d['CS'];C=d['C']
+   # Original capture and reconstructed Gram may use different
+   # directed integer scales. Compare exact physical endpoints.
+   assert isinstance(Q,int) and Q>0 and isinstance(T,int) and T>0
+   if label=='alternate':assert Q==10**75
+   assert len(C)==87 and all(len(row)==87 for row in C)
+   assert all(x*raw['T']==y*T for row0,row1 in zip(C,raw['blocks'][p]['C']) for x,y in zip(row0,row1)),(p,suffix,label,'chart mismatch')
+   assert len(d['Hraw'])==87 and all(len(row)==87 for row in d['Hraw'])
+   print('authenticated reference scale',p,suffix or 'generator',label,Q,flush=True)
    contained=0
    for i in range(87):
     for j in range(87):
      l,u=H[i][j];lo,hi=d['Hraw'][i][j]
+     assert lo<=hi and l<=u
      ok=lo*S<=l*Q<=u*Q<=hi*S
      contained+=int(ok)
      if not ok and len(fail)<20:fail.append([p,suffix,label,i,j,[l,u],[lo,hi]])
