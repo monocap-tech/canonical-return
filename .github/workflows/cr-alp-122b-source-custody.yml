@@ -1,0 +1,69 @@
+name: CR-ALP-122B historical source custody
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-122b-source-custody.yml']
+permissions:
+  contents: write
+jobs:
+  source-census:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reassemble authenticated original archive
+        run: |
+          set -euo pipefail
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/alp-source.zip
+      - name: Preserve historical source members without executing them
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/alp-source-census
+          python3 - <<'PY'
+          import hashlib,json,zipfile
+          from pathlib import Path,PurePosixPath
+          root=Path('/tmp/alp-source-census')
+          rows=[]
+          with zipfile.ZipFile('/tmp/alp-source.zip') as z:
+              assert z.testzip() is None
+              assert len(z.namelist())==len(set(z.namelist()))
+              for x in z.infolist():
+                  p=PurePosixPath(x.filename)
+                  assert not p.is_absolute() and '..' not in p.parts
+                  row={'path':x.filename,'size':x.file_size,'crc32':format(x.CRC,'08x')}
+                  if not x.is_dir() and (p.suffix.lower() in ('.py','.js','.cpp','.h','.hpp','.md','.sh','.lean') or p.name.startswith('SHA256SUMS')):
+                      data=z.read(x)
+                      out=root/'members'/p
+                      out.parent.mkdir(parents=True,exist_ok=True)
+                      out.write_bytes(data)
+                      row['sha256']=hashlib.sha256(data).hexdigest()
+                      row['preserved']=True
+                  rows.append(row)
+          (root/'inventory.json').write_text(json.dumps({'archive_sha256':'f5f69ea089b2a30a84d4d64be8f2c37a95a468e99e4897f24761836abae44bd2','members':rows},indent=2)+'\n')
+          print('ARCHIVE MEMBERS',len(rows),'SOURCE MEMBERS',sum(r.get('preserved',False) for r in rows))
+          PY
+          (cd /tmp/alp-source-census; find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS; sha256sum -c SHA256SUMS)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CR-ALP-122B-historical-source-census
+          path: /tmp/alp-source-census/
+          if-no-files-found: error
+      - name: Preserve source-only evidence on research branch
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-122b-source-census
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          git checkout --detach FETCH_HEAD
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp-source-census/. "$ROOT/"
+          git add "$ROOT"
+          git commit -m 'CR-ALP-122B: preserve historical generator source census [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)"
+          mkdir -p /tmp/remote-source-check
+          git archive FETCH_HEAD "$ROOT" | tar -x -C /tmp/remote-source-check
+          (cd "/tmp/remote-source-check/$ROOT"; sha256sum -c SHA256SUMS)
+          echo "DURABLE CR-ALP-122B $(git rev-parse HEAD)"
