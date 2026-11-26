@@ -1,5 +1,5 @@
 {
-  "status": "PENDING_NATIVE_CUSTODY",
+  "status": "ARCHIVE_CUSTODY_COMPLETE",
   "research_head": "d14933facc14e15cb9be07f09ce36f5eec9b83be",
   "native_artifacts": [
     {
@@ -73,22 +73,28 @@
       "bytes": 13298
     }
   ],
-  "local_only": [
+  "scope": "Artifact custody only; full original local replay ZIPs are present in the custody branch, with recorded sizes, SHA-256 and Git blob hashes. No mathematical promotion.",
+  "preserved_local_archives": [
     {
       "file": "CR-ALP-074-local-rank20-replay.zip",
       "sha256": "c1ee61a59c9859c05bb11e2a762ce67e73bd5dfdabc5a34416f4d84942df4652",
-      "bytes": 1553041
+      "bytes": 1553041,
+      "path": "custody/cr-alp-074-077/local-archives/CR-ALP-074-local-rank20-replay.zip",
+      "git_blob_sha": "c54a1bdb3d36b78184cfbe213a1cee7ed5881676"
     },
     {
       "file": "CR-ALP-076-targeted-cross-replay.zip",
       "sha256": "9ac9079c04cd88fcb47826b5eebaf528d9a13b8c816ebda7d0ef3c258f6acc1d",
-      "bytes": 680461
+      "bytes": 680461,
+      "path": "custody/cr-alp-074-077/local-archives/CR-ALP-076-targeted-cross-replay.zip",
+      "git_blob_sha": "c729902c5200be964329166058ca30744173309b"
     },
     {
       "file": "CR-ALP-077-three-mode-inverse-replay.zip",
       "sha256": "ed4906b628f16c948f7705b9e8afc687b0d66fd24cab04deff05aa082ae53390",
-      "bytes": 5812646
+      "bytes": 5812646,
+      "path": "custody/cr-alp-074-077/local-archives/CR-ALP-077-three-mode-inverse-replay.zip",
+      "git_blob_sha": "4d986b17a04e3eebbac61528688e90896f217a43"
     }
-  ],
-  "scope": "Artifact custody only; no mathematical promotion. Local-only archive hashes do not establish GitHub possession."
+  ]
 }
