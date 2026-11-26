@@ -1,0 +1,43 @@
+name: RETURN101-C independent Arb retained Gram audit
+on:
+  push:
+    branches: [research/master-return-090-restricted-audit]
+    paths:
+      - 'research/master-return-101c/**'
+      - '.github/workflows/master-return-101c.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Authenticate original and alternate retained Gram references
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/work" "$RUNNER_TEMP/bank" "$RUNNER_TEMP/results"
+          bash archive/master-return/reconstruct.sh "$RUNNER_TEMP/archives"
+          unzip -q "$RUNNER_TEMP/archives/RETURN083_reproduction.zip" -d "$RUNNER_TEMP/work"
+          unzip -q "$RUNNER_TEMP/archives/RETURN086_audit.zip" -d "$RUNNER_TEMP/work"
+          gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/15149302173/zip" > "$RUNNER_TEMP/093b.zip"
+          echo "e2a52d486b26929527d191b2c6918280d11893e0e8d0bec8c23cd7cf58fc6279  $RUNNER_TEMP/093b.zip" | sha256sum -c -
+          unzip -tq "$RUNNER_TEMP/093b.zip"
+          unzip -q "$RUNNER_TEMP/093b.zip" -d "$RUNNER_TEMP/bank"
+          python -m pip install python-flint==0.8.0
+          python -m py_compile research/master-return-101c/audit_retained_arb.py
+      - name: Independent physical retained Gram containment
+        run: python research/master-return-101c/audit_retained_arb.py "$RUNNER_TEMP/work" "$RUNNER_TEMP/bank" "$RUNNER_TEMP/results"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: return101c-independent-retained-gram
+          path: ${{ runner.temp }}/results/
