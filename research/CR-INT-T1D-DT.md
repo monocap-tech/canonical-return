@@ -1,0 +1,2 @@
+# DT — independent DS terminal audit (pending)
+Frozen DS evidence 982a1f7129bec13fa01decb3503bbc07069f1929. Reconstruct twelve positive comparisons in dimensions 29 and 30 and 354 exact leading principal minors; authenticate ancestral manifests. DR evidence 1ec78b234ad5641aae09b0c1543d896e302def72 accepts conditional index <=208; <=206 candidate pending DT. Terminal arithmetic only; no independent regeneration of scalar enclosures or unconditional RH.
