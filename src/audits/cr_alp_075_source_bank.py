@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate exact coordinate-source proxies for the nested rank-60 candidate.
+"""Generate exact coordinate-source proxies for the nested rank-70 candidate.
 Source only: no physical integration, positivity or index decrement.
 """
 from fractions import Fraction as F
@@ -20,7 +20,7 @@ def run(p,out):
     out.mkdir(parents=True,exist_ok=True)
     select(p,out/'selection.json')
     sel=json.loads((out/'selection.json').read_text())
-    assert sel['conditional_gate_usable'], 'No usable rank-60 threshold; do not prepare physical jobs'
+    assert sel['conditional_gate_usable'], 'No usable rank-70 threshold; do not prepare physical jobs'
     a=checked(p/'cr_alp_057/result.json','e0dbb8cd24322cd5f0a96a7d8c1b188c38b7f5d2f706d644b8268cbb6533a809')
     g=checked(p/'cr_alp_057/grouped_proxy.json','12c7fbc679f244f0016cd71acd7256cf00830bb40d14fb2fedf452cab7706c0c')
     t=checked(p/'cr_alp_057/trial.json','6576fb333c7b2fdec6a4c236d70b3257b4bdedcb9208ae77a10e3e1931f512b0')
@@ -60,7 +60,7 @@ def run(p,out):
             report.append({'parity':k,'coordinate_zero_based':j,'norm2':'1','file':name,
               'sha256':hashlib.sha256(raw).hexdigest(),'omitted_group_midpoint_norm_upper':str(F(tail,Q)),
               'residual_norm_ceiling':sel['sectors'][k]['common_actual_residual_norm_ceiling']})
-    assert len(report)==60
+    assert len(report)==sel['rank']==70
     (out/'source_bank.json').write_text(json.dumps({'status':'SOURCE_ONLY','entries':report},indent=2)+'\n')
-    print('PASS source construction, 60 exact coordinate midpoints; no physical integration')
+    print('PASS source construction, 70 exact coordinate midpoints; no physical integration')
 if __name__=='__main__':run(Path(sys.argv[1]),Path(sys.argv[2]))
