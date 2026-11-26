@@ -1,0 +1,50 @@
+name: RETURN101-A independent primitive scalar enclosure audit
+on:
+  push:
+    branches: [research/master-return-090-restricted-audit]
+    paths:
+      - 'research/master-return-101a/**'
+      - '.github/workflows/master-return-101a.yml'
+permissions:
+  contents: read
+concurrency:
+  group: return101a-primitive-audit
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Authenticate original archives and prepare independent Arb evaluator
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/work" "$RUNNER_TEMP/results"
+          bash archive/master-return/reconstruct.sh "$RUNNER_TEMP/archives"
+          unzip -q "$RUNNER_TEMP/archives/RETURN083_reproduction.zip" -d "$RUNNER_TEMP/work"
+          unzip -q "$RUNNER_TEMP/archives/RETURN086_audit.zip" -d "$RUNNER_TEMP/work"
+          python -m pip install python-flint==0.8.0 numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0
+          python -m py_compile research/master-return-101a/audit_primitives.py
+      - name: Independent constant and phase gap enclosure
+        id: constants
+        continue-on-error: true
+        run: python research/master-return-101a/audit_primitives.py "$RUNNER_TEMP/work" "$RUNNER_TEMP/results" constants
+      - name: Full independent directed scalar moment sums
+        id: direct
+        continue-on-error: true
+        run: python research/master-return-101a/audit_primitives.py "$RUNNER_TEMP/work" "$RUNNER_TEMP/results" direct
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: return101a-independent-scalar-enclosures
+          path: ${{ runner.temp }}/results/
+      - name: Require both independent certification gates
+        if: always()
+        run: |
+          test "${{ steps.constants.outcome }}" = success
+          test "${{ steps.direct.outcome }}" = success
