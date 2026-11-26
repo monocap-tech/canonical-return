@@ -101,7 +101,7 @@ jobs:
           cmp "$P/bank/source_bank.json" "$PWD/custody/cr-alp-074-077/replayed-082/source_bank.json"
           python3 -c 'import numpy' || python3 -m pip install --user --break-system-packages numpy
           echo 'PASS original source regeneration'
-      - name: Replay adaptive response and test refined joint envelope (odd-sector binding repaired)
+      - name: Replay frozen rational certificates (report schema repaired)
         run: |
           set -euo pipefail
           P=/tmp/cr-alp121
