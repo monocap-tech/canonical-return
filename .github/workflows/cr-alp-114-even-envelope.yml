@@ -1,7 +1,7 @@
 name: CR-ALP-114 dual joint envelope
 on:
   push:
-    branches: ['execution/cr-alp-114-even-envelope-20261146']
+    branches: ['execution/cr-alp-114-even-envelope-20261126']
     paths: ['.github/workflows/cr-alp-114-even-envelope.yml']
 permissions:
   contents: write
