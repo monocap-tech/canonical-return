@@ -1,0 +1,35 @@
+name: RETURN102-B literal stored moment audit
+on:
+  push:
+    branches: [research/master-return-090-restricted-audit]
+    paths:
+      - 'research/master-return-102b/**'
+      - '.github/workflows/master-return-102b.yml'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Authenticate original moment bank and prepare Arb
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/work" "$RUNNER_TEMP/results"
+          bash archive/master-return/reconstruct.sh "$RUNNER_TEMP/archives"
+          unzip -q "$RUNNER_TEMP/archives/RETURN083_reproduction.zip" -d "$RUNNER_TEMP/work"
+          python -m pip install python-flint==0.8.0
+          python -m py_compile research/master-return-102b/audit_stored_moments.py
+      - name: Recompute literal stored moments and leading endpoint enclosures
+        run: python research/master-return-102b/audit_stored_moments.py "$RUNNER_TEMP/work" "$RUNNER_TEMP/results"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: return102b-literal-stored-moments
+          path: ${{ runner.temp }}/results/
