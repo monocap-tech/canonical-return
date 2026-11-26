@@ -1,0 +1,2 @@
+# DR — independent DQ terminal audit (pending)
+Frozen DQ evidence 965e8da8eea4911166844706eb9980ddd73cc728. Reconstruct six positive comparisons in dimension 28 and 168 exact leading principal minors; authenticate ancestral manifests. DP evidence e00f1461f304a54ad98077d0d521218f8e717fd3 accepts conditional index <=209; <=208 candidate pending DR. Terminal arithmetic only; no independent regeneration of scalar enclosures or unconditional RH.
