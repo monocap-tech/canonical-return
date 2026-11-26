@@ -1,0 +1,74 @@
+{
+  "status": "LOCAL_LOG_TRANSCRIPTION_PENDING_HASH_REPLAY",
+  "source_archive_sha256": {
+    "076": "9ac9079c04cd88fcb47826b5eebaf528d9a13b8c816ebda7d0ef3c258f6acc1d",
+    "077": "ed4906b628f16c948f7705b9e8afc687b0d66fd24cab04deff05aa082ae53390"
+  },
+  "native_parent": "8fdb82eaf52a3d38c8f97d7c3080be9ab40e731c",
+  "geometry_log": {
+    "content": "96 independent exact root and weight brackets PASS\nsector 1 source/trial/boundary coefficient budgets PASS\nsector 2 source/trial/boundary coefficient budgets PASS\ndirect product quadrature and shift displacement budgets PASS\n",
+    "sha256": "b3f0da8bd5886b726f7650db51421fc86c91a51343cbfc34fd0b786bc6efd87e"
+  },
+  "pairs": [
+    {
+      "tag": "12_14_plus",
+      "input_sha256": "b781713c5a0742263aa77700362e6caa29ccb165df0d74aa44fce0fa58300613",
+      "norm": {
+        "content": "G 34968554813126 34984284452088 / 1e15\n",
+        "sha256": "037ae98cfab27142a4b670237e1c367ab94861b583f76f3b2ed750376504b6d9"
+      },
+      "radius": {
+        "content": "max point radius 1.00000000000061097220450e-08\nprojection lambda radius 8.07905571451070856238947e-06\nmax point radius 5.06325978147658579483782e-05\n",
+        "sha256": "348534e9f28e76f2238a5c5f4c495b2648088ee5188c0ae8a2f90b823330b667"
+      }
+    },
+    {
+      "tag": "12_14_minus",
+      "input_sha256": "18d308977210b264cfe10ed6568f5ee15515bca81d0a3774027c2238096a0772",
+      "norm": {
+        "content": "G 45125563348 45689675658 / 1e15\n",
+        "sha256": "e20d6fe12039ddf51d149e62117f2d77faeb946ad8c814d6d8a4b240055e1657"
+      },
+      "radius": {
+        "content": "max point radius 1.00000000000041369367653e-08\nprojection lambda radius 8.07905569657615829632653e-06\nmax point radius 5.06325977020566800094501e-05\n",
+        "sha256": "25d3362780e5c55ceee38e63f148e0823063faea28dec480f14d8eefd21bbcda"
+      }
+    },
+    {
+      "tag": "12_9_plus",
+      "input_sha256": "ec8bdf1b20d45f01dc2074e775bf565b0f650bdf8f5bfd90a79a57bc237e5036",
+      "norm": {
+        "content": "G 737821412129 740110306724 / 1e15\n",
+        "sha256": "5b6b93f1218d0d28832a8e37bc96762ec759974933c41bd8fa15661ea66c234e"
+      },
+      "radius": {
+        "content": "max point radius 1.00000000000009536757739e-08\nprojection lambda radius 8.07905566782817862149220e-06\nmax point radius 5.06325975213908112649659e-05\n",
+        "sha256": "f0702ab2b6537c813d9c5ef7a4fc90573b8b9a6ad6f1dac32cdfef796d19d453"
+      }
+    },
+    {
+      "tag": "12_9_minus",
+      "input_sha256": "021609aa786b642ec75a70d2597ca0f904488ad3f67d77ce1f18fed673693e24",
+      "norm": {
+        "content": "G 27601165811169 27615141820807 / 1e15\n",
+        "sha256": "f91b4849955e0061e3e5557d5d26a846c7f56552527e7a963dcc34a5de5fd8b1"
+      },
+      "radius": {
+        "content": "max point radius 1.00000000000010182221260e-08\nprojection lambda radius 8.07905566841709542218355e-06\nmax point radius 5.06325975250918422151696e-05\n",
+        "sha256": "50e8980342e307c65931704c37448b7e9f92508ff7f2875d2ce3b2b8ccf8e6c8"
+      }
+    }
+  ],
+  "mode12": {
+    "input_sha256": "c8e79fe0a38aca5f63146fc6ccb17e48c7838c67255a79dcda4a6b28e7ab8a4f",
+    "moment": {
+      "content": "G 9335284441517 9343404346788 / 1e15\ncorr0 1084567812392 1089687035669 / 1e15\ncorr1 1161169716311 1165381242488 / 1e15\ncorr2 551842789013 555348798879 / 1e15\ncorr3 -59692757336 -57296520593 / 1e15\ncorr4 -71330823678 -69830722899 / 1e15\ncorr5 -49977537600 -49145162484 / 1e15\ncorr6 28299844038 28426779811 / 1e15\nM -2743012504108 -2724064568999 / 1e15\npenalty 21092898620198 21123055349224 / 1e15\n",
+      "sha256": "5973d20345ecc02972d32183d98b308560e98275ae464b619c469dc2671b4684"
+    },
+    "radius": {
+      "content": "max point radius 1.00000000000009865668009e-08\nprojection lambda radius 8.07905566812261906620935e-06\nmax point radius 5.06325975232412136504243e-05\n",
+      "sha256": "e8b7bcaa07622233b0d5f1a9ffe4fc88bce9597437debd1f80c477119f52a86f"
+    }
+  },
+  "scope": "Critical raw local logs only, not original ZIP custody or numerical proof. Source/evaluator and mesh attachment still required."
+}
