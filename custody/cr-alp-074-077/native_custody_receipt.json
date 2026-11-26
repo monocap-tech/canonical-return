@@ -1,0 +1,134 @@
+{
+  "status": "AUTHENTICATED_BEFORE_GIT_PUSH",
+  "run_id": "45737474641",
+  "execution_commit": "0181c47aadcea9812e5635d312d4f7e31a399104",
+  "archives": [
+    {
+      "run": 45722539906,
+      "id": 15074051280,
+      "file": "CR-ALP-074-balanced-source-bank.zip",
+      "sha256": "fbf7c66ecdf4f900508c53c2ba499246f974b91b988fab1303c11474d1504980",
+      "bytes": 1401631,
+      "entries": 23,
+      "manifest_checks": 22,
+      "crc": "PASS",
+      "sha256_check": "PASS"
+    },
+    {
+      "run": 45725743543,
+      "id": 15076286428,
+      "file": "CR-ALP-074-authenticated-bank.zip",
+      "sha256": "0abdda5692e80b226eb6ad30e387b9c49697a578756ca2e50ae54df488cd3a8c",
+      "bytes": 1401631,
+      "entries": 23,
+      "manifest_checks": 22,
+      "crc": "PASS",
+      "sha256_check": "PASS"
+    },
+    {
+      "run": 45725743543,
+      "id": 15077380786,
+      "file": "CR-ALP-074-norms-1.zip",
+      "sha256": "522c80515eda146f4a8762e8279ebe8ea903bb3482e2e2760be92dfef93aca5f",
+      "bytes": 4395,
+      "entries": 21,
+      "manifest_checks": 20,
+      "crc": "PASS",
+      "sha256_check": "PASS"
+    },
+    {
+      "run": 45725743543,
+      "id": 15076439118,
+      "file": "CR-ALP-074-norms-2.zip",
+      "sha256": "b77a973c6ec16f90480ab559dd217933028263b981ef9985298cd3574dac5487",
+      "bytes": 4369,
+      "entries": 21,
+      "manifest_checks": 20,
+      "crc": "PASS",
+      "sha256_check": "PASS"
+    },
+    {
+      "run": 45725743543,
+      "id": 15077107889,
+      "file": "CR-ALP-074-physical-receiver-result.zip",
+      "sha256": "35af67dc570db2d3ca2323985b481339349da8e89c267a31d86aba42519b0d30",
+      "bytes": 3813,
+      "entries": 2,
+      "manifest_checks": 0,
+      "crc": "PASS",
+      "sha256_check": "PASS"
+    },
+    {
+      "run": 45732014096,
+      "id": 15076204321,
+      "file": "CR-ALP-075-source-bank.zip",
+      "sha256": "0862e7009382dc37e256651f7692068da90b03c411789d353ba6265615e1e76e",
+      "bytes": 4929689,
+      "entries": 73,
+      "manifest_checks": 72,
+      "crc": "PASS",
+      "sha256_check": "PASS"
+    },
+    {
+      "run": 45732014096,
+      "id": 15077011899,
+      "file": "CR-ALP-075-reused-native-norms.zip",
+      "sha256": "d290bb5bee2c65b231d934feb24d347e4f4cdc32ae07b46d27ad08f45b1f1ba5",
+      "bytes": 8742,
+      "entries": 42,
+      "manifest_checks": 40,
+      "crc": "PASS",
+      "sha256_check": "PASS"
+    },
+    {
+      "run": 45732014096,
+      "id": 15076474485,
+      "file": "CR-ALP-075-new-norms-1.zip",
+      "sha256": "9dbeef436660bbed0dd20ba1e5515a62f329252d9630eb6baa00339bbffd19a3",
+      "bytes": 10810,
+      "entries": 51,
+      "manifest_checks": 50,
+      "crc": "PASS",
+      "sha256_check": "PASS"
+    },
+    {
+      "run": 45732014096,
+      "id": 15076893410,
+      "file": "CR-ALP-075-new-norms-2.zip",
+      "sha256": "5739caba1897814554dd6bcb8b5ca34b21aeb9fbaf3706608da12f93e982eb7f",
+      "bytes": 10806,
+      "entries": 51,
+      "manifest_checks": 50,
+      "crc": "PASS",
+      "sha256_check": "PASS"
+    },
+    {
+      "run": 45732014096,
+      "id": 15077726573,
+      "file": "CR-ALP-075-prefix-receiver.zip",
+      "sha256": "507cbaeaeb6401469e83c560c2b36198f41bd798d29f2769cf5e5607d77036ae",
+      "bytes": 13298,
+      "entries": 1,
+      "manifest_checks": 0,
+      "crc": "PASS",
+      "sha256_check": "PASS"
+    }
+  ],
+  "local_only": [
+    {
+      "file": "CR-ALP-074-local-rank20-replay.zip",
+      "sha256": "c1ee61a59c9859c05bb11e2a762ce67e73bd5dfdabc5a34416f4d84942df4652",
+      "bytes": 1553041
+    },
+    {
+      "file": "CR-ALP-076-targeted-cross-replay.zip",
+      "sha256": "9ac9079c04cd88fcb47826b5eebaf528d9a13b8c816ebda7d0ef3c258f6acc1d",
+      "bytes": 680461
+    },
+    {
+      "file": "CR-ALP-077-three-mode-inverse-replay.zip",
+      "sha256": "ed4906b628f16c948f7705b9e8afc687b0d66fd24cab04deff05aa082ae53390",
+      "bytes": 5812646
+    }
+  ]
+}
