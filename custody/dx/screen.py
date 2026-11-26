@@ -55,7 +55,15 @@ for lam in grid:
     vals=np.linalg.eigvalsh(R.T@M@R)
     record=dict(lam=float(lam),nominal31=float(ev[-31]),nominal32=float(ev[-32]),proxy31=float(pev[-31]),nominal_on_proxy_trial=float(vals[0]),physical_norm_nominal31=float(np.linalg.norm(X@Q31,2)),physical_norm_proxy31=float(np.linalg.norm(X@R,2)),response_frobenius=float(np.linalg.norm(X)),nominal_loss_norm=float(np.linalg.norm(loss,2)))
     rows.append(record);candidates.append((X,R))
-best=max(range(len(rows)),key=lambda k:rows[k]['proxy31'])
+# The fixed scalar proxy has a known Loewner optimizer X_rho.
+# Verify it dominates every sampled alternative numerically.
+ir=grid.index(rho);Xr,_=candidates[ir]
+Ar=A+rho*np.eye(m);Pr=central(Xr)-rho*Xr.T@Xr
+for X,_ in candidates:
+    loss=(X-Xr).T@Ar@(X-Xr)
+    assert np.max(abs(Pr-(central(X)-rho*X.T@X)-loss))<1e-8
+assert rows[ir]['proxy31']>=max(r['proxy31'] for r in rows)-1e-10
+best=ir
 X,R=candidates[best];np.savez_compressed(out/'proxy-candidate.npz',X=X,Q=R,lam=rows[best]['lam'],rho=rho,central=central(X))
 report=dict(scope='numerical screen only, not an exact bound',source_commit='2e5a6cc9e09fbe69d87596c2bc86f5ee4bbe4216',mu=mu,eps=eps,hessian_min=float(ae[0]),hessian_max=float(ae[-1]),rho=rho,physical_allowance=ax,baseline_X_max_error=float(np.max(abs(X0-old))),baseline_M_max_error=float(np.max(abs(M0-oldM))),rows=rows,best=rows[best])
 (out/'screen.json').write_text(json.dumps(report,indent=2)+'\n')
