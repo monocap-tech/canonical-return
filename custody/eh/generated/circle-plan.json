@@ -1,0 +1,10 @@
+{
+  "physical_cutoff": 65536,
+  "circular_cutoff": 32768,
+  "source_labels": 39793,
+  "max_source_label": 2204993,
+  "all_gram_rows": 50793,
+  "parts": 7,
+  "inverse_action_sha256": "61c5a57967452071c5fe9d65ed4d535af25cfac8e6ffee8e13bc99bc28abe2b7",
+  "scope": "matched circle cutoff; full finite-representative Gram required; omitted circular tail still enclosed"
+}

@@ -1,0 +1,2 @@
+# EJ — activated independent audit
+EI run 45889984731 completed successfully: eight positive comparisons, best strict margin 1/2500. Exact EH and EI generated subtrees attached from evidence eaa7328e8054da7b8ff0401ca1696b1e562a5460. Audit independently reconstructs synthesis, enclosure attachment, terminal assembly and integer minors, not primitive circular overlaps or all inherited analytical identities. Conditional index stays 206 until audit acceptance.
