@@ -31,8 +31,12 @@ def rescale(a,old,new):
  l=a[:,:,0]*new//old;h=ceil(a[:,:,1]*new,old)
  assert np.all(l<=h)
  return np.stack([l,h],-1)
-w=load('return057/RETURN057_weights.json')
-u=load('return047/RETURN047_payment_receipt.json')
+# RETURN063_constraints.py binds w to RETURN047's payment ledger
+# and u to RETURN057's signed-update weights (in that order).
+w=load('return047/RETURN047_payment_receipt.json')
+u=load('return057/RETURN057_weights.json')
+assert 'positive_even_weights' in w and 'odd_good' in u and 'odd_deficit' in u
+print('source schemas',list(w),list(u),flush=True)
 b=load('return062/RETURN062_bank_receipt.json')
 cr=load('return063/RETURN063_constraints_receipt.json')
 iv=load('return063/RETURN063_inverse_receipt.json')
@@ -42,13 +46,14 @@ assert all(k%2==0 and v>0 for k,v in good)
 print('finite weight ledger',len(good),good[0],good[-1],flush=True)
 # Original RETURN063 direct sum stops immediately before the analytic
 # k >= 32768 tail. Reject any different archived cutoff.
-assert good[-1][0]==32766
+assert good[-1][0]==32766,('finite/tail cutoff',good[-1])
 K=32768;A=F(87,500);S=10**16;RS=10**50
 c0,c1=map(F,b['c'])
 def node(j):return (-c1,-c0) if j=='sinh' else P(j*j)
 pi=tuple(map(F,b['pi']));p2=mul(pi,pi)
 pos=dict(u['odd_good']);neg={j:v for j,v in u['odd_deficit'] if v}
 assert set(pos).isdisjoint(neg)
+print('signed carrier counts',len(pos),len(neg),flush=True)
 # Base 2^18 signed limbs: every integer product and sum over ALL finite
 # rows is bounded by 16302*(2^18-1)^2 < 2^50, hence exact binary64.
 B=2**18;assert len(good)*(B-1)**2<2**52
