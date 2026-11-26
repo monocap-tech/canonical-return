@@ -1,0 +1,91 @@
+{
+  "status": "CONDITIONAL_ADAPTIVE_RESPONSE",
+  "retained_rank": 83,
+  "conditional_index_upper": 2,
+  "cap": "555992307/125000000",
+  "dmin": "26535863/100000000",
+  "dtail": "227867307/125000000",
+  "sectors": {
+    "1": {
+      "K_L": [
+        "1442320326972253/62500000000000000",
+        "23077125231556051/1000000000000000000"
+      ],
+      "correction_energy": [
+        "793240080021539/100000000000000000",
+        "7932400800255003/1000000000000000000"
+      ],
+      "K_C": [
+        "15504763015885719/500000000000000000",
+        "15504763015905527/500000000000000000"
+      ],
+      "trial_energy": [
+        "29907738960781/15625000000000000",
+        "958481021725503/500000000000000000"
+      ],
+      "Q_residual_norm2": [
+        "669159704687009/1000000000000000000",
+        "7127415378675933/1000000000000000000"
+      ],
+      "tail_norm2_upper": "1774842946863587/250000000000000000",
+      "weighted_residual_penalty_upper": "4367427292190347/1000000000000000000",
+      "inverse_interval": [
+        "1913735113727653/1000000000000000000",
+        "3143336982696887/500000000000000000"
+      ],
+      "margin_interval": [
+        "4944570413275533/200000000000000000",
+        "145478954590417/5000000000000000"
+      ],
+      "classification": "PASS_SCALAR_C_COMPARISON",
+      "selection_kind": "dual_bottleneck",
+      "source_sha256": "e9483b4d021971b0f315ccecfdacbce549c42f6576b8a88b077628708a6ef359",
+      "trial_sha256": "9a970d28bad0e3dbca5b12c46b503b5e97da9acad09894ede54dae25aabb5e30",
+      "response_sha256": "abade45614068315ea7ad925eb1892818c6d3d721f8b6cbfa234597848a1183a",
+      "witness_excluded": null,
+      "joint_lower_energy": "31009526031747376067980115036755241857541/1000000000000000000000000000000000000000000",
+      "positive_against_joint_lower_energy": true
+    },
+    "2": {
+      "K_L": [
+        "6415766868222111/1000000000000000000",
+        "1283153373644423/200000000000000000"
+      ],
+      "correction_energy": [
+        "6624273266516307/500000000000000000",
+        "1324854653317207/100000000000000000"
+      ],
+      "K_C": [
+        "9832156700627363/500000000000000000",
+        "3932862680278837/200000000000000000"
+      ],
+      "trial_energy": [
+        "260218391188551/100000000000000000",
+        "1302994008718641/500000000000000000"
+      ],
+      "Q_residual_norm2": [
+        "2394074538379099/500000000000000000",
+        "559501386645163/50000000000000000"
+      ],
+      "tail_norm2_upper": "2761882017300133/250000000000000000",
+      "weighted_residual_penalty_upper": "1739613850722819/250000000000000000",
+      "inverse_interval": [
+        "325179793792709/125000000000000000",
+        "1196155303535909/125000000000000000"
+      ],
+      "margin_interval": [
+        "5047535486483727/500000000000000000",
+        "533214845345391/31250000000000000"
+      ],
+      "classification": "PASS_SCALAR_C_COMPARISON",
+      "selection_kind": "dual_bottleneck",
+      "source_sha256": "a436b8593a8d3860f12d7836a4cfafac414a81b043fba3b5ca6762056079cf8a",
+      "trial_sha256": "8df229a77eefa5eb9439fad36cc4441c628a2369d87ed738de9f9a9662501139",
+      "response_sha256": "454be0dd5279dfa1b2741b909e0f75b8c2ccaa1caf29fc3ca6b22e15e23c3fa7",
+      "witness_excluded": null,
+      "joint_lower_energy": "9832156700593699760801386315928115938829/500000000000000000000000000000000000000000",
+      "positive_against_joint_lower_energy": true
+    }
+  },
+  "premises": "Inherited 056/057 exact correction attachment to Q85 finite sine precursor, 068 Gamma diagonal lower comparison, 088 physical and numerical enclosures; exact interval transfer; no full-sector rank claim."
+}
