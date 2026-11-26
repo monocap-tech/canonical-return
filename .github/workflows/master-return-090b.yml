@@ -1,0 +1,33 @@
+name: RETURN090-B asymptotic source
+on:
+  push:
+    branches: [research/master-return-090-restricted-audit]
+    paths:
+      - 'research/master-return-090b/**'
+      - '.github/workflows/master-return-090b.yml'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      PYTHONINTMAXSTRDIGITS: '0'
+      OPENBLAS_NUM_THREADS: '1'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: |
+          python -m py_compile research/master-return-090b/audit_asymptotic.py
+          bash archive/master-return/reconstruct.sh "$RUNNER_TEMP/archives"
+          mkdir -p "$RUNNER_TEMP/work"
+          unzip -q "$RUNNER_TEMP/archives/RETURN083_reproduction.zip" -d "$RUNNER_TEMP/work"
+          pip install numpy scipy mpmath
+          python research/master-return-090b/audit_asymptotic.py "$RUNNER_TEMP/work" "$RUNNER_TEMP/results"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: return090b-asymptotic-source
+          path: ${{ runner.temp }}/results/
