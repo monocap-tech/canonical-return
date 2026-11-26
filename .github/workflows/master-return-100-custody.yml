@@ -1,0 +1,42 @@
+name: RETURN100 permanent evidence custody
+on:
+  push:
+    branches: [research/master-return-090-restricted-audit]
+    paths:
+      - '.github/workflows/master-return-100-custody.yml'
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: return100-permanent-custody
+  cancel-in-progress: false
+jobs:
+  preserve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Authenticate, split and reconstruct the original evidence ZIPs
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python research/master-return-100/custody.py "$RUNNER_TEMP/evidence"
+      - name: Commit evidence to a new immutable-by-policy custody branch
+        run: |
+          set -euo pipefail
+          branch=research/master-return-100-custody
+          if git ls-remote --exit-code --heads origin "$branch"; then
+            echo "Ref already exists: refusing to replace custody"
+            exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add archive/master-return-088-099/
+          git commit -m "Preserve RETURN088–099 original evidence ZIPs and SHA-256 manifest"
+          git push --force-with-lease="refs/heads/$branch:" origin "HEAD:refs/heads/$branch"
+          local_head=$(git rev-parse HEAD)
+          remote_head=$(git ls-remote --heads origin "$branch" | cut -f1)
+          test "$local_head" = "$remote_head"
+          echo "RETURN100 PERMANENT CUSTODY PUSH VERIFIED $local_head"
