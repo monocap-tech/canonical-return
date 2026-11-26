@@ -12,7 +12,7 @@ def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def load(p,h):
  f=root/p;assert sha(f)==h,p;return json.loads(f.read_bytes())
 w=load('return047/RETURN047_payment_receipt.json','def4c4d30dbd4467d9eee44e18edfefa407c349928c9fd21de4851e87650cc4f')
-u=load('return057/RETURN057_weights.json','090ec051ef390b339357496b805808a846268352c43b70befb1c3ede3614a926')
+signed=load('return057/RETURN057_weights.json','090ec051ef390b339357496b805808a846268352c43b70befb1c3ede3614a926')
 raw=load('return059/RETURN059_raw_receipt.json','2433554360bde233df3718c68323c5e0d007e4976eb1c5e4a8cf7b842648ded8')
 # RETURN046 receipt is not part of the frozen reproduction archive.
 # The symbol below is regenerated from scratch, not from its stored weights.
@@ -140,7 +140,7 @@ for k,v in sorted(good.items()):
 print('finite even weights',len(good),'min slack',float(min_even),flush=True)
 # All odd modes, not merely the positive selected rows. Sum signed and
 # restoration weights where they overlap; no double spending allowed.
-pos=dict(u['odd_good']);neg=dict(u['odd_deficit']);rv=dict(rest['weights'])
+pos=dict(signed['odd_good']);neg=dict(signed['odd_deficit']);rv=dict(rest['weights'])
 assert len(rv)==len(rest['weights'])==500 and set(rv)==set(pr['js'])
 assert all(v>0 for v in rv.values()) and all(v>0 for v in pos.values()) and all(v>=0 for v in neg.values())
 J={j for j in w['unpaid_odd'] if j>0}
