@@ -77,6 +77,7 @@ jobs:
           P=/tmp/cr-alp094
           C="$PWD/custody/cr-alp-074-077"
           python3 -c 'import numpy, scipy' || python3 -m pip install --user --break-system-packages numpy scipy
+          python3 -c 'from fractions import Fraction; assert float(Fraction("-714266189/40000000000")) < 0'
           python3 src/audits/cr_alp_094_joint_envelope.py "$P" "$P/bank" "$C/replayed-082/result.json" "$C/replayed-085" "$C/replayed-091/result.json" "$C/replayed-086" "$C/replayed-090/result.json" "$C/replayed-092/result.json" "$C/replayed-093/result.json" "$P/new/result.json"
           (cd "$P/new"; find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS; sha256sum -c SHA256SUMS)
       - uses: actions/upload-artifact@v4
