@@ -1,0 +1,2 @@
+# DP — independent DN terminal audit (pending)
+Frozen DN evidence eba75aaa24c4b0d13b5ef29691da69c0056eb68b. Reconstruct twelve positive comparisons in dimensions 26 and 27 and 318 exact leading principal minors; authenticate ancestral manifests including DM negative control. DL accepted conditional index <=211; <=209 candidate pending DP. Terminal arithmetic only, not independent scalar enclosure regeneration or unconditional RH.
