@@ -1,0 +1,57 @@
+name: CR-ALP-083 frozen inertia replay
+on:
+  push:
+    branches: ['execution/cr-alp-083-frozen-inertia-20261125']
+    paths: ['.github/workflows/cr-alp-083-frozen-inertia.yml']
+permissions:
+  contents: write
+jobs:
+  receive:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Register run
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          jq -n --arg run "$GITHUB_RUN_ID" --arg sha "$GITHUB_SHA" '{run_id:$run,source_commit:$sha}' >/tmp/run.json
+          gh api --method PUT "repos/$GITHUB_REPOSITORY/contents/custody/cr-alp-074-077/083_run_${GITHUB_RUN_ID}.json" -f branch="$GITHUB_REF_NAME" -f message="CR-ALP-083 run $GITHUB_RUN_ID [skip ci]" -f content="$(base64 -w0 /tmp/run.json)"
+      - name: Authenticate original matrix bank and predecessor evidence
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp083
+          C="$PWD/custody/cr-alp-074-077"
+          (cd "$C/archives"; sha256sum -c SHA256SUMS)
+          for stage in 077 078 079 081; do (cd "$C/replayed-$stage"; sha256sum -c SHA256SUMS); done
+          mkdir -p "$P/new"
+          python3 src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+          python3 -m zipfile -e "$P/package.zip" "$P"
+          python3 src/audits/cr_alp_083_frozen_inertia.py "$P" "$C/replayed-081/result.json" src/audits/CR-ALP-083_frozen_diagonals.json "$P/new/result.json"
+          (cd "$P/new"; sha256sum result.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CR-ALP-083-frozen-inertia
+          path: /tmp/cr-alp083/new/
+          if-no-files-found: error
+      - name: Preserve result and authenticate remote readback
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-074-077/replayed-083
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          git checkout --detach FETCH_HEAD
+          mkdir -p "$ROOT"
+          cp /tmp/cr-alp083/new/* "$ROOT/"
+          git add "$ROOT"
+          git commit -m 'CR-ALP-083: preserve frozen full inertia certificate [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          COMMIT=$(git rev-parse HEAD)
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse FETCH_HEAD)" = "$COMMIT"
+          mkdir -p /tmp/remote-check
+          git archive FETCH_HEAD "$ROOT" | tar -x -C /tmp/remote-check
+          (cd "/tmp/remote-check/$ROOT"; sha256sum -c SHA256SUMS)
+          echo "DURABLE CR-ALP-083 RECEIVER $COMMIT"
