@@ -1,0 +1,199 @@
+{
+  "schema": "return099c-custody-inventory-v1",
+  "scope": "API metadata inventory only; not local archive authentication or permanent custody; RETURN099-B pending; no proof promotion",
+  "repository": "monocap-tech/canonical-return",
+  "artifacts": [
+    {
+      "run": 45650164395,
+      "id": 15038759268,
+      "name": "return088-odd-tail-gram",
+      "sha256": "e7e6e14a76c36fdd6cb85d261347e6d6f8ce9583f8d69eb6de0822a0ce95e1f6",
+      "bytes": 24317493,
+      "expired": false,
+      "expires": "2027-02-23T15:59:09Z",
+      "head": "2e1112efebb937e3520d1ebd31d9e9fa8762127b"
+    },
+    {
+      "run": 45650164395,
+      "id": 15038559723,
+      "name": "return088-archive-inventory",
+      "sha256": "4136b85707a9a5d78ab1308f4594bcaace6ba13cd426be99a4e4d3a9bec32044",
+      "bytes": 2296,
+      "expired": false,
+      "expires": "2027-02-23T15:59:09Z",
+      "head": "2e1112efebb937e3520d1ebd31d9e9fa8762127b"
+    },
+    {
+      "run": 45651018495,
+      "id": 15041090806,
+      "name": "return089-high-band",
+      "sha256": "7bdaf470f0934e1675d2136e3922252b41a6aa870892aa6d01f9cbca75525b2c",
+      "bytes": 4207413,
+      "expired": false,
+      "expires": "2027-02-23T16:06:01Z",
+      "head": "aea2dc7550542e07789e7a1b6e1feca4eb5ee690"
+    },
+    {
+      "run": 45762903730,
+      "id": 15091140507,
+      "name": "return090-restricted-band",
+      "sha256": "9ee514e19a7d3d2a418b3edf0ba64e2acb5d3c9fc6e6a177974f5a4486d444bf",
+      "bytes": 4313333,
+      "expired": false,
+      "expires": "2027-02-24T05:38:20Z",
+      "head": "2a333f2554747d9ddaee9b22e443c14705f48a5e"
+    },
+    {
+      "run": 45767648696,
+      "id": 15092621662,
+      "name": "return090b-asymptotic-source",
+      "sha256": "160c21357fdf1682b940d4f4280f61224d80efde72d411de2031c5761e039cdd",
+      "bytes": 3899481,
+      "expired": false,
+      "expires": "2027-02-24T06:21:40Z",
+      "head": "e69606eb5281f098373e6cadf1c5b369e273828c"
+    },
+    {
+      "run": 45774058997,
+      "id": 15095860296,
+      "name": "return091a-odd-signed-assembly",
+      "sha256": "5d561bffb5c385e324eb45cb0b9942d76ae796b346b7bd3ce65165cf1f1ec9ec",
+      "bytes": 2660044,
+      "expired": false,
+      "expires": "2027-02-24T07:16:10Z",
+      "head": "8da0d8f500b7485269f629e37f14b8d642ca82c6"
+    },
+    {
+      "run": 45854116246,
+      "id": 15135057366,
+      "name": "return091b-independent-odd-baseline",
+      "sha256": "f6df734fcfc6ff3858c968b337a9d20bf615cb4aa293174bfc9c1dd0f135b245",
+      "bytes": 2590088,
+      "expired": false,
+      "expires": "2027-02-24T15:57:12Z",
+      "head": "3685991f07532cce70259a9fe36ebfc78d10619b"
+    },
+    {
+      "run": 45871348184,
+      "id": 15142039146,
+      "name": "return091c-independent-even-baseline",
+      "sha256": "d70bd348a098cb334e0037ee7cb1522418af79d1b28943c37e5eb2627a9047f2",
+      "bytes": 8192322,
+      "expired": false,
+      "expires": "2027-02-24T17:52:23Z",
+      "head": "e55ee8111323f174b14f85817bace667cdd253b1"
+    },
+    {
+      "run": 45871870630,
+      "id": 15142054118,
+      "name": "return092a-odd-crosscheck-and-source-inventory",
+      "sha256": "d6deba079dbcbe699dc112a8c39c329a426744d0f08541ebf65ee01bde478fd0",
+      "bytes": 7244310,
+      "expired": false,
+      "expires": "2027-02-24T17:56:17Z",
+      "head": "c467fae53085d7d2d5e4cfffa30e844f14f96145"
+    },
+    {
+      "run": 45881874398,
+      "id": 15148420383,
+      "name": "return092b-common-auxiliary-saddles",
+      "sha256": "892fe209f064f9dfd8912c03d39ab0c95f99a5771c0b9d4e16c9086df06a57f5",
+      "bytes": 6539898,
+      "expired": false,
+      "expires": "2027-02-24T19:12:22Z",
+      "head": "0af49a26f0ae2870dc901bf3f2b2a748ad2e3a8b"
+    },
+    {
+      "run": 45882538456,
+      "id": 15148031871,
+      "name": "return092c-restoration-and-auxiliary-terminals",
+      "sha256": "3f8f400db7f054b8c359c9d684f3524f81c9473c6a33a0ff9f8bbe053174840a",
+      "bytes": 26270761,
+      "expired": false,
+      "expires": "2027-02-24T19:17:33Z",
+      "head": "ddfd40f83ba4d62bcb8e2a4961febe77a5bb0dd2"
+    },
+    {
+      "run": 45885525580,
+      "id": 15149302173,
+      "name": "return093b-retained-reconstruction-and-terminals",
+      "sha256": "e2a52d486b26929527d191b2c6918280d11893e0e8d0bec8c23cd7cf58fc6279",
+      "bytes": 23696117,
+      "expired": false,
+      "expires": "2027-02-24T19:41:36Z",
+      "head": "0931055d221563ca81e062e2293f981bd911e68e"
+    },
+    {
+      "run": 45887785656,
+      "id": 15150541588,
+      "name": "return094a-restoration-metric",
+      "sha256": "64541bc860f0dc888de33e0f12f9f00776e432fd639f4c1a959c7de6facda22a",
+      "bytes": 727,
+      "expired": false,
+      "expires": "2027-02-24T20:00:13Z",
+      "head": "799ed42cf24b181df4fbc0fd5576d583bd9d782d"
+    },
+    {
+      "run": 45892267472,
+      "id": 15152151877,
+      "name": "return095a-conditional-true-source-transport",
+      "sha256": "abbe06629b51bff6dc33f6ec98590ee05d8e96d29b234c404c826041b0b61ea4",
+      "bytes": 771,
+      "expired": false,
+      "expires": "2027-02-24T20:36:27Z",
+      "head": "5d7f3be5475de210f760247feed6f4e917da8998"
+    },
+    {
+      "run": 45892778539,
+      "id": 15151689152,
+      "name": "return095b-negative-update-norm",
+      "sha256": "3e0790d5f8fdbfb4af00bf571f0a6952f2e48eeed28afa81983669eef90ca02f",
+      "bytes": 159103,
+      "expired": false,
+      "expires": "2027-02-24T20:40:48Z",
+      "head": "1df25139d327a045d310b0b1420feefa7bcdd52c"
+    },
+    {
+      "run": 45893120122,
+      "id": 15152282472,
+      "name": "return096a-fourier-constraint-attachment",
+      "sha256": "e10bae064c9bfaef70db287688bc6a9de2f95d2577eeadc3b01deadaff331dc0",
+      "bytes": 461,
+      "expired": false,
+      "expires": "2027-02-24T20:43:42Z",
+      "head": "abb08b221238f5338d641bb0d337a10929bed1cc"
+    },
+    {
+      "run": 45896631991,
+      "id": 15154081894,
+      "name": "return096b-original-signed-symbol-ledger",
+      "sha256": "63d266caaebfaf24847fbf6f332e482b4c77b8a1d8a7dcbc795bad44789c7bc8",
+      "bytes": 909,
+      "expired": false,
+      "expires": "2027-02-24T21:13:30Z",
+      "head": "7c81d565bebcea50d653ae90777ca8d1b7c81f4e"
+    },
+    {
+      "run": 45905212461,
+      "id": 15157603234,
+      "name": "return097a-grouped-source-regeneration",
+      "sha256": "393387757feda6d590fd99ab4a79a556eb2b84c472c034931a0e424395bd0efa",
+      "bytes": 11206977,
+      "expired": false,
+      "expires": "2027-02-24T22:30:26Z",
+      "head": "156ee167837e04bcc71994ae356f69c76643a2dd"
+    },
+    {
+      "run": 45905819262,
+      "id": 15158350445,
+      "name": "return097bc-remaining-finite-sources",
+      "sha256": "5563638a2b07f685642150d56c5f38bc4e314dda698c1ac3cbfbf764844558f1",
+      "bytes": 2904735,
+      "expired": false,
+      "expires": "2027-02-24T22:35:59Z",
+      "head": "149a67eb230dfa0b78ab5f93cd785e7b10e74145"
+    }
+  ],
+  "total_bytes": 128207239,
+  "earliest_expiry": "2027-02-23T15:59:09Z"
+}
