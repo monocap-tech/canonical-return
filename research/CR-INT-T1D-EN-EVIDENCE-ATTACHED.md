@@ -1,0 +1,2 @@
+# EN — EM evidence attached; runner gate pending
+EM-R1 run 45905146835 completed successfully. All sixteen exact receiver columns passed independent checks. Eight activation conditions verified using exact integer comparisons and selected/receiver identity. Attach literal EM generated subtree b227388bcd892f3993fa0b8c9b77a67b5609985d from 9f0166dbc126d29b811b5915db7879f917bde8ec. Keep activation.yml.in disabled until capacity is available; no duplicate runner. Accepted conditional index <=205, target 204. EN has not executed; new action and merged energy not yet certified.
