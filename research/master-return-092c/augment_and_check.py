@@ -92,7 +92,9 @@ def finite_augmented(par,cb,ib):
    num=sn*k**par*S;sg=np.where(den<0,-1,1);den=abs(den);num=num*sg
    fl[idx]=num//den;fh[idx]=ceil(num,den)
    den=k*k-j2;assert np.all(den!=0)
-   num=k*RS*np.where(den<0,-1,1);den=abs(den)
+   # The sign vector must remain object-typed before multiplying by 10^50.
+   num=(k*RS)*np.where(den<0,-1,1).astype(object);den=abs(den)
+   assert num.dtype==object and all(abs(a)==k*RS for a in num)
    hl[idx]=num//den;hh[idx]=ceil(num,den)
   lo=(cl@zp.T+ch@zn.T)*S//(zs*RS)
   hi=ceil((ch@zp.T+cl@zn.T)*S,zs*RS)
@@ -201,6 +203,8 @@ for p in sorted((root/'return077').glob('*.py')):
  for l in p.read_text().splitlines():
   if any(x in l for x in ("['R']","'R':","'gram':","R=","R =","ridge")):print(l,flush=True)
 W=rescale(arr(parent.W),parent.WS,S)
+print('restoration reference schema', {k:type(v).__name__ for k,v in parent.r.items()},flush=True)
+print('restoration reference sample',str(parent.r.get('gram',[[]])[0][:1]),str(parent.r.get('R',[[]])[0][:1]),flush=True)
 gram=np.array([[enc(tuple(map(F,a)),S) for a in row] for row in parent.r['gram']],object)
 contain_report(G[:519,519:],W,'odd restoration cross')
 contain_report(G[519:,519:],gram,'odd restoration Gram')
