@@ -1,0 +1,80 @@
+name: CR-ALP-122E correction and prime norm replay
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-122e-correction-replay.yml']
+permissions:
+  contents: write
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate historical inputs
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/alp122e /tmp/alp122e-evidence
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/alp122e.zip
+          python3 - <<'PY'
+          import zipfile
+          with zipfile.ZipFile('/tmp/alp122e.zip') as z:
+              assert z.testzip() is None
+              z.extractall('/tmp/alp122e')
+          PY
+          cd /tmp/alp122e
+          sha256sum -c cr_alp_056/SHA256SUMS | tee /tmp/alp122e-evidence/manifest.log
+          sha256sum -c cr_alp_057/SHA256SUMS | tee -a /tmp/alp122e-evidence/manifest.log
+          sha256sum cr_alp_056/correction_{1,2}.json cr_alp_056/verification_extended.json > /tmp/alp122e-evidence/frozen.sha256
+      - name: Exact original prime cell recursion
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/alp122e/prime
+          cp src/audits/cr_alp_042_support_aware_prime_tail_audit.py /tmp/alp122e/prime/
+          python3 /tmp/alp122e/prime/cr_alp_042_support_aware_prime_tail_audit.py | tee /tmp/alp122e-evidence/prime.log
+          cmp src/audits/CR-ALP-042_exact_result.json /tmp/alp122e/prime/CR-ALP-042_exact_result.json
+          cp /tmp/alp122e/prime/CR-ALP-042_exact_result.json /tmp/alp122e-evidence/
+      - name: Regenerate degree-12 correction and verify energy linkage
+        run: |
+          set -euo pipefail
+          python3 -m pip install numpy
+          cd /tmp/alp122e
+          OPENBLAS_NUM_THREADS=1 python3 cr_alp_056/correct.py | tee /tmp/alp122e-evidence/correction.log
+          python3 cr_alp_056/check_saved.py _extended | tee /tmp/alp122e-evidence/check.log
+          sha256sum -c /tmp/alp122e-evidence/frozen.sha256 | tee /tmp/alp122e-evidence/replay.log
+          python3 - <<'PY' | tee /tmp/alp122e-evidence/linkage.log
+          import json,hashlib
+          from pathlib import Path
+          t=json.load(open('cr_alp_057/trial.json'))
+          for k in (1,2):
+              raw=Path(f'cr_alp_056/correction_{k}.json').read_bytes()
+              c=json.loads(raw); d=json.load(open(f'cr_alp_056/result_extended_{k}.json'))
+              h=hashlib.sha256(raw).hexdigest()
+              assert h==d['correction_sha256']==t['sectors'][str(k)]['correction_sha256']
+              S=int(d['scale']);sc=int(c['scale']);assert S%sc==0
+              assert d['K']==[[[str(int(x)*(S//sc)) for x in v] for v in row] for row in c['K']]
+              print(k,'PASS correction-energy-trial hash and exact K rescaling',h)
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-122E-correction-replay
+          path: /tmp/alp122e-evidence/
+          if-no-files-found: error
+      - name: Preserve exact replay evidence
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-122e-correction-replay
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          git checkout --detach FETCH_HEAD
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp122e-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum *.log *.json frozen.sha256 > SHA256SUMS; sha256sum -c SHA256SUMS)
+          git add "$ROOT"
+          git commit -m 'CR-ALP-122E: durable correction and prime replay [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)"
+          echo "DURABLE CR-ALP-122E $(git rev-parse HEAD)"
