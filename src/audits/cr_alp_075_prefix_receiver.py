@@ -13,14 +13,14 @@ def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def run(bank,logs,out):
     sel=json.loads((bank/'selection.json').read_text())
     entries=json.loads((bank/'source_bank.json').read_text())['entries']
-    assert sel['rank']==60 and len(entries)==60 and F(sel['coercivity_lower'])==ELL
+    assert sel['rank']==70 and len(entries)==70 and F(sel['coercivity_lower'])==ELL
     manifest={n:h for h,n in (l.split() for l in (bank/'SHA256SUMS').read_text().splitlines())}
     assert set(manifest)=={'selection.json','source_bank.json',*(e['file'] for e in entries)}
     assert all(sha(bank/n)==h for n,h in manifest.items())
     # Caller must verify origin and numerical runtime checks of each log.
     report={};total=0
     for k in ('1','2'):
-        s=sel['sectors'][k];J=s['indices_zero_based'];assert len(J)==len(set(J))==30
+        s=sel['sectors'][k];J=s['indices_zero_based'];assert len(J)==len(set(J))==35
         E=[e for e in entries if e['parity']==k];assert [e['coordinate_zero_based'] for e in E]==J
         rows=[];levels=[];sum2=F(0);best=0
         for j,e in zip(J,E):
