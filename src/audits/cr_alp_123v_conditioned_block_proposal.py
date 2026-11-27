@@ -6,7 +6,6 @@ complete residual and conditioned response separately.
 """
 from fractions import Fraction as F
 import numpy as np
-import mpmath as mp
 
 def candidate(H,R,C,e,s,V,S,I,ZERO):
     n=len(H);m=len(C)
@@ -30,10 +29,8 @@ def candidate(H,R,C,e,s,V,S,I,ZERO):
     A=np.array([[m64(v) for v in row] for row in HH])
     E=np.array([m64(v) for v in e]);s0=np.array([m64(v) for v in ss])
     B=(B+B.T)/2;A=(A+A.T)/2
-    L=np.linalg.cholesky(B)
-    # Use one factorization, with multiple RHS.
-    from scipy.linalg import cho_solve
-    X=cho_solve((L,True),np.column_stack([Q,E]))
+    # One NumPy LAPACK multi-RHS solve; no SciPy build dependency.
+    X=np.linalg.solve(B,np.column_stack([Q,E]))
     T,x=X[:,:n],X[:,n]
     Schur=A-Q.T@T;Schur=(Schur+Schur.T)/2
     z=np.linalg.solve(Schur,-s0+Q.T@x)
