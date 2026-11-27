@@ -30,7 +30,6 @@ def main(root,custody,terminal,prior,quant,out):
         nonlocal src
         assert src.count(old)==1,old
         src=src.replace(old,new)
-    replace('M=90;SHIFT=512;N=85','M=90;SHIFT=512;N=85')
     replace('def psi_pair(x,y=ZERO):','''def atan_wide(x):
  z=ZERO
  assert x.l>=0
@@ -43,7 +42,7 @@ def main(root,custody,terminal,prior,quant,out):
 def psi_pair(x,y=ZERO):''')
     replace('assert y.up()/F(xx.l,S)<F(1,3)','assert y.up()/F(xx.l,S)<3')
     replace('li=atan(y/xx)','li=atan_wide(y/xx)')
-    # Reuse the original coefficient loop for the whole prefix, retaining N=365
+    # Reuse the original coefficient loop for the whole prefix, retaining N=85
     # for dense matrix construction. No large dense E2048 matrix is assembled.
     replace('range(1,N+1)};trig=', 'range(1,2049)};trig=')
     replace('for j in ids};Hb={}\n for j in ids:', 'for j in range(k,2049,2)};Hb={}\n for j in range(k,2049,2):')
@@ -199,6 +198,7 @@ def psi_pair(x,y=ZERO):''')
         for i in powers:
             for l in range(32):powers[i].append(powers[i][-1]*nu[i].sq())
         tails=[];receipts=[]
+        frozen_prefix=dict(prefix_receipts)
         for col in range(n):
             d={j:Vt[i][col] for i,j in enumerate(low)}
             d[k]-=sum((d[j]*c[j]/c[k] for j in low if j!=k),ZERO)
@@ -209,6 +209,12 @@ def psi_pair(x,y=ZERO):''')
             alpha=(sum((d[j]*(hs[j]-ps[j]) for j in d),ZERO)+fb*(hb-phb)
                    +sum((t[j]*ps[j] for j in t),ZERO)+T*phb
                    +sum((q[j]*I(diag(j))*c[j] for j in q),ZERO)-tau*weighted)/st
+            for j in (bank[0],bank[-1],high[-1]):
+                direct=(sum((d[i]*(hss(i,j)-pss(i,j)) for i in d),ZERO)
+                    +sum((t[i]*pss(i,j) for i in t),ZERO)+fb*(Hb[j]-Pb[j])+T*Pb[j]
+                    +I(diag(j))*(q.get(j,ZERO)-tau*c[j])-alpha*c[j])
+                m0,r0=frozen_prefix[j][col]
+                assert max(F(direct.l,S),F(m0-r0,PG))<=min(F(direct.h,S),F(m0+r0,PG)),(k,col,j)
             Li={j:d.get(j,ZERO)*AG[j]+t[j]*AP[j] for j in t}
             H0=-2/a*sum(Li.values(),ZERO)-(tau*I(cap)+alpha)*Cb
             pows={};moments={}
@@ -249,7 +255,7 @@ def psi_pair(x,y=ZERO):''')
             'LDL_lower':[[str(v) for v in r] for r in LL],'LDL_pivots':[str(v) for v in piv],
             'response_coordinate_grid':QG,'response_transformed_coordinates':Q,'bank_indices':bank,
             'prefix_grid':PG,'prefix_mid_radius':prefix_receipts,
-            'column_prefix_inverse_uppers':[str(v) for v in prefix],'tail_receipts':receipts,
+            'direct_prefix_overlap_checks':3*n,'column_prefix_inverse_uppers':[str(v) for v in prefix],'tail_receipts':receipts,
             'eta_prefix_upper':str(eprefix),'eta_tail_upper':str(etail),'eta_upper':str(eta),
             'finite_charge_upper':str(b2),'U':str(U),'E':str(E),'loss_upper':str(loss),
             'conditional_pole_schur_lower':str(E-loss),'classification':'PASS_COMPLETE_POLE_SECTOR_CONDITIONAL' if E>loss else 'SUFFICIENT_BOUND_INCONCLUSIVE'}
