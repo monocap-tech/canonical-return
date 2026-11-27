@@ -1,0 +1,29 @@
+{
+  "status": "exact dyadic audit of stored numerical centers only; no physical error enclosures or new positivity certification",
+  "archive_sha256": "6b469aeeb5d86db79215700a8f687a54053c7b2908f90fbbb1f1e7895c22ab77",
+  "manifest_payloads": 9,
+  "results": [
+    {
+      "coordinates": 384,
+      "center_min_eigenvalue": 2.7604887206235063e-06,
+      "stored_center_max_difference": 1.734723475976807e-17,
+      "exact_center_lower": "27/10000000",
+      "congruence_min_margin": 6.048538622457207e-08,
+      "trial_operator_norm_upper": "413453/7812500",
+      "trial_operator_norm_upper_decimal": 0.052921984,
+      "error_B_factor": 0.105843968,
+      "error_A_factor": 0.002800736390496256
+    },
+    {
+      "coordinates": 500,
+      "center_min_eigenvalue": 3.93474336207513e-06,
+      "stored_center_max_difference": 2.7755575615628914e-17,
+      "exact_center_lower": "39/10000000",
+      "congruence_min_margin": 3.4739372215378076e-08,
+      "trial_operator_norm_upper": "495017/8000000",
+      "trial_operator_norm_upper_decimal": 0.061877125,
+      "error_B_factor": 0.12375425,
+      "error_A_factor": 0.003828778598265625
+    }
+  ]
+}

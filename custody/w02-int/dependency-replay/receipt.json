@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "source_commit": "528a224514983f29da943929f309497d512afd65",
+  "bo_source_commit": "36579dfa51c81e43ebce1ead4771eb3a3dd52af3",
+  "scope": "dependency bytes and exact frozen numerical centers only; no physical acceptance",
+  "python": "3.13.18 (main, Oct 26 2026, 14:19:33) [GCC 15.2.0]",
+  "outer_readme": {
+    "bytes": 383,
+    "sha256": "5cc12f5006732ce629d2ca6baf8ff73ee3b821008398a79240a366dd0bcde697",
+    "authentication": "covered by exact pinned outer archive SHA256"
+  },
+  "EP": {
+    "sha256": "89b16e4250bf3b0a261cf6ff54863ef32c7d415d956a89240d455434a3cf8d73",
+    "git_blob": "eec729bb675e436d0b982b9d7b21b68a04310a10",
+    "outer_payloads": 3,
+    "inner_sha256": "6b469aeeb5d86db79215700a8f687a54053c7b2908f90fbbb1f1e7895c22ab77",
+    "inner_payloads": 9,
+    "CRC": "PASS",
+    "manifest": "PASS"
+  },
+  "BO": {
+    "archive_sha256": "de9ed042d12afda71513b8110d0cf10cab84451e20aa4e7546d9dde2dfb54fb4",
+    "archive_bytes": 16449059,
+    "parts": 22,
+    "CRC": "PASS",
+    "required_manifest_payloads": {
+      "bn_energy.py": {
+        "bytes": 7714,
+        "sha256": "11f2e6aadec7f1997366b50a081bd49e80a4f368b478c41bbec740d629190efa"
+      },
+      "bo_joint.py": {
+        "bytes": 5184,
+        "sha256": "505a8df84910b1812ebdb41c83a206e0c5b7802b5970aabde6aab63a5e799e68"
+      },
+      "bo_lifts.py": {
+        "bytes": 2510,
+        "sha256": "678ecbaed7b4d09b700bf71f51b38c5729ab4d78dd118710e521850c5dbfc9c5"
+      },
+      "odd_joint.npz": {
+        "bytes": 2286809,
+        "sha256": "385a26a58a05ab1abd0d6556546ee0a30e0d4e0ff9fceb18660a6bc34d546b98"
+      },
+      "odd_overlap.npz": {
+        "bytes": 817310,
+        "sha256": "a619e1590c1b2cd108227ec40979656b2d73bca67851e2b6187860175480e037"
+      }
+    }
+  }
+}
