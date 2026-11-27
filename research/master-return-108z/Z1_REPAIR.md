@@ -1,0 +1,2 @@
+# RETURN108-Z1 bounded native repair
+Parent accepted Y1. Failed Z transcript and diagnosis canonical-return@99ec65040b972e1570db32f1019cfc4a9ad92a95. The only Lean source change is an explicit change to the beta-reduced physical equality in shiftIV_target_natural, immediately after applying iv_physical_injective. The six declarations, source pins, authenticated closure and strict axiom policy remain unchanged. Existing workflow and assembler only on the assigned native branch; no duplicate dispatch. Native admission pending, no coefficient transport activated.
