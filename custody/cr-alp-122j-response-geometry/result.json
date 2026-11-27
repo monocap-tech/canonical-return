@@ -1,0 +1,74 @@
+{
+  "status": "CONDITIONAL_GEOMETRY_REPLAY_PASS",
+  "meshes": [
+    {
+      "path": "custody/cr-alp-074-077/replayed-088/response_mesh.txt",
+      "sha256": "a1bc4e9980a557db9c88eec20996e41a235ed2cc25b2c17d19d8d95ce64e84e9"
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-090/response_mesh.txt",
+      "sha256": "a1bc4e9980a557db9c88eec20996e41a235ed2cc25b2c17d19d8d95ce64e84e9"
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-092/response_mesh.txt",
+      "sha256": "a1bc4e9980a557db9c88eec20996e41a235ed2cc25b2c17d19d8d95ce64e84e9"
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-095/response_mesh.txt",
+      "sha256": "a1bc4e9980a557db9c88eec20996e41a235ed2cc25b2c17d19d8d95ce64e84e9"
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-097/response_mesh.txt",
+      "sha256": "a1bc4e9980a557db9c88eec20996e41a235ed2cc25b2c17d19d8d95ce64e84e9"
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-099/response_mesh.txt",
+      "sha256": "a1bc4e9980a557db9c88eec20996e41a235ed2cc25b2c17d19d8d95ce64e84e9"
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-101/response_mesh.txt",
+      "sha256": "a1bc4e9980a557db9c88eec20996e41a235ed2cc25b2c17d19d8d95ce64e84e9"
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-103/response_mesh.txt",
+      "sha256": "a1bc4e9980a557db9c88eec20996e41a235ed2cc25b2c17d19d8d95ce64e84e9"
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-105/response_mesh.txt",
+      "sha256": "a1bc4e9980a557db9c88eec20996e41a235ed2cc25b2c17d19d8d95ce64e84e9"
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-107/response_mesh.txt",
+      "sha256": "a1bc4e9980a557db9c88eec20996e41a235ed2cc25b2c17d19d8d95ce64e84e9"
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-109/response_mesh.txt",
+      "sha256": "a1bc4e9980a557db9c88eec20996e41a235ed2cc25b2c17d19d8d95ce64e84e9"
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-111/response_mesh.txt",
+      "sha256": "a1bc4e9980a557db9c88eec20996e41a235ed2cc25b2c17d19d8d95ce64e84e9"
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-113/response_mesh.txt",
+      "sha256": "a1bc4e9980a557db9c88eec20996e41a235ed2cc25b2c17d19d8d95ce64e84e9"
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-115/response_mesh.txt",
+      "sha256": "a1bc4e9980a557db9c88eec20996e41a235ed2cc25b2c17d19d8d95ce64e84e9"
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-117/response_mesh.txt",
+      "sha256": "a1bc4e9980a557db9c88eec20996e41a235ed2cc25b2c17d19d8d95ce64e84e9"
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-119/response_mesh.txt",
+      "sha256": "a1bc4e9980a557db9c88eec20996e41a235ed2cc25b2c17d19d8d95ce64e84e9"
+    }
+  ],
+  "panels": 323,
+  "max_halfwidth_upper": "12055845832016407174830363562547029577349959691923423763795997151981913409/3200000000000000000000000000000000000000000000000000000000000000000000000000",
+  "shift_action_upper": "1e-13",
+  "quadrature_upper": "1e-12",
+  "scope": "Archived shared response meshes, Gauss brackets and ideal quadrature/shift arithmetic; actual per-input coefficient contracts and midpoint assumptions remain."
+}

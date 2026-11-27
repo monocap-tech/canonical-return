@@ -1,0 +1,26 @@
+check_saved.py: OK
+mesh.py: OK
+prepare.py: OK
+validate_geometry.py: OK
+physical.cpp: OK
+validated.cpp: OK
+mesh_result.json: OK
+prepare_result.json: OK
+verification_result.json: OK
+gauss.txt: OK
+input_1.txt: OK
+input_2.txt: OK
+mesh.txt: OK
+diagnostic_1.log: OK
+diagnostic_2.log: OK
+geometry.log: OK
+predecessor.log: OK
+replay.log: OK
+validated_1.log: OK
+validated_2.log: OK
+CR-ALP-058_GLOBAL_PHYSICAL_WITNESS_MOMENTS.md: OK
+VALIDATION.md: OK
+96 independent exact root and weight brackets PASS
+sector 1 source/trial/boundary coefficient budgets PASS
+sector 2 source/trial/boundary coefficient budgets PASS
+direct product quadrature and shift displacement budgets PASS
