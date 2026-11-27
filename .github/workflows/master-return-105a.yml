@@ -1,0 +1,107 @@
+name: RETURN105-A high-band attachment and supplemental custody
+on:
+  push:
+    branches: [research/master-return-090-restricted-audit]
+    paths:
+      - '.github/workflows/master-return-105a.yml'
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: return105a-supplemental-custody
+  cancel-in-progress: false
+jobs:
+  bind-and-preserve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Authenticate literal high-band inputs and run final scalar attachment
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 origin bce3d5491d0cabe684e05237ca3e0533f22a5914
+          mkdir -p "$RUNNER_TEMP/work" "$RUNNER_TEMP/101a" "$RUNNER_TEMP/results"
+          bash archive/master-return/reconstruct.sh "$RUNNER_TEMP/archives"
+          for i in 083_reproduction 086_audit; do
+            unzip -oq "$RUNNER_TEMP/archives/RETURN$i.zip" -d "$RUNNER_TEMP/work"
+          done
+          python - <<'PY'
+          import hashlib,zipfile,subprocess,os
+          from pathlib import Path
+          ref='bce3d5491d0cabe684e05237ca3e0533f22a5914'
+          p='archive/master-return-101-102/15158476209-return101a-independent-scalar-enclosures.zip'
+          data=subprocess.check_output(['git','show',ref+':'+p])
+          assert len(data)==42134 and hashlib.sha256(data).hexdigest()=='7e5ed594bd9bde4f15545cc16a6a4d686c0ffa79bf40429ea5f611dba2b06a75'
+          dest=Path(os.environ['RUNNER_TEMP'])/'101a';f=dest/'source.zip';f.write_bytes(data)
+          with zipfile.ZipFile(f) as z:
+              assert z.testzip() is None
+              z.extractall(dest)
+          PY
+          python -m pip install python-flint==0.8.0 numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0
+          python research/master-return-105a/bind_high_band.py "$RUNNER_TEMP/work" "$RUNNER_TEMP/archives/RETURN084_audit.zip" "$RUNNER_TEMP/101a" "$RUNNER_TEMP/results"
+      - name: Authenticate all five supplemental archives and split into repository custody
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json,os,subprocess,zipfile,shutil
+          from pathlib import Path
+          d=json.loads(Path('research/master-return-105a/custody_inventory.json').read_bytes())
+          assert d['repository']==os.environ['GITHUB_REPOSITORY']=='monocap-tech/canonical-return'
+          assert len(d['artifacts'])==5 and d['total_bytes']==65066769
+          target=Path('archive/master-return-103-104');assert not target.exists();target.mkdir()
+          work=Path(os.environ['RUNNER_TEMP'])
+          receipt=work/'results'/'receipt.json'
+          assert json.loads(receipt.read_bytes())['status']=='PASS'
+          shutil.copy2(receipt,target/'high_band_attachment.json')
+          for a in d['artifacts']:
+              label=str(a['id'])+'-'+a['name'];assert all(c.isalnum() or c in '-_' for c in label)
+              f=work/(label+'.zip')
+              with f.open('wb') as fd:
+                  subprocess.run(['gh','api',f"repos/{d['repository']}/actions/artifacts/{a['id']}/zip"],stdout=fd,check=True)
+              assert f.stat().st_size==a['bytes'] and hashlib.sha256(f.read_bytes()).hexdigest()==a['sha256']
+              with zipfile.ZipFile(f) as z:
+                  assert z.testzip() is None
+              folder=target/label;folder.mkdir();parts=[];whole=hashlib.sha256()
+              with f.open('rb') as fd:
+                  while chunk:=fd.read(16*1024*1024):
+                      p=folder/f'archive.zip.part{len(parts):03d}';p.write_bytes(chunk)
+                      parts.append({'path':str(p.relative_to(target)),'bytes':len(chunk),'sha256':hashlib.sha256(chunk).hexdigest()})
+              total=0
+              for p in parts:
+                  data=(target/p['path']).read_bytes()
+                  assert len(data)==p['bytes'] and hashlib.sha256(data).hexdigest()==p['sha256']
+                  whole.update(data);total+=len(data)
+              assert total==a['bytes'] and whole.hexdigest()==a['sha256']
+              a['parts']=parts
+              print('authenticated and reassembled',a['id'],total,len(parts),flush=True)
+          d['schema']='return105a-custody-v1'
+          d['high_band_receipt_sha256']=hashlib.sha256(receipt.read_bytes()).hexdigest()
+          d['prior_custody_commits']=['87c9cd17b29da9d0a57cd426e0aa76a24eea0f65','bce3d5491d0cabe684e05237ca3e0533f22a5914']
+          (target/'manifest.json').write_text(json.dumps(d,indent=2)+'\n')
+          print('RETURN105-A ALL FIVE SUPPLEMENTAL ZIP ARCHIVES AUTHENTICATED',flush=True)
+          PY
+      - name: Preserve on distinct non-overwriting branch
+        run: |
+          set -euo pipefail
+          branch=research/master-return-105-custody
+          if git ls-remote --exit-code --heads origin "$branch"; then
+            echo "Existing branch: refusing replacement"
+            exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add archive/master-return-103-104/
+          git commit -m "Preserve RETURN103–104 numerical replacement archives and literal high-band attachment"
+          git push --force-with-lease="refs/heads/$branch:" origin "HEAD:refs/heads/$branch"
+          test "$(git rev-parse HEAD)" = "$(git ls-remote --heads origin "$branch" | cut -f1)"
+          echo "RETURN105-A PERMANENT CUSTODY VERIFIED $(git rev-parse HEAD)"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: return105a-high-band-attachment
+          path: ${{ runner.temp }}/results/
