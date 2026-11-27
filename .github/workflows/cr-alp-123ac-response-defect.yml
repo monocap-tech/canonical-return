@@ -1,0 +1,60 @@
+name: CR-ALP-123AC weighted response-column defect receiver
+on:
+  workflow_dispatch:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-123ac-response-defect.yml']
+permissions:
+  contents: write
+jobs:
+  receiver:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate all frozen inputs
+        run: |
+          set -euo pipefail
+          P=/tmp/alp123ac
+          E=/tmp/alp123ac-evidence
+          C="$PWD/custody/cr-alp-074-077"
+          mkdir -p "$P" "$E"
+          python3 -m pip install --disable-pip-version-check numpy==2.2.6
+          test "$(git hash-object src/audits/cr_alp_123ac_response_column_defect.py)" = 44620577d22ad4307142462db89053c730ca9136
+          test "$(git hash-object src/audits/cr_alp_123y_signed_pole_tail.py)" = a5812874b3924e1b76574211e13ab3ab2f59604d
+          (cd "$C/replayed-082"; sha256sum -c SHA256SUMS)
+          (cd "$C/replayed-091"; sha256sum -c SHA256SUMS)
+          (cd custody/cr-alp-122p-quantitative-collar; sha256sum -c SHA256SUMS)
+          (cd custody/cr-alp-123z-signed-direction-specific; sha256sum -c SHA256SUMS)
+          git fetch --depth=1 origin 7c9dc0301df765ab31f9332e9e8c76015b59894c
+          git show 7c9dc0301df765ab31f9332e9e8c76015b59894c:custody/cr-alp-074-077/replayed-121/result.json > "$P/frozen.json"
+          test "$(git hash-object "$P/frozen.json")" = 2b55baf0e81ac9a296276f396f02633553e58b28
+          python3 -m py_compile src/audits/cr_alp_123ac_response_column_defect.py
+          python3 src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+          python3 -m zipfile -e "$P/package.zip" "$P"
+      - name: Weighted response-column generation and complete defect evaluation
+        env:
+          OPENBLAS_NUM_THREADS: '2'
+        run: |
+          set -euo pipefail
+          python3 -u src/audits/cr_alp_123ac_response_column_defect.py /tmp/alp123ac custody/cr-alp-074-077 /tmp/alp123ac/frozen.json custody/cr-alp-123z-signed-direction-specific/joint-repaired.json custody/cr-alp-122p-quantitative-collar/result.json /tmp/alp123ac-evidence/result.json | tee /tmp/alp123ac-evidence/receiver.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-123AC-direction-specific
+          path: /tmp/alp123ac-evidence/
+          if-no-files-found: warn
+      - name: Preserve direction-specific receiver
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-123ac-response-defect
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          git checkout --detach FETCH_HEAD
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp123ac-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum *.log *.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+          git add "$ROOT"
+          git commit -m 'CR-ALP-123AC: preserve weighted response-column defect receiver [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
