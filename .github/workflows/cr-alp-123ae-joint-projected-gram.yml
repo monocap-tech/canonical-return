@@ -1,0 +1,91 @@
+name: CR-ALP-123AE joint projected response Gram
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-123ae-joint-projected-gram.yml']
+permissions:
+  contents: write
+concurrency:
+  group: cr-alp-123ae-frozen
+  cancel-in-progress: false
+jobs:
+  receiver:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate frozen input and executable dependency closure
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/alp123ae-evidence
+          {
+            python3 --version
+            git rev-parse HEAD
+            git --version
+            uname -a
+            test "$(git hash-object src/audits/cr_alp_123ae_joint_projected_gram.py)" = a5913d6b3462cad622f579d31e1ba0f7cec29aea
+            test "$(git hash-object src/audits/cr_alp_075_shifted_energy.py)" = d8958b1f457f711b1ac14562fb6335752cc6284f
+            test "$(git hash-object src/audits/cr_alp_123z_signed_tail_readback.py)" = df402965b51e309ba9045f170ec8ca47e0fc8fe5
+            test "$(git hash-object src/audits/cr_alp_046_full_finite.py)" = 554e7ab54da4545987d89aa660a4abe6c951cb63
+            test "$(git hash-object src/audits/cr_alp_123y_signed_pole_tail.py)" = a5812874b3924e1b76574211e13ab3ab2f59604d
+            test "$(git hash-object src/audits/cr_alp_074_balanced_selection.py)" = cd452949470a7cc049c5d23a9bae7040867cd878
+            test "$(git hash-object src/audits/cr_alp_075_nested_selection.py)" = 31bf1774e7f8fe98b0a9bd35e7ffc27a3af43741
+            test "$(git hash-object src/audits/CR-ALP-068_pole_centered_gamma_result.json)" = 1a7fe8629daa8b8e6cec185a79b6746d6b28975d
+            test "$(git hash-object custody/regroup-001-cr-alp/W02-ALP-01_RECOVERY_REVIEW.md)" = e7726ef3fc33c731f228ed4aeb643e3d4ee8bf44
+            test "$(git hash-object custody/cr-alp-123ac-response-defect/result.json)" = b4174a176e0318c1c7b9a562fe89889729e8eedc
+            (cd custody/cr-alp-123ac-response-defect; sha256sum -c SHA256SUMS)
+            echo 'a7a334e6eca63543d7f322aef124c4491c986ba878bd1434f484e86743856473  custody/cr-alp-123ac-response-defect/result.json' | sha256sum -c -
+            echo 'Frozen source and input identity PASS'
+            python3 -m py_compile src/audits/cr_alp_123ae_joint_projected_gram.py
+            python3 src/audits/cr_alp_123ae_joint_projected_gram.py --selftest
+          } 2>&1 | tee /tmp/alp123ae-evidence/preflight.log
+      - name: Execute only frozen 123AE post-receiver
+        run: |
+          set -euo pipefail
+          python3 -u src/audits/cr_alp_123ae_joint_projected_gram.py custody/cr-alp-123ac-response-defect/result.json a7a334e6eca63543d7f322aef124c4491c986ba878bd1434f484e86743856473 /tmp/alp123ae-evidence/result.json 2>&1 | tee /tmp/alp123ae-evidence/receiver.log
+          python3 - <<'PY'
+          import json, sys
+          from fractions import Fraction as F
+          sys.set_int_max_str_digits(0)
+          p='/tmp/alp123ae-evidence/result.json'
+          d=json.load(open(p))
+          assert d['status']=='CONDITIONAL_JOINT_PROJECTED_RESPONSE_DEFECT_RECEIVER'
+          assert d['source_sha256']=='a7a334e6eca63543d7f322aef124c4491c986ba878bd1434f484e86743856473'
+          assert set(d['sectors'])=={'1','2'}
+          src=json.load(open('custody/cr-alp-123ac-response-defect/result.json'))
+          for k,r in d['sectors'].items():
+              old=src['sectors'][k]
+              for name in ['E','U','finite_charge_upper']:
+                  assert F(r[name])==F(old[name])
+              assert 0<=F(r['eta_upper'])<=F(old['eta_upper'])
+              assert F(r['loss_upper'])<=F(old['loss_upper'])
+              assert F(r['conditional_pole_schur_lower'])==F(r['E'])-F(r['loss_upper'])
+              assert r['classification']==('PASS_COMPLETE_POLE_SECTOR_CONDITIONAL' if F(r['E'])>F(r['loss_upper']) else 'SUFFICIENT_BOUND_INCONCLUSIVE')
+          print('Output contract PASS, no promotion beyond conditional sector status')
+          PY
+          (cd /tmp/alp123ae-evidence; sha256sum preflight.log receiver.log result.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-123AE-joint-projected-receiver
+          path: /tmp/alp123ae-evidence/
+          if-no-files-found: warn
+      - name: Preserve and verify immutable output on delivery branch
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-123ae-joint-projected
+          test ! -e "$ROOT"
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp123ae-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum -c SHA256SUMS)
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$ROOT"
+          git commit -m 'CR-ALP-123AE: preserve frozen joint projected receiver [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse FETCH_HEAD)" = "$(git rev-parse HEAD)"
+          for f in preflight.log receiver.log result.json SHA256SUMS; do
+            test "$(git rev-parse FETCH_HEAD:$ROOT/$f)" = "$(git hash-object "$ROOT/$f")"
+          done
+          echo 'Remote Git readback PASS'
