@@ -1,0 +1,31 @@
+name: RETURN103-B literal terminal dependency binding
+on:
+  push:
+    branches: [research/master-return-090-restricted-audit]
+    paths:
+      - 'research/master-return-103b/**'
+      - '.github/workflows/master-return-103b.yml'
+permissions:
+  contents: read
+jobs:
+  bind:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch pinned permanent custody commits and reconstruct original archives
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 origin 87c9cd17b29da9d0a57cd426e0aa76a24eea0f65 bce3d5491d0cabe684e05237ca3e0533f22a5914
+          mkdir -p "$RUNNER_TEMP/binding/original" "$RUNNER_TEMP/results"
+          bash archive/master-return/reconstruct.sh "$RUNNER_TEMP/archives"
+          for i in 083_reproduction 086_audit; do
+            unzip -oq "$RUNNER_TEMP/archives/RETURN$i.zip" -d "$RUNNER_TEMP/binding/original"
+          done
+      - name: Bind exact terminal matrices and independent supplemental evidence
+        run: python3 research/master-return-103b/bind_terminal.py "$RUNNER_TEMP/binding" "$RUNNER_TEMP/results"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: return103b-literal-terminal-dependencies
+          path: ${{ runner.temp }}/results/
