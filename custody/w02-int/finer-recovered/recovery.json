@@ -1,0 +1,86 @@
+{
+  "artifact_id": 15232704938,
+  "run_id": 46070284350,
+  "archive_sha256": "cca2670fc5cf48a030fa44d3d3dc1461ec3f3f4510c60ec738da91e7ac8afd0a",
+  "files": {
+    "result.json": {
+      "sha256": "95f50f4db4e95d8f65d9dc86571779eef91c6e00dde20e6ede94ca870e8c9f86",
+      "bytes": 3084
+    },
+    "comparison.npz": {
+      "sha256": "22de4a0d48fa2d6a0899bbdd97189bd9d0b64c003334fbcb0d69222ab55367e6",
+      "bytes": 4804987
+    },
+    "bn_energy.py": {
+      "sha256": "11f2e6aadec7f1997366b50a081bd49e80a4f368b478c41bbec740d629190efa",
+      "bytes": 7714
+    },
+    "replay.log": {
+      "sha256": "49c64f73b2fff8bcb356065bfb8888b07122da8af79f2c5f99acf45d38ddc0cc",
+      "bytes": 163
+    }
+  },
+  "response": {
+    "name": "inverse-proposal.npz",
+    "sha256": "a065d42213b78847ee4dd7cc229fb08a809e6ddf598551dd2d2d31fd21263454",
+    "bytes": 21052492,
+    "parts": [
+      {
+        "name": "inverse-proposal.part000",
+        "sha256": "f2d552b97b3ddfe33acc02d3c521694f02d52ba59701221fad4c117f95d925d4",
+        "bytes": 2097152
+      },
+      {
+        "name": "inverse-proposal.part001",
+        "sha256": "92ae25b06b6fbb9c792b627b52c915e5cfc48eaf1176578ccbd4f859e7a6330f",
+        "bytes": 2097152
+      },
+      {
+        "name": "inverse-proposal.part002",
+        "sha256": "a7e77ced499793b6776f5082eb044912e37f29c99b566cacf9cee3e7909c6487",
+        "bytes": 2097152
+      },
+      {
+        "name": "inverse-proposal.part003",
+        "sha256": "ff25528cd68f313031dc47016c23d5268fca49f514832bc8aaa80d998d391ead",
+        "bytes": 2097152
+      },
+      {
+        "name": "inverse-proposal.part004",
+        "sha256": "39b41b04f1617cf9d67283f1f767fab1e79180277df758deaa684404557221dd",
+        "bytes": 2097152
+      },
+      {
+        "name": "inverse-proposal.part005",
+        "sha256": "28cfada0fba57b4794d4fcab9aabe0152118d48b7d44934cea5bd18f9519d385",
+        "bytes": 2097152
+      },
+      {
+        "name": "inverse-proposal.part006",
+        "sha256": "cfa910361a4b7f8abbb5ce15679401928fb03846c8edcc453d4323e66be2fcf9",
+        "bytes": 2097152
+      },
+      {
+        "name": "inverse-proposal.part007",
+        "sha256": "c4df1bd67b4bfc5c7488da96f5730b9f7054a3667e9e495d1f8dd1bdeb5b9ff6",
+        "bytes": 2097152
+      },
+      {
+        "name": "inverse-proposal.part008",
+        "sha256": "83dd642c05ba636a250e758b4a2c459572104e4072616bb4e01063069864d86f",
+        "bytes": 2097152
+      },
+      {
+        "name": "inverse-proposal.part009",
+        "sha256": "1c6913fdc34618f2c9a3d24327718deb83d242e2814e4ddfdcf94eec11d5a6a6",
+        "bytes": 2097152
+      },
+      {
+        "name": "inverse-proposal.part010",
+        "sha256": "7e17afc706cbc59307aef3dde5b0f11f2f8922a58616b6f5cc9b305bf523c630",
+        "bytes": 80972
+      }
+    ]
+  },
+  "status": "authenticated; remote custody requires all parts and final replay"
+}
