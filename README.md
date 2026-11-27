@@ -1,5 +1,7 @@
 # Canonical Return
 
+> **Scientific disclosure program (planning stage):** [Read the disclosure overview](SCIENTIFIC_DISCLOSURE.md) · [Charter](SCIENTIFIC_DISCLOSURE_CHARTER.md) · [Manuscript series](disclosure/DISCLOSURE_INDEX.md). This documentation initiative does not change the scientific standing of the historical archive.
+
 **Independent arithmetic–spectral comparison research archive.**
 
 This public repository preserves the Canonical Return investigations from the signed Weil explicit formula through the comparisons with Suzuki, Morishita, Connes–Consani, and Deninger. Its purpose is to preserve exact source dictionaries, admissibility requirements, falsifiable transfer tests, and reproducible finite calculations.
