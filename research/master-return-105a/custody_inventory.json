@@ -1,0 +1,42 @@
+{
+  "repository": "monocap-tech/canonical-return",
+  "scope": "Successful literal terminal binding and four exact/Arb numerical replacement archives",
+  "artifacts": [
+    {
+      "run": 45915840440,
+      "id": 15162640511,
+      "name": "return103b-literal-terminal-dependencies",
+      "bytes": 1518,
+      "sha256": "6b7374f3284d37477a940d8ddd105b4c7e1f2423a80b2c851ef52b4d907477d6"
+    },
+    {
+      "run": 45916687596,
+      "id": 15162478276,
+      "name": "return104a-complete-finite-arb",
+      "bytes": 14109616,
+      "sha256": "b1afca72214526a3b9581d0cbd546b5b783d672cdeb4d993be7f168b02824a84"
+    },
+    {
+      "run": 45917381698,
+      "id": 15161989586,
+      "name": "return104b-exact-integer-auxiliary",
+      "bytes": 32820550,
+      "sha256": "06e05ab9f6fbcbdbaf65ccc9a370d7843553668d2b060abcf8616e96935fd122"
+    },
+    {
+      "run": 45917729699,
+      "id": 15162848343,
+      "name": "return104c-exact-integer-finite-contractions",
+      "bytes": 12453503,
+      "sha256": "cafc61a4baebdc6fde3d17e0d94ca02b53a33cc3315197be98ea69aaa07b8d04"
+    },
+    {
+      "run": 45918006326,
+      "id": 15163237141,
+      "name": "return104d-arb-infinite-tail",
+      "bytes": 5681582,
+      "sha256": "c5dfe865729a0b8f202f29ab710d212bb40b6ca637b4677cff769244f14cdef5"
+    }
+  ],
+  "total_bytes": 65066769
+}
