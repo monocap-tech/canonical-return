@@ -1,0 +1,105 @@
+name: CR-ALP-122M original moment enclosure replay
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-122m-moment-replay.yml']
+permissions:
+  contents: write
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate original norm and terminal moment inputs
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/alp122m /tmp/alp122m-evidence
+          P=/tmp/alp122m
+          C="$PWD/custody/cr-alp-074-077"
+          A="$C/archives"
+          (cd "$A"; sha256sum -c SHA256SUMS) > /tmp/alp122m-evidence/manifest.log
+          (cd "$C/replayed-086"; sha256sum -c SHA256SUMS) >> /tmp/alp122m-evidence/manifest.log
+          mkdir -p "$P/old-bank" "$P/old-logs" "$P/old-result"
+          python3 -m zipfile -e "$A/CR-ALP-075-source-bank.zip" "$P/old-bank"
+          python3 -m zipfile -e "$A/CR-ALP-075-prefix-receiver.zip" "$P/old-result"
+          for name in reused-native-norms new-norms-1 new-norms-2; do
+            python3 -m zipfile -e "$A/CR-ALP-075-$name.zip" "$P/old-logs"
+          done
+          (cd "$P/old-bank"; sha256sum -c SHA256SUMS) >> /tmp/alp122m-evidence/manifest.log
+          (cd "$P/old-logs"; for m in SHA256SUMS.1 SHA256SUMS.2 SHA256SUMS.new1 SHA256SUMS.new2; do sha256sum -c "$m"; done) >> /tmp/alp122m-evidence/manifest.log
+          python3 src/audits/cr_alp_075_prefix_receiver.py "$P/old-bank" "$P/old-logs" "$P/prefix.json" > /tmp/alp122m-evidence/prefix.log
+          cmp "$P/prefix.json" "$P/old-result/result.json"
+          python3 src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+          python3 -m zipfile -e "$P/package.zip" "$P"
+          (cd "$P/cr_alp_058"; sha256sum -c SHA256SUMS; python3 validate_geometry.py) >> /tmp/alp122m-evidence/manifest.log
+      - name: Reproduce exact second-moment geometry and native terminal evaluations
+        run: |
+          set -euo pipefail
+          P=/tmp/alp122m
+          E=/tmp/alp122m-evidence
+          C="$PWD/custody/cr-alp-074-077/replayed-086"
+          python3 src/audits/cr_alp_059/mesh_second.py "$P" | tee "$E/mesh.log"
+          cp "$P/cr_alp_058/second_mesh.txt" "$E/"
+          g++ -O2 -std=gnu++17 "$P/cr_alp_058/validated.cpp" -o "$P/moment" -lquadmath -l:libmpfr.so.6 -lgmp
+          g++ -O2 -std=gnu++17 -I"$P/cr_alp_058" src/audits/cr_alp_059/second.cpp -o "$P/second" -lquadmath -l:libmpfr.so.6 -lgmp
+          g++ -O2 -std=gnu++17 -I"$P/cr_alp_058" src/audits/cr_alp_074_norm.cpp -o "$P/norm" -lquadmath -l:libmpfr.so.6 -lgmp
+          for k in 1 2; do
+            f="$C/input_${k}_terminal.txt"
+            mkdir -p "$P/check"
+            cp "$P/cr_alp_058/"{input_1.txt,input_2.txt,gauss.txt,validate_geometry.py} "$P/check/"
+            cp "$f" "$P/check/input_$k.txt"
+            python3 "$P/check/validate_geometry.py" > "$E/geometry_$k.log"
+            "$P/moment" "$f" "$P/cr_alp_058/mesh.txt" "$P/cr_alp_058/gauss.txt" > "$E/mode_${k}_terminal.log" 2> "$E/mode_${k}_terminal.radius.log"
+            "$P/second" "$f" "$P/cr_alp_058/mesh.txt" "$P/cr_alp_058/gauss.txt" "$P/cr_alp_058/second_mesh.txt" > "$E/second_${k}_terminal.log" 2> "$E/second_${k}_terminal.radius.log"
+            cmp "$E/mode_${k}_terminal.log" "$C/mode_${k}_terminal.log"
+            cmp "$E/second_${k}_terminal.log" "$C/second_${k}_terminal.log"
+          done
+          # Audit old norm-log custody and one representative fresh replay per parity.
+          PYTHONPATH=src/audits python3 - <<'PY' | tee "$E/norm-census.log"
+          import json,hashlib
+          from pathlib import Path
+          from cr_alp_074_norm_receiver import parse
+          p=Path('/tmp/alp122m');E=Path('/tmp/alp122m-evidence')
+          data=json.loads((p/'old-bank/source_bank.json').read_text())
+          rows=[]
+          for e in data['entries']:
+              k,j=e['parity'],e['coordinate_zero_based']
+              f=p/'old-bank'/e['file'];g=p/'old-logs'/f'norm_{k}_{j}.log'
+              assert hashlib.sha256(f.read_bytes()).hexdigest()==e['sha256']
+              lo,hi=parse(g)
+              rows.append({'parity':k,'coordinate':j,'input':str(f),'log':str(g),'G':[str(lo),str(hi)]})
+          assert len(rows)==70
+          (E/'norm-census.json').write_text(json.dumps(rows,indent=2)+'\n')
+          for k in ('1','2'):
+              row=next(r for r in rows if str(r['parity'])==k)
+              (p/f'norm-source-{k}.txt').write_text(row['input']+'\n'+row['log']+'\n')
+          print('PASS 70 authenticated original norm inputs and endpoints')
+          PY
+          for k in 1 2; do
+            f=$(sed -n '1p' "$P/norm-source-$k.txt")
+            g=$(sed -n '2p' "$P/norm-source-$k.txt")
+            "$P/norm" "$f" "$P/cr_alp_058/mesh.txt" "$P/cr_alp_058/gauss.txt" > "$E/norm_$k.log" 2> "$E/norm_$k.radius.log"
+            cmp "$E/norm_$k.log" "$g"
+          done
+          echo 'PASS byte-identical terminal first/second moments and representative original norms' | tee "$E/replay.log"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-122M-original-moment-replay
+          path: /tmp/alp122m-evidence/
+          if-no-files-found: error
+      - name: Preserve moment replay
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-122m-moment-replay
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          git checkout --detach FETCH_HEAD
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp122m-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum *.log *.json *.txt > SHA256SUMS; sha256sum -c SHA256SUMS)
+          git add "$ROOT"
+          git commit -m 'CR-ALP-122M: durable original moment replay [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
