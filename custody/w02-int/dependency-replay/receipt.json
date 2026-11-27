@@ -1,0 +1,9 @@
+{
+  "status": "INCOMPLETE",
+  "source_commit": "a56d0628bfdd2d911906f8bd3240e05336a5856c",
+  "bo_source_commit": "36579dfa51c81e43ebce1ead4771eb3a3dd52af3",
+  "scope": "dependency bytes and exact frozen numerical centers only; no physical acceptance",
+  "python": "3.13.18 (main, Oct 26 2026, 14:19:33) [GCC 15.2.0]",
+  "error": "AssertionError((['EP-frozen-center-audit.json', 'EP-full-reoptimization-provisional.zip', 'MANIFEST.json', 'README.txt', 'ep_frozen_center_audit.py'], ['EP-frozen-center-audit.json', 'EP-full-reoptimization-provisional.zip', 'MANIFEST.json', 'README.md', 'ep_frozen_center_audit.py']))",
+  "traceback": "Traceback (most recent call last):\n  File \"<stdin>\", line 25, in <module>\n  File \"<stdin>\", line 12, in check\nAssertionError: (['EP-frozen-center-audit.json', 'EP-full-reoptimization-provisional.zip', 'MANIFEST.json', 'README.txt', 'ep_frozen_center_audit.py'], ['EP-frozen-center-audit.json', 'EP-full-reoptimization-provisional.zip', 'MANIFEST.json', 'README.md', 'ep_frozen_center_audit.py'])\n"
+}
