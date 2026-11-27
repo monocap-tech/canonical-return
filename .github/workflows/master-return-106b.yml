@@ -1,0 +1,39 @@
+name: RETURN106-B literal finite source reader attachment
+on:
+  push:
+    branches: [research/master-return-090-restricted-audit]
+    paths:
+      - 'research/master-return-106b/**'
+      - '.github/workflows/master-return-106b.yml'
+permissions:
+  contents: read
+jobs:
+  attach:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      PYTHONINTMAXSTRDIGITS: '0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Authenticate permanent Arb and historical contraction sources
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 origin 4399c20b2b708260463dffa25f02797183d1983f
+          mkdir -p "$RUNNER_TEMP/work" "$RUNNER_TEMP/results"
+          bash archive/master-return/reconstruct.sh "$RUNNER_TEMP/archives"
+          unzip -oq "$RUNNER_TEMP/archives/RETURN083_reproduction.zip" -d "$RUNNER_TEMP/work"
+          unzip -oq "$RUNNER_TEMP/archives/RETURN087_audit.zip" -d "$RUNNER_TEMP/work"
+          python -m pip install python-flint==0.8.0 numpy==2.2.6
+          python -m py_compile research/master-return-106b/bind_finite_inputs.py
+      - name: Verify literal finite input containment and unchanged exact output
+        run: python research/master-return-106b/bind_finite_inputs.py "$RUNNER_TEMP/work" "$RUNNER_TEMP/results"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: return106b-literal-finite-input-attachment
+          path: |
+            ${{ runner.temp }}/results/receipt.json
+            ${{ runner.temp }}/results/instrumented_source.py
