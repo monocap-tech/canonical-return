@@ -56,8 +56,8 @@ jobs:
               with zipfile.ZipFile(io.BytesIO(b)) as z:
                   m=json.loads(z.read('MANIFEST.json'))
                   assert m==json.loads((ep/'MANIFEST.json').read_bytes())
-                  check(z,m,('README.md',))
-                  receipt['outer_readme']={'bytes':len(z.read('README.md')),'sha256':sha(z.read('README.md')),'authentication':'covered by exact pinned outer archive SHA256'}
+                  check(z,m,('README.txt',))
+                  receipt['outer_readme']={'bytes':len(z.read('README.txt')),'sha256':sha(z.read('README.txt')),'authentication':'covered by exact pinned outer archive SHA256'}
                   ib=z.read('EP-full-reoptimization-provisional.zip')
                   assert sha(ib)=='6b469aeeb5d86db79215700a8f687a54053c7b2908f90fbbb1f1e7895c22ab77'
                   assert gitsha(ib)=='bcc2be3b4308ccc612bb0f02b2f83db0f215d88d'
