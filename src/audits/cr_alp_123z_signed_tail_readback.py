@@ -71,8 +71,10 @@ def check_poles(g,k,J,fb,T,H0,receipt):
     return rows
 
 def main(second,joint,quant,out):
-    raw=second.read_bytes();assert digest(raw)=='9152dcb759260d498c7496e579285d83e28172b6bcb3192c32e961886335253f'
-    d=json.loads(raw);assert d['status']=='CONDITIONAL_SECOND_AUXILIARY_CORRECTION'
+    raw=second.read_bytes();kind={
+        '9152dcb759260d498c7496e579285d83e28172b6bcb3192c32e961886335253f':'CONDITIONAL_SECOND_AUXILIARY_CORRECTION',
+        'dc47498d81932a8576016125bd51b9955783dede6536a365c93826ce534dbf03':'CONDITIONAL_CONDITIONED_JOINT_CORRECTION'}[digest(raw)]
+    d=json.loads(raw);assert d['status']==kind
     jraw=joint.read_bytes();assert digest(jraw)=='09b34469b32c13ebf5f5b690d1eb9ad3a9fb5676f171a1c7f85325cedc199d7b'
     g=json.loads(jraw)
     qraw=quant.read_bytes();assert digest(qraw)=='f5feb77462ff530ba85f3ee242e13b8e11b71144a65dfd3e16893188b05315de'
@@ -83,7 +85,18 @@ def main(second,joint,quant,out):
         assert len(rows)==1
         r=rows[0];assert r['cutoff']==850 and r['source_cutoff']==365 and r['finite_prefix']==J
         w=next(x['joint_trial'] for x in g['sectors'][k]['rows'] if x['cutoff']==365)
-        ds={int(i):up(v) for i,v in w['source_sines'].items()}
+        if kind=='CONDITIONAL_CONDITIONED_JOINT_CORRECTION':
+            kk=int(k);xx={int(i):F(v) for i,v in r['low_trial_coordinates'].items()}
+            assert set(xx)==set(range(kk,86,2))
+            eh,em,rt,qt=(ng[x] for x in ('eh','em','rt','qt'))
+            b0=(eh+em)/2 if kk==1 else -(eh-em)/2
+            def cj(j):
+                v=j*ng['NUF'];return 2*b0*v/(rt*(v.sq()+qt))
+            ck=cj(kk);dr={i:I(v) for i,v in xx.items()}
+            dr[kk]-=sum((I(v)*cj(i)/ck for i,v in xx.items() if i!=kk),ng['ZERO'])
+            ds={i:v.up() for i,v in dr.items()}
+        else:
+            ds={int(i):up(v) for i,v in w['source_sines'].items()}
         fb=up(r['source_pole']);T=up(r['combined_pole'])
         # tau = fb - T, signed endpoints.
         tl,th=map(F,r['source_pole']);ul,uh=map(F,r['combined_pole'])
@@ -125,7 +138,7 @@ def main(second,joint,quant,out):
                   'weighted_inverse_error_upper':str(U),'weighted_pole_subtraction_lower':'0',
                   'response_loss_upper':str(loss),'conditional_pole_schur_lower':str(E-loss),
                   'classification':'PASS_COMPLETE_POLE_SECTOR_CONDITIONAL' if E>loss else 'SUFFICIENT_BOUND_INCONCLUSIVE'})
-        print(k,'signed tail',float(tail),'prefix U',float(F(r['weighted_prefix_upper'])),
+        print(kind,k,'signed tail',float(tail),'prefix U',float(F(r['weighted_prefix_upper'])),
               'complete U',float(U),'U/E',float(U/E) if E>0 else None,
               'loss/E',float(loss/E) if E>0 else None,flush=True)
     d['repair']={'original_sha256':digest(raw),'method':'signed pole asymptotic and parity Abel estimate, independent sparse checks, parity sine series integral; omit nonnegative weighted pole subtraction'}
