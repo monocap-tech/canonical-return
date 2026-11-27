@@ -1,0 +1,702 @@
+[
+  {
+    "parity": "1",
+    "coordinate": 0,
+    "input": "/tmp/alp122m/old-bank/input_1_0.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_0.log",
+    "G": [
+      "1064115467/250000000000000",
+      "1109260627/250000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 34,
+    "input": "/tmp/alp122m/old-bank/input_1_34.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_34.log",
+    "G": [
+      "12412095291/500000000000000",
+      "3157708031/125000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 25,
+    "input": "/tmp/alp122m/old-bank/input_1_25.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_25.log",
+    "G": [
+      "75613708923/1000000000000000",
+      "76380268683/1000000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 35,
+    "input": "/tmp/alp122m/old-bank/input_1_35.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_35.log",
+    "G": [
+      "524675687/7812500000000",
+      "67881395501/1000000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 1,
+    "input": "/tmp/alp122m/old-bank/input_1_1.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_1.log",
+    "G": [
+      "16573238823/250000000000000",
+      "66996751819/1000000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 22,
+    "input": "/tmp/alp122m/old-bank/input_1_22.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_22.log",
+    "G": [
+      "2654464299/5000000000000",
+      "266458684663/500000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 32,
+    "input": "/tmp/alp122m/old-bank/input_1_32.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_32.log",
+    "G": [
+      "494034669271/1000000000000000",
+      "495993145779/1000000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 39,
+    "input": "/tmp/alp122m/old-bank/input_1_39.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_39.log",
+    "G": [
+      "212641825863/1000000000000000",
+      "213907830371/1000000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 2,
+    "input": "/tmp/alp122m/old-bank/input_1_2.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_2.log",
+    "G": [
+      "41231340143/200000000000000",
+      "207392526811/1000000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 40,
+    "input": "/tmp/alp122m/old-bank/input_1_40.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_40.log",
+    "G": [
+      "15483518447/125000000000000",
+      "31201991043/250000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 29,
+    "input": "/tmp/alp122m/old-bank/input_1_29.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_29.log",
+    "G": [
+      "1148664409999/1000000000000000",
+      "143956341041/125000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 3,
+    "input": "/tmp/alp122m/old-bank/input_1_3.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_3.log",
+    "G": [
+      "378481165827/1000000000000000",
+      "380153401661/1000000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 14,
+    "input": "/tmp/alp122m/old-bank/input_1_14.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_14.log",
+    "G": [
+      "7127986809247/1000000000000000",
+      "7135187885413/1000000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 33,
+    "input": "/tmp/alp122m/old-bank/input_1_33.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_33.log",
+    "G": [
+      "699990400429/500000000000000",
+      "701638509729/500000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 41,
+    "input": "/tmp/alp122m/old-bank/input_1_41.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_41.log",
+    "G": [
+      "125256064337/1000000000000000",
+      "63070279123/500000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 4,
+    "input": "/tmp/alp122m/old-bank/input_1_4.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_4.log",
+    "G": [
+      "68913965789/62500000000000",
+      "552740452079/500000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 36,
+    "input": "/tmp/alp122m/old-bank/input_1_36.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_36.log",
+    "G": [
+      "997554872217/1000000000000000",
+      "40013458403/40000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 5,
+    "input": "/tmp/alp122m/old-bank/input_1_5.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_5.log",
+    "G": [
+      "41290180239/25000000000000",
+      "827556130507/500000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 21,
+    "input": "/tmp/alp122m/old-bank/input_1_21.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_21.log",
+    "G": [
+      "323554557683/62500000000000",
+      "2591594383157/500000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 8,
+    "input": "/tmp/alp122m/old-bank/input_1_8.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_8.log",
+    "G": [
+      "3520572731957/1000000000000000",
+      "1762846852459/500000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 31,
+    "input": "/tmp/alp122m/old-bank/input_1_31.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_31.log",
+    "G": [
+      "322282725417/100000000000000",
+      "806957187433/250000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 16,
+    "input": "/tmp/alp122m/old-bank/input_1_16.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_16.log",
+    "G": [
+      "522262231819/100000000000000",
+      "1045766979987/200000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 28,
+    "input": "/tmp/alp122m/old-bank/input_1_28.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_28.log",
+    "G": [
+      "1894949630761/500000000000000",
+      "3795320695063/1000000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 13,
+    "input": "/tmp/alp122m/old-bank/input_1_13.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_13.log",
+    "G": [
+      "2072049812061/200000000000000",
+      "1296114579461/125000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 38,
+    "input": "/tmp/alp122m/old-bank/input_1_38.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_38.log",
+    "G": [
+      "379252467583/250000000000000",
+      "760217020987/500000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 26,
+    "input": "/tmp/alp122m/old-bank/input_1_26.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_26.log",
+    "G": [
+      "4394481077253/1000000000000000",
+      "220015642481/50000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 11,
+    "input": "/tmp/alp122m/old-bank/input_1_11.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_11.log",
+    "G": [
+      "1524243982011/200000000000000",
+      "7628703784311/1000000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 37,
+    "input": "/tmp/alp122m/old-bank/input_1_37.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_37.log",
+    "G": [
+      "202972462457/100000000000000",
+      "254211740333/125000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 18,
+    "input": "/tmp/alp122m/old-bank/input_1_18.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_18.log",
+    "G": [
+      "1187513577793/250000000000000",
+      "4756042950947/1000000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 6,
+    "input": "/tmp/alp122m/old-bank/input_1_6.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_6.log",
+    "G": [
+      "102380214121/25000000000000",
+      "820146859657/200000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 15,
+    "input": "/tmp/alp122m/old-bank/input_1_15.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_15.log",
+    "G": [
+      "3536394889111/500000000000000",
+      "17699985859/2500000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 27,
+    "input": "/tmp/alp122m/old-bank/input_1_27.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_27.log",
+    "G": [
+      "1213788683809/200000000000000",
+      "1518950399449/250000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 7,
+    "input": "/tmp/alp122m/old-bank/input_1_7.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_7.log",
+    "G": [
+      "771126359639/125000000000000",
+      "3087897130243/500000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 19,
+    "input": "/tmp/alp122m/old-bank/input_1_19.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_19.log",
+    "G": [
+      "2746796101449/500000000000000",
+      "2750026641509/500000000000000"
+    ]
+  },
+  {
+    "parity": "1",
+    "coordinate": 10,
+    "input": "/tmp/alp122m/old-bank/input_1_10.txt",
+    "log": "/tmp/alp122m/old-logs/norm_1_10.log",
+    "G": [
+      "9049225545669/1000000000000000",
+      "9057405668123/1000000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 37,
+    "input": "/tmp/alp122m/old-bank/input_2_37.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_37.log",
+    "G": [
+      "728693059/25000000000000",
+      "7405838903/250000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 0,
+    "input": "/tmp/alp122m/old-bank/input_2_0.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_0.log",
+    "G": [
+      "4951903889/1000000000000000",
+      "258722387/50000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 25,
+    "input": "/tmp/alp122m/old-bank/input_2_25.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_25.log",
+    "G": [
+      "75153416317/1000000000000000",
+      "9488738297/125000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 1,
+    "input": "/tmp/alp122m/old-bank/input_2_1.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_1.log",
+    "G": [
+      "11285451013/1000000000000000",
+      "11611221917/1000000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 38,
+    "input": "/tmp/alp122m/old-bank/input_2_38.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_38.log",
+    "G": [
+      "12651167053/500000000000000",
+      "5028481/195312500000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 2,
+    "input": "/tmp/alp122m/old-bank/input_2_2.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_2.log",
+    "G": [
+      "7366609457/200000000000000",
+      "37411201831/1000000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 27,
+    "input": "/tmp/alp122m/old-bank/input_2_27.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_27.log",
+    "G": [
+      "277572735793/500000000000000",
+      "111439979007/200000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 3,
+    "input": "/tmp/alp122m/old-bank/input_2_3.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_3.log",
+    "G": [
+      "141693371013/1000000000000000",
+      "5711525743/40000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 29,
+    "input": "/tmp/alp122m/old-bank/input_2_29.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_29.log",
+    "G": [
+      "465948045737/500000000000000",
+      "186911871653/200000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 4,
+    "input": "/tmp/alp122m/old-bank/input_2_4.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_4.log",
+    "G": [
+      "127948729067/500000000000000",
+      "257331064491/1000000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 32,
+    "input": "/tmp/alp122m/old-bank/input_2_32.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_32.log",
+    "G": [
+      "175121872959/200000000000000",
+      "878188237163/1000000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 35,
+    "input": "/tmp/alp122m/old-bank/input_2_35.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_35.log",
+    "G": [
+      "1106441935589/1000000000000000",
+      "221869595367/200000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 36,
+    "input": "/tmp/alp122m/old-bank/input_2_36.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_36.log",
+    "G": [
+      "8342272369/31250000000000",
+      "10734266877/40000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 13,
+    "input": "/tmp/alp122m/old-bank/input_2_13.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_13.log",
+    "G": [
+      "1967119486907/250000000000000",
+      "78759401809/10000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 22,
+    "input": "/tmp/alp122m/old-bank/input_2_22.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_22.log",
+    "G": [
+      "45873067897/10000000000000",
+      "287073706609/62500000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 39,
+    "input": "/tmp/alp122m/old-bank/input_2_39.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_39.log",
+    "G": [
+      "29302768531/40000000000000",
+      "734909212651/1000000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 5,
+    "input": "/tmp/alp122m/old-bank/input_2_5.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_5.log",
+    "G": [
+      "909014294223/1000000000000000",
+      "911653380791/1000000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 6,
+    "input": "/tmp/alp122m/old-bank/input_2_6.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_6.log",
+    "G": [
+      "621866686679/500000000000000",
+      "1246773661513/1000000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 18,
+    "input": "/tmp/alp122m/old-bank/input_2_18.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_18.log",
+    "G": [
+      "565909963521/125000000000000",
+      "2266514331379/500000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 33,
+    "input": "/tmp/alp122m/old-bank/input_2_33.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_33.log",
+    "G": [
+      "101977704461/40000000000000",
+      "2553846484263/1000000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 14,
+    "input": "/tmp/alp122m/old-bank/input_2_14.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_14.log",
+    "G": [
+      "8167768575393/1000000000000000",
+      "8175381261717/1000000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 34,
+    "input": "/tmp/alp122m/old-bank/input_2_34.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_34.log",
+    "G": [
+      "86860565511/31250000000000",
+      "556827621121/200000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 21,
+    "input": "/tmp/alp122m/old-bank/input_2_21.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_21.log",
+    "G": [
+      "1323422629341/250000000000000",
+      "5299982090479/1000000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 31,
+    "input": "/tmp/alp122m/old-bank/input_2_31.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_31.log",
+    "G": [
+      "1674155056491/500000000000000",
+      "3353360700171/1000000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 7,
+    "input": "/tmp/alp122m/old-bank/input_2_7.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_7.log",
+    "G": [
+      "2435216298417/1000000000000000",
+      "2439426372911/1000000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 40,
+    "input": "/tmp/alp122m/old-bank/input_2_40.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_40.log",
+    "G": [
+      "81551554553/62500000000000",
+      "653973935417/500000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 12,
+    "input": "/tmp/alp122m/old-bank/input_2_12.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_12.log",
+    "G": [
+      "9335284474097/1000000000000000",
+      "2335851086697/250000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 20,
+    "input": "/tmp/alp122m/old-bank/input_2_20.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_20.log",
+    "G": [
+      "2833011556821/500000000000000",
+      "1418128623817/250000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 11,
+    "input": "/tmp/alp122m/old-bank/input_2_11.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_11.log",
+    "G": [
+      "7467189579471/1000000000000000",
+      "23357662267/3125000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 16,
+    "input": "/tmp/alp122m/old-bank/input_2_16.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_16.log",
+    "G": [
+      "4103963687737/500000000000000",
+      "2053899906259/250000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 24,
+    "input": "/tmp/alp122m/old-bank/input_2_24.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_24.log",
+    "G": [
+      "1428914480463/200000000000000",
+      "7151924139633/1000000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 9,
+    "input": "/tmp/alp122m/old-bank/input_2_9.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_9.log",
+    "G": [
+      "966258003711/200000000000000",
+      "4837152198141/1000000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 28,
+    "input": "/tmp/alp122m/old-bank/input_2_28.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_28.log",
+    "G": [
+      "6209176152699/1000000000000000",
+      "1243208741293/200000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 19,
+    "input": "/tmp/alp122m/old-bank/input_2_19.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_19.log",
+    "G": [
+      "3364971476681/500000000000000",
+      "6736990469241/1000000000000000"
+    ]
+  },
+  {
+    "parity": "2",
+    "coordinate": 8,
+    "input": "/tmp/alp122m/old-bank/input_2_8.txt",
+    "log": "/tmp/alp122m/old-logs/norm_2_8.log",
+    "G": [
+      "4260221572393/1000000000000000",
+      "85314895789/20000000000000"
+    ]
+  }
+]
