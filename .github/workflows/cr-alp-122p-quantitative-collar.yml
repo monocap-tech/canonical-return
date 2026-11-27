@@ -1,0 +1,48 @@
+name: CR-ALP-122P quantitative collar receiver
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-122p-quantitative-collar.yml']
+permissions:
+  contents: write
+jobs:
+  receiver:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate finite receiver and physical coordinate banks
+        run: |
+          set -euo pipefail
+          P=/tmp/alp122p
+          E=/tmp/alp122p-evidence
+          C="$PWD/custody/cr-alp-074-077"
+          mkdir -p "$P" "$E"
+          (cd "$C/replayed-082"; sha256sum -c SHA256SUMS)
+          (cd "$C/replayed-091"; sha256sum -c SHA256SUMS)
+          git fetch --depth=1 origin 7c9dc0301df765ab31f9332e9e8c76015b59894c
+          git show 7c9dc0301df765ab31f9332e9e8c76015b59894c:custody/cr-alp-074-077/replayed-121/result.json > "$P/frozen.json"
+          sha256sum "$P/frozen.json" > "$E/frozen.sha256"
+          python3 src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+          python3 -m zipfile -e "$P/package.zip" "$P"
+          python3 src/audits/cr_alp_122p_quantitative_collar.py "$P" "$C" "$P/frozen.json" "$E/result.json" | tee "$E/receiver.log"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-122P-quantitative-collar
+          path: /tmp/alp122p-evidence/
+          if-no-files-found: error
+      - name: Preserve quantitative receiver
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-122p-quantitative-collar
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          git checkout --detach FETCH_HEAD
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp122p-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum *.log *.json frozen.sha256 > SHA256SUMS; sha256sum -c SHA256SUMS)
+          git add "$ROOT"
+          git commit -m 'CR-ALP-122P: preserve quantitative collar receiver [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
