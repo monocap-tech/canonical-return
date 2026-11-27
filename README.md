@@ -6,6 +6,12 @@ This public repository preserves the Canonical Return investigations from the si
 
 **Status:** research notes / source-level analytical derivations / executable symbolic and rational-interval checks. **Not a proof of the Riemann hypothesis, not a proof of global Weil positivity, not a complete spectral equivalence, and not Lean-accepted formalization.** Some conclusions rest on published identities; other deductions have not received independent mathematical review.
 
+## Scientific disclosure program
+
+**[Scientific Disclosure Charter — planned manuscript series and release gates](SCIENTIFIC_DISCLOSURE.md)**
+
+A coordinated, cross-repository editorial initiative will document the mathematical research program, adaptive investigative governance, multi-agent architecture, verification, operational findings, originality assessment and reproducibility evidence. The charter establishes eight planned scientific deliverables in Markdown, LaTeX and PDF, with explicit claim boundaries and release review. It does not change the historical archive's standing or admit any new mathematical result. Manuscripts are not yet released.
+
 ## Research archive (complete Markdown snapshots)
 
 The full text of the twelve research and migration Space pages has been archived under [`archive/space/`](archive/space/), in numerical order, preserving their canonical Markdown blocks. [`archive/SOURCES.md`](archive/SOURCES.md) records the exact page identifiers, original URLs and imported Git blob hashes. A historical migration-staging page is included for provenance; its statement that no remote existed reflects the *prior* staging date, not the current GitHub status.
