@@ -1,0 +1,157 @@
+name: W02 INT exact kernel and directed action pilot
+on:
+  push:
+    branches: [research/cr-int-t1d-ep-targeted-corrector-staged]
+    paths: [.github/workflows/t1d-w02-int-kernel-pilot.yml]
+permissions:
+  contents: write
+jobs:
+  kernel:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    env:
+      OPENBLAS_NUM_THREADS: "2"
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            custody/ep
+            custody/en/generated/new/odd_corrector.npz
+            custody/en/generated/merged/odd_merged_corrector.npz
+            custody/en/generated/sha256.txt
+            custody/ee/generated/sources/cr_int_t1d_ca_odd
+      - uses: actions/checkout@v4
+        with:
+          ref: 36579dfa51c81e43ebce1ead4771eb3a3dd52af3
+          path: bo-source
+          sparse-checkout: |
+            custody/T1D-archives/parts/CR-INT-T1D-BO-reproducibility.zip
+      - uses: actions/checkout@v4
+        with:
+          ref: 0e8f2bec2bca3d33228afa5e15e3fd3ef1a197d3
+          path: dependency-evidence
+          sparse-checkout: |
+            custody/w02-int/dependency-replay
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Exact frozen receiver and physical action pilot
+        run: |
+          python -m pip install numpy==2.3.5
+          mkdir -p custody/w02-int/kernel-pilot
+          python - <<'PY'
+          import hashlib,json,pathlib,zipfile,io,subprocess,sys,os,traceback
+          from fractions import Fraction as F
+          from math import isqrt
+          import numpy as np
+          P=pathlib.Path
+          out=P('custody/w02-int/kernel-pilot')
+          work=P(os.environ['RUNNER_TEMP'])/'kernel-pilot'
+          work.mkdir()
+          def sha(b):return hashlib.sha256(b).hexdigest()
+          def read(p,h):
+              b=p.read_bytes();assert sha(b)==h,p;return b
+          def npz(b):
+              with np.load(io.BytesIO(b),allow_pickle=False) as z:return {k:z[k] for k in z.files}
+          def obj(a):return np.vectorize(int,otypes=[object])(a)
+          def norm(a,s=1):
+              q=sum(int(x)**2 for x in a.flat);r=isqrt(q)
+              return F(r+(r*r<q),s)
+          receipt={'status':'INCOMPLETE','scope':'exact finite receiver kernel and first 128 physical action rows; conditional on inherited receiver/source enclosures; no index promotion','source_commit':os.environ['GITHUB_SHA'],'dependency_evidence':'0e8f2bec2bca3d33228afa5e15e3fd3ef1a197d3'}
+          def save():(out/'result.json').write_text(json.dumps(receipt,indent=2)+'\n')
+          try:
+              d=json.loads((P('dependency-evidence/custody/w02-int/dependency-replay/receipt.json')).read_text());assert d['status']=='PASS'
+              ep=P('custody/ep');manifest=json.loads((ep/'manifest.json').read_text())
+              parts=[P(x['path']) for x in manifest['parts']]
+              assert len(parts)==31
+              b=b''.join(p.read_bytes() for p in parts)
+              assert len(b)==8020408 and sha(b)=='7b5c0f48b0b63e719be161e4197c603be40d74aee051538fa086791624bada21'
+              with zipfile.ZipFile(io.BytesIO(b)) as z:
+                  assert z.testzip() is None
+                  names=['EP-receiver-kernel-proposal.npz','ep_receiver_kernel_audit.py']
+                  vals={}
+                  for n in names:
+                      q=next(x for x in manifest['members'] if x['name']==n)
+                      v=z.read(n);assert len(v)==q['size'] and sha(v)==q['sha256']
+                      vals[n]=v
+              prop=npz(vals[names[0]])
+              (out/names[1]).write_bytes(vals[names[1]])
+              en=P('custody/en/generated')
+              a=npz(read(en/'new/odd_corrector.npz','59299810a0149c39e01f231c3d60d955c4ea86f87707cc86ca038f550c90478c'))
+              merged=npz(read(en/'merged/odd_merged_corrector.npz','9558261d14698861a6681c8f432c717f0496de898fd312ce8020f59b466c1284'))
+              S=int(a['coefficient_scale']);s=int(prop['coefficient_scale']);zs=int(a['Zscale'])
+              ids=a['indices'][:139];assert np.array_equal(prop['indices'],ids)
+              p=obj(a['P']);Z=obj(a['Z']);T=obj(prop['coefficient']);assert p.shape==(123,139) and Z.shape==(139,123) and T.shape==(139,16)
+              pe=F(str(a['Perror']));rho=F(str(a['rho']));assert 0<=rho<1 and pe>=0
+              # Recompute a conservative Frobenius residual directly on the frozen receiver.
+              defect=norm(p@Z-np.eye(123,dtype=object)*S*zs,S*zs)+pe*norm(Z,zs)
+              assert defect<1
+              rb=norm(Z,zs)/(1-defect)
+              err=rb*(norm(p@T,S*s)+pe*norm(T,s))
+              gram=norm(T.T@T-np.eye(16,dtype=object)*s*s,s*s)
+              assert gram<F(1,100) and err<F(1,100)
+              # The 368 free-coordinate columns have a permutation outside the receiver.
+              u=obj(merged['coefficient']);us=int(merged['coefficient_scale']);outside=u[~np.isin(merged['indices'],ids)]
+              assert outside.shape==(368,368)
+              assert np.all(np.count_nonzero(outside,axis=0)==1) and np.all(np.count_nonzero(outside,axis=1)==1)
+              assert all(x==us for x in outside.flat if x)
+              # Exact kernel lift W=(I-Z(P_*Z)^-1 P_*)T/s.
+              # For action interval propagation use a rational bound no smaller than the replayed error.
+              er=max(err,F(str(prop['coefficient_error'])))
+              np.savez_compressed(work/'odd_corrector.npz',indices=ids,coefficient=np.array(T,str),coefficient_scale=str(s),coefficient_error=str(er))
+              (out/'odd_kernel_corrector.npz').write_bytes((work/'odd_corrector.npz').read_bytes())
+              receipt['kernel']={'receiver_shape':list(p.shape),'nullity':16,'right_inverse_defect':str(defect),'right_inverse_bound':str(rb),'center_residual':str(norm(p@T,S*s)),'coefficient_error_upper':str(er),'gram_defect':str(gram),'sigma_min_lower':'49/50','old_free_coordinate_permutation':'PASS at stored center; exact free coordinates inherited from construction'}
+              save()
+              # Attach original directed BO evaluator and the exact inherited action code.
+              parts=sorted(P('bo-source/custody/T1D-archives/parts/CR-INT-T1D-BO-reproducibility.zip').glob('part-*.bin'))
+              bb=b''.join(p.read_bytes() for p in parts);assert sha(bb)==d['BO']['archive_sha256']
+              with zipfile.ZipFile(io.BytesIO(bb)) as z:
+                  for n in ('bn_energy.py','bo_joint.py','bo_lifts.py'):
+                      hits=[m for m in z.namelist() if P(m).name==n];assert len(hits)==1
+                      v=z.read(hits[0]);assert sha(v)==d['BO']['required_manifest_payloads'][n]['sha256']
+                      (out/n).write_bytes(v)
+                      if n=='bn_energy.py':(work/n).write_bytes(v)
+              action=read(P('custody/ee/generated/sources/cr_int_t1d_ca_odd/bq_action.py'),'8d5442f03fb67a51f968925110d64ffa365b9a56ba2b3136e2be9467a2705d75')
+              (work/'bq_action.py').write_bytes(action)
+              # Recover the full-reoptimization source for the next physical transport step.
+              outer=read(ep/'full-reoptimization/EP-full-reoptimization-custody-ready.zip',d['EP']['sha256'])
+              with zipfile.ZipFile(io.BytesIO(outer)) as z:inner=z.read('EP-full-reoptimization-provisional.zip')
+              assert sha(inner)==d['EP']['inner_sha256']
+              with zipfile.ZipFile(io.BytesIO(inner)) as z:
+                  src=z.read('ep_kernel_full_reopt.py')
+                  assert sha(src)=='be6d0583e6726d68d7c972f0440726106fc96bda5c6ff3491a963341e58f13cf'
+                  (out/'ep_kernel_full_reopt.py').write_bytes(src)
+              # First 128 odd rows; no inference about uncomputed rows or infinite tails.
+              subprocess.run([sys.executable,str(work/'bq_action.py'),'1','255','1'],check=True,cwd=work)
+              q=work/'odd_U_1_255.npz';y=npz(q.read_bytes());assert np.array_equal(y['indices'],np.arange(1,256,2))
+              assert y['Y'].shape==(128,16)
+              scale=int(y['scale']);eta=F(str(y['error']))
+              assert eta==sum(map(F,map(str,y['tile_errors'])),F(0)) and eta>=F(y['Y'].size,scale)
+              # Compare against the exact dyadic interpretation of the archived numerical proposal.
+              assert np.array_equal(prop['action_indices'][:128],y['indices'])
+              c=prop['action_center'][:128];ratios=[float(x).as_integer_ratio() for x in c.flat];den=max(q for _,q in ratios)
+              ci=np.array([n*(den//q) for n,q in ratios],object).reshape(c.shape)
+              dif=norm(obj(y['Y'])*den-ci*scale,den*scale)
+              (out/'odd_U_1_255.npz').write_bytes(q.read_bytes())
+              receipt['action']={'rows':128,'columns':16,'finite_action_error':str(eta),'exact_center_difference_upper':str(dif),'physical_vs_numerical_prefix_error_upper':str(eta+dif),'output_sha256':sha(q.read_bytes()),'tail':'not computed'}
+              receipt['status']='PASS';save()
+          except Exception as e:
+              receipt['error']=repr(e);receipt['traceback']=traceback.format_exc();save();raise
+          PY
+      - name: Persist scoped evidence
+        if: always()
+        run: |
+          mkdir -p custody/w02-int/kernel-pilot
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          branch="research/cr-int-w02-kernel-evidence-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git switch -c "$branch"
+          git add --sparse -f custody/w02-int/kernel-pilot/
+          git commit -m "W02 INT exact kernel pilot evidence ${GITHUB_RUN_ID}"
+          git push origin "HEAD:refs/heads/$branch"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: w02-int-kernel-pilot
+          path: custody/w02-int/kernel-pilot/
