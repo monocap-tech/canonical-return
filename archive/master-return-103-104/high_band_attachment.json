@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "scope": "literal D0 and pi identity in both high-band contractions; independent Arb anchor and direct scalar containment; no new solve",
+  "original_manifest_entries": 383,
+  "reference_source_sha256": "93a79b4df132d5e904c1bcf0878fd5f8a98fb7c2a73f733accd8585cba4b31fe",
+  "D0": [
+    "74155863767148400631688772774932178404561332725531510019/10000000000000000000000000000000000000000000000000000000",
+    "3707793188357420031584438638746608920228066636276575501/500000000000000000000000000000000000000000000000000000"
+  ],
+  "pi": [
+    "157079632679489661923/50000000000000000000",
+    "314159265358979323847/100000000000000000000"
+  ],
+  "scalar_containment": 900,
+  "records": [
+    {
+      "source": "master-return-088/audit_high_band.py",
+      "sha256": "aea69a19979293eb13a2611729453268c3c227b89871041989722615520189d9",
+      "D0_exact_equality": true,
+      "pi_exact_equality": true,
+      "scalar_product_index_identity": true
+    },
+    {
+      "source": "master-return-090/audit_restricted.py",
+      "sha256": "2e79964ed69d0b80b5ce67de7efc291723885baff7e232edb671be926a07be4f",
+      "D0_exact_equality": true,
+      "pi_exact_equality": true,
+      "scalar_product_index_identity": true
+    }
+  ]
+}
