@@ -1,0 +1,129 @@
+name: W02 INT full directed kernel action and structured tail
+on:
+  push:
+    branches: [research/cr-int-t1d-ep-targeted-corrector-staged]
+    paths: [.github/workflows/t1d-w02-int-kernel-action.yml]
+permissions:
+  contents: write
+jobs:
+  action:
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        include:
+          - {lo: 1, hi: 16383}
+          - {lo: 16385, hi: 32767}
+          - {lo: 32769, hi: 49151}
+          - {lo: 49153, hi: 65535}
+    env:
+      OPENBLAS_NUM_THREADS: "2"
+      PYTHONUNBUFFERED: "1"
+      LO: ${{ matrix.lo }}
+      HI: ${{ matrix.hi }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            custody/ep/archive
+            custody/ep/manifest.json
+            custody/ee/generated/sources/cr_int_t1d_ca_odd
+      - uses: actions/checkout@v4
+        with:
+          ref: 121e6d329e2d4ca623b57eb7cacf1fc510e7e996
+          path: kernel-evidence
+          sparse-checkout: |
+            custody/w02-int/kernel-pilot
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Directed action with frozen kernel coefficients
+        run: |
+          python -m pip install numpy==2.3.5
+          mkdir -p custody/w02-int/kernel-action
+          python - <<'PY'
+          import hashlib,json,pathlib,zipfile,io,subprocess,sys,os,traceback
+          from fractions import Fraction as F
+          from math import isqrt
+          import numpy as np
+          P=pathlib.Path
+          lo,hi=map(int,(os.environ['LO'],os.environ['HI']))
+          out=P('custody/w02-int/kernel-action')/str(lo)
+          out.mkdir()
+          work=P(os.environ['RUNNER_TEMP'])/'kernel-action';work.mkdir()
+          ev=P('kernel-evidence/custody/w02-int/kernel-pilot')
+          def sha(b):return hashlib.sha256(b).hexdigest()
+          def gitsha(b):return hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+          def read(p,h):
+              b=p.read_bytes();assert sha(b)==h,p;return b
+          def npz(b):
+              with np.load(io.BytesIO(b),allow_pickle=False) as z:return {k:z[k] for k in z.files}
+          def obj(a):return np.vectorize(int,otypes=[object])(a)
+          def norm(a,s):
+              q=sum(int(x)**2 for x in a.flat);r=isqrt(q)
+              return F(r+(r*r<q),s)
+          receipt={'status':'INCOMPLETE','scope':'conditional directed action and structured tail; no terminal positivity','source_commit':os.environ['GITHUB_SHA'],'kernel_evidence':'121e6d329e2d4ca623b57eb7cacf1fc510e7e996','lo':lo,'hi':hi}
+          def save():(out/'result.json').write_text(json.dumps(receipt,indent=2)+'\n')
+          try:
+              rb=(ev/'result.json').read_bytes();assert gitsha(rb)=='be1a592226ae64128033a4a484328fad3a96f66c'
+              pilot=json.loads(rb);assert pilot['status']=='PASS'
+              b=(ev/'odd_kernel_corrector.npz').read_bytes();assert gitsha(b)=='3e57b83839176ed9b7ee3f4d313199295e202ded'
+              coeff=npz(b);assert coeff['coefficient'].shape==(139,16) and F(str(coeff['coefficient_error']))==F(pilot['kernel']['coefficient_error_upper'])
+              (work/'odd_corrector.npz').write_bytes(b)
+              (work/'bn_energy.py').write_bytes(read(ev/'bn_energy.py','11f2e6aadec7f1997366b50a081bd49e80a4f368b478c41bbec740d629190efa'))
+              src=P('custody/ee/generated/sources/cr_int_t1d_ca_odd')
+              (work/'bq_action.py').write_bytes(read(src/'bq_action.py','8d5442f03fb67a51f968925110d64ffa365b9a56ba2b3136e2be9467a2705d75'))
+              (work/'bq_tail.py').write_bytes(read(src/'bq_tail.py','4bd131e9a81210db78786aa613d2e866ecbc60be4b915b91fd81ebfdaca23199'))
+              m=json.loads(P('custody/ep/manifest.json').read_text());bb=b''.join(P(x['path']).read_bytes() for x in m['parts'])
+              assert len(bb)==8020408 and sha(bb)=='7b5c0f48b0b63e719be161e4197c603be40d74aee051538fa086791624bada21'
+              with zipfile.ZipFile(io.BytesIO(bb)) as z:
+                  raw=z.read('EP-receiver-kernel-proposal.npz');assert sha(raw)=='eadd3e6d04796b741608ab9c09fd5c9f7b41254fce55047750fda144ee0764ea'
+              prop=npz(raw);assert np.array_equal(prop['indices'],coeff['indices']) and np.array_equal(prop['coefficient'],coeff['coefficient'])
+              assert int(prop['coefficient_scale'])==int(coeff['coefficient_scale'])
+              assert np.array_equal(prop['action_indices'],np.arange(1,65536,2))
+              # Four exact moment constraints are inherited from the same 123-row
+              # BQ/EN receiver: F*V (119) plus M0,H0/W,M1/W^2,H1/W^3.
+              # Tail is conditional on those original row identities, not a numeric cancellation.
+              if lo==1:
+                  subprocess.run([sys.executable,str(work/'bq_tail.py'),'1'],check=True,cwd=work)
+                  p=work/'odd_U_tail.npz';tail=npz(p.read_bytes());i=list(map(int,tail['cutoff'])).index(65536)
+                  tau=F(str(tail['tail'][i]));assert tau>=0
+                  (out/p.name).write_bytes(p.read_bytes())
+                  receipt['tail']={'cutoff':65536,'squared_upper':str(tau),'order':int(tail['order']),'sha256':sha(p.read_bytes()),'hypotheses':'original BQ receiver four moment rows and inherited signed tail identity'}
+                  save()
+              subprocess.run([sys.executable,str(work/'bq_action.py'),'1',str(hi),str(lo)],check=True,cwd=work)
+              p=work/f'odd_U_{lo}_{hi}.npz';raw=p.read_bytes();y=npz(raw);ids=np.arange(lo,hi+1,2)
+              assert np.array_equal(y['indices'],ids) and y['Y'].shape==(8192,16)
+              scale=int(y['scale']);eta=F(str(y['error']));assert scale==10**12 and eta==sum(map(F,map(str,y['tile_errors'])),F(0))
+              assert eta>=F(y['Y'].size,scale)
+              if lo==1:
+                  old=npz(read(ev/'odd_U_1_255.npz',pilot['action']['output_sha256']))
+                  assert np.array_equal(old['Y'],y['Y'][:128])
+              c=prop['action_center'][(lo-1)//2:(hi+1)//2];assert c.shape==y['Y'].shape
+              rr=[float(x).as_integer_ratio() for x in c.flat];den=max(q for _,q in rr)
+              ci=np.array([n*(den//q) for n,q in rr],object).reshape(c.shape)
+              dif=norm(obj(y['Y'])*den-ci*scale,den*scale)
+              (out/p.name).write_bytes(raw)
+              receipt['action']={'rows':len(ids),'columns':16,'finite_action_error':str(eta),'exact_center_difference_upper':str(dif),'physical_vs_numerical_error_upper':str(eta+dif),'sha256':sha(raw)}
+              receipt['status']='PASS';save()
+          except Exception as e:
+              receipt['error']=repr(e);receipt['traceback']=traceback.format_exc();save();raise
+          PY
+      - name: Persist disjoint shard evidence
+        if: always()
+        run: |
+          mkdir -p custody/w02-int/kernel-action/"$LO"
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          branch="research/cr-int-w02-kernel-action-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${LO}"
+          git switch -c "$branch"
+          git add --sparse -f custody/w02-int/kernel-action/"$LO"
+          git commit -m "W02 INT directed kernel action shard $LO-$HI run ${GITHUB_RUN_ID}"
+          git push origin "HEAD:refs/heads/$branch"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: w02-int-kernel-action-${{ matrix.lo }}
+          path: custody/w02-int/kernel-action/${{ matrix.lo }}/
