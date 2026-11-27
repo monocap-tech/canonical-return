@@ -1,0 +1,9 @@
+Python 3.14.4
+d3b6754fcd3b9ce8fe7928e51b2df6fe1a2f298e
+git version 2.56.1
+Linux runnervm0hi8g 7.0.0-1020-azure #21-Ubuntu SMP PREEMPT Tue Oct 27 22:34:38 UTC 2026 x86_64 GNU/Linux
+receiver.log: OK
+result.json: OK
+custody/cr-alp-123ac-response-defect/result.json: OK
+Frozen source and input identity PASS
+joint spectral arithmetic synthetic preflight PASS
