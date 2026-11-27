@@ -1,0 +1,185 @@
+name: W02 INT direct high precision signed energy compression
+on:
+  push:
+    branches: [research/cr-int-t1d-ep-targeted-corrector-staged]
+    paths: [.github/workflows/t1d-w02-int-direct-energy.yml]
+permissions:
+  contents: write
+jobs:
+  energy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      OPENBLAS_NUM_THREADS: "2"
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            custody/ep/archive
+            custody/ep/manifest.json
+            custody/en/generated/merged/odd_merged_corrector.npz
+            custody/en/generated/merged/odd_BQ_energy.npz
+      - uses: actions/checkout@v4
+        with:
+          ref: 36579dfa51c81e43ebce1ead4771eb3a3dd52af3
+          path: bo-source
+          sparse-checkout: |
+            custody/T1D-archives/parts/CR-INT-T1D-BO-reproducibility.zip
+      - uses: actions/checkout@v4
+        with:
+          ref: 121e6d329e2d4ca623b57eb7cacf1fc510e7e996
+          path: kernel-evidence
+          sparse-checkout: |
+            custody/w02-int/kernel-pilot
+      - uses: actions/checkout@v4
+        with:
+          ref: 5e6879705b7fc0c380f2e9a9e1576ee5e05ca2d4
+          path: transport-evidence
+          sparse-checkout: |
+            custody/w02-int/energy-transport
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Direct original signed finite-support compression
+        run: |
+          python -m pip install numpy==2.3.5
+          mkdir -p custody/w02-int/direct-energy
+          python - <<'PY'
+          import hashlib,json,pathlib,zipfile,io,os,sys,traceback
+          from fractions import Fraction as F
+          from math import isqrt
+          import numpy as np
+          P=pathlib.Path
+          out=P('custody/w02-int/direct-energy')
+          ev=P('kernel-evidence/custody/w02-int/kernel-pilot')
+          tv=P('transport-evidence/custody/w02-int/energy-transport')
+          old=P('custody/en/generated/merged')
+          def sha(b):return hashlib.sha256(b).hexdigest()
+          def gitsha(b):return hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+          def read(p,h,git=False):
+              b=p.read_bytes();assert (gitsha(b) if git else sha(b))==h,p;return b
+          def npz(b):
+              with np.load(io.BytesIO(b),allow_pickle=False) as z:return {k:z[k] for k in z.files}
+          def obj(a):return np.vectorize(int,otypes=[object])(a)
+          def norm(a,s=1):
+              q=sum(int(v)**2 for v in a.flat);r=isqrt(q)
+              return F(r+(r*r<q),s)
+          def dyadic(a):
+              r=[float(v).as_integer_ratio() for v in a.flat];s=max(q for _,q in r)
+              return np.array([n*(s//q) for n,q in r],object).reshape(a.shape),s
+          def up(x,s=10**60):return F(-((-x.numerator*s)//x.denominator),s)
+          def rowlower(a):
+              return min(a[i,i]-sum(abs(a[i,j]) for j in range(len(a)) if j!=i) for i in range(len(a)))
+          def fracmat(a,s):return np.vectorize(lambda x:F(int(x),s),otypes=[object])(a)
+          receipt={'status':'INCOMPLETE','scope':'direct signed energy on exact finite-support synthesis; conditional inherited source identities and coefficient enclosures; no inverse or final acceptance','source_commit':os.environ['GITHUB_SHA'],'transport_evidence':'5e6879705b7fc0c380f2e9a9e1576ee5e05ca2d4','kernel_evidence':'121e6d329e2d4ca623b57eb7cacf1fc510e7e996','records':[]}
+          def save():(out/'result.json').write_text(json.dumps(receipt,indent=2)+'\n')
+          try:
+              t=json.loads(read(tv/'result.json','400b1d623157592e4636c7181032f2269f6fe29b',True));assert t['status']=='PASS'
+              p=json.loads(read(ev/'result.json','be1a592226ae64128033a4a484328fad3a96f66c',True));assert p['status']=='PASS'
+              k=npz(read(ev/'odd_kernel_corrector.npz','3e57b83839176ed9b7ee3f4d313199295e202ded',True))
+              u=npz(read(old/'odd_merged_corrector.npz','9558261d14698861a6681c8f432c717f0496de898fd312ce8020f59b466c1284'))
+              oe=npz(read(old/'odd_BQ_energy.npz','0628d1f7886d2ce40ae4a4b97d6e7207ed10fb8230d1b5f929d9b9851ed5114e'))
+              bb=b''.join(x.read_bytes() for x in sorted(P('bo-source/custody/T1D-archives/parts/CR-INT-T1D-BO-reproducibility.zip').glob('part-*.bin')))
+              assert sha(bb)=='de9ed042d12afda71513b8110d0cf10cab84451e20aa4e7546d9dde2dfb54fb4'
+              with zipfile.ZipFile(io.BytesIO(bb)) as z:
+                  def get(n):
+                      a=[x for x in z.namelist() if P(x).name==n];assert len(a)==1;return z.read(a[0])
+                  manifest=get('bo_sha256.txt').decode()
+                  raw={}
+                  for n in ('odd_normalization.npz','odd_joint.npz','bn_energy.py'):
+                      v=get(n);matches=[l.split(maxsplit=1)[0] for l in manifest.splitlines() if len(l.split(maxsplit=1))==2 and P(l.split(maxsplit=1)[1].lstrip('*')).name==n]
+                      assert len(matches)==1 and sha(v)==matches[0],n
+                      raw[n]=v
+              assert sha(raw['bn_energy.py'])=='11f2e6aadec7f1997366b50a081bd49e80a4f368b478c41bbec740d629190efa'
+              (out/'bn_energy.py').write_bytes(raw['bn_energy.py']);sys.path.insert(0,str(out.resolve()))
+              from bn_energy import build,D
+              w=npz(raw['odd_normalization.npz']);j=npz(raw['odd_joint.npz']);w['indices']=j['indices']
+              assert w['coefficient'].shape==(139,119)
+              assert u['coefficient'].shape==(507,368) and k['coefficient'].shape==(139,16)
+              ids=sorted(set(map(int,np.r_[w['indices'],u['indices'],k['indices']])))
+              assert all(n>1 and n%2 for n in ids)
+              ix={n:i for i,n in enumerate(ids)}
+              S=10**80
+              def embed(a):
+                  c=obj(a['coefficient']);s=int(a['coefficient_scale']);B=np.zeros((len(ids),c.shape[1]),object)
+                  C=c*S//s
+                  B[[ix[int(n)] for n in a['indices']]]=C
+                  e=F(str(a['coefficient_error']))+F(c.size,S)
+                  assert e>=0
+                  return B,e
+              W,ew=embed(w);U,eu=embed(u);V,evv=embed(k)
+              # Complete original signed Neumann energy with exact pole-null
+              # congruence, all 24 prime powers and exponential remainder.
+              A,_=build([1]+ids,1)
+              lo=np.array([[x.l for x in row] for row in A],object);hi=np.array([[x.h for x in row] for row in A],object);del A
+              M=(lo+hi)//2;rad=np.maximum(M-lo,hi-M);del lo,hi
+              assert np.array_equal(M,M.T)
+              nm=norm(M,D);em=norm(rad,D)
+              def pair(X,ex,Y,ey):
+                  nx,ny=norm(X,S),norm(Y,S)
+                  a=X.T@M@Y;den=S*S*D
+                  e=up(nm*(nx*ey+ny*ex+ex*ey)+em*(nx+ex)*(ny+ey))
+                  return a,den,e
+              # Independently check old archived energy against the new exact
+              # centers. Nonoverlap is a source-identity failure, not a repair.
+              eblocks={}
+              for name,X,ex,Y,ey in [('K',U,eu,W,ew),('D',U,eu,U,eu),('kernel_K',V,evv,W,ew),('kernel_Dcross',V,evv,U,eu),('kernel_Dnew',V,evv,V,evv)]:
+                  a,s,e=pair(X,ex,Y,ey);eblocks[name]=(a,s,e)
+                  if name in ('K','D'):
+                      b=obj(oe[name]);bs=int(oe['scale']);be=F(str(oe[name+'error']))
+                      d=norm(a*bs-b*s,s*bs);assert d<=e+be,(name,float(d),float(e+be))
+                  print(name,'direct radius',float(e),flush=True)
+              receipt['direct']={'support':len(ids),'signed_form_radius':str(em),'coefficient_errors':{k:str(v) for k,v in [('head',ew),('physical',eu),('kernel',evv)]},'radii':{k:str(v[2]) for k,v in eblocks.items()},'old_interval_overlap':'PASS','bo_normalization_sha256':sha(raw['odd_normalization.npz'])}
+              save()
+              m=json.loads(P('custody/ep/manifest.json').read_text());b=b''.join(P(x['path']).read_bytes() for x in m['parts'])
+              assert sha(b)=='7b5c0f48b0b63e719be161e4197c603be40d74aee051538fa086791624bada21'
+              with zipfile.ZipFile(io.BytesIO(b)) as z:
+                  a=z.read('EP-kernel-energy.npz');assert sha(a)=='bfc3438d0aed6b57e069aa9d5ba05cda6b0c60a98d1366c3ff67e30530a4b196'
+                  ne=npz(a)
+              centers={'K':oe['K'].astype(float)/float(oe['scale']),'D':oe['D'].astype(float)/float(oe['scale']),'kernel_K':ne['K'],'kernel_Dcross':ne['Dcross'],'kernel_Dnew':ne['Dnew']}
+              arrays={'indices':np.array(ids)}
+              diffs={}
+              for name,(a,s,e) in eblocks.items():
+                  b,bs=dyadic(centers[name]);d=a*bs-b*s;ds=s*bs
+                  diffs[name]=(d,ds,e);arrays[name]=np.array(a,str);arrays[name+'_scale']=str(s);arrays[name+'_error']=str(e)
+              np.savez_compressed(out/'direct-energy.npz',**arrays)
+              for n in (384,500):
+                  f=npz((tv/f'frozen-energy-{n}.npz').read_bytes())
+                  Q,qs=obj(f['Q']),int(f['Qscale']);L,ls=obj(f['old_total']),int(f['old_total_scale']);H,hs=obj(f['kernel']),int(f['kernel_scale'])
+                  assert Q.shape==(119,32) and L.shape==(368,32) and H.shape==(16,32)
+                  pairs=[(L,ls,Q,qs,True),(L,ls,L,ls,False),(H,hs,Q,qs,True),(H,hs,L,ls,True),(H,hs,H,hs,False)]
+                  corr=np.zeros((32,32),object);err=F(0)
+                  details=[]
+                  for (name,(a,s,e)),(X,xs,Y,ys,mixed) in zip(diffs.items(),pairs):
+                      c=fracmat(X.T@a@Y,xs*s*ys)
+                      c=c+c.T if mixed else (c+c.T)/2
+                      radius=(2 if mixed else 1)*norm(X,xs)*norm(Y,ys)*e
+                      corr+=c;err+=radius
+                      details.append({'block':name,'radius':str(radius),'radius_decimal':float(radius)})
+                  assert np.array_equal(corr,corr.T)
+                  lower=rowlower(corr)-err
+                  margin=F(27 if n==384 else 39,10**7)
+                  receipt['records'].append({'coordinates':n,'directed_radius':str(err),'directed_radius_decimal':float(err),'center_shift_lower':str(lower+err),'energy_correction_lower':str(lower),'energy_correction_lower_decimal':float(lower),'margin_after_energy_only':str(margin+lower),'margin_after_energy_only_decimal':float(margin+lower),'blocks':details})
+                  np.savez_compressed(out/f'energy-correction-{n}.npz',correction=np.array(corr,str),radius=str(err),lower=str(lower))
+                  save()
+              receipt['output_sha256']=sha((out/'direct-energy.npz').read_bytes());receipt['status']='PASS';save()
+          except Exception as e:
+              receipt['error']=repr(e);receipt['traceback']=traceback.format_exc();save();raise
+          PY
+      - name: Persist direct energy evidence
+        if: always()
+        run: |
+          mkdir -p custody/w02-int/direct-energy
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          branch="research/cr-int-w02-direct-energy-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git switch -c "$branch"
+          git add --sparse -f custody/w02-int/direct-energy/
+          git commit -m "W02 INT direct signed energy evidence ${GITHUB_RUN_ID}"
+          git push origin "HEAD:refs/heads/$branch"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: w02-int-direct-energy
+          path: custody/w02-int/direct-energy/
