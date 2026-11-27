@@ -9,7 +9,7 @@ sys.set_int_max_str_digits(0)
 root=Path(sys.argv[1]).resolve();out=Path(sys.argv[2]).resolve()
 out.mkdir(parents=True,exist_ok=True)
 srcdir=root/'return087'
-pins={'finite_audit.py':'cf0f1170ecaf0d5faf8b4f1560517d8f678aeba9cb000f9baf68a42fd1b0c89c','band_audit.py':'e729bf288888a1d3f0105f59147c2f59395b220602d540b24fe6a2bc87915624','finite_bank.json':'c6a1df49ff86806810e8763c10223b3b4b2e331b0243693802fba33','band_0.json':'624d811d17b570bdc58d39d7e47350bad0f91524443e8e2fad0cba91a7c6db58','band_1.json':'89805afe0b4fdcef6a47847490d6940b75e3d95b0f5203cdc74f087098c319c1'}
+pins={"finite_audit.py":"cf0f1170ecaf0d5faf8b4f1560517d8f678aeba9cb000f9baf68a42fd1b0c89c","band_audit.py":"e729bf288888a1d3f0105f59147c2f59395b220602d540b24fe6a2bc87915624","finite_bank.json":"c6a1df49ff86806810e8763c10223b3b4b2e331b0243693802f1372eb14c443f","band_0.json":"624d811d17b570bdc58d39d7e47350bad0f91524443e8e2fad0cba91a7c6db58","band_1.json":"89805afe0b4fdcef6a47847490d6940b75e3d95b0f5203cdc74f087098c319c1"}
 def sha(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def load(p):return json.loads(p.read_bytes())
 # Authenticate against the original verifier's pinned manifest rather
@@ -18,7 +18,7 @@ verify=load(srcdir/'verify.json')
 assert verify['status']=='PASS' and verify['total_containment_checks']==952389
 for name in pins:
  h=verify['pins'][name]
- if name!='finite_bank.json':assert h==pins[name],name
+ assert h==pins[name],name
  assert sha(srcdir/name)==h,name
 
 original=out/'reference';original.mkdir()
