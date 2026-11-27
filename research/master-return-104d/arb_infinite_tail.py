@@ -28,11 +28,11 @@ for label,path,blob,artifact,bank in plans:
  s=replace(s,'from mpmath import iv','from flint import arb,acb,fmpq,ctx')
  start=s.index('def ivf(x):');end=s.index('pi=pair(iv.pi)',start)
  s=s[:start]+'''ctx.prec=384
-def A(x):
+def arbq(x):
  x=F(x);return arb(fmpq(x.numerator,x.denominator))
 def interval(a):
  assert a[0]<=a[1]
- return A(a[0]).union(A(a[1]))
+ return arbq(a[0]).union(arbq(a[1]))
 def pair(v):
  l=(v.lower()*S).floor().unique_fmpz()
  u=(v.upper()*S).ceil().unique_fmpz()
@@ -42,13 +42,13 @@ PI=arb.pi()
 '''+s[end:]
  s=replace(s,'pi=pair(iv.pi)','pi=pair(PI)')
  s=replace(s,'iv.ln(p)/iv.sqrt(n)','arb(p).log()/arb(n).sqrt()')
- s=replace(s,'4*iv.pi*iv.ln(ivf(z))/5','4*PI*A(z).log()/5')
+ s=replace(s,'4*iv.pi*iv.ln(ivf(z))/5','4*PI*arbq(z).log()/5')
  s=replace(s,'2*abs(iv.sin(a/2))','2*abs((a/2).sin())')
  if label=='odd':
   start=s.index('sys.path[:0]=');end=s.index('graw=[]',start)
   s=s[:start]+'''R=2*PI*K/5
-g0=acb(A(F(1,4))).digamma().real-PI.log()
-gR=acb(A(F(1,4)),R/2).digamma().real-PI.log()
+g0=acb(arbq(F(1,4))).digamma().real-PI.log()
+gR=acb(arbq(F(1,4)),R/2).digamma().real-PI.log()
 '''+s[end:]
   s=replace(s,'gR+src.G0+4','gR+g0+4')
   s=replace(s,'/(2*iv.pi)','/(2*PI)')
