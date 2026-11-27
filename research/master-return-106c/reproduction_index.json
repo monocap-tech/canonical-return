@@ -1,6 +1,6 @@
 {
   "schema": "return106c-reproduction-index-v1",
-  "status": "PRE_ACCEPTANCE",
+  "status": "NUMERICAL_ATTACHMENTS_COMPLETE_EXTERNAL_REVIEW_OPEN",
   "scope": "Fixed-aperture computer-assisted candidate; no unconditional theorem or RH promotion",
   "proof": {
     "commit": "42a7ec0b649e2301cb9f25dc5581a292b29e8a7e",
@@ -519,21 +519,43 @@
           ]
         }
       ]
+    },
+    {
+      "commit": "6c0f6eeb133a0c5ee3d7420c2861c693deea4006",
+      "path": "archive/master-return-106/manifest.json",
+      "git_blob": "4886ccfee5a19e1df1e83ff06eac3e0c37637945",
+      "total_bytes": 21394300,
+      "archives": [
+        {
+          "id": 15164070068,
+          "run": 45918731836,
+          "name": "return106b2-fine-scale-literal-attachment",
+          "bytes": 21394300,
+          "sha256": "a09d215906721e0c9cbbc04eef693407d040d95bfd5d402ba519e2b6627a164c",
+          "parts": [
+            {
+              "path": "archive.zip.part000",
+              "bytes": 16777216,
+              "sha256": "bf8cdce5ff9e0810edafcca62f247f6265a36367366bde51ff9b28b38bf9d774"
+            },
+            {
+              "path": "archive.zip.part001",
+              "bytes": 4617084,
+              "sha256": "927c6b8b6bd1fa6de7f103ba600d2551caa732e52653554e8c8e6a9e607273d4"
+            }
+          ]
+        }
+      ]
     }
   ],
-  "total_archives": 30,
-  "total_bytes": 194316283,
+  "total_archives": 31,
+  "total_bytes": 215710583,
   "high_band_receipt": {
     "commit": "4399c20b2b708260463dffa25f02797183d1983f",
     "path": "archive/master-return-103-104/high_band_attachment.json",
     "sha256": "7b3323ec05f9f476c33150d3b3c400ef69f0ffdc8c63c5cca78ab5b41b78a21c"
   },
   "pending": {
-    "finite_input_attachment": {
-      "run": 45918546426,
-      "source_commit": "38206934784f9ef81fa9c7914507867d98daa58c",
-      "status": "IN_PROGRESS_AT_INDEX_CREATION"
-    },
     "external_mathematical_review": "OPEN",
     "globalization": "OPEN"
   },
@@ -547,5 +569,20 @@
     ],
     "assertions_required": true
   },
-  "conditional_floor": "3/10^59"
+  "conditional_floor": "3/10^59",
+  "finite_input_attachment": {
+    "run": 45918731836,
+    "artifact": 15164070068,
+    "status": "PASS",
+    "entries": 1411314,
+    "contained": 1411314,
+    "custody_commit": "6c0f6eeb133a0c5ee3d7420c2861c693deea4006",
+    "receipt_sha256": "24a46b561b429cbc94a79d727e706d7417ab5d9a4f3aaa814d5eb9a9a9f459f7",
+    "failed_coarse_attempt": 45918546426
+  },
+  "global_reduction": {
+    "commit": "811a7ea88343c7f97013466125a30cd4c1daaf1c",
+    "path": "research/master-return-107a/TWO_COPY_LAPLACE_OBSTRUCTION.md",
+    "status": "ANALYTIC_REDUCTION_ONLY"
+  }
 }
