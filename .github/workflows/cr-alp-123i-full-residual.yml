@@ -1,0 +1,47 @@
+name: CR-ALP-123I full auxiliary residual enclosure
+on:
+  workflow_dispatch:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['custody/cr-alp-123i-activation/READY']
+permissions:
+  contents: write
+jobs:
+  enclosure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate frozen joint and quantitative receivers
+        run: |
+          set -euo pipefail
+          (cd custody/cr-alp-123g-joint-trials; sha256sum -c SHA256SUMS)
+          (cd custody/cr-alp-122p-quantitative-collar; sha256sum -c SHA256SUMS)
+          python3 -m py_compile src/audits/cr_alp_123i_full_residual_envelope.py
+          mkdir -p /tmp/alp123i /tmp/alp123i-evidence
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/alp123i/package.zip
+          python3 -m zipfile -e /tmp/alp123i/package.zip /tmp/alp123i
+      - name: Complete coefficient prefix and infinite residual envelope
+        run: |
+          set -euo pipefail
+          python3 -u src/audits/cr_alp_123i_full_residual_envelope.py /tmp/alp123i custody/cr-alp-123g-joint-trials/result.json custody/cr-alp-122p-quantitative-collar/result.json /tmp/alp123i-evidence/result.json | tee /tmp/alp123i-evidence/enclosure.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-123I-full-residual-envelope
+          path: /tmp/alp123i-evidence/
+          if-no-files-found: warn
+      - name: Preserve complete residual envelope
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-123i-full-residual-envelope
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          git checkout --detach FETCH_HEAD
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp123i-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum *.log *.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+          git add "$ROOT"
+          git commit -m 'CR-ALP-123I: preserve complete auxiliary residual envelope [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
