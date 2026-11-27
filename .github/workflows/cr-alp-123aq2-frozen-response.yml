@@ -1,0 +1,107 @@
+name: CR-ALP-123AQ2 repaired frozen response audit
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-123aq2-frozen-response.yml']
+permissions:
+  contents: write
+concurrency:
+  group: cr-alp-123aq2-frozen-response
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned integer-array runtime
+        run: python -m pip install numpy==2.2.6
+      - name: Authenticate frozen coefficient and response inputs
+        run: |
+          set -euo pipefail
+          P=/tmp/alp123aq2
+          E=/tmp/alp123aq2-evidence
+          mkdir -p "$P" "$E"
+          {
+            python --version
+            python -c 'import numpy; print(numpy.__version__)'
+            test "$(git hash-object src/audits/cr_alp_123ap3_high_precision_replay.py)" = 30ae775ce313465c85325840448b939cae1b0a96
+            test "$(git hash-object src/audits/cr_alp_123ak_actual_schur_metric.py)" = b47a53f5505239377cd615e584241e1f26335b10
+            test "$(git hash-object src/audits/cr_alp_123an_independent_receiver_audit.py)" = 922675a877ee2cbbf5102f8ce154cb6917f6d941
+            test "$(git hash-object src/audits/cr_alp_123ah_signed_tail_pairing.py)" = a12f36468e3fad788a1dde4915fc2ab35e326735
+            test "$(sha256sum custody/cr-alp-123ap3-high-precision/result.json | cut -d ' ' -f1)" = 4b5e879c5a19958c0192bc9f127b3983565309663bbf926d4a51f1660fbca222
+            git rev-parse HEAD
+            test "$(git hash-object src/audits/cr_alp_123aq2_frozen_response_audit.py)" = 37477b7b0b7dfcf2b488af092fd7946dc26fda56
+            test "$(git hash-object src/audits/cr_alp_046_full_finite.py)" = 554e7ab54da4545987d89aa660a4abe6c951cb63
+            test "$(git hash-object src/audits/cr_alp_123y_signed_pole_tail.py)" = a5812874b3924e1b76574211e13ab3ab2f59604d
+            test "$(git hash-object src/audits/CR-ALP-068_pole_centered_gamma_result.json)" = 1a7fe8629daa8b8e6cec185a79b6746d6b28975d
+            test "$(git hash-object custody/cr-alp-123ao-direct-schur/result.json)" = d373ef429fec33769ba9e9c1cd743f0dc9986756
+            test "$(git hash-object src/audits/cr_alp_058_archive/reassemble.py)" = 1757db4ce01a5cbbf88036552f468dc05c368734
+            python src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+            python -m zipfile -e "$P/package.zip" "$P"
+            python -m py_compile src/audits/cr_alp_123aq2_frozen_response_audit.py
+            python - <<'PY'
+          import symtable
+          from pathlib import Path
+          p=Path('src/audits/cr_alp_123aq2_frozen_response_audit.py')
+          table=symtable.symtable(p.read_text(),str(p),'exec')
+          main=next(c for c in table.get_children() if c.get_name()=='main')
+          names='namespace blob read leading box mat tr mul add sym_bounds MG pd kernel trans ab endpoint_box ivmul up metric_root up_sqrt F np'.split()
+          for name in names:
+              if name in main.get_identifiers():
+                  assert not main.lookup(name).is_local(), ('shadowed helper',name)
+          print('Imported callable binding census PASS')
+          PY
+          } 2>&1 | tee "$E/preflight.log"
+      - name: Reconstruct all response columns and direct Schur energy
+        run: |
+          set -euo pipefail
+          E=/tmp/alp123aq2-evidence
+          python -u src/audits/cr_alp_123aq2_frozen_response_audit.py /tmp/alp123aq2 custody/cr-alp-123ac-response-defect/result.json custody/cr-alp-123ak-actual-schur/result.json custody/cr-alp-123al-metric-first/result.json custody/cr-alp-123ap3-high-precision/result.json "$E/result.json" 2>&1 | tee "$E/receiver.log"
+          python - "$E/result.json" <<'PY'
+          import json,sys
+          from fractions import Fraction as F
+          sys.set_int_max_str_digits(0)
+          d=json.load(open(sys.argv[1]))
+          assert d['status']=='CONDITIONAL_DIRECT_RESPONSE_AUDIT' and set(d['sectors'])=={'1','2'}
+          for k,v in d['sectors'].items():
+              n=44-int(k)
+              js=list(range(87 if k=='1' else 86,2049,2))
+              assert v['dimension']==n and v['prefix_overlap_checks']==len(js)*n
+              assert v['moment_overlap_checks']==96*n and len(v['tail_receipts'])==n
+              assert [r[0] for r in v['prefix_mid_radius']]==js
+              assert all(len(row)==n for _,row in v['prefix_mid_radius'])
+              assert len(v['metric_moment_bounds'])==96
+              assert F(v['E'])>F(v['U'])>0 and 0<F(v['rho_upper'])<1
+              assert (F(v['loss_over_E_upper'])<1)==(v['classification']=='DIRECT_RESPONSE_AUDIT_PASS')
+          print('Frozen response audit output contract PASS')
+          PY
+          (cd "$E"; sha256sum preflight.log receiver.log result.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-123AQ2-frozen-response
+          path: /tmp/alp123aq2-evidence/
+          if-no-files-found: warn
+      - name: Preserve direct trial evidence and verify remote custody
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-123aq2-frozen-response
+          test ! -e "$ROOT"
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp123aq2-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum -c SHA256SUMS)
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$ROOT"
+          git commit -m 'CR-ALP-123AQ2: preserve repaired direct response audit [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)"
+          REMOTE="$(mktemp -d)"
+          git archive FETCH_HEAD "$ROOT" | tar -x -C "$REMOTE"
+          (cd "$REMOTE/$ROOT"; sha256sum -c SHA256SUMS)
+          echo 'Remote output readback PASS'
