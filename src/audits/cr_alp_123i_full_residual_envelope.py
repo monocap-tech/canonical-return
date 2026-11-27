@@ -56,6 +56,7 @@ def psi_pair(x,y=ZERO):''')
     assert hashlib.sha256(traw).hexdigest()=='6576fb333c7b2fdec6a4c236d70b3257b4bdedcb9208ae77a10e3e1931f512b0'
     tb=json.loads(traw);ts=int(tb['scale'])
     old=json.loads(prior.read_text());assert old['status']=='CONDITIONAL_JOINT_AUXILIARY_TRIAL_BANK'
+    assert set(old['sectors'])=={'1','2'} and all(len([r for r in v['rows'] if 'joint_trial' in r])==2 for v in old['sectors'].values())
     qp=json.loads(quant.read_text());assert qp['status']=='CONDITIONAL_QUANTITATIVE_COLLAR_RECEIVER'
     bands=json.loads(SRC.with_name('CR-ALP-068_pole_centered_gamma_result.json').read_text())['bands']
     assert bands[0]['start']==86 and bands[-1]['end'] is None
@@ -106,8 +107,24 @@ def psi_pair(x,y=ZERO):''')
             fb=iv(w['source_pole']);tau=iv(w['tail_projection_tau'])
             t={j:d[j]+tau*c[j] for j in d};t.update(q);T=fb-tau
             assert set(d)==set(low) and all(j>85 for j in q)
-            # Cross-check projection against the exact rational trial coordinates.
-            assert overlap(sum((q[j]*c[j] for j in q),ZERO)/st,w['tail_projection_tau'])
+            # Independently reconstruct exact frozen trial coordinates before
+            # intersecting the two sets of valid interval enclosures.
+            coords=list(map(F,w['trial_rational_coordinates']))
+            order0=w['trial_order'];assert order0==low+list(q)+['normalized_pole']
+            assert len(coords)==len(order0) and coords[-1]==1
+            ww={j:I(v) for j,v in zip(order0[:-1],coords[:-1])}
+            dr={j:ww[j] for j in low}
+            dr[k]=dr[k]-sum((ww[j]*c[j]/c[k] for j in low if j!=k),ZERO)
+            qr={j:ww[j] for j in q}
+            fr=(1-ww[k]*c[k])/B
+            tr=sum((qr[j]*c[j] for j in qr),ZERO)/st
+            def intersect(v,w):
+                return I(max(v.l,w.l),min(v.h,w.h),True)
+            d={j:intersect(d[j],dr[j]) for j in d}
+            q={j:intersect(q[j],qr[j]) for j in q}
+            fb=intersect(fb,fr);tau=intersect(tau,tr)
+            t={j:d[j]+tau*c[j] for j in d};t.update(q);T=fb-tau
+            assert overlap(-tau,w['tail_full_pole'])
             alpha=(sum((d[j]*(hs[j]-ps[j]) for j in d),ZERO)+fb*(hb-phb)
                   +sum((t[j]*ps[j] for j in t),ZERO)+T*phb
                   +sum((q[j]*I(diag(j))*c[j] for j in q),ZERO)-tau*weighted)/st
