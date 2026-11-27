@@ -1,0 +1,90 @@
+name: CR-ALP-123AI frozen one-vector candidate diagnostic
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-123ai-one-vector.yml']
+permissions:
+  contents: write
+concurrency:
+  group: cr-alp-123ai-one-vector
+  cancel-in-progress: false
+jobs:
+  probe:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Authenticate frozen sources and run one candidate per parity
+        env:
+          OPENBLAS_NUM_THREADS: '2'
+        run: |
+          set -euo pipefail
+          E=/tmp/alp123ai-evidence
+          mkdir -p "$E"
+          {
+            python --version
+            python -m pip install --only-binary=:all: numpy==2.2.6
+            python -c 'import numpy; print(numpy.__version__); numpy.show_config()'
+            git rev-parse HEAD
+            test "$(git hash-object src/audits/cr_alp_123ai_one_vector_probe.py)" = 6af8dd7bbaaad3217e53423738fb48fbd6e67752
+            test "$(git hash-object src/audits/cr_alp_046_full_finite.py)" = 554e7ab54da4545987d89aa660a4abe6c951cb63
+            test "$(git hash-object src/audits/CR-ALP-068_pole_centered_gamma_result.json)" = 1a7fe8629daa8b8e6cec185a79b6746d6b28975d
+            test "$(git hash-object research/CR-ALP-123AH_SIGNED_COMMON_TAIL_AND_DIRECTIONAL_REDIRECTION.md)" = 646f37cee024cbd4e4daccd77fe4ceef9085c0cc
+            test "$(git hash-object custody/cr-alp-122e-correction-replay/prime.log)" = d960e41188bbe6a53a26f80126dee8d7cc4cfa6d
+            echo 'a7a334e6eca63543d7f322aef124c4491c986ba878bd1434f484e86743856473  custody/cr-alp-123ac-response-defect/result.json' | sha256sum -c -
+            echo '45719f6cd161b29534983c95f52941d434832bfffd3493d4d421513b436c1abf  custody/cr-alp-123ag-directional-inverse/result.json' | sha256sum -c -
+            echo '7c45c7f493062cc1236d3f8de6c6aec636dc474119d51676308849606a191897  custody/cr-alp-123z-signed-direction-specific/joint-repaired.json' | sha256sum -c -
+            python -m py_compile src/audits/cr_alp_123ai_one_vector_probe.py
+          } 2>&1 | tee "$E/preflight.log"
+          python -u src/audits/cr_alp_123ai_one_vector_probe.py custody/cr-alp-123ac-response-defect/result.json custody/cr-alp-123ag-directional-inverse/result.json custody/cr-alp-123z-signed-direction-specific/joint-repaired.json src/audits/CR-ALP-068_pole_centered_gamma_result.json "$E/result.json" 2>&1 | tee "$E/receiver.log"
+          python - "$E/result.json" <<'PY'
+          import json,sys
+          from fractions import Fraction as F
+          sys.set_int_max_str_digits(0)
+          d=json.load(open(sys.argv[1]))
+          assert d['status']=='CONDITIONAL_ONE_VECTOR_CANDIDATE_DIAGNOSTIC' and set(d['sectors'])=={'1','2'}
+          for k,s in d['sectors'].items():
+              assert [j for j,v in s['candidate_coordinates']]==list(range(87 if k=='1' else 86,2049,2))
+              assert len(s['signed_pairing_intervals'])==44-int(k)
+              assert all(int(l)<=int(h) for l,h in s['signed_pairing_intervals'])
+              c=s['classification']
+              assert c in ('REJECT_SELECTED_CANDIDATE_FINITE_PAIRING','REJECT_SELECTED_CANDIDATE_SPARSE_DEFECT','SPARSE_TEST_INCONCLUSIVE_FULL_UPPER_NOT_COMPUTED')
+              if c=='REJECT_SELECTED_CANDIDATE_FINITE_PAIRING':
+                  assert F(s['finite_charge2_over_E_lower'])>F(s['available_budget_over_E_upper'])
+              else:
+                  assert [j for j,l,h in s['sparse_defect_intervals']]==list(range(2049 if k=='1' else 2050,2177,2))
+                  assert all(int(l)<=int(h) for j,l,h in s['sparse_defect_intervals'])
+                  if c=='REJECT_SELECTED_CANDIDATE_SPARSE_DEFECT':
+                      assert F(s['sparse_V_over_E_lower'])>F(s['permitted_V_over_E_upper'])
+          print('Frozen candidate and lower-test contract PASS; no positivity claimed')
+          PY
+          test "$(wc -c < "$E/result.json")" -lt 50000000
+          (cd "$E"; sha256sum preflight.log receiver.log result.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-123AI-one-vector
+          path: /tmp/alp123ai-evidence/
+          if-no-files-found: warn
+      - name: Preserve candidates and exact diagnostic on delivery branch
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-123ai-one-vector
+          test ! -e "$ROOT"
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp123ai-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum -c SHA256SUMS)
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$ROOT"
+          git commit -m 'CR-ALP-123AI: preserve one-vector candidates and lower diagnostics [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)"
+          REMOTE="$(mktemp -d)"
+          git archive FETCH_HEAD "$ROOT" | tar -x -C "$REMOTE"
+          (cd "$REMOTE/$ROOT"; sha256sum -c SHA256SUMS)
+          echo 'Remote output readback PASS'
