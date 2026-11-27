@@ -1,0 +1,53 @@
+{
+  "repository": "monocap-tech/canonical-return",
+  "scope": "RETURN101\u2013102 successful independent scalar, coefficient, retained-energy, error-budget and literal-moment evidence",
+  "prior_custody_commit": "87c9cd17b29da9d0a57cd426e0aa76a24eea0f65",
+  "artifacts": [
+    {
+      "run": 45906858476,
+      "id": 15158476209,
+      "name": "return101a-independent-scalar-enclosures",
+      "bytes": 42134,
+      "sha256": "7e5ed594bd9bde4f15545cc16a6a4d686c0ffa79bf40429ea5f611dba2b06a75",
+      "head": "1365f1b517ffacb0277001899aa2faf09bda7e85",
+      "path": "15158476209-return101a-independent-scalar-enclosures.zip"
+    },
+    {
+      "run": 45906997971,
+      "id": 15158421363,
+      "name": "return101b-independent-raw-coefficients",
+      "bytes": 22560,
+      "sha256": "7d8f5354aab216bca74cb8000f8367eb077f286c78b80eaebdc2ee9b92e18261",
+      "head": "81249b07960ddb2452b04e3fed41fe2c8a4ff485",
+      "path": "15158421363-return101b-independent-raw-coefficients.zip"
+    },
+    {
+      "run": 45907181447,
+      "id": 15158272662,
+      "name": "return101c-independent-retained-gram",
+      "bytes": 695732,
+      "sha256": "4e6e9fae38f925c7ce64a4cd51c45345ad2b4ad1ca3a830d320bff621e3192cd",
+      "head": "b1654fe47c58d819e13a20c92ee0d46594b59864",
+      "path": "15158272662-return101c-independent-retained-gram.zip"
+    },
+    {
+      "run": 45907335856,
+      "id": 15158975398,
+      "name": "return102a-independent-error-budgets",
+      "bytes": 1424,
+      "sha256": "5096391a903cfbf4076c53d41ba014325329914c83b11b4cd8405ce4ab71b1be",
+      "head": "bfd965ce7b6aa1760a2c5e47882e3264d30decde",
+      "path": "15158975398-return102a-independent-error-budgets.zip"
+    },
+    {
+      "run": 45907434718,
+      "id": 15158606500,
+      "name": "return102b-literal-stored-moments",
+      "bytes": 278398,
+      "sha256": "49723a89d4f73ccf609f50f0000297d1094f19aed457f2c6c8a0b76981846538",
+      "head": "2f1934ff4922adae65ae8df02898afdcb112c58c",
+      "path": "15158606500-return102b-literal-stored-moments.zip"
+    }
+  ],
+  "total_bytes": 1040248
+}
