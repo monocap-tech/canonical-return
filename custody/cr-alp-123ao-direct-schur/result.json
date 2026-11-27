@@ -1,0 +1,26 @@
+{
+  "status": "CONDITIONAL_DIRECT_SCHUR_ROUTE_PASS",
+  "sectors": {
+    "1": {
+      "dimension": 43,
+      "rho_upper": "251443/500000",
+      "whitening_frobenius2_upper": "3284523757/1000000000",
+      "frame_charge_over_E_upper": "83879/500000000000000000000000000000",
+      "new_finite_inverse_charge_over_E_upper": "277101/250000000000000000000000000000",
+      "loss_over_E_upper": "428448823/500000000",
+      "positive_margin_over_E_lower": "71551177/500000000",
+      "classification": "PASS_WITHOUT_HISTORICAL_INVERSE_METRIC_PREMISE"
+    },
+    "2": {
+      "dimension": 42,
+      "rho_upper": "108431/250000",
+      "whitening_frobenius2_upper": "9569054741/1000000000",
+      "frame_charge_over_E_upper": "10099/1000000000000000000000000000000",
+      "new_finite_inverse_charge_over_E_upper": "170643/1000000000000000000000000000000",
+      "loss_over_E_upper": "667102967/1000000000",
+      "positive_margin_over_E_lower": "332897033/1000000000",
+      "classification": "PASS_WITHOUT_HISTORICAL_INVERSE_METRIC_PREMISE"
+    }
+  },
+  "scope": "AK/AL/AN coefficient, energy and Gram enclosures and original analytic comparator/domain premises inherited; historical K,N compression and Dbar inverse order not used."
+}
