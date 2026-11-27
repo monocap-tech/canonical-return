@@ -32,17 +32,18 @@ jobs:
           python -m pip install numpy==2.3.5
           mkdir -p custody/w02-int/dependency-replay
           python - <<'PY'
-          import hashlib, json, pathlib, zipfile, io, subprocess, os, sys
+          import hashlib, json, pathlib, zipfile, io, subprocess, os, sys, traceback
           from fractions import Fraction
           P=pathlib.Path
           out=P('custody/w02-int/dependency-replay')
           ep=P('custody/ep/full-reoptimization')
           def sha(b): return hashlib.sha256(b).hexdigest()
           def gitsha(b): return hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
-          def check(z,m):
+          def check(z,m,extras=()):
               assert len(z.namelist())==len(set(z.namelist()))
               assert z.testzip() is None
-              assert set(z.namelist())=={x['name'] for x in m['files']}|{'MANIFEST.json'}
+              expected={x['name'] for x in m['files']}|{'MANIFEST.json'}|set(extras)
+              assert set(z.namelist())==expected, (sorted(z.namelist()), sorted(expected))
               for f in m['files']:
                   b=z.read(f['name'])
                   assert len(b)==f['size'] and sha(b)==f['sha256'], f['name']
@@ -55,7 +56,8 @@ jobs:
               with zipfile.ZipFile(io.BytesIO(b)) as z:
                   m=json.loads(z.read('MANIFEST.json'))
                   assert m==json.loads((ep/'MANIFEST.json').read_bytes())
-                  check(z,m)
+                  check(z,m,('README.md',))
+                  receipt['outer_readme']={'bytes':len(z.read('README.md')),'sha256':sha(z.read('README.md')),'authentication':'covered by exact pinned outer archive SHA256'}
                   ib=z.read('EP-full-reoptimization-provisional.zip')
                   assert sha(ib)=='6b469aeeb5d86db79215700a8f687a54053c7b2908f90fbbb1f1e7895c22ab77'
                   assert gitsha(ib)=='bcc2be3b4308ccc612bb0f02b2f83db0f215d88d'
@@ -111,6 +113,7 @@ jobs:
               save()
           except Exception as exc:
               receipt['error']=repr(exc)
+              receipt['traceback']=traceback.format_exc()
               save()
               raise
           PY
