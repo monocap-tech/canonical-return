@@ -1,0 +1,29 @@
+{
+  "schema": "ep-certification-custody-v1",
+  "repository": "monocap-tech/canonical-return",
+  "required_parent_commit": "ffacfbe4aff437551746ab1b21532daf127cb523",
+  "status": "LOCAL ONLY; no remote attachment or new physical certificate",
+  "conditional_index_upper": 205,
+  "files": [
+    {
+      "name": "EP-full-reoptimization-provisional.zip",
+      "size": 11914601,
+      "sha256": "6b469aeeb5d86db79215700a8f687a54053c7b2908f90fbbb1f1e7895c22ab77"
+    },
+    {
+      "name": "EP-frozen-center-audit.json",
+      "size": 1150,
+      "sha256": "fa407c95a0546db0f90f299704c10b3956c70e8de1b2cc1f64a1d3dbca4518a7"
+    },
+    {
+      "name": "ep_frozen_center_audit.py",
+      "size": 2853,
+      "sha256": "40327ab3144ca6fc0bd3a041cbe4d03a280564af187d2937d199b051d6c3b913"
+    }
+  ],
+  "reproduction": "python ep_frozen_center_audit.py EP-full-reoptimization-provisional.zip replay.json",
+  "limitations": [
+    "Exact rational lower bounds apply to stored numerical centers only.",
+    "Directed physical action, energy, exceptional dictionary, and infinite tail errors remain open."
+  ]
+}
