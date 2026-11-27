@@ -1,0 +1,28 @@
+{
+  "status": "EXACT_ELEMENTARY_REMAINDER_GUARDS_PASS",
+  "checks": {
+    "log_400_remainder": "PASS",
+    "atan_400_remainder": "PASS",
+    "sincos_400_remainder": "PASS",
+    "exp_400_remainder": "PASS",
+    "digamma_EM_512": "PASS",
+    "trigamma_EM_512": "PASS",
+    "digamma_EM_768": "PASS",
+    "trigamma_EM_768": "PASS",
+    "reflected_resolvent_K256_remainder": "PASS",
+    "exp_minus_a_lt_2_over_5": "PASS",
+    "exp_half_a_gt_17_over_10": "PASS",
+    "exp_half_a_lt_7_over_4": "PASS",
+    "anchor_cosh_bound": "PASS",
+    "anchor_sinh_bound": "PASS",
+    "reflected_factor_uniform_bound": "PASS"
+  },
+  "grid": "10^340",
+  "shifts": [
+    512,
+    768
+  ],
+  "bernoulli_terms": 90,
+  "reflected_terms": 256,
+  "scope": "Independent integer checks of actual 046/AP3 numerical remainder constants; analytic identities and directed interval semantics reviewed separately."
+}
