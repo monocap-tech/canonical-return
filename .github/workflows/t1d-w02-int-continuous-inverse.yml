@@ -139,14 +139,28 @@ jobs:
                       ar=X[:,:m,:].copy();ai=Y[:,:m,:].copy()
                       br=X[:,m:,:].copy();bi=Y[:,m:,:].copy()
                       ix=np.arange(m)*(N//m)
-                      wr=zr[ix][None,:,None];wi=zi[ix][None,:,None]
+                      wr=zr[2*ix][None,:,None];wi=zi[2*ix][None,:,None]
                       c=(br*wr-bi*wi)//G;d=(br*wi+bi*wr)//G
                       X[:,:m,:]=ar+c;Y[:,:m,:]=ai+d
                       X[:,m:,:]=ar-c;Y[:,m:,:]=ai-d;m*=2
                   return A,B,N*bound
+              # Independent analytic control: DFT of a unit impulse at cell 1
+              # has phase exp(2*pi*i*j/N). Test quadrants and nontrivial bins.
+              ca=np.zeros((N,1),object);cb=ca.copy();ca[1,0]=G
+              fa,fb,fe=fft(ca,cb)
+              for j in (0,1,3,N//4,N//2,3*N//4,N-1):
+                  q,k=divmod(2*j,N);sg=(-1)**(q%2)
+                  assert F(abs(int(fa[j,0])-sg*int(zr[k]))+abs(int(fb[j,0])-sg*int(zi[k])),G)<=2*fe+2*tau
+              del ca,cb,fa,fb
+              receipt['fft_impulse_control']='PASS';save()
               jv=np.r_[2*v['ms'],v['trig_indices']].astype(np.int64);rj=v['surplus_indices'].astype(np.int64)
               assert len(set(jv))==len(jv) and len(set(rj))==len(rj) and not np.intersect1d(jv,rj).size
-              assert np.all(jv>0) and max(jv)<N//2 and np.all(rj%2==1) and max(rj)<N//2
+              assert np.all(jv>0) and np.all(rj>0) and np.all(rj%2==1)
+              # Cell averages admit exact aliasing of arbitrary positive labels.
+              # Retain the original label in sinc and the derivative Gram;
+              # only the DFT bin is reduced modulo N.
+              receipt['frequency_support']={'receiver_max':int(max(jv)),'surplus_max':int(max(rj)),'receiver_above_nyquist':int(sum(jv>=N//2)),'surplus_above_nyquist':int(sum(rj>=N//2)),'receiver_alias_collisions':len(jv)-len(set(jv%N)),'surplus_alias_collisions':len(rj)-len(set(rj%N))}
+              save()
               aw=list(map(int,v['surplus_weights']));assert all(0<x<10**8 for x in aw)
               pi0,pei=grid(pi);assert pei<=F(1,G)
               jj=np.union1d(jv,rj)
@@ -154,8 +168,10 @@ jobs:
               # sinc(j*pi/N). All j>0 and angle >=3/N.
               phase={};sinc={}
               for j in jj:
-                  j=int(j);x,y=zr[j],zi[j];phase[j]=[(x,y),(y,-x),(-x,-y),(-y,x)][j%4]
-                  sinc[j]=zi[j]*N*G//(pi0*j)
+                  j=int(j);q,k=divmod(j,N);sign=(-1)**(q%2)
+                  x,y=sign*zr[k],sign*zi[k]
+                  phase[j]=[(x,y),(y,-x),(-x,-y),(-y,x)][j%4]
+                  sinc[j]=y*N*G//(pi0*j)
               se=(tau+F(2,G))*N/3+F(1,G)
               assert se< F(1,10**30)
               def phase_arrays(j):
@@ -180,7 +196,8 @@ jobs:
               Pv=[];Psur=[];Sc=[];pv_point=F(0);sur_point=F(0);coeferr=F(0)
               def synth(j,c,err):
                   wr,wi,sc=phase_arrays(j);A=np.zeros((N,c.shape[1]),object);B=A.copy()
-                  A[j]=c*wr*sc//(G*G);B[j]=c*wi*sc//(G*G)
+                  assert len(j)<=N
+                  np.add.at(A,j%N,c*wr*sc//(G*G));np.add.at(B,j%N,c*wi*sc//(G*G))
                   M=F(max(abs(int(x)) for x in c.flat),G)
                   es=phase_error(M)+err*(1+tau)*(1+se)
                   _,b,ef=fft(A,B)
@@ -192,7 +209,7 @@ jobs:
                   ar,ai,ef=fft(A,B)
                   wr,wi,sc=phase_arrays(rj)
                   # Exact <sin(j*pi*x/8)/2,u> cell integral.
-                  x=(ar[rj]*wi+ai[rj]*wr)*sc//(G*G)
+                  x=(ar[rj%N]*wi+ai[rj%N]*wr)*sc//(G*G)
                   M=F(N*max(abs(int(t)) for t in U[:,sl].flat),R)
                   eg=h/2*(ef*(1+tau)*(1+se)+phase_error(M))+F(1,G)
                   y=x*h.numerator//(2*h.denominator)
@@ -281,7 +298,7 @@ jobs:
               PR=i64(obj(PV)-obj(PS)-obj(Zbar));ePR=ePV+ePS+eZbar
               Gr=inflate(h*rat(gram(PR),R*R),ePR)+young(Gz,Gs)
               assert np.array_equal(Gr,Gr.T)
-              receipt['continuous']={'cell_count':nc,'cell_width':str(h),'fourier_size':N,'shift_breakpoints':len(shifts),'mean_residual_norm_upper':float(sqrtup(rows(inflate(h*rat(gram(PR),R*R),ePR)))),'shift_variance_norm_squared_upper':float(rows(Gz)),'smooth_variance_norm_squared_upper':float(rows(Gs)),'continuous_residual_gram_norm_upper':float(rows(Gr)),'projection_errors':{'v':str(ePV),'surplus':str(ePS),'shift':str(eZbar)},'exact_shift_overlay':'PASS','integer_fft':'PASS'}
+              receipt['continuous']={'cell_count':nc,'cell_width':str(h),'fourier_size':N,'shift_breakpoints':len(shifts),'mean_residual_norm_upper':float(sqrtup(rows(inflate(h*rat(gram(PR),R*R),ePR)))),'shift_variance_norm_squared_upper':float(rows(Gz)),'smooth_variance_norm_squared_upper':float(rows(Gs)),'continuous_residual_gram_norm_upper':float(rows(Gr)),'projection_errors':{'v':str(ePV),'surplus':str(ePS),'shift':str(eZbar)},'exact_shift_overlay':'PASS','integer_fft':'PASS','alias_handling':'exact original frequency phase and sinc; modulo N DFT bins; additive collisions'}
               save()
               # M>=I inherited; for r=v-Mu,
               # v*M^-1 v <= 2 sym(v*u)-u*Mu+r*r,
