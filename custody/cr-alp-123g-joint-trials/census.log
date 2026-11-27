@@ -1,0 +1,20 @@
+digamma complete 20
+digamma complete 40
+digamma complete 60
+digamma complete 80
+digamma complete 100
+digamma complete 120
+digamma complete 140
+digamma complete 160
+parity 1 cutoff 125 theta 0 Schur 3.305517027928619e-38 3.305517027928619e-38 POSITIVE_FINITE_ONLY
+joint witness parity 1 cutoff 125 energy 3.305517027928619e-38 conditioned finite residual norm2 upper 9.01501070453322e-180 available auxiliary tail norm2 lower 7.826519359885572e-39
+parity 1 cutoff 125 theta 1 Schur 3.3851860358512367e-38 3.3851860358512367e-38 POSITIVE_FINITE_ONLY
+parity 1 cutoff 165 theta 0 Schur 3.035161580508139e-38 3.035161580508139e-38 POSITIVE_FINITE_ONLY
+joint witness parity 1 cutoff 165 energy 3.035161580508139e-38 conditioned finite residual norm2 upper 9.705619494791006e-180 available auxiliary tail norm2 lower 2.6246001241207474e-179
+parity 1 cutoff 165 theta 1 Schur 3.1672125119182895e-38 3.1672125119182895e-38 POSITIVE_FINITE_ONLY
+parity 2 cutoff 125 theta 0 Schur 5.6762541007470866e-33 5.6762541007470866e-33 POSITIVE_FINITE_ONLY
+joint witness parity 2 cutoff 124 energy 5.6762541007470866e-33 conditioned finite residual norm2 upper 7.3819892790129086e-180 available auxiliary tail norm2 lower 8.784530067403252e-34
+parity 2 cutoff 125 theta 1 Schur 5.884837545980452e-33 5.884837545980452e-33 POSITIVE_FINITE_ONLY
+parity 2 cutoff 165 theta 0 Schur 5.008780018106924e-33 5.008780018106924e-33 POSITIVE_FINITE_ONLY
+joint witness parity 2 cutoff 164 energy 5.008780018106924e-33 conditioned finite residual norm2 upper 5.71289549436422e-180 available auxiliary tail norm2 lower 2.8504220175300633e-179
+parity 2 cutoff 165 theta 1 Schur 5.3914676129071873e-33 5.3914676129071873e-33 POSITIVE_FINITE_ONLY
