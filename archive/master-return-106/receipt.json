@@ -1,0 +1,47 @@
+{
+  "status": "PASS",
+  "scope": "actual original_rows input, independent Arb physical entries at fine scale; exact integer cross multiplication",
+  "entries": 1411314,
+  "contained": 1411314,
+  "old_scale": 10000000000000000,
+  "new_scale": 1000000000000000000000000,
+  "records": [
+    {
+      "parity": 0,
+      "bank": "early",
+      "entries": 34800,
+      "contained": 34800,
+      "overlap": 34800,
+      "disjoint": 0
+    },
+    {
+      "parity": 0,
+      "bank": "grouped",
+      "entries": 670857,
+      "contained": 670857,
+      "overlap": 670857,
+      "disjoint": 0
+    },
+    {
+      "parity": 1,
+      "bank": "early",
+      "entries": 34800,
+      "contained": 34800,
+      "overlap": 34800,
+      "disjoint": 0
+    },
+    {
+      "parity": 1,
+      "bank": "grouped",
+      "entries": 670857,
+      "contained": 670857,
+      "overlap": 670857,
+      "disjoint": 0
+    }
+  ],
+  "mismatch_samples": [],
+  "original_reader_sha256": "cf0f1170ecaf0d5faf8b4f1560517d8f678aeba9cb000f9baf68a42fd1b0c89c",
+  "physical_evaluator_sha256": "e3ad04f536163a56279cdeba51deeeb7f04d5f7c5898ca7a4a3f8729fc5b52bc",
+  "original_contraction_bank_sha256": "c6a1df49ff86806810e8763c10223b3b4b2e331b0243693802f1372eb14c443f",
+  "fine_rows_sha256": "b79e5111a3f6edb01fad0d3ebe6b20bdf0baf65e4ff99ee692c73e56317c02c2"
+}

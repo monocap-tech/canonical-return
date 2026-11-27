@@ -1,0 +1,27 @@
+{
+  "schema": "return106e-custody-v1",
+  "scope": "byte-identical fine-scale attachment evidence; no theorem promotion",
+  "artifacts": [
+    {
+      "id": 15164070068,
+      "run": 45918731836,
+      "name": "return106b2-fine-scale-literal-attachment",
+      "bytes": 21394300,
+      "sha256": "a09d215906721e0c9cbbc04eef693407d040d95bfd5d402ba519e2b6627a164c",
+      "parts": [
+        {
+          "path": "archive.zip.part000",
+          "bytes": 16777216,
+          "sha256": "bf8cdce5ff9e0810edafcca62f247f6265a36367366bde51ff9b28b38bf9d774"
+        },
+        {
+          "path": "archive.zip.part001",
+          "bytes": 4617084,
+          "sha256": "927c6b8b6bd1fa6de7f103ba600d2551caa732e52653554e8c8e6a9e607273d4"
+        }
+      ]
+    }
+  ],
+  "total_bytes": 21394300,
+  "receipt_sha256": "24a46b561b429cbc94a79d727e706d7417ab5d9a4f3aaa814d5eb9a9a9f459f7"
+}
