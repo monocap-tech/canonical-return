@@ -1,0 +1,76 @@
+name: CR-ALP-122J response geometry census
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-122j-geometry.yml']
+permissions:
+  contents: write
+jobs:
+  geometry:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate original mesh and Gauss nodes
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/alp122j /tmp/alp122j-evidence
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/alp122j.zip
+          python3 -m zipfile -e /tmp/alp122j.zip /tmp/alp122j
+          (cd /tmp/alp122j/cr_alp_058; sha256sum -c SHA256SUMS; python3 validate_geometry.py) | tee /tmp/alp122j-evidence/original.log
+          python3 src/audits/cr_alp_067/mesh_response.py /tmp/alp122j | tee /tmp/alp122j-evidence/response.log
+      - name: Compare all preserved response meshes and rational shift budget
+        run: |
+          set -euo pipefail
+          python3 - <<'PY' | tee /tmp/alp122j-evidence/census.log
+          from pathlib import Path
+          from fractions import Fraction as F
+          import hashlib,json
+          C=Path('custody/cr-alp-074-077')
+          ref=Path('/tmp/alp122j/cr_alp_058/response_mesh.txt').read_bytes()
+          records=[]
+          for p in sorted(C.glob('replayed-*/response_mesh.txt')):
+              raw=p.read_bytes()
+              assert raw==ref,p
+              records.append({'path':str(p),'sha256':hashlib.sha256(raw).hexdigest()})
+          assert records
+          rows=ref.decode().splitlines()
+          n=int(rows[0]); assert n==len(rows)-1
+          total_lo=total_hi=F(0);max_h=F(0)
+          for row in rows[1:]:
+              ml,mh,hl,hh,ip,nn,*pairs=row.split()
+              ml,mh,hl,hh=map(F,(ml,mh,hl,hh))
+              assert ml<=mh and 0<hl<=hh<=F(1,256) and len(pairs)==2*int(nn)
+              total_lo+=2*hl;total_hi+=2*hh;max_h=max(max_h,hh)
+          assert total_lo<=F(11,10)<=total_hi
+          # Independent conservative exact bounds for the finite continuous zero-extended trial.
+          assert F(2048*10,7)<3000
+          assert 8*2*300000*F(1,10**70)<F(1,10**13)
+          assert 4*F(11,5)*F(4,3)*10**82/4**192<F(1,10**12)
+          result={'status':'CONDITIONAL_GEOMETRY_REPLAY_PASS','meshes':records,'panels':n,'max_halfwidth_upper':str(max_h),'shift_action_upper':'1e-13','quadrature_upper':'1e-12','scope':'Archived shared response meshes, Gauss brackets and ideal quadrature/shift arithmetic; actual per-input coefficient contracts and midpoint assumptions remain.'}
+          Path('/tmp/alp122j-evidence/result.json').write_text(json.dumps(result,indent=2)+'\n')
+          print('PASS',len(records),'identical preserved response meshes;',n,'panels')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-122J-response-geometry
+          path: /tmp/alp122j-evidence/
+          if-no-files-found: error
+      - name: Preserve geometry evidence
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-122j-response-geometry
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          git checkout --detach FETCH_HEAD
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp122j-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum *.log *.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+          git add "$ROOT"
+          git commit -m 'CR-ALP-122J: preserve exact response geometry census [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)"
+          echo "DURABLE CR-ALP-122J $(git rev-parse HEAD)"
