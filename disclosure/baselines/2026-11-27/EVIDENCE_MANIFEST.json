@@ -1,0 +1,342 @@
+{
+  "schema": "scientific-disclosure-d1-v1",
+  "snapshot": "SD-BASELINE-2026-11-27",
+  "date": "2026-11-27",
+  "scope": "Selected immutable source and status freeze for editorial deliberation. Not exhaustive proof, ledger, or binary audit. Branch tips sampled before delivery, not simultaneous atomic snapshot.",
+  "heads": [
+    {
+      "agent": "MASTER-RETURN",
+      "repository": "monocap-tech/weil-lab",
+      "branch": "research/return108s-kernel-core",
+      "commit": "ae4e1cdb144fe038b44479c15e19212d323eba4e",
+      "investigative_head": "109-B",
+      "admission_evidence": "108-Z1 and 109-A successful runs; scoped named audits not recounted; 109-B failed",
+      "open": "Full divisor orbit indexing not accepted"
+    },
+    {
+      "agent": "MASTER-RECON",
+      "repository": "monocap-tech/weil-lab",
+      "branch": "master-recon-v10b20-staging",
+      "commit": "9f543c1aba822a9df224427e82abba5e3689925c",
+      "investigative_head": "V10B59",
+      "admission_evidence": "V10B58 scoped admission: V10B40a four names; +41 reported W02 increment, not deduplicated",
+      "open": "59 failed; V10B19/Taylor holds; no physical A/R or exclusion"
+    },
+    {
+      "agent": "IV106",
+      "repository": "monocap-tech/weil-lab",
+      "branch": "formalization/iv106-e18x-consolidated-transport",
+      "commit": "867e3387dcf4467768c6e34f4271a95193f31ad4",
+      "investigative_head": "E19U mathematical staging; E18X native integration",
+      "admission_evidence": "E18P/E18M scoped native; E19S independently replayed conditional bank",
+      "open": "E18X failed; full 734 rows and Schur comparison open"
+    },
+    {
+      "agent": "IV-AM",
+      "repository": "monocap-tech/weil-lab",
+      "branch": "staging/iv235-am-final-sector-custody",
+      "commit": "3f8ca6d18b317635c6ee46c68068a53f1ecf73c2",
+      "investigative_head": "IV252",
+      "admission_evidence": "Prior native bank receipts and IV251 analytic exact receiver (not native)",
+      "open": "Full exact sign open; binary64 diagnostic not a sign certificate; raw binary custody caveat"
+    },
+    {
+      "agent": "CR-ALP",
+      "repository": "monocap-tech/canonical-return",
+      "branch": "research/cr-alp-122-fixed-collar-transfer-staged",
+      "commit": "8ec6026e950ea1987c803c991637f5f66f6c1592",
+      "investigative_head": "123AP",
+      "admission_evidence": "123AO conditional direct Schur both pole signs; 123AN receiving audit reported in AO",
+      "open": "123AP failed; original physical coefficients and analytic premises remain"
+    },
+    {
+      "agent": "CR-INT",
+      "repository": "monocap-tech/canonical-return",
+      "branch": "research/cr-int-t1d-ep-targeted-corrector-staged",
+      "commit": "2feae598e187fcb440c031f01bab8498dc4e833a",
+      "investigative_head": "W02 continuous inverse repair",
+      "admission_evidence": "EJ inherited conditional index cap 205; direct energy and exact admissible dictionary scoped PASS",
+      "open": "continuous inverse repair failed; penalty and improved index open"
+    },
+    {
+      "agent": "NF618",
+      "repository": "monocap-tech/weil-lab",
+      "branch": "research/nf618-admission-b24",
+      "commit": "a599506f7970f29271f5af1ebf6b2949a802dff8",
+      "investigative_head": "W02-NF-09",
+      "admission_evidence": "Batch24R1 accounting 6097 tables / 29336 rows; no new admission",
+      "open": "seven staged native declarations blocked; producer custody, box closure and named holds"
+    }
+  ],
+  "source_records": [
+    {
+      "id": "GOV-START",
+      "repository": "monocap-tech/canonical-return",
+      "commit": "e96ebfce615154a5207aafd7b5b6f8e4f99e646e",
+      "path": "research/regroup-001/W02_START_HERE.md",
+      "blob": "fb3faaa8e379b18e064b88b4c9cb918ff78ca768",
+      "inspection": "Repository file response or commit diff inspected; blob identity as returned by GitHub, not independent byte hashing; some excerpts bounded."
+    },
+    {
+      "id": "GOV-AMEND",
+      "repository": "monocap-tech/canonical-return",
+      "commit": "d4e482f2f616112dca11f6d8fd803a3dffb5a80c",
+      "path": "research/regroup-001/W02_CONTINUATION_AMENDMENT.md",
+      "blob": "ac28b8e46e927f8841a0bf1109eb768ea69cdfd0",
+      "inspection": "Repository file response or commit diff inspected; blob identity as returned by GitHub, not independent byte hashing; some excerpts bounded."
+    },
+    {
+      "id": "GOV-RATIFY",
+      "repository": "monocap-tech/canonical-return",
+      "commit": "f7f7cd04b98040fc815b73ae631e418cf7c6c7f8",
+      "path": "research/regroup-001/W02_CONTINUATION_RATIFICATION.md",
+      "blob": "520beed2e114f23b76202554068a47ee7a8246b0",
+      "inspection": "Repository file response or commit diff inspected; blob identity as returned by GitHub, not independent byte hashing; some excerpts bounded."
+    },
+    {
+      "id": "RETURN-BASE",
+      "repository": "monocap-tech/canonical-return",
+      "commit": "5d2b7c5993b81d1b9f4b8036cb7f9f3e60fabd08",
+      "path": "research/regroup-001/master-return/FINAL_HEAD.md",
+      "blob": "c8cd65b41895953df7e407e3150cf4d0fba6d0ec",
+      "inspection": "Repository file response or commit diff inspected; blob identity as returned by GitHub, not independent byte hashing; some excerpts bounded."
+    },
+    {
+      "id": "RECON-BASE",
+      "repository": "monocap-tech/weil-lab",
+      "commit": "86cd98aeec112619c8ac9289f8704d29cc855a9a",
+      "path": "verification/master_recon/REGROUP001_FINAL_HEAD.md",
+      "blob": "732b78d65688dac186213e33ab2cc9f76d39df23",
+      "inspection": "Repository file response or commit diff inspected; blob identity as returned by GitHub, not independent byte hashing; some excerpts bounded."
+    },
+    {
+      "id": "IV106-BASE",
+      "repository": "monocap-tech/weil-lab",
+      "commit": "c046bad0d5eb126fefa43eb587ae5318f6a5c551",
+      "path": "verification/iv106/regroup_001/FINAL_HEAD.md",
+      "blob": "10e596d24f23d6b81d8047c4d9cea5fcc781b724",
+      "inspection": "Repository file response or commit diff inspected; blob identity as returned by GitHub, not independent byte hashing; some excerpts bounded."
+    },
+    {
+      "id": "AM-BASE",
+      "repository": "monocap-tech/weil-lab",
+      "commit": "80a2835b5ca8f3ef335927ef3ff92c9975751032",
+      "path": "research/REGROUP-001-IV-AM-final-head.md",
+      "blob": "0d2eb300f96281f5f4dcfc2b4a6b73f39a645adc",
+      "inspection": "Repository file response or commit diff inspected; blob identity as returned by GitHub, not independent byte hashing; some excerpts bounded."
+    },
+    {
+      "id": "ALP-BASE",
+      "repository": "monocap-tech/canonical-return",
+      "commit": "7c0a1982eb25732c5f20d041e11e29ffc2d170ec",
+      "path": "custody/regroup-001-cr-alp/FINAL_HEAD.md",
+      "blob": "bc5a25bc83cd420360d0c4189d2126058c50cf42",
+      "inspection": "Repository file response or commit diff inspected; blob identity as returned by GitHub, not independent byte hashing; some excerpts bounded."
+    },
+    {
+      "id": "INT-BASE",
+      "repository": "monocap-tech/canonical-return",
+      "commit": "36579dfa51c81e43ebce1ead4771eb3a3dd52af3",
+      "path": "research/REGROUP-001-CR-INT-T1D-final-head.md",
+      "blob": "4ba5c991121661f43f92c1150ed2644bcd3470e3",
+      "inspection": "Repository file response or commit diff inspected; blob identity as returned by GitHub, not independent byte hashing; some excerpts bounded."
+    },
+    {
+      "id": "NF-BASE",
+      "repository": "monocap-tech/weil-lab",
+      "commit": "afdc8f90715e2da8c703bac1fcf5f9e3aa6e78aa",
+      "path": "notes/provisional/NF618CustodyHold.json",
+      "blob": "44ad420a7da2fa0d992adb9d9a9828973cfebf0c",
+      "inspection": "Repository file response or commit diff inspected; blob identity as returned by GitHub, not independent byte hashing; some excerpts bounded."
+    },
+    {
+      "id": "RECON-ADMIT",
+      "repository": "monocap-tech/weil-lab",
+      "commit": "639a9919e1d10c29f1b4a56ee96c6700db1c750b",
+      "path": "verification/master_recon/w02-recon-01/v10b58/ADMISSION.md",
+      "blob": "288e3014c10b0f2b57eb53b32b9081b11b9bbd8e",
+      "inspection": "Repository file response or commit diff inspected; blob identity as returned by GitHub, not independent byte hashing; some excerpts bounded."
+    },
+    {
+      "id": "RECON-CURRENT",
+      "repository": "monocap-tech/weil-lab",
+      "commit": "9f543c1aba822a9df224427e82abba5e3689925c",
+      "path": "verification/master_recon/w02-recon-01/V10B59_PAIRING_NORMALIZATION.md",
+      "blob": "976bde5c46bf650a47d22c5a3f6ad6f52f27b1b3",
+      "inspection": "Repository file response or commit diff inspected; blob identity as returned by GitHub, not independent byte hashing; some excerpts bounded."
+    },
+    {
+      "id": "AM-EXACT",
+      "repository": "monocap-tech/weil-lab",
+      "commit": "ee0bea558ab8f21a4dcff38fcc5dcabb53f3d8d9",
+      "path": "research/IV251-AM-exact-channel-closure.md",
+      "blob": "0c6a48160f8c06dc320c77be59ecaabc027bf2ba",
+      "inspection": "Repository file response or commit diff inspected; blob identity as returned by GitHub, not independent byte hashing; some excerpts bounded."
+    },
+    {
+      "id": "AM-DIAG",
+      "repository": "monocap-tech/weil-lab",
+      "commit": "3f8ca6d18b317635c6ee46c68068a53f1ecf73c2",
+      "path": "research/IV252-AM-final-gate-diagnostic.md",
+      "blob": "d47a44523643f5226d5e259d0bdb05cf8bc4962b",
+      "inspection": "Repository file response or commit diff inspected; blob identity as returned by GitHub, not independent byte hashing; some excerpts bounded."
+    },
+    {
+      "id": "NF-DEMAND",
+      "repository": "monocap-tech/weil-lab",
+      "commit": "a599506f7970f29271f5af1ebf6b2949a802dff8",
+      "path": "notes/provisional/NF618W02ResidualEndpointDemand.md",
+      "blob": "88fca6f356ca47df8262a589ba95955429687fd9",
+      "inspection": "Repository file response or commit diff inspected; blob identity as returned by GitHub, not independent byte hashing; some excerpts bounded."
+    },
+    {
+      "id": "ALP-DIRECT",
+      "repository": "monocap-tech/canonical-return",
+      "commit": "535ac592f61586733b2bd1d6176d423f6acb9024",
+      "path": "research/CR-ALP-123AO_DIRECT_SCHUR_DEPENDENCY_REDUCTION.md",
+      "blob": "3d449316d6b00471a752bd4cba44d5c5c92ef607",
+      "inspection": "Repository file response or commit diff inspected; blob identity as returned by GitHub, not independent byte hashing; some excerpts bounded."
+    },
+    {
+      "id": "ALP-RECEIPT",
+      "repository": "monocap-tech/canonical-return",
+      "commit": "522bf544472417182077babece5b21e8127dd7d0",
+      "path": "custody/cr-alp-123ao-direct-schur/result.json",
+      "blob": "d373ef429fec33769ba9e9c1cd743f0dc9986756",
+      "inspection": "Repository file response or commit diff inspected; blob identity as returned by GitHub, not independent byte hashing; some excerpts bounded."
+    },
+    {
+      "id": "INT-ENERGY",
+      "repository": "monocap-tech/canonical-return",
+      "commit": "0fe64d7b30dcf369968c46a776c931127b6317f4",
+      "path": "custody/w02-int/direct-energy/result.json",
+      "blob": "a532b10186e270f9fab142bc2e83bdf704bd9971",
+      "inspection": "Repository file response or commit diff inspected; blob identity as returned by GitHub, not independent byte hashing; some excerpts bounded."
+    },
+    {
+      "id": "INT-DICT",
+      "repository": "monocap-tech/canonical-return",
+      "commit": "8170edbf61eb079a1602cc51dbb5b2ea1921d066",
+      "path": "custody/w02-int/exceptional-dictionary/result.json",
+      "blob": "bf42a71bdd42de31b1185264837f4cd30e8ea6d7",
+      "inspection": "Repository file response or commit diff inspected; blob identity as returned by GitHub, not independent byte hashing; some excerpts bounded."
+    },
+    {
+      "id": "PW-TERMINAL",
+      "repository": "monocap-tech/canonical-return",
+      "commit": "f81703ac229aed15204075c6f2a9b116ba45e447",
+      "path": "research/CROSS-PW-004_FIXED_MOMENT_DETECTOR_TERMINAL.md",
+      "blob": "7ef8e71bc22359fe86b1f79588c3e45bcbf13997",
+      "inspection": "Repository file response or commit diff inspected; blob identity as returned by GitHub, not independent byte hashing; some excerpts bounded."
+    }
+  ],
+  "workflow_observations": [
+    {
+      "repository": "monocap-tech/weil-lab",
+      "run_id": 45981248117,
+      "head_sha": "495e01d2ea2a8e5378093cf7dc21ed76046820d4",
+      "conclusion": "success",
+      "status": "completed",
+      "evidence": "observed in repository Actions listing; not replayed"
+    },
+    {
+      "repository": "monocap-tech/weil-lab",
+      "run_id": 45984695226,
+      "head_sha": "ea8f06aa1684b98a7506d1626e94d225faf38a93",
+      "conclusion": "success",
+      "status": "completed",
+      "evidence": "observed in repository Actions listing; not replayed"
+    },
+    {
+      "repository": "monocap-tech/weil-lab",
+      "run_id": 46030440589,
+      "head_sha": "ae4e1cdb144fe038b44479c15e19212d323eba4e",
+      "conclusion": "failure",
+      "status": "completed",
+      "evidence": "observed in repository Actions listing; not replayed"
+    },
+    {
+      "repository": "monocap-tech/weil-lab",
+      "run_id": 45984451322,
+      "head_sha": "013317ec13364ebf837320baed1d5803ad679a87",
+      "conclusion": "failure",
+      "status": "completed",
+      "evidence": "observed in repository Actions listing; not replayed"
+    },
+    {
+      "repository": "monocap-tech/weil-lab",
+      "run_id": 46029913041,
+      "head_sha": "9f543c1aba822a9df224427e82abba5e3689925c",
+      "conclusion": "failure",
+      "status": "completed",
+      "evidence": "observed in repository Actions listing; not replayed"
+    },
+    {
+      "repository": "monocap-tech/weil-lab",
+      "run_id": 45955427834,
+      "head_sha": "867e3387dcf4467768c6e34f4271a95193f31ad4",
+      "conclusion": "failure",
+      "status": "completed",
+      "evidence": "observed in repository Actions listing; not replayed"
+    },
+    {
+      "repository": "monocap-tech/canonical-return",
+      "run_id": 46030975840,
+      "head_sha": "8ec6026e950ea1987c803c991637f5f66f6c1592",
+      "conclusion": "failure",
+      "status": "completed",
+      "evidence": "observed in repository Actions listing; not replayed"
+    },
+    {
+      "repository": "monocap-tech/canonical-return",
+      "run_id": 46030451023,
+      "head_sha": "2feae598e187fcb440c031f01bab8498dc4e833a",
+      "conclusion": "failure",
+      "status": "completed",
+      "evidence": "observed in repository Actions listing; not replayed"
+    },
+    {
+      "repository": "monocap-tech/canonical-return",
+      "run_id": 45984376279,
+      "head_sha": "dabfcabf35660e6fbe1f996c91a231e0f89f851a",
+      "conclusion": "failure",
+      "status": "completed",
+      "evidence": "observed in repository Actions listing; not replayed"
+    },
+    {
+      "repository": "monocap-tech/canonical-return",
+      "run_id": 45978096604,
+      "head_sha": "80d1dacf140116f3ff0cb83df35c32246806b08f",
+      "conclusion": "success",
+      "status": "completed",
+      "evidence": "observed in repository Actions listing; not replayed"
+    },
+    {
+      "repository": "monocap-tech/canonical-return",
+      "run_id": 45957022265,
+      "head_sha": "e9a12885a7ae8f0e257aaa64abb25fc32dbdb7fa",
+      "conclusion": "success",
+      "status": "completed",
+      "evidence": "observed in repository Actions listing; not replayed"
+    }
+  ],
+  "additional_pins": {
+    "iv106_mathematical_staging": {
+      "commit": "98174cc17783bd3096652f1a2aa3560677c712b9",
+      "basis": "IV106-BASE report, not independently rechecked"
+    },
+    "cross_pw_replay": {
+      "commit": "0448dc0c06c16dba9ddb3b78c6d3ec7bcdeddf2b",
+      "path": "verification/cross_pw_004.mjs",
+      "blob": "80078992f4287c7a9faf6cfc4a22b2f2c58049c8",
+      "basis": "PW-TERMINAL report, replay not rerun"
+    }
+  },
+  "limitations": [
+    "No fresh Lean compilation or arithmetic replay for D1.",
+    "Run success is not blanket theorem admission; individual admitted declarations only as documented.",
+    "Historical raw producer artifacts and full dependency trees not independently authenticated.",
+    "Prior-art author attribution and priority, operational telemetry and human review unresolved.",
+    "Research holds unchanged; no adoption or dispatch."
+  ]
+}
