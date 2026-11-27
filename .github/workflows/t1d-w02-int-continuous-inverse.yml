@@ -139,7 +139,10 @@ jobs:
                       ar=X[:,:m,:].copy();ai=Y[:,:m,:].copy()
                       br=X[:,m:,:].copy();bi=Y[:,m:,:].copy()
                       ix=np.arange(m)*(N//m)
-                      wr=zr[2*ix][None,:,None];wi=zi[2*ix][None,:,None]
+                      # Root table stores exp(i*pi*k/N), so exp(2*pi*i*j/(2*m))
+                      # uses k=j*N/m, not twice that index.
+                      assert int(ix[-1])<N
+                      wr=zr[ix][None,:,None];wi=zi[ix][None,:,None]
                       c=(br*wr-bi*wi)//G;d=(br*wi+bi*wr)//G
                       X[:,:m,:]=ar+c;Y[:,:m,:]=ai+d
                       X[:,m:,:]=ar-c;Y[:,m:,:]=ai-d;m*=2
@@ -149,8 +152,10 @@ jobs:
               ca=np.zeros((N,1),object);cb=ca.copy();ca[1,0]=G
               fa,fb,fe=fft(ca,cb)
               for j in (0,1,3,N//4,N//2,3*N//4,N-1):
-                  q,k=divmod(2*j,N);sg=(-1)**(q%2)
-                  assert F(abs(int(fa[j,0])-sg*int(zr[k]))+abs(int(fb[j,0])-sg*int(zi[k])),G)<=2*fe+2*tau
+                  c=trig(F(2*j,N)*pi,0);d=trig(F(2*j,N)*pi,1)
+                  # Independent directed analytic reference, not the root table.
+                  for value,z in ((int(fa[j,0]),c),(int(fb[j,0]),d)):
+                      assert F(value,G)-fe<=F(z.h,D) and F(value,G)+fe>=F(z.l,D),(j,value)
               del ca,cb,fa,fb
               receipt['fft_impulse_control']='PASS';save()
               jv=np.r_[2*v['ms'],v['trig_indices']].astype(np.int64);rj=v['surplus_indices'].astype(np.int64)
@@ -167,11 +172,12 @@ jobs:
               # Midpoint phase exp(-ij*pi/2+ij*pi/N), and exact cell average
               # sinc(j*pi/N). All j>0 and angle >=3/N.
               phase={};sinc={}
-              for j in jj:
+              def register_phase(j):
                   j=int(j);q,k=divmod(j,N);sign=(-1)**(q%2)
                   x,y=sign*zr[k],sign*zi[k]
                   phase[j]=[(x,y),(y,-x),(-x,-y),(-y,x)][j%4]
                   sinc[j]=y*N*G//(pi0*j)
+              for j in jj:register_phase(j)
               se=(tau+F(2,G))*N/3+F(1,G)
               assert se< F(1,10**30)
               def phase_arrays(j):
@@ -203,6 +209,21 @@ jobs:
                   _,b,ef=fft(A,B)
                   z=i64(b[offset:offset+nc]*R//(2*G))
                   return z,(ef+N*es)/2+F(1,R)
+              # Exact analytic cell-average control at production N, including
+              # positive labels above N and 2N, collisions and quadrants.
+              cj=np.array([1,N+1,2*N+1,N//2+3,3*N+5],np.int64)
+              cc=[2,-3,4,5,-2]
+              for j in cj:register_phase(j)
+              cv,ce=synth(cj,np.array(cc,object)[:,None]*G,F(0))
+              for i in (0,1,17,nc//4,nc//2,nc-2,nc-1):
+                  x0=-2+i*h;x1=x0+h;exact=I(0)
+                  for j,c in zip(cj,cc):
+                      w=int(j)*pi/8
+                      exact+=c*(trig(w*x0,0)-trig(w*x1,0))/(2*w*h)
+                  v0=F(int(cv[i,0]),R)
+                  assert v0-ce<=F(exact.h,D) and v0+ce>=F(exact.l,D),(i,str(v0),str(ce),repr(exact))
+              del cv
+              receipt['aliased_cell_integral_control']='PASS';save()
               for start in range(0,32,4):
                   sl=slice(start,start+4);A=np.zeros((N,4),object);B=A.copy()
                   A[offset:offset+nc]=obj(U[:,sl])*(G//R)
