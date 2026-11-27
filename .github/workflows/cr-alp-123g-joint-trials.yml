@@ -1,0 +1,58 @@
+name: CR-ALP-123G joint auxiliary trial bank
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-123g-joint-trials.yml']
+permissions:
+  contents: write
+jobs:
+  census:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - name: Recover exact joint trials and correlated residual enclosures
+        run: |
+          set -euo pipefail
+          P=/tmp/alp123g
+          E=/tmp/alp123g-evidence
+          mkdir -p "$P" "$E"
+          python3 src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+          python3 -m zipfile -e "$P/package.zip" "$P"
+          (cd custody/cr-alp-123b-pole-residual; sha256sum -c SHA256SUMS)
+          (cd custody/cr-alp-123e-complete-bridge; sha256sum -c SHA256SUMS)
+          python3 src/audits/cr_alp_123g_joint_trial_bank.py "$P" custody/cr-alp-123b-pole-residual/result.json "$E/result.json" | tee "$E/census.log"
+          python3 - "$E/result.json" <<'PY'
+          import json,sys
+          from fractions import Fraction as F
+          old=json.load(open('custody/cr-alp-123e-complete-bridge/result.json'))
+          new=json.load(open(sys.argv[1]))
+          for k,s in new['sectors'].items():
+              for p,q in zip(s['rows'],old['sectors'][k]['rows']):
+                  assert (p['cutoff'],p['theta'],p['schur_interval'],p['classification'])==(q['cutoff'],q['theta'],q['schur_interval'],q['classification'])
+                  if p['theta']=='0':
+                      w=p['joint_trial']
+                      assert F(w['joint_trial_energy'][0])>0
+                      assert F(w['joint_trial_energy'][1])>=F(p['schur_interval'][0])
+          print('PASS eight predecessor Schur rows; four exact joint witnesses')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-123G-joint-trials
+          path: /tmp/alp123g-evidence/
+          if-no-files-found: error
+      - name: Preserve joint trial bank
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-123g-joint-trials
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          git checkout --detach FETCH_HEAD
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp123g-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum *.log *.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+          git add "$ROOT"
+          git commit -m 'CR-ALP-123G: preserve exact joint auxiliary trial bank [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
