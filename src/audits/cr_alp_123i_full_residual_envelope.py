@@ -6,6 +6,8 @@ from pathlib import Path
 from fractions import Fraction as F
 from math import isqrt
 import hashlib,json,sys
+# Internal trusted arithmetic may produce >4300-digit exact fractions.
+if hasattr(sys,'set_int_max_str_digits'):sys.set_int_max_str_digits(0)
 SRC=Path(__file__).with_name('cr_alp_046_full_finite.py')
 PIN='554e7ab54da4545987d89aa660a4abe6c951cb63'
 J=2048
@@ -55,9 +57,11 @@ def psi_pair(x,y=ZERO):''')
     traw=(root/'cr_alp_057/trial.json').read_bytes()
     assert hashlib.sha256(traw).hexdigest()=='6576fb333c7b2fdec6a4c236d70b3257b4bdedcb9208ae77a10e3e1931f512b0'
     tb=json.loads(traw);ts=int(tb['scale'])
-    old=json.loads(prior.read_text());assert old['status']=='CONDITIONAL_JOINT_AUXILIARY_TRIAL_BANK'
+    rawprior=prior.read_bytes();assert hashlib.sha256(rawprior).hexdigest()=='d079ddf237af10624928245972156367d677347746623ba8e14611ea4ac64e82'
+    old=json.loads(rawprior);assert old['status']=='CONDITIONAL_JOINT_AUXILIARY_TRIAL_BANK'
     assert set(old['sectors'])=={'1','2'} and all(len([r for r in v['rows'] if 'joint_trial' in r])==2 for v in old['sectors'].values())
-    qp=json.loads(quant.read_text());assert qp['status']=='CONDITIONAL_QUANTITATIVE_COLLAR_RECEIVER'
+    rawquant=quant.read_bytes();assert hashlib.sha256(rawquant).hexdigest()=='f5feb77462ff530ba85f3ee242e13b8e11b71144a65dfd3e16893188b05315de'
+    qp=json.loads(rawquant);assert qp['status']=='CONDITIONAL_QUANTITATIVE_COLLAR_RECEIVER'
     bands=json.loads(SRC.with_name('CR-ALP-068_pole_centered_gamma_result.json').read_text())['bands']
     assert bands[0]['start']==86 and bands[-1]['end'] is None
     assert all(b['start']==a['end']+1 for a,b in zip(bands,bands[1:]))
