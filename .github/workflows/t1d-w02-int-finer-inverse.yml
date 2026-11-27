@@ -1,0 +1,403 @@
+name: W02 INT doubled-resolution continuous inverse response
+on:
+  push:
+    branches: [research/cr-int-t1d-ep-targeted-corrector-staged]
+    paths: [.github/workflows/t1d-w02-int-finer-inverse.yml]
+permissions:
+  contents: write
+jobs:
+  inverse:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    env:
+      OPENBLAS_NUM_THREADS: "2"
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            custody/eo/generated/candidate32_positive_t.npz
+            custody/w02-int/audits/continuous_inverse_acceptance.py
+      - uses: actions/checkout@v4
+        with:
+          ref: a4b63576f4a617c42975fdae85898fd1842739d6
+          path: receiver-evidence
+          sparse-checkout: |
+            custody/w02-int/frozen-receiver/500
+      - uses: actions/checkout@v4
+        with:
+          ref: 121e6d329e2d4ca623b57eb7cacf1fc510e7e996
+          path: kernel-evidence
+          sparse-checkout: |
+            custody/w02-int/kernel-pilot/bn_energy.py
+      - uses: actions/checkout@v4
+        with:
+          ref: 5e6879705b7fc0c380f2e9a9e1576ee5e05ca2d4
+          path: response-source
+          sparse-checkout: |
+            custody/w02-int/energy-transport/ep_expanded_exceptional_replay.py
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Verify continuous piecewise constant inverse response
+        run: |
+          python -m pip install numpy==2.3.5 scipy==1.16.3
+          mkdir -p custody/w02-int/finer-inverse
+          python - <<'PY'
+          import hashlib,json,pathlib,io,os,sys,traceback
+          from fractions import Fraction as F
+          from math import isqrt,factorial
+          import numpy as np
+          P=pathlib.Path
+          out=P('custody/w02-int/finer-inverse')
+          ev=P('receiver-evidence/custody/w02-int/frozen-receiver/500')
+          def sha(b):return hashlib.sha256(b).hexdigest()
+          def gitsha(b):return hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+          def read(p,h,git=False):
+              b=p.read_bytes();assert (gitsha(b) if git else sha(b))==h,p;return b
+          def npz(b):
+              with np.load(io.BytesIO(b),allow_pickle=False) as z:return {k:z[k] for k in z.files}
+          def obj(a):return np.vectorize(int,otypes=[object])(a)
+          def fr(a):return np.vectorize(lambda x:F(str(x)),otypes=[object])(a)
+          def rat(a,s):return np.vectorize(lambda x:F(int(x),s),otypes=[object])(a)
+          def rows(a):return max(sum(abs(x) for x in row) for row in a)
+          def sqrtup(x,g=10**35):
+              assert x>=0
+              q=isqrt(x.numerator*g*g//x.denominator)
+              return F(q+(F(q*q,g*g)<x),g)
+          def i64(a):
+              assert max(abs(int(x)) for x in a.flat)<2**62
+              return a.astype(np.int64)
+          def gram(A,B=None):
+              # Exact binary64 integer dots under inherited ordinary integer
+              # dot model: every signed radix limb partial sum <2^53.
+              same=B is None
+              if same:B=A
+              assert A.dtype==B.dtype==np.int64 and len(A)==len(B)
+              base=2**17
+              assert len(A)*(base-1)**2<2**53
+              def limbs(a):
+                  v=abs(a);s=np.sign(a);ans=[]
+                  while np.any(v):
+                      ans.append(((v%base)*s).astype(float));v=v//base
+                  return ans or [np.zeros(a.shape)]
+              aa=limbs(A);bb=aa if same else limbs(B)
+              C=np.zeros((A.shape[1],B.shape[1]),object)
+              for i,x in enumerate(aa):
+                  for j,y in enumerate(bb):
+                      if same and j<i:continue
+                      z=x.T@y
+                      assert np.all(z==np.rint(z))
+                      w=obj(z)
+                      if same and j>i:w=w+w.T
+                      C+=w*base**(i+j)
+              # Independent exact scalar control.
+              assert int(C[0,0])==sum(int(a)*int(b) for a,b in zip(A[:,0],B[:,0]))
+              return C
+          def sym(a):return (a+a.T)/2
+          def inflate(A,e):
+              assert e>=0
+              return A+(2*sqrtup(rows(A))*e+e*e)*np.eye(32,dtype=object)
+          def young(A,B):
+              na=sqrtup(rows(A));nb=sqrtup(rows(B))
+              eta=max(F(1,10**20),nb/max(na,F(1,10**20)))
+              return (1+eta)*A+(1+1/eta)*B
+          receipt={'status':'INCOMPLETE','source_commit':os.environ['GITHUB_SHA'],'receiver_evidence':'a4b63576f4a617c42975fdae85898fd1842739d6','scope':'directed continuous response to frozen 500-coordinate receiver; conditional inherited source, metric and integer-dot identities'}
+          def save():(out/'result.json').write_text(json.dumps(receipt,indent=2)+'\n')
+          try:
+              a=json.loads(read(ev/'result.json','7c5a1b3985daf6e94a5f3a2557d601d12575aa70',True));assert a['status']=='PASS'
+              v=npz(read(ev/'receiver.npz',a['exact_receiver']['sha256']))
+              # Fresh numerical response proposal, not proof. Exact receiver unchanged.
+              from scipy.sparse.linalg import LinearOperator,cg
+              rj=v['surplus_indices'];alpha=v['surplus_weights']/1e8
+              source=read(P('response-source/custody/w02-int/energy-transport/ep_expanded_exceptional_replay.py'),'0536a631f30976c1fcd0f4df2d9abbda402b7ae3',True).decode()
+              exec(compile(source[source.index('class Op:'):source.index('op=Op(32768)')],'<authenticated sampled solver>','exec'),globals())
+              solver=Op(262144)
+              y=solver.neu(v['ms'],v['neumann'].astype(float)/float(v['neumann_scale']))+solver.sin(v['trig_indices'],v['trig_center'].astype(float)/float(v['trig_scale']))+np.sinh(solver.xx/2)[:,None]*(v['pole_coeff'].astype(float)/float(v['pole_scale']))
+              R=10**12;nc=len(solver.xx);assert nc==131072
+              U=np.empty((nc,32),np.int64);res=[]
+              for k in range(32):
+                  col,rr=solver.solve(y[:,k]);assert np.max(abs(col))*R<2**62
+                  U[:,k]=np.rint(col*R).astype(np.int64);res.append(rr)
+              dest=out/'inverse-proposal.npz'
+              np.savez_compressed(dest,step=U,step_scale=str(R),cells=nc)
+              receipt['sampled_proposal']={'resolution':solver.N,'cells':nc,'response_sha256':sha(dest.read_bytes()),'max_relative_residual':max(res),'scope':'proposal only'}
+              receipt['predecessor_nonpositive']='b105975e76b504ef58de8feb770c42d56a50debb';save()
+              del solver,y,col
+              # Double circle [-4,12), physical cells [-2,2). On this circle
+              # all even and odd sine labels are integer Fourier frequencies.
+              N=4*nc;offset=N//8;h=F(4,nc);G=10**50
+              assert N==524288 and G%R==0
+              src=read(P('kernel-evidence/custody/w02-int/kernel-pilot/bn_energy.py'),'11f2e6aadec7f1997366b50a081bd49e80a4f368b478c41bbec740d629190efa')
+              (out/'bn_energy.py').write_bytes(src);sys.path.insert(0,str(out.resolve()))
+              from bn_energy import I,D,pi,trig,logi,sqrtint
+              def grid(x,g=G):
+                  l=x.l*g//D;hi=-((-x.h*g)//D);m=(l+hi)//2
+                  return m,F(max(m-l,hi-m),g)
+              # Fixed point roots by exact integer recurrence. If b is within
+              # 2/G of a unit root, |z_k-root^k| <= 8N/G for k<=N
+              # (geometric bound (1+2/G)^N <=2).
+              cr,ce=grid(trig(pi/N,0));ci,ie=grid(trig(pi/N,1))
+              assert ce+ie<=F(2,G) and 4*N<G
+              tau=F(8*N,G)
+              zr=np.empty(N+1,object);zi=np.empty(N+1,object);zr[0]=G;zi[0]=0
+              for j in range(N):
+                  x,y=zr[j],zi[j];zr[j+1]=(x*cr-y*ci)//G;zi[j+1]=(x*ci+y*cr)//G
+              assert abs(zr[N]+G)+abs(zi[N])<=2*tau*G
+              rev=np.zeros(N,np.int64);k=np.arange(N,dtype=np.int64)
+              for j in range(N.bit_length()-1):rev=(rev<<1)|(k&1);k=k>>1
+              assert np.array_equal(rev[rev],np.arange(N))
+              def fft(A,B):
+                  # Unnormalised positive DFT with exact integer butterflies.
+                  # Per-stage max complex error E obeys
+                  # E' <= 2E+tau*(2^stage*M+E)+2/G.
+                  # Normalising by 2^stage yields the stated conservative bound.
+                  M=F(max(abs(int(x)) for x in A.flat)+max(abs(int(x)) for x in B.flat),G)
+                  bound=F(20)*(tau*(M+1)+F(2,G));assert bound<1
+                  A=A[rev].copy();B=B[rev].copy()
+                  m=1
+                  while m<N:
+                      X=A.reshape(-1,2*m,A.shape[1]);Y=B.reshape(X.shape)
+                      ar=X[:,:m,:].copy();ai=Y[:,:m,:].copy()
+                      br=X[:,m:,:].copy();bi=Y[:,m:,:].copy()
+                      ix=np.arange(m)*(N//m)
+                      # Root table stores exp(i*pi*k/N), so exp(2*pi*i*j/(2*m))
+                      # uses k=j*N/m, not twice that index.
+                      assert int(ix[-1])<N
+                      wr=zr[ix][None,:,None];wi=zi[ix][None,:,None]
+                      c=(br*wr-bi*wi)//G;d=(br*wi+bi*wr)//G
+                      X[:,:m,:]=ar+c;Y[:,:m,:]=ai+d
+                      X[:,m:,:]=ar-c;Y[:,m:,:]=ai-d;m*=2
+                  return A,B,N*bound
+              # Independent analytic control: DFT of a unit impulse at cell 1
+              # has phase exp(2*pi*i*j/N). Test quadrants and nontrivial bins.
+              ca=np.zeros((N,1),object);cb=ca.copy();ca[1,0]=G
+              fa,fb,fe=fft(ca,cb)
+              for j in (0,1,3,N//4,N//2,3*N//4,N-1):
+                  c=trig(F(2*j,N)*pi,0);d=trig(F(2*j,N)*pi,1)
+                  # Independent directed analytic reference, not the root table.
+                  for value,z in ((int(fa[j,0]),c),(int(fb[j,0]),d)):
+                      assert F(value,G)-fe<=F(z.h,D) and F(value,G)+fe>=F(z.l,D),(j,value)
+              del ca,cb,fa,fb
+              receipt['fft_impulse_control']='PASS';save()
+              jv=np.r_[2*v['ms'],v['trig_indices']].astype(np.int64);rj=v['surplus_indices'].astype(np.int64)
+              assert len(set(jv))==len(jv) and len(set(rj))==len(rj) and not np.intersect1d(jv,rj).size
+              assert np.all(jv>0) and np.all(rj>0) and np.all(rj%2==1)
+              # Cell averages admit exact aliasing of arbitrary positive labels.
+              # Retain the original label in sinc and the derivative Gram;
+              # only the DFT bin is reduced modulo N.
+              receipt['frequency_support']={'receiver_max':int(max(jv)),'surplus_max':int(max(rj)),'receiver_above_nyquist':int(sum(jv>=N//2)),'surplus_above_nyquist':int(sum(rj>=N//2)),'receiver_alias_collisions':len(jv)-len(set(jv%N)),'surplus_alias_collisions':len(rj)-len(set(rj%N))}
+              save()
+              aw=list(map(int,v['surplus_weights']));assert all(0<x<10**8 for x in aw)
+              pi0,pei=grid(pi);assert pei<=F(1,G)
+              jj=np.union1d(jv,rj)
+              # Midpoint phase exp(-ij*pi/2+ij*pi/N), and exact cell average
+              # sinc(j*pi/N). All j>0 and angle >=3/N.
+              phase={};sinc={}
+              def register_phase(j):
+                  j=int(j);q,k=divmod(j,N);sign=(-1)**(q%2)
+                  x,y=sign*zr[k],sign*zi[k]
+                  phase[j]=[(x,y),(y,-x),(-x,-y),(-y,x)][j%4]
+                  sinc[j]=y*N*G//(pi0*j)
+              for j in jj:register_phase(j)
+              se=(tau+F(2,G))*N/3+F(1,G)
+              assert se< F(1,10**30)
+              def phase_arrays(j):
+                  z=[phase[int(i)] for i in j]
+                  return np.array([x for x,y in z],object)[:,None],np.array([y for x,y in z],object)[:,None],np.array([sinc[int(i)] for i in j],object)[:,None]
+              def phase_error(M):return M*(tau+se+tau*se)+F(4,G)
+              # Pole cell averages from exact interval exp recurrence.
+              def exp_pos(x):
+                  e=sum((x**k/F(factorial(k)) for k in range(100)),F(0))
+                  return I(e,e+2*x**100/F(factorial(100)))
+              assert 0<h/2<1
+              ee=1/exp_pos(F(1));step=exp_pos(h/2);gavg=[];ge=F(0)
+              for i in range(nc):
+                  ee2=ee*step;c0=(ee+1/ee)/2;c1=(ee2+1/ee2)/2
+                  x,er=grid(2*(c1-c0)/h);gavg.append(x);ge=max(ge,er);ee=ee2
+              gavg=np.array(gavg,object)[:,None];assert ge<F(1,10**30)
+              ny=obj(v['neumann']);ns=int(v['neumann_scale']);tr=obj(v['trig_center']);ts=int(v['trig_scale']);pc=obj(v['pole_coeff']);ps=int(v['pole_scale'])
+              rt,re=grid(sqrtint(2));sg=np.where(((v['ms']+1)//2)%2,-1,1).astype(object)[:,None]
+              C=np.vstack([ny*sg*rt//ns,tr*G//ts])
+              cerror=F(max(abs(int(x)) for x in ny.flat),ns)*re+F(1,G)
+              cerror=max(cerror,F(1,G))
+              Pv=[];Psur=[];Sc=[];pv_point=F(0);sur_point=F(0);coeferr=F(0)
+              def synth(j,c,err):
+                  wr,wi,sc=phase_arrays(j);A=np.zeros((N,c.shape[1]),object);B=A.copy()
+                  assert len(j)<=N
+                  np.add.at(A,j%N,c*wr*sc//(G*G));np.add.at(B,j%N,c*wi*sc//(G*G))
+                  M=F(max(abs(int(x)) for x in c.flat),G)
+                  es=phase_error(M)+err*(1+tau)*(1+se)
+                  _,b,ef=fft(A,B)
+                  z=i64(b[offset:offset+nc]*R//(2*G))
+                  return z,(ef+N*es)/2+F(1,R)
+              # Exact analytic cell-average control at production N, including
+              # positive labels above N and 2N, collisions and quadrants.
+              cj=np.array([1,N+1,2*N+1,N//2+3,3*N+5],np.int64)
+              cc=[2,-3,4,5,-2]
+              for j in cj:register_phase(j)
+              cv,ce=synth(cj,np.array(cc,object)[:,None]*G,F(0))
+              for i in (0,1,17,nc//4,nc//2,nc-2,nc-1):
+                  x0=-2+i*h;x1=x0+h;exact=I(0)
+                  for j,c in zip(cj,cc):
+                      w=int(j)*pi/8
+                      exact+=c*(trig(w*x0,0)-trig(w*x1,0))/(2*w*h)
+                  v0=F(int(cv[i,0]),R)
+                  assert v0-ce<=F(exact.h,D) and v0+ce>=F(exact.l,D),(i,str(v0),str(ce),repr(exact))
+              del cv
+              receipt['aliased_cell_integral_control']='PASS';save()
+              for start in range(0,32,4):
+                  sl=slice(start,start+4);A=np.zeros((N,4),object);B=A.copy()
+                  A[offset:offset+nc]=obj(U[:,sl])*(G//R)
+                  ar,ai,ef=fft(A,B)
+                  wr,wi,sc=phase_arrays(rj)
+                  # Exact <sin(j*pi*x/8)/2,u> cell integral.
+                  x=(ar[rj%N]*wi+ai[rj%N]*wr)*sc//(G*G)
+                  M=F(N*max(abs(int(t)) for t in U[:,sl].flat),R)
+                  eg=h/2*(ef*(1+tau)*(1+se)+phase_error(M))+F(1,G)
+                  y=x*h.numerator//(2*h.denominator)
+                  ww=np.array(aw,object)[:,None];cs=y*ww//(10**8-ww)
+                  ec=eg*max(F(w,10**8-w) for w in aw)+F(1,G)
+                  coeferr=max(coeferr,ec)
+                  pv,ep=synth(jv,C[:,sl],cerror)
+                  pole=i64(gavg*pc[:,sl]*R//(G*ps))
+                  ep+=ge*F(max(abs(int(t)) for t in pc[:,sl].flat),ps)+F(1,R)
+                  pv=i64(obj(pv)+obj(pole))
+                  su,es=synth(rj,cs,ec)
+                  Pv.append(pv);Psur.append(su);Sc.append(cs);pv_point=max(pv_point,ep);sur_point=max(sur_point,es)
+                  print('directed Fourier averages columns',start+4,flush=True)
+              PV=np.column_stack(Pv);PS=np.column_stack(Psur);SC=np.column_stack(Sc)
+              ePV=sqrtup(F(128))*pv_point;ePS=sqrtup(F(128))*sur_point
+              Gu=h*rat(gram(U),R*R);nu=sqrtup(rows(Gu))
+              # Exact shifted step operator on the physical interval:
+              # (1+6/5*399/50)u - 6/5 sum kappa (u(x-a)+u(x+a)).
+              # Shift breakpoints are rationally enclosed; no midpoint
+              # treatment of discontinuities or periodic wrap.
+              JUMP=np.vstack([U[:1],U[1:]-U[:-1],-U[-1:]])
+              jump=sqrtup(rows(rat(gram(JUMP),R*R)))
+              W=10**20
+              def shift(k):
+                  # Values u[i-k] with zero extension.
+                  a=np.zeros_like(U)
+                  if 0<=k<nc:a[k:]=U[:nc-k]
+                  if -nc<k<0:a[:nc+k]=U[-k:]
+                  return a
+              z0=i64(obj(U)*(1+F(6,5)*F(399,50)).numerator//(1+F(6,5)*F(399,50)).denominator)
+              # One output-grid floor in each term, L2 Frobenius bound.
+              ez=sqrtup(F(128))/R
+              shifts=[]
+              pp={}
+              for p in range(2,55):
+                  if all(p%q for q in range(2,isqrt(p)+1)):
+                      k=p
+                      while k<=54:pp[k]=p;k*=p
+              assert len(pp)==24
+              for a,p in pp.items():
+                  weight=-F(6,5)*logi(I(p))/sqrtint(a)
+                  w,ew=grid(weight,W)
+                  for s in (-1,1):
+                      v0=s*logi(I(a))/h
+                      k=v0.l//D;assert v0.h//D==k
+                      th,eth=grid(v0-k,W);assert 0<=th<=W
+                      left=i64(obj(shift(k+1))*w//W)
+                      z0=i64(obj(z0)+obj(left))
+                      shifts.append((th,k,w))
+                      ez+=ew*nu+(abs(F(w,W))+ew)*sqrtup(h*eth)*jump+sqrtup(F(128))/R
+              shifts.sort()
+              def advance(z,k,w):
+                  l=i64(obj(shift(k+1))*w//W);r=i64(obj(shift(k))*w//W)
+                  return i64(obj(z)+obj(r)-obj(l))
+              z=z0.copy();last=0;acc=np.zeros(U.shape,object)
+              for th,k,w in shifts:
+                  acc+=obj(z)*(th-last);z=advance(z,k,w);last=th
+              acc+=obj(z)*(W-last)
+              Zbar=i64(acc//W);del acc
+              eZbar=ez+sqrtup(F(128))/R
+              # Integrate all 49 constant subcell pieces exactly, using
+              # the rounded mean only as an arbitrary constant comparison.
+              z=z0.copy();last=0;gz=np.zeros((32,32),object)
+              for th,k,w in shifts+[(W,0,0)]:
+                  if th>last:
+                      zz=i64(obj(z)-obj(Zbar));gz+=gram(zz)*(th-last)
+                  if w:z=advance(z,k,w)
+                  last=th
+              Gz=h*rat(gz,W*R*R);Gz=inflate(Gz,ez)
+              print('exact shift overlay complete',float(rows(Gz)),flush=True)
+              # Smooth part s=v-surplus. Bound its within-cell deviation
+              # by cell Poincare, h/pi < h/3, and the derivative Gram on
+              # the full 16-period circle. Include exact pole derivative.
+              Cfull=np.vstack([C,-SC]);jfull=np.r_[jv,rj]
+              deriv=i64(Cfull*jfull[:,None]*R//G)
+              Gd=2*F(22,56)**2*rat(gram(deriv),R*R)
+              # Conversion and original coefficient enclosure: full double
+              # circle sine/cosine norm sqrt(2), max frequency j*pi/8.
+              ed=sqrtup(F(2*deriv.size))*F(22,56)*(F(1,R)+int(max(jfull))*max(cerror,coeferr))
+              Gd=inflate(Gd,ed)
+              # ||(sinh(x/2))'||_L2(I) < 2.
+              Gp=4*rat(pc.T@pc,ps*ps)
+              Gs=(h/3)**2*young(Gd,Gp)
+              # Orthogonal cell means and within-cell error. No assumption
+              # that the sampled FFT residual bounds the continuous residual.
+              PR=i64(obj(PV)-obj(PS)-obj(Zbar));ePR=ePV+ePS+eZbar
+              Gr=inflate(h*rat(gram(PR),R*R),ePR)+young(Gz,Gs)
+              assert np.array_equal(Gr,Gr.T)
+              receipt['continuous']={'cell_count':nc,'cell_width':str(h),'fourier_size':N,'shift_breakpoints':len(shifts),'mean_residual_norm_upper':float(sqrtup(rows(inflate(h*rat(gram(PR),R*R),ePR)))),'shift_variance_norm_squared_upper':float(rows(Gz)),'smooth_variance_norm_squared_upper':float(rows(Gs)),'continuous_residual_gram_norm_upper':float(rows(Gr)),'projection_errors':{'v':str(ePV),'surplus':str(ePS),'shift':str(eZbar)},'exact_shift_overlay':'PASS','integer_fft':'PASS','alias_handling':'exact original frequency phase and sinc; modulo N DFT bins; additive collisions'}
+              save()
+              # M>=I inherited; for r=v-Mu,
+              # v*M^-1 v <= 2 sym(v*u)-u*Mu+r*r,
+              # ||M^-1v||^2 <= (1+t)u*u+(1+1/t)r*r.
+              # Representation transport uses the existing weighted D.
+              cross=h*rat(gram(U,PV),R*R);mc=h*rat(gram(U,i64(obj(PS)+obj(Zbar))),R*R)
+              Fup=2*sym(cross)-sym(mc)+nu*(2*ePV+ePS+eZbar)*np.eye(32,dtype=object)
+              delta=F(str(v['delta']));t=F(str(v['t']));mu=F(str(v['mu']));assert delta>0 and t>0 and mu==F(53,10000)
+              H=Fup+(1+delta*(1+1/t))*Gr+delta*(1+t)*Gu
+              E=fr(v['E']);pen=fr(v['penalty']);er=F(str(v['energy_error']))
+              L=E-pen-H/mu-er*np.eye(32,dtype=object);assert np.array_equal(L,L.T)
+              eig=np.linalg.eigvalsh(np.array(L,float))
+              # Exact lower comparison via symmetric integer flooring and
+              # diagonal subtraction, followed by exact rational LDL.
+              S=10**14
+              A=np.vectorize(lambda x:int(x*S//1),otypes=[object])(L)-32*np.eye(32,dtype=object)
+              def ldl(k):
+                  B=rat(A-k*np.eye(32,dtype=object),S)
+                  for i in range(32):
+                      a=B[i,i]
+                      if a<=0:return False
+                      for j in range(i+1,32):
+                          for l in range(j,32):B[l,j]=B[j,l]=B[l,j]-B[l,i]*B[j,i]/a
+                  return True
+              positive=ldl(0);lower=F(0)
+              if positive:
+                  k=max(0,int(eig[0]*S/2));assert ldl(k);lower=F(k,S)
+              # Verify rank of the actual frozen head coordinates.
+              eo=npz(read(P('custody/eo/generated/candidate32_positive_t.npz'),'1bfc186ced7ba583c8654481d46084d2daa1dd9685be5280d098a2aed20e436e'))
+              qs=[float(x).as_integer_ratio() for x in eo['Q'].flat];den=max(b for a,b in qs)
+              q=np.array([a*(den//b) for a,b in qs],object).reshape(119,32)
+              qdef=rows(rat(q.T@q,den*den)-np.eye(32,dtype=object));assert qdef<1
+              dest=out/'comparison.npz'
+              np.savez_compressed(dest,Gu=np.array(Gu,str),Gz=np.array(Gz,str),Gs=np.array(Gs,str),Gr=np.array(Gr,str),Fup=np.array(Fup,str),H=np.array(H,str),L=np.array(L,str),integer_comparison=np.array(A,str),scale=str(S),Q_gram_defect=str(qdef),lower=str(lower))
+              receipt['comparison']={'minimum_eigenvalue_diagnostic':float(eig[0]),'positive_count_diagnostic':int(sum(eig>0)),'exact_ldl_positive':positive,'lower':str(lower),'Q_gram_defect':str(qdef),'output_sha256':sha(dest.read_bytes()),'acceptance':'candidate only pending independent physical audit' if positive else 'insufficient upper bound; no negativity inference'}
+              receipt['status']='PASS';save()
+          except Exception as e:
+              receipt['error']=repr(e);receipt['traceback']=traceback.format_exc();save();raise
+          PY
+      - name: Independent exact terminal replay
+        run: |
+          set -o pipefail
+          python custody/w02-int/audits/continuous_inverse_acceptance.py receiver-evidence/custody/w02-int/frozen-receiver/500/receiver.npz custody/w02-int/finer-inverse/comparison.npz custody/w02-int/finer-inverse/result.json | tee custody/w02-int/finer-inverse/replay.log
+      - name: Persist continuous comparison
+        if: always()
+        run: |
+          mkdir -p custody/w02-int/finer-inverse
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          branch="research/cr-int-w02-finer-inverse-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git switch -c "$branch"
+          git add --sparse -f custody/w02-int/finer-inverse/
+          git commit -m "W02 INT continuous inverse evidence ${GITHUB_RUN_ID}"
+          git push origin "HEAD:refs/heads/$branch"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: w02-int-finer-inverse
+          path: custody/w02-int/finer-inverse/
