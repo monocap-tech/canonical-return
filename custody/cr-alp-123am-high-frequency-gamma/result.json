@@ -1,0 +1,54 @@
+{
+  "status": "CONDITIONAL_HIGH_FREQUENCY_GAMMA_TIGHTENING",
+  "source_ac_sha256": "a7a334e6eca63543d7f322aef124c4491c986ba878bd1434f484e86743856473",
+  "source_al_sha256": "b3d984dd48dcae906a8582afbffc03b047d48275c780534086cbd2d671a87e2e",
+  "gamma_coefficient_upper": "29432293/37435230",
+  "used_gamma_coefficient_upper": "4/5",
+  "gamma_exp_sum_upper": "250/609",
+  "explicit_gamma_moment_rescale": "1/5",
+  "sectors": {
+    "1": {
+      "dimension": 43,
+      "old_loss_over_E_upper": "1660543161/500000000",
+      "old_moment_sum_uppers": {
+        "centered_combined": "251961/7812500",
+        "gamma_sine": "86681271/200000000",
+        "prime_sine": "257946833/1000000000"
+      },
+      "gamma_sine_rescaled_norm_upper": "86681271/1000000000",
+      "series_norm_upper": "47109889/125000000",
+      "leading_tail_trace_upper": "34094871/200000000",
+      "remainder_norm_upper": "813293/125000000",
+      "prefix_relative_upper": "155069/1000000",
+      "tail_relative_upper": "69563213/200000000",
+      "total_relative_upper": "251443/500000",
+      "schur_fraction_lower": "248557/500000",
+      "eta_upper": "251443/248557",
+      "loss_over_E_upper": "428448823/500000000",
+      "pole_schur_over_E_lower": "71551177/500000000",
+      "classification": "PASS_COMPLETE_POLE_SECTOR_CONDITIONAL"
+    },
+    "2": {
+      "dimension": 42,
+      "old_loss_over_E_upper": "734747209/500000000",
+      "old_moment_sum_uppers": {
+        "centered_combined": "13233083/500000000",
+        "gamma_sine": "39149803/100000000",
+        "prime_sine": "236987367/1000000000"
+      },
+      "gamma_sine_rescaled_norm_upper": "39149803/500000000",
+      "series_norm_upper": "341753139/1000000000",
+      "leading_tail_trace_upper": "37949589/250000000",
+      "remainder_norm_upper": "5941861/500000000",
+      "prefix_relative_upper": "26137/200000",
+      "tail_relative_upper": "303038471/1000000000",
+      "total_relative_upper": "108431/250000",
+      "schur_fraction_lower": "141569/250000",
+      "eta_upper": "108431/141569",
+      "loss_over_E_upper": "667102967/1000000000",
+      "pole_schur_over_E_lower": "332897033/1000000000",
+      "classification": "PASS_COMPLETE_POLE_SECTOR_CONDITIONAL"
+    }
+  },
+  "scope": "Inherited 122R/123AC/123AK/123AL physical and interval contracts; fixed collar only. Entire old unknown remainder retained; no new solves."
+}
