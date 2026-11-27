@@ -1,0 +1,8 @@
+digamma complete 20
+digamma complete 40
+digamma complete 60
+digamma complete 80
+digamma complete 100
+digamma complete 120
+parity 1 expanded dimension 63 Schur 3.3851860358512367e-38 3.3851860358512367e-38 E85 trial energy 4.1968158196996916e-38 high residual squared lower 2.1826710091117563e-38 global threshold 4.196815819699692e-76 simple norm test insufficient True
+parity 2 expanded dimension 62 Schur 5.884837545980452e-33 5.884837545980452e-33 E85 trial energy 7.798318389183843e-33 high residual squared lower 4.308367530135329e-33 global threshold 7.798318389183843e-67 simple norm test insufficient True
