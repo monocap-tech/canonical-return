@@ -1,0 +1,43 @@
+name: CR-ALP-123E complete bridge comparator
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-123e-complete-bridge.yml']
+permissions:
+  contents: write
+jobs:
+  census:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reconstruct complete pole bridge and capped comparator
+        run: |
+          set -euo pipefail
+          P=/tmp/alp123e
+          E=/tmp/alp123e-evidence
+          mkdir -p "$P" "$E"
+          python3 src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+          python3 -m zipfile -e "$P/package.zip" "$P"
+          (cd custody/cr-alp-123b-pole-residual; sha256sum -c SHA256SUMS)
+          python3 src/audits/cr_alp_123e_complete_bridge.py "$P" custody/cr-alp-123b-pole-residual/result.json "$E/result.json" | tee "$E/census.log"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-123E-complete-bridge
+          path: /tmp/alp123e-evidence/
+          if-no-files-found: error
+      - name: Preserve complete bridge comparator census
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-123e-complete-bridge
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          git checkout --detach FETCH_HEAD
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp123e-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum *.log *.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+          git add "$ROOT"
+          git commit -m 'CR-ALP-123E: preserve complete bridge comparator census [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
