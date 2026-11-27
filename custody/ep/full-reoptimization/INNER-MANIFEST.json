@@ -1,0 +1,51 @@
+{
+  "base_host_commit": "ffacfbe4aff437551746ab1b21532daf127cb523",
+  "status": "provisional local numerical comparison; not repository custody or exact positivity",
+  "files": [
+    {
+      "name": "ep_kernel_full_reopt.py",
+      "sha256": "be6d0583e6726d68d7c972f0440726106fc96bda5c6ff3491a963341e58f13cf",
+      "size": 4166
+    },
+    {
+      "name": "ep_kernel_full_reopt.log",
+      "sha256": "78e77746fdc9e92cd8d163af51216a1402c93a71b0fa8e5441c6e963b10f54a8",
+      "size": 1467
+    },
+    {
+      "name": "ep_kernel_full_reopt-retry.log",
+      "sha256": "9573cf07b091be244a81fa6c63b10eb7eb48de8ae9ca111e7467b995171cdc3b",
+      "size": 13223
+    },
+    {
+      "name": "EP-kernel-full-reopt.json",
+      "sha256": "f0a338ba067e27a43c182ce8773a36c05c159b036fafb20d2a6d5ac6c57e4bfe",
+      "size": 7420
+    },
+    {
+      "name": "EP-kernel-full-reopt-block-0-384.npz",
+      "sha256": "fe39fb78921c6b156e7c57234f9c22a887f5e22d8728e782a9ec3e7a4011d6c4",
+      "size": 1330371
+    },
+    {
+      "name": "EP-kernel-full-reopt-block-0-500.npz",
+      "sha256": "63274021fce61004d3bbb239a1adfdc9b59f12dbfbef49300c5d9d49ee5b586f",
+      "size": 2191210
+    },
+    {
+      "name": "EP-kernel-full-reopt-block-1-384.npz",
+      "sha256": "050574bfa759ed820fc97238fd0993f050fabb386128a3707428ed2a83498c81",
+      "size": 1330337
+    },
+    {
+      "name": "EP-kernel-full-reopt-block-1-500.npz",
+      "sha256": "0e87d069459e369ad83c403253e50c4fc30098611506877165652249b09bd6e7",
+      "size": 2191176
+    },
+    {
+      "name": "EP-kernel-full-reopt-gram.npz",
+      "sha256": "85cda182a83f00553dd4b1432115ef7a6ab9336f650e7d7aadac3f6795f214e9",
+      "size": 4866304
+    }
+  ]
+}
