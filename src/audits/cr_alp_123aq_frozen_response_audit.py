@@ -11,7 +11,7 @@ import numpy as np
 from cr_alp_123ap3_high_precision_replay import namespace,blob,read
 from cr_alp_123y_signed_pole_tail import leading
 from cr_alp_123ak_actual_schur_metric import box,mat,tr,mul,add,sym_bounds,T as MG
-from cr_alp_123an_independent_receiver_audit import pd,kernel,trans,ab,box as endpoint_box,mul as ivmul,up,rt
+from cr_alp_123an_independent_receiver_audit import pd,kernel,trans,ab,box as endpoint_box,mul as ivmul,up,rt as metric_root
 sys.set_int_max_str_digits(0)
 SRC=Path(__file__).with_name('cr_alp_046_full_finite.py')
 J=2048
@@ -204,14 +204,14 @@ def main(root,acpath,akpath,alpath,apath,out):
         for label,mult,shift in [('centered_combined',F(20,11),-1),('gamma_sine',F(80,11),0),('prime_sine',F(80,11),0)]:
             for l in range(32):
                 power=2*l+2-shift
-                fac=mult*rt(F(J0,2*(2*power-1)))/F(15*J0,11)**power
+                fac=mult*metric_root(F(J0,2*(2*power-1)))/F(15*J0,11)**power
                 if label=='gamma_sine':fac/=5
                 rows=[endpoint_box(F(t['moments'][label][l][0])*wi*fac,F(t['moments'][label][l][1])*wi*fac) for wi,t in zip(w,receipts)]
-                v=trans(rows,BW,BG);bound=rt(sum(ab(x)**2 for x in v))
+                v=trans(rows,BW,BG);bound=metric_root(sum(ab(x)**2 for x in v))
                 series+=bound;momentbounds.append([label,l,str(up(bound))])
         # Bound unknown vector remainder using absolute whitening weights.
         rem0=[w[i]*(remcharges[i]+F(t['pole']['pole_remainder_norm_upper'])) for i,t in enumerate(receipts)]
-        rem=rt(sum(sum(abs(int(BW[i,j]))*rem0[j]/BG for j in range(n))**2 for i in range(n)))
+        rem=metric_root(sum(sum(abs(int(BW[i,j]))*rem0[j]/BG for j in range(n))**2 for i in range(n)))
         coeff=[]
         for i in range(9):
             rows=[]
@@ -225,7 +225,7 @@ def main(root,acpath,akpath,alpath,apath,out):
                 for h in range(9):lead+=ivmul(ivmul(coeff[i][j],KG[i][h]),coeff[h][j])[1]
         lead=up(lead);assert lead>=0
         dc=cap-F(21,8)
-        rho=up(p+(rt(lead)+series+rem)**2/dc,10**6);assert rho<1
+        rho=up(p+(metric_root(lead)+series+rem)**2/dc,10**6);assert rho<1
         # Reuse independently reconstructed AP3 trial, not historical b2.
         E,U=map(F,(ap['E'],ap['U']));assert E>U>0
         s0=[iv(v) for v in ap['conditioned_residual_intervals']];eb=F(ap['bank_defect_norm2_upper'])
@@ -233,10 +233,10 @@ def main(root,acpath,akpath,alpath,apath,out):
         for j in range(n):
             v=sum((s0[perm[i]]*LT[i][j] for i in range(n)),ZERO)
             norm2=F(sum(int(row[j])**2 for row in Q),QG*QG)
-            bf+=(w[j]*(v.up()+rt(eb*norm2)))**2
+            bf+=(w[j]*(v.up()+metric_root(eb*norm2)))**2
         frob2=F(sum(int(v)**2 for row in BW for v in row),BG*BG)
         bnew=frob2*bf/(1-rho);eta=rho/(1-rho)
-        loss=up((U+(rt(bnew)+rt(eta*U))**2)/E)
+        loss=up((U+(metric_root(bnew)+metric_root(eta*U))**2)/E)
         assert overlaps==len(high)*n and momentchecks==96*n
         ans[ks]={'dimension':n,'prefix_overlap_checks':overlaps,'moment_overlap_checks':momentchecks,'matrix_grid':str(MG),
             'corrected_energy_lower':[[str(int(v)) for v in row] for row in Hlo],
