@@ -1,0 +1,88 @@
+name: CR-ALP-123AL metric-first signed moment replay
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-123al-metric-first.yml']
+permissions:
+  contents: write
+concurrency:
+  group: cr-alp-123al-metric-first
+  cancel-in-progress: false
+jobs:
+  receiver:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Authenticate durable inputs and replay exact metric receiver
+        env:
+          OPENBLAS_NUM_THREADS: '2'
+        run: |
+          set -euo pipefail
+          E=/tmp/alp123al-evidence
+          mkdir -p "$E"
+          {
+            python --version
+            python -m pip install --only-binary=:all: numpy==2.2.6
+            python -c 'import numpy; print(numpy.__version__); numpy.show_config()'
+            git rev-parse HEAD
+            test "$(git hash-object src/audits/cr_alp_123al_metric_first_signed_moments.py)" = 5c31296ffcfb563b8087050847129ff055727234
+            test "$(git hash-object research/CR-ALP-123AL_METRIC_FIRST_SIGNED_MOMENT_RECEIVER.md)" = c931ffae41adc0d59c497978fea1df06274f5462
+            echo 'a7a334e6eca63543d7f322aef124c4491c986ba878bd1434f484e86743856473  custody/cr-alp-123ac-response-defect/result.json' | sha256sum -c -
+            echo 'a2c465dd692b0afbc0cd1a15b9f3599864085101bb8f52f7d225c1125adf453c  custody/cr-alp-123ak-actual-schur/result.json' | sha256sum -c -
+            python -m py_compile src/audits/cr_alp_123al_metric_first_signed_moments.py
+            python - <<'PY'
+          import zipfile
+          for label,src in [('AC','custody/cr-alp-123ac-response-defect/result.json'),('AK','custody/cr-alp-123ak-actual-schur/result.json')]:
+              with zipfile.ZipFile('/tmp/123AL-'+label+'.zip','w',compression=zipfile.ZIP_DEFLATED) as z:
+                  z.write(src,'result.json')
+          print('Replay ZIP wrappers contain exact pinned member bytes, not original archive identities')
+          PY
+          } 2>&1 | tee "$E/preflight.log"
+          python -u src/audits/cr_alp_123al_metric_first_signed_moments.py /tmp/123AL-AC.zip /tmp/123AL-AK.zip "$E/result.json" 2>&1 | tee "$E/receiver.log"
+          python - "$E/result.json" <<'PY'
+          import json,sys
+          from fractions import Fraction as F
+          d=json.load(open(sys.argv[1]))
+          assert d['status']=='CONDITIONAL_METRIC_FIRST_SIGNED_MOMENT_RECEIVER' and set(d['sectors'])=={'1','2'}
+          for k,s in d['sectors'].items():
+              n=44-int(k); assert s['dimension']==n and int(s['whitening_grid'])==10**30
+              assert len(s['whitening_matrix'])==n and all(len(row)==n for row in s['whitening_matrix'])
+              assert len(s['moment_norm_uppers'])==96
+              rho=F(s['total_relative_upper'])
+              assert 0<rho<=F('0.872' if k=='1' else '0.743')<1
+              assert F(s['schur_fraction_lower'])==1-rho
+              assert F(s['eta_upper'])==rho/(1-rho)
+              assert F(s['loss_over_E_upper'])<F('3.33' if k=='1' else '1.47')
+              assert s['classification'] in ('PASS_COMPLETE_POLE_SECTOR_CONDITIONAL','IMPROVED_METRIC_SUFFICIENT_BOUND_INCONCLUSIVE')
+          print('Exact metric replay contract PASS; floating proposal variation allowed within strict rational ceilings')
+          PY
+          (cd "$E"; sha256sum preflight.log receiver.log result.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-123AL-metric-first
+          path: /tmp/alp123al-evidence/
+          if-no-files-found: warn
+      - name: Preserve complete witness and verify remote branch
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-123al-metric-first
+          test ! -e "$ROOT"
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp123al-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum -c SHA256SUMS)
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$ROOT"
+          git commit -m 'CR-ALP-123AL: preserve complete metric-first replay witness [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)"
+          REMOTE="$(mktemp -d)"
+          git archive FETCH_HEAD "$ROOT" | tar -x -C "$REMOTE"
+          (cd "$REMOTE/$ROOT"; sha256sum -c SHA256SUMS)
+          echo 'Remote output readback PASS'
