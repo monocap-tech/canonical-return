@@ -1,0 +1,3 @@
+CR-INT-T1D-AG-reproducibility.zip	canonical_return_t1d_af_neumann_ritz.py
+CR-INT-T1D-AH-reproducibility.zip	canonical_return_t1d_af_neumann_ritz.py
+CR-INT-T1D-BL-reproducibility.zip	cr_int_t1d_af/canonical_return_t1d_af_neumann_ritz.py

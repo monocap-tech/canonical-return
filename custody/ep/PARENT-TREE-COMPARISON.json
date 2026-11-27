@@ -1,0 +1,154 @@
+{
+  "baseline_commit": "600107472ade3316addb19eb2b7fd9d7bcc84799",
+  "baseline_tree": "2d78dbb5e0370fb00b5c4e900bbaa8c499a1f432",
+  "method": "For each member of 13 SHA256-verified and CRC-passing Actions ZIPs, computed Git blob SHA-1 from exact uncompressed bytes and matched against complete recursive baseline tree. Ten missing CE bytes added under custody/ep/parent-ce-recovered/.",
+  "total": 810,
+  "baseline_matched": 800,
+  "missing_at_baseline": [
+    {
+      "name": "af-locations.txt",
+      "sha": "07cb96d0f3ad30e8e54f4cdb1d2f244c021eaaba"
+    },
+    {
+      "name": "ca-even.log",
+      "sha": "b5bcf09758b01df3143840c1639d6f9b014504aa"
+    },
+    {
+      "name": "ca-odd.log",
+      "sha": "d5024decd8a00b805cf8d01e871d8cc6e2966910"
+    },
+    {
+      "name": "cb.log",
+      "sha": "f134011e0bc90e67c5ef38697983d1170f3fe754"
+    },
+    {
+      "name": "cd-even.log",
+      "sha": "ced0e3518aa470c3941c92351373fea088debe17"
+    },
+    {
+      "name": "cd-odd.log",
+      "sha": "332ddbd64380987c082aaef03b01f9dcf567336f"
+    },
+    {
+      "name": "four-circle-0.log",
+      "sha": "2249a7b122cb98c3acd704527194ef3fb7c606f0"
+    },
+    {
+      "name": "four-circle-1.log",
+      "sha": "a0e705c56cd89123789a25aefb853bde9a9f308c"
+    },
+    {
+      "name": "four-generated.sha256",
+      "sha": "f880cacebecc8145b91be2153203ece92ce8d966"
+    },
+    {
+      "name": "recovery-exit.txt",
+      "sha": "573541ac9702dd3969c9bc859d2b91ec1f7e6e56"
+    }
+  ],
+  "by_stage": [
+    {
+      "stage": "ce",
+      "total": 28,
+      "baseline_matched": 18,
+      "missing_at_baseline": [
+        "af-locations.txt",
+        "ca-even.log",
+        "ca-odd.log",
+        "cb.log",
+        "cd-even.log",
+        "cd-odd.log",
+        "four-circle-0.log",
+        "four-circle-1.log",
+        "four-generated.sha256",
+        "recovery-exit.txt"
+      ],
+      "matched_elsewhere": 17
+    },
+    {
+      "stage": "ck",
+      "total": 43,
+      "baseline_matched": 43,
+      "missing_at_baseline": [],
+      "matched_elsewhere": 0
+    },
+    {
+      "stage": "cq",
+      "total": 120,
+      "baseline_matched": 120,
+      "missing_at_baseline": [],
+      "matched_elsewhere": 0
+    },
+    {
+      "stage": "cr",
+      "total": 70,
+      "baseline_matched": 70,
+      "missing_at_baseline": [],
+      "matched_elsewhere": 0
+    },
+    {
+      "stage": "da",
+      "total": 70,
+      "baseline_matched": 70,
+      "missing_at_baseline": [],
+      "matched_elsewhere": 0
+    },
+    {
+      "stage": "dg",
+      "total": 120,
+      "baseline_matched": 120,
+      "missing_at_baseline": [],
+      "matched_elsewhere": 0
+    },
+    {
+      "stage": "dk",
+      "total": 120,
+      "baseline_matched": 120,
+      "missing_at_baseline": [],
+      "matched_elsewhere": 0
+    },
+    {
+      "stage": "dm",
+      "total": 17,
+      "baseline_matched": 17,
+      "missing_at_baseline": [],
+      "matched_elsewhere": 0
+    },
+    {
+      "stage": "dv",
+      "total": 95,
+      "baseline_matched": 95,
+      "missing_at_baseline": [],
+      "matched_elsewhere": 0
+    },
+    {
+      "stage": "dz",
+      "total": 46,
+      "baseline_matched": 46,
+      "missing_at_baseline": [],
+      "matched_elsewhere": 0
+    },
+    {
+      "stage": "eg",
+      "total": 29,
+      "baseline_matched": 29,
+      "missing_at_baseline": [],
+      "matched_elsewhere": 0
+    },
+    {
+      "stage": "en",
+      "total": 43,
+      "baseline_matched": 43,
+      "missing_at_baseline": [],
+      "matched_elsewhere": 0
+    },
+    {
+      "stage": "eo",
+      "total": 9,
+      "baseline_matched": 9,
+      "missing_at_baseline": [],
+      "matched_elsewhere": 0
+    }
+  ],
+  "limitation": "ZIP container bytes themselves are hosted Actions artifacts, not Git tree blobs; no independent mathematical replay or proof acceptance inferred."
+}
