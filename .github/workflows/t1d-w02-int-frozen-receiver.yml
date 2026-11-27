@@ -1,0 +1,238 @@
+name: W02 INT exact restricted receiver and inverse proposal
+on:
+  push:
+    branches: [research/cr-int-t1d-ep-targeted-corrector-staged]
+    paths: [.github/workflows/t1d-w02-int-frozen-receiver.yml]
+permissions:
+  contents: write
+jobs:
+  receiver:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 2
+      matrix:
+        coordinates: [384,500]
+    env:
+      OPENBLAS_NUM_THREADS: "2"
+      PYTHONUNBUFFERED: "1"
+      NC: ${{ matrix.coordinates }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            custody/eg/generated
+            custody/en/generated
+            custody/dz/generated/trial31/bs_trial.npz
+            custody/eo/generated/candidate32_positive_t.npz
+      - uses: actions/checkout@v4
+        with:
+          ref: 8170edbf61eb079a1602cc51dbb5b2ea1921d066
+          path: dictionary-evidence
+          sparse-checkout: |
+            custody/w02-int/exceptional-dictionary
+      - uses: actions/checkout@v4
+        with:
+          ref: 0fe64d7b30dcf369968c46a776c931127b6317f4
+          path: direct-evidence
+          sparse-checkout: |
+            custody/w02-int/direct-energy
+      - uses: actions/checkout@v4
+        with:
+          ref: 5e6879705b7fc0c380f2e9a9e1576ee5e05ca2d4
+          path: transport-evidence
+          sparse-checkout: |
+            custody/w02-int/energy-transport
+      - uses: actions/checkout@v4
+        with:
+          ref: bdeab62ca70948e9d53e16b3cca720241fa442e6
+          path: kernel-1
+          sparse-checkout: |
+            custody/w02-int/kernel-action/1
+      - uses: actions/checkout@v4
+        with:
+          ref: 503de659a7c1a55d9dd988006d8b93edbca41aec
+          path: kernel-16385
+          sparse-checkout: |
+            custody/w02-int/kernel-action/16385
+      - uses: actions/checkout@v4
+        with:
+          ref: 2fd0f354191214d9925057e6177caca4a144afa7
+          path: kernel-32769
+          sparse-checkout: |
+            custody/w02-int/kernel-action/32769
+      - uses: actions/checkout@v4
+        with:
+          ref: 94fa653323a6750135217f943dbccb33a2b4c02e
+          path: kernel-49153
+          sparse-checkout: |
+            custody/w02-int/kernel-action/49153
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Freeze exact receiver and complete error budget
+        run: |
+          python -m pip install numpy==2.3.5 scipy==1.16.3
+          mkdir -p custody/w02-int/frozen-receiver
+          python - <<'PY'
+          import hashlib,json,pathlib,io,os,traceback
+          from fractions import Fraction as F
+          from math import isqrt
+          import numpy as np
+          from scipy.sparse.linalg import LinearOperator,cg
+          P=pathlib.Path
+          n=int(os.environ['NC']);out=P('custody/w02-int/frozen-receiver')/str(n);out.mkdir()
+          de=P('dictionary-evidence/custody/w02-int/exceptional-dictionary')
+          en=P('direct-evidence/custody/w02-int/direct-energy')
+          te=P('transport-evidence/custody/w02-int/energy-transport')
+          def sha(b):return hashlib.sha256(b).hexdigest()
+          def gitsha(b):return hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+          def read(p,h,git=False):
+              b=p.read_bytes();assert (gitsha(b) if git else sha(b))==h,p;return b
+          def npz(b):
+              with np.load(io.BytesIO(b),allow_pickle=False) as z:return {k:z[k] for k in z.files}
+          def obj(a):return np.vectorize(int,otypes=[object])(a)
+          def rat(a,s):return np.vectorize(lambda x:F(int(x),s),otypes=[object])(a)
+          def sqrtup(x,g=10**40):
+              assert x>=0
+              q=isqrt(x.numerator*g*g//x.denominator)
+              return F(q+(F(q*q,g*g)<x),g)
+          def op(a,s):
+              G=a.T@a
+              return sqrtup(F(max(sum(abs(int(x)) for x in row) for row in G),s*s))
+          def rows(a):return max(sum(abs(x) for x in row) for row in a)
+          def ceil(x,g):return F(-((-x.numerator*g)//x.denominator),g)
+          def dyadic(a):
+              r=[float(v).as_integer_ratio() for v in a.flat];s=max(q for _,q in r)
+              return np.array([x*(s//q) for x,q in r],object).reshape(a.shape),s
+          receipt={'status':'INCOMPLETE','coordinates':n,'scope':'exact receiver synthesis and representation budget; sampled inverse proposal only, not directed inverse certification','source_commit':os.environ['GITHUB_SHA'],'dictionary_evidence':'8170edbf61eb079a1602cc51dbb5b2ea1921d066','energy_evidence':'0fe64d7b30dcf369968c46a776c931127b6317f4'}
+          def save():(out/'result.json').write_text(json.dumps(receipt,indent=2)+'\n')
+          try:
+              d=json.loads(read(de/'result.json','bf42a71bdd42de31b1185264837f4cd30e8ea6d7',True));assert d['status']=='PASS'
+              ee=json.loads(read(en/'result.json','a532b10186e270f9fab142bc2e83bdf704bd9971',True));assert ee['status']=='PASS'
+              a=npz(read(de/f'exceptional-trial-{n}.npz',next(x['sha256'] for x in d['records'] if x['coordinates']==n)))
+              e=npz(read(en/'direct-energy.npz',ee['output_sha256']))
+              f=npz((te/f'frozen-energy-{n}.npz').read_bytes())
+              Q,qs=obj(f['Q']),int(f['Qscale']);L,ls=obj(f['old_total']),int(f['old_total_scale']);U,us=obj(f['kernel']),int(f['kernel_scale'])
+              eo=npz(read(P('custody/eo/generated/candidate32_positive_t.npz'),'1bfc186ced7ba583c8654481d46084d2daa1dd9685be5280d098a2aed20e436e'))
+              q,ss=dyadic(a['Q']);assert np.array_equal(Q*ss,q*qs)
+              assert np.array_equal(a['Q'],eo['Q'])
+              X,xs=dyadic(eo['X']@eo['Q']);V,vs=dyadic(a['T'][16:384]);H,hs=dyadic(a['T'][:16])
+              assert np.array_equal(L*xs*vs,(X*vs+V*xs)*ls) and np.array_equal(U*hs,H*us)
+              delta=F(float(eo['delta']));t=F(float(eo['t']));assert delta>0 and t>0
+              b=npz(read(P('custody/dz/generated/trial31/bs_trial.npz'),'599dce394bb522bff9087190c48fa2ecf4eb50bf96be0709b515e64cc46066cf'))
+              mu=F(str(b['mu']));eps=F(str(b['eps']));assert mu==F(53,10000) and 0<=eps<1
+              def stage(s,pin):
+                  p=P('custody')/s/'generated';m=read(p/'sha256.txt',pin,True)
+                  h={n.removeprefix('./'):v for v,n in (l.split(maxsplit=1) for l in m.decode().splitlines())}
+                  return lambda n:read(p/n,h[n])
+              eg=stage('eg','06805c7f3bb20286f42ef00627937990cb9bf308')
+              eh=json.loads(eg('extension.json'))
+              enload=stage('en','d84732c72265bfa30f86463f8108c9e39f62880e')
+              ext=json.loads(enload('extension.json'));assert ext['cutoff']==65536
+              ids=np.arange(1,65536,2);head=npz(eg('odd_head_full.npz'))
+              p=npz(enload('merged/odd_combined_projection.npz'))
+              assert np.array_equal(head['indices'],ids) and np.array_equal(p['Y'][:,:119],head['Y'][:8192])
+              def chunks(load,entries,pre,width):
+                  arr=[];ii=[]
+                  for c in entries:
+                      lo,hi=c['lo'],c['hi'];a=npz(load(f'{pre}odd_U_{lo}_{hi}.npz'))
+                      j=np.arange(lo,hi+1,2);assert np.array_equal(a['indices'],j) and a['Y'].shape==(len(j),width) and int(a['scale'])==10**12
+                      arr.append(a['Y']);ii.extend(j.tolist())
+                  return np.vstack(arr),np.array(ii)
+              old,i=chunks(eg,eh['new_chunks'],'',352);assert np.array_equal(i,ids[8192:])
+              new,i=chunks(enload,ext['new_chunks'],'new/',16);assert np.array_equal(i,ids) and np.array_equal(new[:8192],p['Y'][:,471:])
+              Y=np.column_stack([head['Y'],np.vstack([p['Y'][:,119:471],old]),new]);del old,new
+              assert Y.shape==(32768,487) and np.array_equal(Y[:8192],p['Y'])
+              ys=int(head['scale']);assert ys==int(p['Yscale'])==10**12
+              kr=[];ke=F(0);tau=None
+              pins={1:'646bfecf2d57ec57ba4c5d8b668b0cd336ad7b59',16385:'7aaec2b7480f78c838b14bf66d32b1dcbcf19227',32769:'1d49d6bbab99eb47c02f07f14d6fcb4cb983ff16',49153:'d2f3bc09e8eff4ac152f5df50c65ec765e4246ab'}
+              for lo,pin in pins.items():
+                  p0=P(f'kernel-{lo}/custody/w02-int/kernel-action/{lo}')
+                  r=json.loads(read(p0/'result.json',pin,True));assert r['status']=='PASS'
+                  k=npz(read(p0/f"odd_U_{lo}_{r['hi']}.npz",r['action']['sha256']))
+                  assert np.array_equal(k['indices'],np.arange(lo,r['hi']+1,2)) and int(k['scale'])==ys
+                  kr.append(k['Y']);ke+=F(r['action']['finite_action_error'])
+                  if lo==1:tau=F(r['tail']['squared_upper'])
+              Yk=np.vstack(kr);assert Yk.shape==(32768,16) and tau is not None
+              # Exact restricted synthesis via common dyadic denominator and
+              # integer dot; round the resulting physical Neumann coefficients only.
+              G=10**18
+              den=qs*ls*us
+              coeff=np.vstack([Q*(den//qs),L*(den//ls),U*(den//us)])
+              Z=np.column_stack([Y,Yk]);del Y,Yk
+              blocks=[]
+              for start in range(0,len(ids),256):
+                  v=obj(Z[start:start+256])@coeff
+                  blocks.append(v*G//(den*ys))
+              yc=np.vstack(blocks);del Z,blocks
+              rounding=F(isqrt(yc.size)+1,G)
+              # Error of actual residual vs frozen center: each finite action
+              # radius plus infinite tail, followed by weighted Cauchy-Schwarz.
+              aq=F(ext['head_error'])+sqrtup(F(ext['head_tail']))
+              terms=[('head',aq,Q,qs)]
+              for c in ext['physical_blocks']:
+                  terms.append((c['stage'],F(c['allowance']),L[c['lo']:c['hi']],ls))
+              terms.append(('kernel',ke+sqrtup(tau),U,us))
+              rep=F(str(a['trig_error']))+rounding
+              terms.append(('representation',rep,np.eye(32,dtype=object),1))
+              # Rational weights chosen from operator bounds only, never zero.
+              vals=[max(F(1,10**30),ceil(v*op(A,s),10**30)) for _,v,A,s in terms]
+              total=sum(vals);weights=[v/total for v in vals];assert sum(weights)==1
+              D=np.zeros((32,32),object)
+              for (_,v,A,s),w in zip(terms,weights):D+=v*v/w*rat(A.T@A,s*s)
+              assert np.array_equal(D,D.T)
+              penalty=(1+1/delta)*D/mu
+              # Compute the actual directed signed energy from the exact frozen
+              # trial coordinates, not from the archived sampled block assembly.
+              E=(1-eps)*rat(Q.T@Q,qs*qs);er=F(0)
+              for name,A,ass,B,bss,mix in [('K',L,ls,Q,qs,True),('D',L,ls,L,ls,False),('kernel_K',U,us,Q,qs,True),('kernel_Dcross',U,us,L,ls,True),('kernel_Dnew',U,us,U,us,False)]:
+                  h=obj(e[name]);s=int(e[name+'_scale']);rad=F(str(e[name+'_error']))
+                  v=rat(A.T@h@B,ass*s*bss);E+=v+v.T if mix else (v+v.T)/2
+                  er+=(2 if mix else 1)*op(A,ass)*op(B,bss)*rad
+              assert np.array_equal(E,E.T)
+              dst=out/'receiver.npz'
+              np.savez_compressed(dst,ms=ids,neumann=np.array(yc,str),neumann_scale=str(G),trig_indices=a['indices'],trig_center=a['trig_center'],trig_scale=a['trig_scale'],pole_coeff=a['pole_coeff'],pole_scale=a['pole_scale'],E=np.array(E,str),energy_error=str(er),D=np.array(D,str),penalty=np.array(penalty,str),mu=str(mu),delta=str(delta),t=str(t),surplus_indices=b['js'][-len(b['a']):],surplus_weights=b['a'])
+              receipt['exact_receiver']={'sha256':sha(dst.read_bytes()),'rows':len(ids),'columns':32,'representation_rounding':str(rounding),'representation_total':str(rep),'energy_radius':str(er),'representation_penalty_upper':str(rows(penalty)),'representation_penalty_upper_decimal':float(rows(penalty)),'error_sum_upper':str(total),'weights':[{'block':name,'weight':str(w),'allowance':str(v)} for (name,v,_,_),w in zip(terms,weights)]}
+              save()
+              # Fresh sampled inverse proposal only. Exact receiver and exact
+              # error matrix above remain valid independently of this screen.
+              rj=b['js'][-len(b['a']):];alpha=b['a']/1e8
+              src=(te/'ep_expanded_exceptional_replay.py').read_text()
+              exec(compile(src[src.index('class Op:'):src.index('op=Op(32768)')],str(te/'ep_expanded_exceptional_replay.py'),'exec'),globals())
+              op0=Op(131072)
+              v=op0.neu(ids,yc.astype(float)/G)+op0.sin(a['indices'],a['trig_center'].astype(float)/float(a['trig_scale']))+np.sinh(op0.xx/2)[:,None]*(a['pole_coeff'].astype(float)/float(a['pole_scale']))
+              I=np.empty_like(v);res=[]
+              for i in range(32):
+                  I[:,i],r=op0.solve(v[:,i]);res.append(r)
+              gram=v.T@I*op0.dx;gram=(gram+gram.T)/2
+              gram2=I.T@I*op0.dx
+              M=np.array(E-penalty,float)-(gram+float(delta*(1+t))*gram2)/float(mu)-float(er)*np.eye(32)
+              eig=np.linalg.eigvalsh((M+M.T)/2)
+              # A piecewise constant inverse-response candidate; exact rational
+              # values on equal cells, not an assertion about continuous residual.
+              R=10**12
+              step=np.rint(I*R).astype(np.int64)
+              dest=out/'inverse-proposal.npz';np.savez_compressed(dest,step=step,step_scale=str(R),cells=len(op0.xx),G=gram,H2=gram2,comparison=M,eigenvalues=eig)
+              receipt['sampled']={'samples':op0.N,'max_relative_residual':max(res),'minimum_eigenvalue':float(eig[0]),'positive_count':int(sum(eig>0)),'response_sha256':sha(dest.read_bytes()),'scope':'sampled numerical inverse only; continuous residual and Gram not yet directed'}
+              receipt['status']='PASS';save()
+          except Exception as e:
+              receipt['error']=repr(e);receipt['traceback']=traceback.format_exc();save();raise
+          PY
+      - name: Persist receiver evidence
+        if: always()
+        run: |
+          mkdir -p custody/w02-int/frozen-receiver/"$NC"
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          branch="research/cr-int-w02-frozen-receiver-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}-${NC}"
+          git switch -c "$branch"
+          git add --sparse -f custody/w02-int/frozen-receiver/"$NC"
+          git commit -m "W02 INT frozen receiver $NC evidence ${GITHUB_RUN_ID}"
+          git push origin "HEAD:refs/heads/$branch"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: w02-int-frozen-receiver-${{ matrix.coordinates }}
+          path: custody/w02-int/frozen-receiver/${{ matrix.coordinates }}/
