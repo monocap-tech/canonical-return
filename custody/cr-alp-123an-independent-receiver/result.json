@@ -1,0 +1,30 @@
+{
+  "status": "CONDITIONAL_RECEIVER_AUDIT_PASS",
+  "sectors": {
+    "1": {
+      "dimension": 43,
+      "positive_matrix_tests": 3,
+      "moment_bounds_rechecked": 96,
+      "remainder_upper_rechecked": true,
+      "independent_leading_trace_upper": "34094871/200000000",
+      "independent_rho_upper": "251443/500000",
+      "independent_loss_over_E_upper": "428448823/500000000",
+      "independent_margin_lower": "71551177/500000000",
+      "committed_loss_over_E_upper": "428448823/500000000",
+      "classification": "CONDITIONAL_RECEIVER_AUDIT_PASS"
+    },
+    "2": {
+      "dimension": 42,
+      "positive_matrix_tests": 3,
+      "moment_bounds_rechecked": 96,
+      "remainder_upper_rechecked": true,
+      "independent_leading_trace_upper": "37949589/250000000",
+      "independent_rho_upper": "108431/250000",
+      "independent_loss_over_E_upper": "667102967/1000000000",
+      "independent_margin_lower": "332897033/1000000000",
+      "committed_loss_over_E_upper": "667102967/1000000000",
+      "classification": "CONDITIONAL_RECEIVER_AUDIT_PASS"
+    }
+  },
+  "scope": "AK matrix premises and original physical/interval enclosures inherited; no physical regeneration or native certification."
+}
