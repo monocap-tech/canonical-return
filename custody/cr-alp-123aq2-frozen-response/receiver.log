@@ -1,0 +1,233 @@
+digamma complete 20
+digamma complete 40
+digamma complete 60
+digamma complete 80
+digamma complete 100
+digamma complete 120
+digamma complete 140
+digamma complete 160
+digamma complete 180
+digamma complete 200
+digamma complete 220
+digamma complete 240
+digamma complete 260
+digamma complete 280
+digamma complete 300
+digamma complete 320
+digamma complete 340
+digamma complete 360
+digamma complete 380
+digamma complete 400
+digamma complete 420
+digamma complete 440
+digamma complete 460
+digamma complete 480
+digamma complete 500
+digamma complete 520
+digamma complete 540
+digamma complete 560
+digamma complete 580
+digamma complete 600
+digamma complete 620
+digamma complete 640
+digamma complete 660
+digamma complete 680
+digamma complete 700
+digamma complete 720
+digamma complete 740
+digamma complete 760
+digamma complete 780
+digamma complete 800
+digamma complete 820
+digamma complete 840
+digamma complete 860
+digamma complete 880
+digamma complete 900
+digamma complete 920
+digamma complete 940
+digamma complete 960
+digamma complete 980
+digamma complete 1000
+digamma complete 1020
+digamma complete 1040
+digamma complete 1060
+digamma complete 1080
+digamma complete 1100
+digamma complete 1120
+digamma complete 1140
+digamma complete 1160
+digamma complete 1180
+digamma complete 1200
+digamma complete 1220
+digamma complete 1240
+digamma complete 1260
+digamma complete 1280
+digamma complete 1300
+digamma complete 1320
+digamma complete 1340
+digamma complete 1360
+digamma complete 1380
+digamma complete 1400
+digamma complete 1420
+digamma complete 1440
+digamma complete 1460
+digamma complete 1480
+digamma complete 1500
+digamma complete 1520
+digamma complete 1540
+digamma complete 1560
+digamma complete 1580
+digamma complete 1600
+digamma complete 1620
+digamma complete 1640
+digamma complete 1660
+digamma complete 1680
+digamma complete 1700
+digamma complete 1720
+digamma complete 1740
+digamma complete 1760
+digamma complete 1780
+digamma complete 1800
+digamma complete 1820
+digamma complete 1840
+digamma complete 1860
+digamma complete 1880
+digamma complete 1900
+digamma complete 1920
+digamma complete 1940
+digamma complete 1960
+digamma complete 1980
+digamma complete 2000
+digamma complete 2020
+digamma complete 2040
+prefix 1 101
+prefix 1 201
+prefix 1 301
+prefix 1 401
+prefix 1 501
+prefix 1 601
+prefix 1 701
+prefix 1 801
+prefix 1 901
+prefix 1 1001
+prefix 1 1101
+prefix 1 1201
+prefix 1 1301
+prefix 1 1401
+prefix 1 1501
+prefix 1 1601
+prefix 1 1701
+prefix 1 1801
+prefix 1 1901
+prefix 1 2001
+response bank 1 max defect 1.4197694560375473e-14 weighted prefix trace 80.5890169016264
+column 1 0 tail 16.837727449518653 prefix 39.39928369380139
+column 1 1 tail 12.907829418648928 prefix 21.933034720143617
+column 1 2 tail 1.9177175584289046 prefix 0.5114483475167583
+column 1 3 tail 6.524597325405708 prefix 5.698767289468972
+column 1 4 tail 7.324521777148604 prefix 7.576288263984844
+column 1 5 tail 3.7901156111641705 prefix 1.9022933258778427
+column 1 6 tail 1.5086736890629264 prefix 0.2367013534808937
+column 1 7 tail 3.984053651036408 prefix 1.5916144378238453
+column 1 8 tail 1.494606960044774 prefix 0.3667381624350413
+column 1 9 tail 1.4362733722726204 prefix 0.12652990353311333
+column 1 10 tail 0.23284496697710608 prefix 0.00592355156304013
+column 1 11 tail 1.4365172748389765 prefix 0.3229784247966977
+column 1 12 tail 0.9799149414429092 prefix 0.12701579041848785
+column 1 13 tail 0.2430780329604364 prefix 0.003977254507149388
+column 1 14 tail 1.2243534665158489 prefix 0.2548120216043348
+column 1 15 tail 0.3099405622318269 prefix 0.023733408605291374
+column 1 16 tail 1.2124231597649577 prefix 0.16804160737833415
+column 1 17 tail 0.0651533145605549 prefix 0.0013040309533398219
+column 1 18 tail 0.6098341118142818 prefix 0.046205488070610715
+column 1 19 tail 0.28337517415488084 prefix 0.013161164652930957
+column 1 20 tail 0.6378779061438725 prefix 0.04297740736843159
+column 1 21 tail 0.23222315609273717 prefix 0.006980019593238979
+column 1 22 tail 0.5419453489821195 prefix 0.040903619229347536
+column 1 23 tail 0.2880012128031856 prefix 0.01151649145685048
+column 1 24 tail 0.6894162397331748 prefix 0.04805657048273993
+column 1 25 tail 0.20115892985829573 prefix 0.005198294911377365
+column 1 26 tail 0.20292370548652935 prefix 0.008242950992043944
+column 1 27 tail 0.2106898579467164 prefix 0.0038234250498371675
+column 1 28 tail 0.21493011259137554 prefix 0.0047948235262146475
+column 1 29 tail 0.21068318538592046 prefix 0.00932042698614958
+column 1 30 tail 0.3857207087453478 prefix 0.018852615897804292
+column 1 31 tail 0.35068940300672335 prefix 0.01644354359680431
+column 1 32 tail 0.06923381128174683 prefix 0.0014200221758967806
+column 1 33 tail 0.26340833277674536 prefix 0.007774890702223514
+column 1 34 tail 0.15424897211182603 prefix 0.005414425698174681
+column 1 35 tail 0.20363965294346045 prefix 0.012258365582425197
+column 1 36 tail 0.209885933218047 prefix 0.004815700712146425
+column 1 37 tail 0.1580470237227367 prefix 0.006956314770254028
+column 1 38 tail 0.2832901520407571 prefix 0.009509846014262757
+column 1 39 tail 0.14304325991696848 prefix 0.001771517626184685
+column 1 40 tail 0.22249943329253666 prefix 0.004776206238522403
+column 1 41 tail 0.16943997732843807 prefix 0.002019388101945511
+column 1 42 tail 0.1343811163586072 prefix 0.005337794296990371
+1 direct corrected-energy / prefix matrix tests PASS
+1 rho 0.502886 loss/E 0.856897646 DIRECT_RESPONSE_AUDIT_PASS
+prefix 2 100
+prefix 2 200
+prefix 2 300
+prefix 2 400
+prefix 2 500
+prefix 2 600
+prefix 2 700
+prefix 2 800
+prefix 2 900
+prefix 2 1000
+prefix 2 1100
+prefix 2 1200
+prefix 2 1300
+prefix 2 1400
+prefix 2 1500
+prefix 2 1600
+prefix 2 1700
+prefix 2 1800
+prefix 2 1900
+prefix 2 2000
+response bank 2 max defect 1.5409488370983454e-14 weighted prefix trace 32.5314546196274
+column 2 0 tail 1.4230911527153323 prefix 0.15480998003990876
+column 2 1 tail 3.9770515540925393 prefix 3.0205040131602487
+column 2 2 tail 8.81912509170089 prefix 7.974056358925393
+column 2 3 tail 5.648755818560598 prefix 5.454690391674326
+column 2 4 tail 3.354069884253332 prefix 1.5724131560218837
+column 2 5 tail 5.80250804380347 prefix 5.7255729602380985
+column 2 6 tail 4.046435920965647 prefix 1.7733523506354367
+column 2 7 tail 4.863868438685402 prefix 3.7561873279021527
+column 2 8 tail 2.009824804767528 prefix 0.5118707935085716
+column 2 9 tail 3.2594573987445283 prefix 1.6124852861658971
+column 2 10 tail 1.3001315734080339 prefix 0.25980747487382133
+column 2 11 tail 0.6289986898718377 prefix 0.08168775256011095
+column 2 12 tail 0.7907548429920931 prefix 0.15675911329064257
+column 2 13 tail 0.4055150490726821 prefix 0.04779630550365359
+column 2 14 tail 1.2269360600926618 prefix 0.08716186150108075
+column 2 15 tail 0.39140698602483803 prefix 0.02610537325525348
+column 2 16 tail 0.9288454344984782 prefix 0.11806988679674647
+column 2 17 tail 0.6724626268490906 prefix 0.05704156218978537
+column 2 18 tail 0.7278868508740303 prefix 0.029986523646828096
+column 2 19 tail 0.2886569805348893 prefix 0.013118511617696126
+column 2 20 tail 0.017464389043511448 prefix 8.691234059644076e-06
+column 2 21 tail 0.23692220145822887 prefix 0.009175546815077361
+column 2 22 tail 0.3041776135479339 prefix 0.004049754868579756
+column 2 23 tail 0.12561201784716985 prefix 0.001690664354931684
+column 2 24 tail 0.18184341649041996 prefix 0.006969893445711476
+column 2 25 tail 0.3510273382308999 prefix 0.026612932615304518
+column 2 26 tail 0.07716240716979357 prefix 0.0014161009232537968
+column 2 27 tail 0.22344190435708605 prefix 0.0019134276958957374
+column 2 28 tail 0.18059782572529062 prefix 0.0026738967054311747
+column 2 29 tail 0.1703218825044776 prefix 0.007048455592185992
+column 2 30 tail 0.10382207430256056 prefix 0.0023559877231494187
+column 2 31 tail 0.10303455066732096 prefix 0.002809982169702633
+column 2 32 tail 0.06991789704423924 prefix 0.0004290762261509321
+column 2 33 tail 0.15024202373995965 prefix 0.0008250557660616025
+column 2 34 tail 0.15735448274175184 prefix 0.005523441272061753
+column 2 35 tail 0.09180813388378785 prefix 0.001203354831178651
+column 2 36 tail 0.1841895096262898 prefix 0.0027809126331368433
+column 2 37 tail 0.09466904749037047 prefix 0.0028579921299939776
+column 2 38 tail 0.10267507931420689 prefix 0.001039518314745768
+column 2 39 tail 0.18408938339211212 prefix 0.006249479358913818
+column 2 40 tail 0.16096662474323079 prefix 0.0029187289712768664
+column 2 41 tail 0.1529750343751124 prefix 0.007424742473056648
+2 direct corrected-energy / prefix matrix tests PASS
+2 rho 0.433724 loss/E 0.667102967 DIRECT_RESPONSE_AUDIT_PASS
