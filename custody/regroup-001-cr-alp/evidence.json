@@ -1,0 +1,2606 @@
+{
+  "type": "REGROUP-001 custody census, read-only inspection, not mathematical replay",
+  "repo": "monocap-tech/canonical-return",
+  "branch": "research/cr-alp-122-fixed-collar-transfer-staged",
+  "pre_report_head": "185bc2a86ac577df7afd0d32dd6a89a97125e223",
+  "tree": "c8d7f7d7eb96bd935dff597868997e673f514508",
+  "tree_truncated": false,
+  "tree_total_entries": 2242,
+  "selected_blob_inventory": [
+    {
+      "path": ".github/workflows/cr-alp-122b-source-custody.yml",
+      "sha": "32a6f75ee751f0236279a4dd8c965b4ba9a5df97",
+      "size": 3408
+    },
+    {
+      "path": ".github/workflows/cr-alp-122c-source-replay.yml",
+      "sha": "9800b22283003432088aa516cb8313e07642ad3e",
+      "size": 5303
+    },
+    {
+      "path": ".github/workflows/cr-alp-122e-correction-replay.yml",
+      "sha": "c74b92b3c93abdde56b99a967c6d1d56289aed90",
+      "size": 3981
+    },
+    {
+      "path": ".github/workflows/cr-alp-122f-original-finite-replay.yml",
+      "sha": "e6a834d8a194e8434db10db1986507cd416074ba",
+      "size": 2897
+    },
+    {
+      "path": ".github/workflows/cr-alp-122h-bridge-replay.yml",
+      "sha": "a1b2243843193ee156b4581f081ccd4935dfa6bd",
+      "size": 3017
+    },
+    {
+      "path": ".github/workflows/cr-alp-122j-geometry.yml",
+      "sha": "63d32afa02d01f9c744eeaa5e64fe946beac6474",
+      "size": 3886
+    },
+    {
+      "path": ".github/workflows/cr-alp-122k-physical-contracts.yml",
+      "sha": "c5ddcc07ee23ed2247ecfd439e18da01be32287e",
+      "size": 6015
+    },
+    {
+      "path": ".github/workflows/cr-alp-122m-moment-replay.yml",
+      "sha": "f86f99ac6cb6949e955ec10cf24e472b86cc4b91",
+      "size": 5947
+    },
+    {
+      "path": ".github/workflows/cr-alp-122p-quantitative-collar.yml",
+      "sha": "3d7a0444f56e81b323bec2e9e5b34c93189254c5",
+      "size": 2161
+    },
+    {
+      "path": ".github/workflows/cr-alp-123a-pole-schur.yml",
+      "sha": "16d3d07020e787a93f8b304e03fa8cd2a4235e34",
+      "size": 1669
+    },
+    {
+      "path": ".github/workflows/cr-alp-123ac-response-defect.yml",
+      "sha": "e0a015db02dcb373c65d9d13668919d3e0aa6f74",
+      "size": 3150
+    },
+    {
+      "path": ".github/workflows/cr-alp-123b-pole-residual.yml",
+      "sha": "c3046883de7e88801d9e48f196bb54faa4492ffd",
+      "size": 1679
+    },
+    {
+      "path": ".github/workflows/cr-alp-123d-joint-comparator.yml",
+      "sha": "9e38f120a9471044121d9e620ff19d59eb22f087",
+      "size": 1699
+    },
+    {
+      "path": ".github/workflows/cr-alp-123e-complete-bridge.yml",
+      "sha": "965b6f56c6abf910bae02756bcffc222913b59e1",
+      "size": 1815
+    },
+    {
+      "path": ".github/workflows/cr-alp-123g-joint-trials.yml",
+      "sha": "2037e2b4bd2effe6576c1efcdf9d43ffb8b7c8d2",
+      "size": 2700
+    },
+    {
+      "path": ".github/workflows/cr-alp-123i-full-residual.yml",
+      "sha": "c3f5555d7cf219c32a3d9a668c35e1ef46c649f1",
+      "size": 2212
+    },
+    {
+      "path": ".github/workflows/cr-alp-123n-expanded-joint-trials.yml",
+      "sha": "99631a37728ac146cea76e8216710caea73ec4f5",
+      "size": 2369
+    },
+    {
+      "path": ".github/workflows/cr-alp-123o-centered-expanded.yml",
+      "sha": "97e4a3c3062c506dc27cfe2b3e5d0b6daedab8e6",
+      "size": 2206
+    },
+    {
+      "path": ".github/workflows/cr-alp-123p-direction-specific.yml",
+      "sha": "19eae1cbce72516abeec43693b96c50f0bf41f0f",
+      "size": 2856
+    },
+    {
+      "path": ".github/workflows/cr-alp-123s-second-correction.yml",
+      "sha": "778a437184396cdb223462ec800dc12c7032e4a4",
+      "size": 2475
+    },
+    {
+      "path": ".github/workflows/cr-alp-123t-second-direction.yml",
+      "sha": "88087d43bb06c790e43b17e08dc108ee33234870",
+      "size": 2883
+    },
+    {
+      "path": ".github/workflows/cr-alp-123w-conditioned-joint.yml",
+      "sha": "5ee0fcddfb9e1878d18a282b40f39be62a5e9709",
+      "size": 2764
+    },
+    {
+      "path": ".github/workflows/cr-alp-123x-scaled-tail-repair.yml",
+      "sha": "63582fb0c5aac6c535dc71b10cdcb7d8bb37633a",
+      "size": 3318
+    },
+    {
+      "path": ".github/workflows/cr-alp-123z-signed-tail.yml",
+      "sha": "39250c05725cbf0a2a53adeb3eef487ecbb1b4b0",
+      "size": 4453
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/SHA256SUMS",
+      "sha": "3eb717a5e0d6dd6b981eb49db6c0efc6396d7d72",
+      "size": 4278
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/input_1_16.txt",
+      "sha": "5f77a59d0a477fc4f52cc309d7980879e237f81f",
+      "size": 359505
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/input_1_18.txt",
+      "sha": "77ea230b6a7a3449f91b38169ec31ff0dffd995e",
+      "size": 358024
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/input_1_19.txt",
+      "sha": "1ed2704fe6a88d9b2369fe5b6d07a5a60a148b69",
+      "size": 358076
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/input_1_21.txt",
+      "sha": "03b4fd7f3eb106f65ac1a84251cc80c519a865de",
+      "size": 358210
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/input_1_27.txt",
+      "sha": "017e67b2cfc40c5a686d65f4556709c6f94a0c88",
+      "size": 359863
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/input_1_6.txt",
+      "sha": "bd101bd5271a9716c9a77742635292525cb1aa03",
+      "size": 359165
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/input_2_18.txt",
+      "sha": "f81a04d104ab4cb0b0cd603f997ad0796edd1c13",
+      "size": 359452
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/input_2_20.txt",
+      "sha": "77887b6ded558596ebd50c64ef126cb7b0e3ea90",
+      "size": 359514
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/input_2_21.txt",
+      "sha": "8c104e14c7143627e36eab3256b8a059fe9e4fce",
+      "size": 359540
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/input_2_22.txt",
+      "sha": "03be125dcc47db4041ac97d365f8f381c09ea3eb",
+      "size": 359570
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/input_2_28.txt",
+      "sha": "2ad4428f1719bf580ba7cf955a3510e15c493f39",
+      "size": 358281
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/input_2_8.txt",
+      "sha": "8d577d6d5d18c5aeb11c826bfd540b6ff980e1a9",
+      "size": 357393
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_1_16.geometry.log",
+      "sha": "6d2b65b2f44f17494af8a15cc5a12f0b9de9c704",
+      "size": 225
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_1_16.log",
+      "sha": "075645b8646f35f01281c1170306a9ddceb32e4a",
+      "size": 392
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_1_16.radius.log",
+      "sha": "993c078d1ad74a2f8006dd7f4bfcd866782348cf",
+      "size": 149
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_1_18.geometry.log",
+      "sha": "6d2b65b2f44f17494af8a15cc5a12f0b9de9c704",
+      "size": 225
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_1_18.log",
+      "sha": "8380dcb8373570e54c0b58aac0fd69f3a2b6f030",
+      "size": 392
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_1_18.radius.log",
+      "sha": "dc18eb37d59c7da39baf48b9e30105ddc38cbd3c",
+      "size": 149
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_1_19.geometry.log",
+      "sha": "6d2b65b2f44f17494af8a15cc5a12f0b9de9c704",
+      "size": 225
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_1_19.log",
+      "sha": "2a6a1442b95d12cfc95c47e2c2ed9ad32fd7ba69",
+      "size": 392
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_1_19.radius.log",
+      "sha": "3abb8331cdb52581cf9611eba4b1de45aef3fdab",
+      "size": 149
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_1_21.geometry.log",
+      "sha": "6d2b65b2f44f17494af8a15cc5a12f0b9de9c704",
+      "size": 225
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_1_21.log",
+      "sha": "0d1334f447ebce1e336cb10383b6e776ca5b6727",
+      "size": 390
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_1_21.radius.log",
+      "sha": "798bba093e9397e283a4f89efab37482b9bcce8d",
+      "size": 149
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_1_27.geometry.log",
+      "sha": "6d2b65b2f44f17494af8a15cc5a12f0b9de9c704",
+      "size": 225
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_1_27.log",
+      "sha": "41303b0bbae779d253f925912309489a1243502d",
+      "size": 396
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_1_27.radius.log",
+      "sha": "fe1e3a6e8a6a797338947e4755dc8784b8e5e390",
+      "size": 149
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_1_6.geometry.log",
+      "sha": "6d2b65b2f44f17494af8a15cc5a12f0b9de9c704",
+      "size": 225
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_1_6.log",
+      "sha": "555f91ca133594d093f67c863332ce1f89791bda",
+      "size": 376
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_1_6.radius.log",
+      "sha": "410549b0b3aea7ba2d082276e54b6e7636637518",
+      "size": 149
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_2_18.geometry.log",
+      "sha": "6d2b65b2f44f17494af8a15cc5a12f0b9de9c704",
+      "size": 225
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_2_18.log",
+      "sha": "5f4d53ef97a215233d7882319d7e07e149729850",
+      "size": 394
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_2_18.radius.log",
+      "sha": "39170cd562c8de906983ecb10e614cd5d9221435",
+      "size": 149
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_2_20.geometry.log",
+      "sha": "6d2b65b2f44f17494af8a15cc5a12f0b9de9c704",
+      "size": 225
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_2_20.log",
+      "sha": "51fb3ecd5e4c0542acc0d7c607c729634c57a907",
+      "size": 398
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_2_20.radius.log",
+      "sha": "b79d3aedf5c6fbb06f1dc9f5fbec936182162fcf",
+      "size": 149
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_2_21.geometry.log",
+      "sha": "6d2b65b2f44f17494af8a15cc5a12f0b9de9c704",
+      "size": 225
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_2_21.log",
+      "sha": "945991ab9e065add1be4ba59c966754c9823c76f",
+      "size": 398
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_2_21.radius.log",
+      "sha": "1507e41fc661a763c4ceaf70a351db25c2cf892e",
+      "size": 149
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_2_22.geometry.log",
+      "sha": "6d2b65b2f44f17494af8a15cc5a12f0b9de9c704",
+      "size": 225
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_2_22.log",
+      "sha": "bbbae7a0c804fa0ec6e792d21712583354f80fb5",
+      "size": 393
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_2_22.radius.log",
+      "sha": "c96a1530656ea813eec8fa41f47c47352576b20d",
+      "size": 149
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_2_28.geometry.log",
+      "sha": "6d2b65b2f44f17494af8a15cc5a12f0b9de9c704",
+      "size": 225
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_2_28.log",
+      "sha": "fef59315e52529e764319357e8604b87cf41aad5",
+      "size": 399
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_2_28.radius.log",
+      "sha": "0d4351cca7f67c1903059c33b8a75069eb585445",
+      "size": 149
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_2_8.geometry.log",
+      "sha": "6d2b65b2f44f17494af8a15cc5a12f0b9de9c704",
+      "size": 225
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_2_8.log",
+      "sha": "b23088bdee8fe2e7e383bac4486819b586d95e59",
+      "size": 390
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/mode_2_8.radius.log",
+      "sha": "8af19af7e3dce5db872eb1713505c353d4e035e9",
+      "size": 149
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/result.json",
+      "sha": "bffbeba9ad6a3268898cbb0c19c1b80cdac9d3b7",
+      "size": 88942
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/selection.json",
+      "sha": "c47ca568b7fcdf81d3388ef93b9a22f816486bd5",
+      "size": 2484
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-082/source_bank.json",
+      "sha": "c133959cc2d61b9f7c495377c40cc9fd1391bfc1",
+      "size": 30387
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-091/SHA256SUMS",
+      "sha": "4cbe2ac8225617a155caaa8ed5821b892df92737",
+      "size": 166
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-091/replayed_scalars.json",
+      "sha": "4cd743a536383db8dc20617cb54efa13e1f82bdc",
+      "size": 2635
+    },
+    {
+      "path": "custody/cr-alp-074-077/replayed-091/result.json",
+      "sha": "c64264282b63b49ed0ec64a34bf7fa69e02267a8",
+      "size": 226014
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/SHA256SUMS",
+      "sha": "77cffec0c6ca1a018abdeb1b4b0d88e989feb22f",
+      "size": 3211
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/inventory.json",
+      "sha": "6188bce0454b0938898a1235e34f9cb0082e91dc",
+      "size": 13363
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_045/cr_alp_045_layered_gamma_audit.py",
+      "sha": "03c3a45bcd984be4d4997674ae13186fd055c735",
+      "size": 2829
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_054/check_saved.py",
+      "sha": "ecd9e5878f573f36ae627aac234f0112105df5ce",
+      "size": 3727
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_054/generate.py",
+      "sha": "c461c7fd600ca777d72697783c4d39a52a524e22",
+      "size": 14426
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_054/moments.py",
+      "sha": "f6b182c6f1412ee7c14118b944a14b1bb2e05dc0",
+      "size": 3891
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_055/CR-ALP-055_COMPLETE_E850_AND_BRIDGE_FALSIFIER.md",
+      "sha": "3db0fb026de151cd63ee11bc59f500fd25791aff",
+      "size": 4920
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_055/build.py",
+      "sha": "d1858a33432c7a89df1e3fc0acfaea853eb2d56c",
+      "size": 2689
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_055/check_saved.py",
+      "sha": "e3d3a232b5d6dc9b49b8a6499ba8bbc882512be7",
+      "size": 3735
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_055/generate.py",
+      "sha": "62877052b2e51be4fa7ce775f6156110d7d67ff1",
+      "size": 15497
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_055/moments.py",
+      "sha": "d3c31b0974836e1332ba6a66cfafd24f0e7a16f2",
+      "size": 4470
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_056/CR-ALP-056_CORRECTED_Q850_RESIDUAL.md",
+      "sha": "e2ad6447600ce240391354e3909a3fd131c0275f",
+      "size": 5212
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_056/SHA256SUMS",
+      "sha": "d4994dad612ae700255cae342b0dcacd58bffe86",
+      "size": 771
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_056/audit.py",
+      "sha": "69502b0f0fc43a7ee196c8cae3153a0ae9d58032",
+      "size": 12644
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_056/build.py",
+      "sha": "a674694ea9488402c175fe697995bf20968e4e39",
+      "size": 4025
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_056/check_saved.py",
+      "sha": "994a0cd0e1adb05c1a2a7b948f4398ffa4485cba",
+      "size": 1706
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_056/core.py",
+      "sha": "aa2d5fdc3383e53d2a3722548d58f1e1fd32a829",
+      "size": 1963
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_056/correct.py",
+      "sha": "6460d2e5cb03261b380d8140f60e6346ca0a32a5",
+      "size": 1117
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_056/extended.py",
+      "sha": "b6ae0fc3024b29d9982f2255123d0fc9e798cb57",
+      "size": 12651
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_057/CR-ALP-057_GLOBAL_PHYSICAL_RESIDUAL_PROXY.md",
+      "sha": "41836d16e1a0cdea1cc58b0e362f7c43db12f306",
+      "size": 7619
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_057/SHA256SUMS",
+      "sha": "0fdc995578761cf0a7167792fbf77dad8dbc8f6f",
+      "size": 1039
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_057/assemble.py",
+      "sha": "3cc634c39bd1aef2c6707ca11df36e96ef8805cc",
+      "size": 1850
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_057/audit.py",
+      "sha": "944a1b9263b00c90a32b6c1ffe5e46235faf022c",
+      "size": 4275
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_057/group_proxy.py",
+      "sha": "cb959b3855ed9b6b87ba35d21f2c4be61bb3bd97",
+      "size": 4532
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_057/trial.py",
+      "sha": "ab1395981cd7c3f89f11a2766931e78f78663ad5",
+      "size": 2825
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_057/verify_group.py",
+      "sha": "69d8cddf7749c59242ac468a3de9174c70a9797a",
+      "size": 4332
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_058/CR-ALP-058_GLOBAL_PHYSICAL_WITNESS_MOMENTS.md",
+      "sha": "48b8dc69d97c23e66912271593e3a240e6f05eea",
+      "size": 5213
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_058/SHA256SUMS",
+      "sha": "e9cd679c58621b337525ccc6a25269e5d10b44f7",
+      "size": 1805
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_058/VALIDATION.md",
+      "sha": "f45e7cc9c523a41525842728626be7fcd896fb14",
+      "size": 9107
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_058/check_saved.py",
+      "sha": "056639544a085cd3fe1e838a3d05d410842e3051",
+      "size": 3395
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_058/mesh.py",
+      "sha": "eda83ec47a4ac20a9c11ab8422d9fb22d28cc83a",
+      "size": 2445
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_058/physical.cpp",
+      "sha": "77a536193e33f523e0305719e00a124a7e0de008",
+      "size": 5338
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_058/prepare.py",
+      "sha": "f4f481370a1c06aeeac8ba3d8303b22a885dfcaa",
+      "size": 4791
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_058/validate_geometry.py",
+      "sha": "b8c98ad3ff6cf159ccc473db7d5c74f35b7e0554",
+      "size": 2481
+    },
+    {
+      "path": "custody/cr-alp-122b-source-census/members/cr_alp_058/validated.cpp",
+      "sha": "db1c9bac0c05cd82065d42fb8b5386245cda8d5b",
+      "size": 8366
+    },
+    {
+      "path": "custody/cr-alp-122c-source-replay/SHA256SUMS",
+      "sha": "e0b9870fa1ed5e40960a2bde3ede5ce7fad459e5",
+      "size": 626
+    },
+    {
+      "path": "custody/cr-alp-122c-source-replay/assemble.log",
+      "sha": "d80e68b85f0bb96a70a43e73c6a2810a14c2a001",
+      "size": 283
+    },
+    {
+      "path": "custody/cr-alp-122c-source-replay/coordinate.log",
+      "sha": "5fc5ee719ba743c659e44013fd0d12bd25f2c4f1",
+      "size": 396
+    },
+    {
+      "path": "custody/cr-alp-122c-source-replay/frozen.sha256",
+      "sha": "be531b90f4fb8658bd4f4e6e3587948e122d8ab3",
+      "size": 277
+    },
+    {
+      "path": "custody/cr-alp-122c-source-replay/groups.log",
+      "sha": "83df724d5757347936c7691333939f9d279a140b",
+      "size": 591
+    },
+    {
+      "path": "custody/cr-alp-122c-source-replay/manifest.log",
+      "sha": "f6184d65aa2bba86d64b8e0dd293da13cc185479",
+      "size": 1073
+    },
+    {
+      "path": "custody/cr-alp-122c-source-replay/replay.log",
+      "sha": "4aab227567f4afecc93db7153e028830b97c0d29",
+      "size": 91
+    },
+    {
+      "path": "custody/cr-alp-122c-source-replay/source.log",
+      "sha": "b27d1871a1d0db0a768a968c6a8f89216ee68f1a",
+      "size": 276
+    },
+    {
+      "path": "custody/cr-alp-122c-source-replay/trial.log",
+      "sha": "7e518049a688b916840edbbb7f0ed9407275b422",
+      "size": 218
+    },
+    {
+      "path": "custody/cr-alp-122e-correction-replay/CR-ALP-042_exact_result.json",
+      "sha": "5ca1a81dd27079e916e768553ed3c6e5d070236b",
+      "size": 3363
+    },
+    {
+      "path": "custody/cr-alp-122e-correction-replay/SHA256SUMS",
+      "sha": "eacc15f3ad414c300dd3803ee192620a8b15f0e0",
+      "size": 642
+    },
+    {
+      "path": "custody/cr-alp-122e-correction-replay/check.log",
+      "sha": "dfb823061ebc0c8522b151bd6a99c400eaa73364",
+      "size": 209
+    },
+    {
+      "path": "custody/cr-alp-122e-correction-replay/correction.log",
+      "sha": "eb38268e5342f1398c95e61ec86a6447c7ae0f77",
+      "size": 130
+    },
+    {
+      "path": "custody/cr-alp-122e-correction-replay/frozen.sha256",
+      "sha": "a92cd0ff17f68f5ce41981e4c8e23ad1c4c9f365",
+      "size": 294
+    },
+    {
+      "path": "custody/cr-alp-122e-correction-replay/linkage.log",
+      "sha": "8dd6e2734f11fcb44f924906992a136defe8e6b2",
+      "size": 246
+    },
+    {
+      "path": "custody/cr-alp-122e-correction-replay/manifest.log",
+      "sha": "07fdb710138d1343d5c7bb9e87abdb7781dd6d7b",
+      "size": 632
+    },
+    {
+      "path": "custody/cr-alp-122e-correction-replay/prime.log",
+      "sha": "d960e41188bbe6a53a26f80126dee8d7cc4cfa6d",
+      "size": 1266
+    },
+    {
+      "path": "custody/cr-alp-122e-correction-replay/replay.log",
+      "sha": "569e1c37daa3413b4956a5ccacc9d8bad5581dfa",
+      "size": 108
+    },
+    {
+      "path": "custody/cr-alp-122f-original-finite-replay/CR-ALP-046_independent_result.json",
+      "sha": "74b4bbbae9f5d78aebf2f09afe3c099c298022a1",
+      "size": 544
+    },
+    {
+      "path": "custody/cr-alp-122f-original-finite-replay/CR-ALP-046_result.json",
+      "sha": "b38a6cd2e6f2034c8f1e9b41afef690b27bb360f",
+      "size": 3228
+    },
+    {
+      "path": "custody/cr-alp-122f-original-finite-replay/SHA256SUMS",
+      "sha": "bc3353687ac1417a48e9d994f3af39b5c3cc9c63",
+      "size": 505
+    },
+    {
+      "path": "custody/cr-alp-122f-original-finite-replay/generate.log",
+      "sha": "7c1dfb28a165f46481ee01b152158c989d55ea76",
+      "size": 2571
+    },
+    {
+      "path": "custody/cr-alp-122f-original-finite-replay/independent.log",
+      "sha": "4e1943d639a979a41b37babaf53b9d1e94d8adec",
+      "size": 352
+    },
+    {
+      "path": "custody/cr-alp-122f-original-finite-replay/inputs.log",
+      "sha": "07fc0142d463d19e47b649c9f5a42535a79fb0fb",
+      "size": 301
+    },
+    {
+      "path": "custody/cr-alp-122f-original-finite-replay/matrix.log",
+      "sha": "5cc6fb37d775c16e77e41e3b3bf061ed02eec9ff",
+      "size": 101
+    },
+    {
+      "path": "custody/cr-alp-122h-bridge-replay/SHA256SUMS",
+      "sha": "56de2fb213beffa891803457c3bbe0cf8c6c76fc",
+      "size": 659
+    },
+    {
+      "path": "custody/cr-alp-122h-bridge-replay/frozen.sha256",
+      "sha": "3aa11b2c64d34a938849523b72cf9064229d774b",
+      "size": 356
+    },
+    {
+      "path": "custody/cr-alp-122h-bridge-replay/generate-054-1.log",
+      "sha": "af91bc3329bdf44ddea1e0ff24ea507d86bb5a38",
+      "size": 1883
+    },
+    {
+      "path": "custody/cr-alp-122h-bridge-replay/generate-054-2.log",
+      "sha": "af91bc3329bdf44ddea1e0ff24ea507d86bb5a38",
+      "size": 1883
+    },
+    {
+      "path": "custody/cr-alp-122h-bridge-replay/generate-055-1.log",
+      "sha": "b8325e0d26bffbffbbb4939fdec20df72b5aafc7",
+      "size": 1557
+    },
+    {
+      "path": "custody/cr-alp-122h-bridge-replay/generate-055-2.log",
+      "sha": "8d277ee49646e35145f8affd564353d246fcb324",
+      "size": 1558
+    },
+    {
+      "path": "custody/cr-alp-122h-bridge-replay/replay-054.log",
+      "sha": "8799b48c0303cdb5db222784b85b8b107dd9680b",
+      "size": 54
+    },
+    {
+      "path": "custody/cr-alp-122h-bridge-replay/replay-055.log",
+      "sha": "db956f597ae5d16fe661b1cb7ab3746a0a63aa9f",
+      "size": 54
+    },
+    {
+      "path": "custody/cr-alp-122h-bridge-replay/replay.log",
+      "sha": "e750bc720836d93bd05bb939638119411f065d78",
+      "size": 108
+    },
+    {
+      "path": "custody/cr-alp-122j-response-geometry/SHA256SUMS",
+      "sha": "9a9d5d88c92a11a5a70dc6c694adb89154c2a2d7",
+      "size": 313
+    },
+    {
+      "path": "custody/cr-alp-122j-response-geometry/census.log",
+      "sha": "7ebadd0800672cf74e6770ffe3a60f33745f146a",
+      "size": 56
+    },
+    {
+      "path": "custody/cr-alp-122j-response-geometry/original.log",
+      "sha": "d9e11166f2c2cfcf9a19060ef7b840883124fd20",
+      "size": 666
+    },
+    {
+      "path": "custody/cr-alp-122j-response-geometry/response.log",
+      "sha": "0ed8b247da87f1a7ec9103ce26c3284a9e5dd01f",
+      "size": 113
+    },
+    {
+      "path": "custody/cr-alp-122j-response-geometry/result.json",
+      "sha": "e55b20cba1d810c54a9298a017cb9cea91950428",
+      "size": 3175
+    },
+    {
+      "path": "custody/cr-alp-122k-physical-contracts/SHA256SUMS",
+      "sha": "06f5e96908317271c5d15d7ff7ac0d2e61f3a44b",
+      "size": 235
+    },
+    {
+      "path": "custody/cr-alp-122k-physical-contracts/census.log",
+      "sha": "b3f9db376da5a082c60993e3a0c79f10330bb2ee",
+      "size": 112
+    },
+    {
+      "path": "custody/cr-alp-122k-physical-contracts/manifests.log",
+      "sha": "a41b7a72f6d9a10e5d91d13b5b18ebcde39a6d46",
+      "size": 30288
+    },
+    {
+      "path": "custody/cr-alp-122k-physical-contracts/result.json",
+      "sha": "21e5ae5960ccb1eeee2cf03304b45fdda161a465",
+      "size": 120801
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/SHA256SUMS",
+      "sha": "d399ad2b8e7d75f1ba7f588aab07c8425db02d47",
+      "size": 1763
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/geometry_1.log",
+      "sha": "6d2b65b2f44f17494af8a15cc5a12f0b9de9c704",
+      "size": 225
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/geometry_2.log",
+      "sha": "6d2b65b2f44f17494af8a15cc5a12f0b9de9c704",
+      "size": 225
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/manifest.log",
+      "sha": "9c4adbf279488e3095a4092a88c09a401daacb5e",
+      "size": 5370
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/mesh.log",
+      "sha": "320b362a4366aef8c0bab133379cf8183ab93fd2",
+      "size": 143
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/mode_1_terminal.log",
+      "sha": "c9bc35d99a80ea458066a99d783806f15f943f86",
+      "size": 385
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/mode_1_terminal.radius.log",
+      "sha": "481179ef1e63ac580c389b2a010fb3cf8ee7ce11",
+      "size": 149
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/mode_2_terminal.log",
+      "sha": "5a614c7ee61266b9bd9db167e6a846c6f9161310",
+      "size": 388
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/mode_2_terminal.radius.log",
+      "sha": "69723def29f7b2c073a3f7ebbcbeb3918d075ca1",
+      "size": 149
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/norm-census.json",
+      "sha": "8e20f965b435865d5ea4e35bb1ab8497ed0360b7",
+      "size": 17107
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/norm-census.log",
+      "sha": "f644224f242ada94298fe74778ac522f82fd3a23",
+      "size": 57
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/norm_1.log",
+      "sha": "cd31d1eefbf620282fd24355b5f4ec140362e8c8",
+      "size": 31
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/norm_1.radius.log",
+      "sha": "8d8d9169e018268203c2a1c1a5cd1b0675a93eae",
+      "size": 94
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/norm_2.log",
+      "sha": "0bce467f404a0272506f55339a882e88768af815",
+      "size": 33
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/norm_2.radius.log",
+      "sha": "cd03df9dc30cff4a446af178c90e73df6b6104a9",
+      "size": 94
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/prefix.log",
+      "sha": "6ac18a4fed2546395c73c4d140fbb8e701750ca6",
+      "size": 50252
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/replay.log",
+      "sha": "04d29f4d9ad202e61986a85b664feac4660cab6c",
+      "size": 84
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/second_1_terminal.log",
+      "sha": "d3035ea3b8b61dcff925a479ee8d62815cd89a57",
+      "size": 190
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/second_1_terminal.radius.log",
+      "sha": "eb77bf524e5d8da0a7f2a06cdc6e1fc5297ec62e",
+      "size": 94
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/second_2_terminal.log",
+      "sha": "f561954465aa88789ea2c9b8fb7d5402476cd64a",
+      "size": 190
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/second_2_terminal.radius.log",
+      "sha": "7902abcf93cae547c0ac7e5b468b4c2a6a207b15",
+      "size": 94
+    },
+    {
+      "path": "custody/cr-alp-122m-moment-replay/second_mesh.txt",
+      "sha": "80ff5df1d98bd90777135d9beb77c149a2340337",
+      "size": 328225
+    },
+    {
+      "path": "custody/cr-alp-122p-quantitative-collar/SHA256SUMS",
+      "sha": "dbc06f8f99ed193370c47d2feb5c0e3bc49b7909",
+      "size": 237
+    },
+    {
+      "path": "custody/cr-alp-122p-quantitative-collar/frozen.sha256",
+      "sha": "ca5e120d05b62da4a8d5094bfad35436bc5c7654",
+      "size": 91
+    },
+    {
+      "path": "custody/cr-alp-122p-quantitative-collar/receiver.log",
+      "sha": "357730522de42fa877cdb3636f31f0295a94763b",
+      "size": 205
+    },
+    {
+      "path": "custody/cr-alp-122p-quantitative-collar/result.json",
+      "sha": "7fb998716bdb5a8f0c178585f1f8ad00e7d3fe37",
+      "size": 3794
+    },
+    {
+      "path": "custody/cr-alp-123a-finite-pole-schur/SHA256SUMS",
+      "sha": "6af78765e470ed135720012560a15f93ebef3e5a",
+      "size": 155
+    },
+    {
+      "path": "custody/cr-alp-123a-finite-pole-schur/census.log",
+      "sha": "19b66cd795a124ebcf08d0e273f2379c6bda2043",
+      "size": 1282
+    },
+    {
+      "path": "custody/cr-alp-123a-finite-pole-schur/result.json",
+      "sha": "ec6d8df8ebb85daca8147d2c2599ab1aac5941a0",
+      "size": 9533
+    },
+    {
+      "path": "custody/cr-alp-123ac-response-defect/SHA256SUMS",
+      "sha": "a7dcdea2322de3d6e7023a197d73d39139904eb3",
+      "size": 157
+    },
+    {
+      "path": "custody/cr-alp-123ac-response-defect/receiver.log",
+      "sha": "d618a2af557070a2addd7f1fdbb5ca8e0f92b0ce",
+      "size": 8659
+    },
+    {
+      "path": "custody/cr-alp-123ac-response-defect/result.json",
+      "sha": "b4174a176e0318c1c7b9a562fe89889729e8eedc",
+      "size": 30378190
+    },
+    {
+      "path": "custody/cr-alp-123b-pole-residual/SHA256SUMS",
+      "sha": "f46aba0fa2414e13ba31f3d493647f76cfed3ab8",
+      "size": 155
+    },
+    {
+      "path": "custody/cr-alp-123b-pole-residual/census.log",
+      "sha": "17605805c29d6d17efc8c9d4b487a21ccf5ef534",
+      "size": 614
+    },
+    {
+      "path": "custody/cr-alp-123b-pole-residual/result.json",
+      "sha": "06f082673af8ca0dee910a3c9c2286879c683058",
+      "size": 25584
+    },
+    {
+      "path": "custody/cr-alp-123d-joint-comparator/SHA256SUMS",
+      "sha": "95d9023f238f8d7229bfbe8c9015666da3c7c04c",
+      "size": 155
+    },
+    {
+      "path": "custody/cr-alp-123d-joint-comparator/census.log",
+      "sha": "7c1e0c10cdde58f040f08e80e9452272cb4c1b22",
+      "size": 3540
+    },
+    {
+      "path": "custody/cr-alp-123d-joint-comparator/result.json",
+      "sha": "fcd9852e687b999c0bf148c7aea10e8b4484efb5",
+      "size": 5829
+    },
+    {
+      "path": "custody/cr-alp-123e-complete-bridge/SHA256SUMS",
+      "sha": "80f1c30117c9ea19553862c9e006efbc6b9e6497",
+      "size": 155
+    },
+    {
+      "path": "custody/cr-alp-123e-complete-bridge/census.log",
+      "sha": "dd7c662629989f805009917b714b39ae31e6ceb3",
+      "size": 964
+    },
+    {
+      "path": "custody/cr-alp-123e-complete-bridge/result.json",
+      "sha": "58966a9f2114909c7da3ac0806f3dca98973269e",
+      "size": 10296
+    },
+    {
+      "path": "custody/cr-alp-123g-joint-trials/SHA256SUMS",
+      "sha": "97ff558ec48fa1803fd5c5ac61437b2e5c22c45f",
+      "size": 155
+    },
+    {
+      "path": "custody/cr-alp-123g-joint-trials/census.log",
+      "sha": "bdf0c85da8a5edeb73dd8c4fe83b4fd7ca55fab5",
+      "size": 1708
+    },
+    {
+      "path": "custody/cr-alp-123g-joint-trials/result.json",
+      "sha": "8508030f1e352e14a41fa269f891f317b8fccf0a",
+      "size": 434200
+    },
+    {
+      "path": "custody/cr-alp-123i-activation/READY",
+      "sha": "59920f9979ff1bd343e3c8578555fa57d35e9462",
+      "size": 383
+    },
+    {
+      "path": "custody/cr-alp-123i-full-residual-envelope/SHA256SUMS",
+      "sha": "2db663de031a2e9034934b7bd5e1d62802c74e30",
+      "size": 158
+    },
+    {
+      "path": "custody/cr-alp-123i-full-residual-envelope/enclosure.log",
+      "sha": "ad3a0e046c1c7d8d14d6f1dee262eeb83089c6f8",
+      "size": 2760
+    },
+    {
+      "path": "custody/cr-alp-123i-full-residual-envelope/result.json",
+      "sha": "7c3d321043dfdce881e2bb2554923c6782979f60",
+      "size": 515672
+    },
+    {
+      "path": "custody/cr-alp-123n-expanded-joint-trials/SHA256SUMS",
+      "sha": "fa78bf26f7ae5b873f67f6e6f9dbda21b197df4e",
+      "size": 155
+    },
+    {
+      "path": "custody/cr-alp-123n-expanded-joint-trials/census.log",
+      "sha": "671227ee88bc0217829447baf01129b59cf4b14a",
+      "size": 2139
+    },
+    {
+      "path": "custody/cr-alp-123n-expanded-joint-trials/result.json",
+      "sha": "78e6659ad7767c540a333f890af32878871e153c",
+      "size": 1642947
+    },
+    {
+      "path": "custody/cr-alp-123o-centered-expanded/SHA256SUMS",
+      "sha": "fa1fde1f0e1c50fae21001ab115b8e22157574d3",
+      "size": 157
+    },
+    {
+      "path": "custody/cr-alp-123o-centered-expanded/receiver.log",
+      "sha": "2237a82e92c0e694d2a881a62a2fb3823185d63d",
+      "size": 2744
+    },
+    {
+      "path": "custody/cr-alp-123o-centered-expanded/result.json",
+      "sha": "1928d1ed6994173e21497660e987bc86e5335515",
+      "size": 1265415
+    },
+    {
+      "path": "custody/cr-alp-123p-activation/READY",
+      "sha": "e9c2c01d1ea3053a988bac79da966894abc6c119",
+      "size": 274
+    },
+    {
+      "path": "custody/cr-alp-123p-direction-specific/SHA256SUMS",
+      "sha": "fe5a8c426c5405875cf8708ba98a3030e9e7c258",
+      "size": 157
+    },
+    {
+      "path": "custody/cr-alp-123p-direction-specific/receiver.log",
+      "sha": "90bd5b1562031ad7c121f1d8f0edf0e7ede9f575",
+      "size": 666
+    },
+    {
+      "path": "custody/cr-alp-123p-direction-specific/result.json",
+      "sha": "a4dd8a592eba21afd7f6d837c39fab102c953378",
+      "size": 788465
+    },
+    {
+      "path": "custody/cr-alp-123s-second-correction/SHA256SUMS",
+      "sha": "2c6719c26c2480462597ed30b8770114213d36c7",
+      "size": 157
+    },
+    {
+      "path": "custody/cr-alp-123s-second-correction/receiver.log",
+      "sha": "92404af7504618219e2a2911ddbbe566b7f9e4ba",
+      "size": 2723
+    },
+    {
+      "path": "custody/cr-alp-123s-second-correction/result.json",
+      "sha": "f84a027e09cc5dc925812d77824ccb5bbd3d4199",
+      "size": 1474435
+    },
+    {
+      "path": "custody/cr-alp-123w-conditioned-joint/SHA256SUMS",
+      "sha": "a9b75aa73ccbd5a8345bd60f26f308d4be48ca76",
+      "size": 157
+    },
+    {
+      "path": "custody/cr-alp-123w-conditioned-joint/receiver.log",
+      "sha": "987b1bfb3a1aa966cbcea24cdf787a006a133918",
+      "size": 2834
+    },
+    {
+      "path": "custody/cr-alp-123w-conditioned-joint/result.json",
+      "sha": "f6d411f235345da7b9fe200e11631f4b83baceda",
+      "size": 1374718
+    },
+    {
+      "path": "custody/cr-alp-123x-repaired-direction-specific/SHA256SUMS",
+      "sha": "5e282d4b7709192deb9c34dbcc5c426abcd79d8d",
+      "size": 314
+    },
+    {
+      "path": "custody/cr-alp-123x-repaired-direction-specific/receiver.log",
+      "sha": "640d98082b8cfbf67ac55028653bcb27a1c815bc",
+      "size": 389
+    },
+    {
+      "path": "custody/cr-alp-123x-repaired-direction-specific/repair.log",
+      "sha": "57564a51e9cd1385f3674f6058f56069366e6205",
+      "size": 298
+    },
+    {
+      "path": "custody/cr-alp-123x-repaired-direction-specific/repaired.json",
+      "sha": "caf7a9160e98e2a588377e85a38a075ccabb9dbc",
+      "size": 961508
+    },
+    {
+      "path": "custody/cr-alp-123x-repaired-direction-specific/result.json",
+      "sha": "9edfaba8d36435a304a931b65041b510ae5df26a",
+      "size": 52481
+    },
+    {
+      "path": "custody/cr-alp-123z-activation/READY",
+      "sha": "d4e66b21a8dd7a11edab10c0669be645f108b571",
+      "size": 297
+    },
+    {
+      "path": "custody/cr-alp-123z-signed-direction-specific/SHA256SUMS",
+      "sha": "ab4f05b80bc3ee64a4a56a0d86d37007dcc4679d",
+      "size": 652
+    },
+    {
+      "path": "custody/cr-alp-123z-signed-direction-specific/joint-receiver.log",
+      "sha": "835c4502ca4ca31fdd3105aa4685694ac95889bf",
+      "size": 401
+    },
+    {
+      "path": "custody/cr-alp-123z-signed-direction-specific/joint-repair.log",
+      "sha": "67e130a692560fb87629ead3da4b4e4ba6fc0bcd",
+      "size": 639
+    },
+    {
+      "path": "custody/cr-alp-123z-signed-direction-specific/joint-repaired.json",
+      "sha": "420f19e94763870bc982b0972632dd21be2bc44a",
+      "size": 966709
+    },
+    {
+      "path": "custody/cr-alp-123z-signed-direction-specific/joint-result.json",
+      "sha": "56bf32c085bf9810ba9a736fc6427c7341bad17b",
+      "size": 95977
+    },
+    {
+      "path": "custody/cr-alp-123z-signed-direction-specific/receiver.log",
+      "sha": "f21d2e72241ef3bcea42a7a3aad99743f1156b36",
+      "size": 389
+    },
+    {
+      "path": "custody/cr-alp-123z-signed-direction-specific/repair.log",
+      "sha": "f5427a1da8bd4c34038088222c466caf5c70b890",
+      "size": 636
+    },
+    {
+      "path": "custody/cr-alp-123z-signed-direction-specific/repaired.json",
+      "sha": "8cd633cbca7f4e1fdf9c1f7b8edaedaee972300c",
+      "size": 1070733
+    },
+    {
+      "path": "custody/cr-alp-123z-signed-direction-specific/result.json",
+      "sha": "153a7c499b98591766b585f278555478a9b4ffe3",
+      "size": 96091
+    },
+    {
+      "path": "research/CR-ALP-001_PRIME_RAMP_WEIL_PROJECTION.md",
+      "sha": "f6143dbe6179cc4c703cb84e503a6c20f4ca8207",
+      "size": 8215
+    },
+    {
+      "path": "research/CR-ALP-002_FULL_WEIL_RAMP_AND_POLE_NO_GO.md",
+      "sha": "4fef52e9bcdb928487dd0491e2e0071ba811591e",
+      "size": 9734
+    },
+    {
+      "path": "research/CR-ALP-003_SMOOTH_CELL_GRAM_AND_LEAN_INTERMEDIATE.md",
+      "sha": "2404ea0ed526d84f643b13ba2ffd84363e7446a6",
+      "size": 13255
+    },
+    {
+      "path": "research/CR-ALP-004_QUANTITATIVE_SMOOTH_WEIL_TRANSFER.md",
+      "sha": "6b910c28823d106ed28d10b07f0609e43b9e9c85",
+      "size": 13641
+    },
+    {
+      "path": "research/CR-ALP-005_FRAME_POTENTIAL_AND_MIXED_METRIC_NO_GO.md",
+      "sha": "c0c0d91ab1bee3a65b75c3ab8d13c9592f52b873",
+      "size": 13218
+    },
+    {
+      "path": "research/CR-ALP-006_TWO_CELL_MIXED_WEIL_AND_TYPE_GATE.md",
+      "sha": "b8c5d0f384ccd0e4e939d3a5339d919a8a4558b4",
+      "size": 11073
+    },
+    {
+      "path": "research/CR-ALP-007_TRIANGLE_GAUGE_HOLONOMY_AND_ARITHMETIC_PHASE.md",
+      "sha": "999c2b433b9eef2c11059d8d579da3ecc81ba10f",
+      "size": 13642
+    },
+    {
+      "path": "research/CR-ALP-008_ARITHMETIC_FRAME_PHASE_BLINDNESS_AND_THIRD_MOMENT.md",
+      "sha": "c73c477f2e5c32578fd89278071cb00accb6e0a3",
+      "size": 10054
+    },
+    {
+      "path": "research/CR-ALP-009_ALL_MOMENT_PHASE_ORIENTATION_NO_GO.md",
+      "sha": "7f9fbe10b066feac6a803509fe18e3d9182834b3",
+      "size": 10129
+    },
+    {
+      "path": "research/CR-ALP-010_BESSEL_PHASE_COHERENCE_AND_PERIOD_COMPLEMENT.md",
+      "sha": "12cdd1a238e16a9bdfcb12e4b729dc1b2c28c22f",
+      "size": 13387
+    },
+    {
+      "path": "research/CR-ALP-011_RAMIFIED_ISOMETRY_AND_FULL_LINKS_COMPLEMENT_NO_GO.md",
+      "sha": "561a1ae46f6a9650eabd20c195234d6effb6939f",
+      "size": 12290
+    },
+    {
+      "path": "research/CR-ALP-012_FORCED_COMPLEMENT_AND_QUANTITATIVE_MIXED_BOUND.md",
+      "sha": "5ea2038e3b1a79de276f31dfeef18bf3a0cad6e8",
+      "size": 10740
+    },
+    {
+      "path": "research/CR-ALP-013_NORMALIZED_CYCLE_ERROR_AND_PHASE_MARGIN.md",
+      "sha": "7a7c6016f96235239eefb8e8083cf15ea52bfc93",
+      "size": 13148
+    },
+    {
+      "path": "research/CR-ALP-014_GAMMA_SCALE_AND_PHASE_CERTIFICATE_LIMIT.md",
+      "sha": "af30946ae27c368f206c629740b6cd9e4176ef2f",
+      "size": 9458
+    },
+    {
+      "path": "research/CR-ALP-015_CYCLIC_PHASE_MARGIN_CERTIFICATE_STOP.md",
+      "sha": "743d58bc1c79211924b4c3f214737ca049df3262",
+      "size": 14259
+    },
+    {
+      "path": "research/CR-ALP-016_TWO_POLE_NULL_SMOOTH_WEIL_AND_PRIME_WINDOW.md",
+      "sha": "776dcc81ba8af7f9f688299d9959165d10528d6b",
+      "size": 11999
+    },
+    {
+      "path": "research/CR-ALP-017_THREE_CUTOFF_AND_COMPRESSED_POLE_NULL_IV_WINDOW.md",
+      "sha": "0421444f872353c487109600a54a576892b5453d",
+      "size": 15371
+    },
+    {
+      "path": "research/CR-ALP-018_ACTUAL_IV_TWO_RADIUS_POLE_NULL_SCHUR.md",
+      "sha": "63c1cd1d5ac9f359eba035bc8b043256e2ef71cf",
+      "size": 11467
+    },
+    {
+      "path": "research/CR-ALP-019_FOUR_PRIME_PACKET_ORIGINAL_IV_SCHUR.md",
+      "sha": "6d113ea703f7f94365606c2b88ef53fc0acfc801",
+      "size": 15047
+    },
+    {
+      "path": "research/CR-ALP-020_FROZEN_F41_PARITY_NULL_PACKET_PROJECTION.md",
+      "sha": "487c95eb7e379f974794abcc243c95bfad19389b",
+      "size": 10474
+    },
+    {
+      "path": "research/CR-ALP-021_LITERAL_F41_OSCILLATOR_AND_IV_PARITY_GATE.md",
+      "sha": "c17abd95458495c4fdcc2d0dbf7c1c08f7c92b67",
+      "size": 10243
+    },
+    {
+      "path": "research/CR-ALP-022_SOURCE_PARITY_GAMMA_AND_THREE_F41_ROWS.md",
+      "sha": "c1220f7fbae78fb4e8d62ec8ee1734bc93dbb6d5",
+      "size": 12904
+    },
+    {
+      "path": "research/CR-ALP-023_ALL_F41_SIGNED_PHYSICAL_MOMENTS_AND_PARITY_LEAN_GATE.md",
+      "sha": "0b6b60f867c3b7803ff9a9ebff10ec7d8302ee06",
+      "size": 12020
+    },
+    {
+      "path": "research/CR-ALP-024_FIXED_COLLAR_WEIL_LOG_SPECTRAL_FINITE_NEGATIVE_INDEX.md",
+      "sha": "d9dc473a269ac5f2ed7be6e403699e8cb5d094f0",
+      "size": 13238
+    },
+    {
+      "path": "research/CR-ALP-025_EXPLICIT_POLE_NULL_FINITE_SECTION_SCHUR.md",
+      "sha": "a5e6a26e526f2845840b3c7f4cb57db8f9b55790",
+      "size": 7932
+    },
+    {
+      "path": "research/CR-ALP-026_SHARP_GAMMA_SMALL_FINITE_SECTION.md",
+      "sha": "db7b48fb015defadb43b6d380d462dda04e91d48",
+      "size": 8765
+    },
+    {
+      "path": "research/CR-ALP-027_POLE_NULL_FIFTH_ORDER_LEAKAGE_MATRIX_FREE.md",
+      "sha": "dd3abff12c6000496fc3b5b549f86dc07e2a704f",
+      "size": 10952
+    },
+    {
+      "path": "research/CR-ALP-028_PHYSICAL_GAMMA_KERNEL_AND_VERIFIED_PRIME_BLOCK.md",
+      "sha": "e111590d4c496efe69e2a7ddf511679af395948a",
+      "size": 14294
+    },
+    {
+      "path": "research/CR-ALP-029_ORIGINAL_SIGNED_SIX_MODE_GAMMA_CERTIFICATE.md",
+      "sha": "e4c08bc0f192a7874622928b6ee03f6545b753d2",
+      "size": 9816
+    },
+    {
+      "path": "research/CR-ALP-030_EIGHT_MODE_BOUNDARY_ANCHOR_ORIGINAL_WEIL_CERTIFICATE.md",
+      "sha": "f52366aa336fca7313f579e67631749a8fecd05d",
+      "size": 12191
+    },
+    {
+      "path": "research/CR-ALP-031_MONOTONE_GAMMA_LOEWNER_TAIL_TEN_MODE_CERTIFICATE.md",
+      "sha": "53b0070b922677c537d58c256dc2cd4feb13cb81",
+      "size": 12358
+    },
+    {
+      "path": "research/CR-ALP-032_TWO_SIDED_GAMMA_AND_STRUCTURED_SCHUR.md",
+      "sha": "b54537db2a70b929218a8ca2c88fea4b900d73d9",
+      "size": 14478
+    },
+    {
+      "path": "research/CR-ALP-033_HIERARCHICAL_10_TO_12_PARTIAL_CERTIFICATE.md",
+      "sha": "d52c1018d1fc0252147a9da67a204082971d2fbe",
+      "size": 8986
+    },
+    {
+      "path": "research/CR-ALP-034_LOEWNER_CONVEX_MIDPOINT_TWELVE_MODE_CERTIFICATE.md",
+      "sha": "b193f278c26e87af7d295aaa8803161d50c75ea5",
+      "size": 9812
+    },
+    {
+      "path": "research/CR-ALP-035_RANK_TWO_POLE_TAIL_PROJECTOR_AND_RESIDUAL.md",
+      "sha": "86ad8792f21b5b73d2492ce812b250cc3c1b3526",
+      "size": 11878
+    },
+    {
+      "path": "research/CR-ALP-036_SOURCE_GAMMA_ZERO_AND_PRIME_TAIL_CERTIFICATE.md",
+      "sha": "23c0832f1f7feafbaab32c8472f74d3df3e838e1",
+      "size": 11402
+    },
+    {
+      "path": "research/CR-ALP-037_UNIFORM_GAMMA_AND_BOUNDARY_ANCHOR_TAILS.md",
+      "sha": "03f13805f1c3e72590dd7c5baa1bf3e0cb492287",
+      "size": 13764
+    },
+    {
+      "path": "research/CR-ALP-038_COMBINED_NEAR_NULL_INFINITE_SCHUR_CERTIFICATE.md",
+      "sha": "ff33f175349c460ccdad8b6af643159ac2972241",
+      "size": 16840
+    },
+    {
+      "path": "research/CR-ALP-038_README_REPRODUCE.md",
+      "sha": "b213e3b8b7bb517ef02429d29a0ac29aa12270c4",
+      "size": 2513
+    },
+    {
+      "path": "research/CR-ALP-039_SHARP_ANCHORS_FULL_TWELVE_PLUS_INFINITE_SCHUR.md",
+      "sha": "de1c22289769e14f8731aa1695a8bb28c594bb9c",
+      "size": 13848
+    },
+    {
+      "path": "research/CR-ALP-040_FIRST_HIERARCHICAL_SHELL_STABLE_14_MODE.md",
+      "sha": "41990dd91cc28502d791784ae0819a8e68d208f3",
+      "size": 12742
+    },
+    {
+      "path": "research/CR-ALP-041_ENERGY_CONDITIONED_FULL_14_MIXED_SCHUR.md",
+      "sha": "1d49540a760b962d9f5139c34fd003e7fe364bca",
+      "size": 5571
+    },
+    {
+      "path": "research/CR-ALP-042_SUPPORT_AWARE_PRIME_POWER_NORM_AND_172_MODE_TAIL.md",
+      "sha": "395c949e6fda0d726a757cc8bfa281370273eb89",
+      "size": 7337
+    },
+    {
+      "path": "research/CR-ALP-043_REDUCED_CUTOFF_SIGNED_BAND_CERTIFICATE.md",
+      "sha": "9e68e348d0e573b1c23d39d5e20da58e5fe25629",
+      "size": 12043
+    },
+    {
+      "path": "research/CR-ALP-044_FITTED_MATRIX_172_MIXED_CERTIFICATE.md",
+      "sha": "6ffcc28d9d92ad64d08f0ea2bd7b925a1c1b7cd3",
+      "size": 8671
+    },
+    {
+      "path": "research/CR-ALP-045_LAYERED_GAMMA_AND_REDUCED_MIXED_TAIL.md",
+      "sha": "8085e0aac33bf25591ea5c7ecebbc310b3eec374",
+      "size": 7621
+    },
+    {
+      "path": "research/CR-ALP-046_COMPLETE_SIGNED_E85.md",
+      "sha": "a358b23cf61bd359f63c00c5f1426d3cfd28d46c",
+      "size": 7448
+    },
+    {
+      "path": "research/CR-ALP-047_SCALAR_SCHUR_FALSIFIER_AND_FINITE_BAND.md",
+      "sha": "595ce69ba737007eedb77f60f2688be43db8fd36",
+      "size": 5361
+    },
+    {
+      "path": "research/CR-ALP-048_STRUCTURED_PRIME_TAIL.md",
+      "sha": "24111fe9183d8f5c11eb07a71137d6c866c4e300",
+      "size": 3870
+    },
+    {
+      "path": "research/CR-ALP-049_TRIAL_INVERSE_AND_RESIDUAL_FALSIFIER.md",
+      "sha": "f4f11473071747570f34db8a7abf2aa6e6a85449",
+      "size": 7410
+    },
+    {
+      "path": "research/CR-ALP-050_SECOND_CORRECTION_AND_POLYNOMIAL_INVERSE.md",
+      "sha": "455b84bb917c6fd34ad03c89dc920d43e6c4ce18",
+      "size": 6483
+    },
+    {
+      "path": "research/CR-ALP-051_ONE_SIDED_POLYNOMIAL_MOMENTS.md",
+      "sha": "b4f8143ac5a12a7d611ac852c4c7486ef30eeaba",
+      "size": 5057
+    },
+    {
+      "path": "research/CR-ALP-052_OUTSIDE_BAND_AND_POLE_BRIDGES.md",
+      "sha": "d6c54839ae5d3642d160afd9949bb86d92796d7e",
+      "size": 4637
+    },
+    {
+      "path": "research/CR-ALP-053_GLOBAL_BRIDGE_AUGMENTED_GALERKIN.md",
+      "sha": "24fda9d87aa329f13eab5a21972abbd27ed88efa",
+      "size": 4992
+    },
+    {
+      "path": "research/CR-ALP-054_TWO_MOMENT_INVERSE.md",
+      "sha": "7e7ed320a19a1bee383240d6111036eeda19e3ae",
+      "size": 4951
+    },
+    {
+      "path": "research/CR-ALP-055_COMPLETE_E850_AND_BRIDGE_FALSIFIER.md",
+      "sha": "c04758bff34fc9d180d46fe83bad9cdd652adb10",
+      "size": 2989
+    },
+    {
+      "path": "research/CR-ALP-056_CORRECTED_Q850_RESIDUAL.md",
+      "sha": "1a4151b6b2fc04eba7b699ad5073d8b6879b10da",
+      "size": 4037
+    },
+    {
+      "path": "research/CR-ALP-057_GLOBAL_PHYSICAL_RESIDUAL_PROXY.md",
+      "sha": "8cfc028625c067b02569c25f72229f4b555fd28a",
+      "size": 4489
+    },
+    {
+      "path": "research/CR-ALP-058_GLOBAL_PHYSICAL_WITNESS_MOMENTS.md",
+      "sha": "e3c7f2252ee2ef97f045de6c8345991bac8702d6",
+      "size": 3640
+    },
+    {
+      "path": "research/CR-ALP-059_GLOBAL_SECOND_MOMENTS_AND_SHARP_LIMIT.md",
+      "sha": "6cc47c1589ee166b828b9c083d63157ab3ac907b",
+      "size": 4527
+    },
+    {
+      "path": "research/CR-ALP-061_COMPLETE_THIRD_MOMENTS_AND_FOURTH_TARGETS.md",
+      "sha": "36af7f6f298cbddd258681dfc4720d07bfc34613",
+      "size": 4088
+    },
+    {
+      "path": "research/CR-ALP-061_SHARP_DECISION_REGIONS.md",
+      "sha": "8894446dc6e1f589504da8ba8bb87781cdd27d2d",
+      "size": 2521
+    },
+    {
+      "path": "research/CR-ALP-061_SHARP_FOUR_MOMENT_POSTCHECK.md",
+      "sha": "635bc8f290d3c31a07f67cb49b62ced90304c06b",
+      "size": 2690
+    },
+    {
+      "path": "research/CR-ALP-063_COMPLETE_FOURTH_MOMENTS.md",
+      "sha": "491bd87af1ecdbe7a7aa2bbb4ea29d8a172c5f3c",
+      "size": 1803
+    },
+    {
+      "path": "research/CR-ALP-064_SHARP_FIVE_MOMENT_LIMIT_AND_EVEN_TARGET.md",
+      "sha": "5ae973dbf4f14feffe53e135d2a627d9fda90d44",
+      "size": 5301
+    },
+    {
+      "path": "research/CR-ALP-065_COMPLETE_FIFTH_MOMENTS_AND_SIX_MOMENT_LIMIT.md",
+      "sha": "b515376b5c13dc35d8722b7758d1916b958267a7",
+      "size": 3765
+    },
+    {
+      "path": "research/CR-ALP-065_TIMEOUT_RECOVERY.md",
+      "sha": "126131c1c57284b41eef7743398ff728dd9b9c3d",
+      "size": 2678
+    },
+    {
+      "path": "research/CR-ALP-066_FULL_FREQUENCY_GAMMA_DIAGONAL.md",
+      "sha": "3d840001fbc619afc51ece1f2c2a60a4d5a8f78a",
+      "size": 7029
+    },
+    {
+      "path": "research/CR-ALP-067_DIRECT_EVEN_RESPONSE_TEST.md",
+      "sha": "6c89730913402004489ef60a9cac70be9dc0406a",
+      "size": 4446
+    },
+    {
+      "path": "research/CR-ALP-067_FIXED_TRIAL_TAIL_CAP_OBSTRUCTION.md",
+      "sha": "fa33ec58b0c130c0d5c665a2a13bc5ae52d6bd30",
+      "size": 3378
+    },
+    {
+      "path": "research/CR-ALP-068_ALL_RESOLVENT_POLE_CENTERING.md",
+      "sha": "62063403bc46086d8f47667453a451d7d8459d5c",
+      "size": 6565
+    },
+    {
+      "path": "research/CR-ALP-069_EVEN_RESPONSE_TRANSFER_AND_RECEIVER.md",
+      "sha": "e089bc3f2402d8df3822993e3ea908232516bab3",
+      "size": 4741
+    },
+    {
+      "path": "research/CR-ALP-069_INDEPENDENT_REPLAY_PASS.md",
+      "sha": "e0c28bc4834c30d07599aa43d3b7f2b0b8fce26c",
+      "size": 801
+    },
+    {
+      "path": "research/CR-ALP-070_CAPPED_DIAGONAL_ORIGINAL_RECEIVER.md",
+      "sha": "fdb628ab68ef14e78457d10e862781db5c6a9ef3",
+      "size": 4434
+    },
+    {
+      "path": "research/CR-ALP-070_ORIGINAL_COMPLETED_SQUARE_RECEIVER.md",
+      "sha": "2478b8c6196ba5f406cba77066be0c04f8b69b0b",
+      "size": 6097
+    },
+    {
+      "path": "research/CR-ALP-070_RECEIVER_ARITHMETIC_PREFLIGHT.md",
+      "sha": "330d56e4364d31dc26333768a2a17bc084b45fce",
+      "size": 2327
+    },
+    {
+      "path": "research/CR-ALP-070_RECEIVER_PASS_AND_SOURCE_ATTACHMENT.md",
+      "sha": "3362aa4ab8b00b2acd37c865c8a1c9e94d91ce8b",
+      "size": 4111
+    },
+    {
+      "path": "research/CR-ALP-071_COARSE_COUPLED_RECEIVER.md",
+      "sha": "9facb6b0f2d770b8073df9029ca43ce6e8eaa395",
+      "size": 3324
+    },
+    {
+      "path": "research/CR-ALP-072_SECOND_ATTACHMENT_AND_PAIR.md",
+      "sha": "fcc07ad697b44f6093ba1da3e7b9a8d36f23e7a0",
+      "size": 4577
+    },
+    {
+      "path": "research/CR-ALP-122A_LITERAL_SOURCE_AND_LOG_DOMAIN.md",
+      "sha": "b913be9de56d4f95afffd135b52aa1f8fa106556",
+      "size": 8017
+    },
+    {
+      "path": "research/CR-ALP-122B_COMMON_COORDINATE_CORRECTION.md",
+      "sha": "2ad20cc75adcb4ea98cfbfab08c82e509b4cad32",
+      "size": 4749
+    },
+    {
+      "path": "research/CR-ALP-122C_RECOVERED_GENERATOR_IDENTITY.md",
+      "sha": "b47f3d33eaa64d91d0fc7cb518f6f38522e0b998",
+      "size": 3537
+    },
+    {
+      "path": "research/CR-ALP-122D_TAIL_BAND_REPLAY.md",
+      "sha": "87b1161e82970f7507e34c93e3c5c8b3d28857cb",
+      "size": 10829
+    },
+    {
+      "path": "research/CR-ALP-122G_CONTINUUM_COEFFICIENT_TAIL_DERIVATION.md",
+      "sha": "03ba719e50d58b01b9f3fb0977418afe7b344a16",
+      "size": 8788
+    },
+    {
+      "path": "research/CR-ALP-122I_PHYSICAL_ENCLOSURE_READBACK.md",
+      "sha": "14f0db6725e12afa0c770da71b56875c4523ba0c",
+      "size": 3646
+    },
+    {
+      "path": "research/CR-ALP-122L_STRICT_TERMINAL_COERCIVITY.md",
+      "sha": "5c18f668a7d2dff772d20cd76b00de36dd7aa9bd",
+      "size": 4024
+    },
+    {
+      "path": "research/CR-ALP-122N_RECEIVING_MAJORANT_CHAIN.md",
+      "sha": "eff4700d851da0e46f5dafb9db22b020d5a0e931",
+      "size": 3973
+    },
+    {
+      "path": "research/CR-ALP-122O_CERTIFIED_IV103_SOURCE_ATTACHMENT.md",
+      "sha": "64f9a1c79e45b199c2555e390dc70ef8a4f61649",
+      "size": 4334
+    },
+    {
+      "path": "research/CR-ALP-122Q_MIDPOINT_ARITHMETIC_CONTRACT.md",
+      "sha": "12b39164ba00f080b53c065c21657bbf8ccf522d",
+      "size": 6071
+    },
+    {
+      "path": "research/CR-ALP-122R_CONSOLIDATED_COLLAR_AND_POLE_COMPLETION.md",
+      "sha": "b530c8180323f1eb444d010ed66967f913580379",
+      "size": 7534
+    },
+    {
+      "path": "research/CR-ALP-122_FIXED_COLLAR_TRANSFER_LEDGER.md",
+      "sha": "1e69daa8da2fa71e539fe29006c630bea970089a",
+      "size": 4357
+    },
+    {
+      "path": "research/CR-ALP-123AB_RESPONSE_COLUMN_DEFECT_RECEIVER.md",
+      "sha": "374773999ff7f5140536c398eace37a4d8180a49",
+      "size": 5586
+    },
+    {
+      "path": "research/CR-ALP-123AD_SPECTRAL_RESPONSE_DEFECT.md",
+      "sha": "010a4bfc6075f05bcbacdfbc0e045f906d82f618",
+      "size": 3779
+    },
+    {
+      "path": "research/CR-ALP-123AE_JOINT_PROJECTED_RESPONSE_GRAM.md",
+      "sha": "a7dff7a3d41f39fba6ee525c06570ac317d36d5c",
+      "size": 2607
+    },
+    {
+      "path": "research/CR-ALP-123C_DIRECT_TERMINAL_POLE_RESPONSE.md",
+      "sha": "984b24f7fcb22cc2c8b28993837fa2445bb53869",
+      "size": 4163
+    },
+    {
+      "path": "research/CR-ALP-123F_AUXILIARY_TAIL_RESPONSE.md",
+      "sha": "55e4d78b1ef8e54f34bd1f60e51919fdb7145808",
+      "size": 5316
+    },
+    {
+      "path": "research/CR-ALP-123H_CANCELLATION_SENSITIVE_COEFFICIENT_TAIL.md",
+      "sha": "a685eaa7322a13f29933f66c494beff58818892f",
+      "size": 6551
+    },
+    {
+      "path": "research/CR-ALP-123K_MATRIX_ORDER_INVERSE_RECEIVER.md",
+      "sha": "1623ecad2f187508353759946778248a38f50926",
+      "size": 3434
+    },
+    {
+      "path": "research/CR-ALP-123M_CENTERED_DENOMINATOR_AND_PREFIX_READBACK.md",
+      "sha": "f7686c2b9b35338ab997667ad7e1bb3633ce0ee2",
+      "size": 9638
+    },
+    {
+      "path": "research/CR-ALP-123Q_SECOND_AUXILIARY_CORRECTION.md",
+      "sha": "65b04dc469187057c3cbf6ab1e52d773048538d4",
+      "size": 4284
+    },
+    {
+      "path": "research/CR-ALP-123R_SECOND_CORRECTION_RECEIVER_SPEC.md",
+      "sha": "0515c8bebb65d445fa001a9d14701a024fda0f6a",
+      "size": 3671
+    },
+    {
+      "path": "research/CR-ALP-123U_CONDITIONED_BLOCK_ELIMINATION.md",
+      "sha": "5b110c715385ed55f23fcf558deb194f22881b1f",
+      "size": 3613
+    },
+    {
+      "path": "research/CR-ALP-123Y_SIGNED_POLE_TAIL.md",
+      "sha": "8c363cd6174ea44a2407d50d974ad46218f2a21a",
+      "size": 3786
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/README.md",
+      "sha": "c38b9f76f2e109f00103dfe3f04a1bcc696a2452",
+      "size": 2277
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-000.bin",
+      "sha": "148a1b67577cb694f934a8530c266adb1ddde2a7",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-001.bin",
+      "sha": "9a60c9d6f0fb6ade5f8068bb95d44fb9ad9830ee",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-002.bin",
+      "sha": "32ed9c2a39cc5c5709fdd4ab306b63998c5c01f7",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-003.bin",
+      "sha": "2e00fef82181a0b2615b94873edbd5d737bd7008",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-004.bin",
+      "sha": "47a8c2c1f0ceb3abbc521e5ae1c61b2bb05ae830",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-005.bin",
+      "sha": "4f3e690e7d186747904fd2770814bff32743f237",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-006.bin",
+      "sha": "e6a1346fe1d8bd1c9a51ab1023a9199a62cdd200",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-007.bin",
+      "sha": "41bd62521df8aba89140eb75a216137e5e79b5d2",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-008.bin",
+      "sha": "27068a7ab763862dd8d2c36d701c4db2a4c6e43f",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-009.bin",
+      "sha": "f2305786afda8a9d8569fecf29877bfabea2a68a",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-010.bin",
+      "sha": "16a32a5ce2f5cd6fd2de505a16d946b7faf381e5",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-011.bin",
+      "sha": "aad1695d8024ec2ef7e64364bb022648720fa293",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-012.bin",
+      "sha": "07af1d819e6522872a5d9b803eb1dbd63dbb6d19",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-013.bin",
+      "sha": "979ae3b271001a3845b96ad25dc79269a31e4db9",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-014.bin",
+      "sha": "7a0122065ab5a7adc3dd22ca0763cf855c8bd773",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-015.bin",
+      "sha": "a681589e49e276f1cf6b39dad21d7de4e08bc2f7",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-016.bin",
+      "sha": "313dc61038c3433a752cf96f147475e796ee3ea6",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-017.bin",
+      "sha": "42f77ca581f964e009069656f9f0d093f51617e1",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-018.bin",
+      "sha": "d0e3e7407c40db71cd919e7199c2683ffc427e39",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-019.bin",
+      "sha": "806867ad73d8c6d99c72e2c1c8da07d07ab19bcd",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-020.bin",
+      "sha": "4450e4f90a5e36de54e193b97f13d42c4757dc9f",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-021.bin",
+      "sha": "057ac28e3e4d92569112af07b7bb2aee11f9a588",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-022.bin",
+      "sha": "151ba54f78791e2df1779c73259659a4e3a07104",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-023.bin",
+      "sha": "9a0c1a8f08cb466b777b61b65bfd754f7188b1ca",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-024.bin",
+      "sha": "f1e9ba9052497c9918fe1bd07e2d02a2893bae8e",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-025.bin",
+      "sha": "e2bf2b497c003dd9702f088be57149b23370d06e",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-026.bin",
+      "sha": "2c9eb1e7d05fb61a43d0daf225d727738ea0fe23",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-027.bin",
+      "sha": "e9784f0a567706416b0be6e6320d7a8dcb4d7901",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-028.bin",
+      "sha": "3af81b7a9b0bc0d67bc66a6664c3e5eafb397385",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-029.bin",
+      "sha": "9cc29ff000f1a81a17b35de8f5fe8236a30aeec8",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-030.bin",
+      "sha": "461c366687a4186bf1006266fc8983d1de3db9e6",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-031.bin",
+      "sha": "40ed4926b55843dbf9eec66aa3206913b83282ad",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-032.bin",
+      "sha": "abb87e464d8c0d2257165abadc82eedf4a0cd002",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-033.bin",
+      "sha": "9d3b1d8a6544208de7861d64334f4c08bb812706",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-034.bin",
+      "sha": "3e32a9acb97a9ec955bd1f6aaced906487b2ba01",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-035.bin",
+      "sha": "bc2c89450fabdd0357c281d7cb1458e772259648",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-036.bin",
+      "sha": "5c2577dfec47c71d089936246a1c1f727ea2f366",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-037.bin",
+      "sha": "488804154d5a5c94193273988f850ec1e8d12ea6",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-038.bin",
+      "sha": "730235658a8bf8873df581efc2fdbcfa25e0a1d1",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-039.bin",
+      "sha": "0220f05a995f08974a619ea08e3e09244c6c6fe2",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-040.bin",
+      "sha": "501f7f2693880960f58a635516e7ed6b8a50b824",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-041.bin",
+      "sha": "c0eceb3556d91eb02189900e4ade1eb96cac068d",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-042.bin",
+      "sha": "550cee6f0e75592c9f27a9f72a57b1f8622028a4",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-043.bin",
+      "sha": "1d357e6f7f2776fbfdb6d3fe741bd07eaa543d38",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-044.bin",
+      "sha": "c28299428e3471ca4dc912368f767f4b81e67b48",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-045.bin",
+      "sha": "0e800de265c8db535790d2fd8fbc133b55b96ed0",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-046.bin",
+      "sha": "8991af847498197644db417fcc9d19eb55427f72",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-047.bin",
+      "sha": "a7b8a83e5b86d8f18854f5e06b142f131ee729d9",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-048.bin",
+      "sha": "8a117cedd89354de2591412141a16d297fcd232f",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-049.bin",
+      "sha": "532c8c10415da645ca42e8bc6c0324fca6e60d40",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-050.bin",
+      "sha": "9e93becdb02adf06323de7bdab3ad9b3c40d1d0e",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-051.bin",
+      "sha": "aa2b7f9fb985957e1c73ffadd2b961dde85811ff",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-052.bin",
+      "sha": "3a2d28735e562351339731272e23fc0ae7fcec91",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-053.bin",
+      "sha": "cdc9bb7801a26efe796fa5f2cdeaf03dc0f9af19",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-054.bin",
+      "sha": "22e2921a94b4d39630c1aae48227f2d5728355c2",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-055.bin",
+      "sha": "29b46b3b9e9ac142a1a19197100c783015cbabfe",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-056.bin",
+      "sha": "72f2a60f295f4215b311e4b4fcae9780f5640cf9",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-057.bin",
+      "sha": "cf95eb43bae3a4c0bfbf8dea0d6e0a4c35d4942d",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-058.bin",
+      "sha": "a4ee54fdeb42945be75142d7eaf1c9832d1892ad",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-059.bin",
+      "sha": "18271d81ec9d40e2ce07d187a6ca855deac2d8c8",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-060.bin",
+      "sha": "c5907de038f006e605b29c5ac5e413c16ba8a35e",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-061.bin",
+      "sha": "04cc2e2ce22178616a29eba738d96340e458e6ff",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-062.bin",
+      "sha": "7db63a037234fd6b1b0df83536d64843dbc9c4e5",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-063.bin",
+      "sha": "61c096202936b5e38ddfc1860ceef72c29b025dc",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-064.bin",
+      "sha": "0227048fd2da929ca866c858d86007c68908a020",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-065.bin",
+      "sha": "48ec93687753ced5df25a0e3e458847add68f309",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-066.bin",
+      "sha": "61646e94461c6d003c2256dffae46d6be2bc45d4",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-067.bin",
+      "sha": "0835512fc333582f42e8be740c1fd143953d0e74",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-068.bin",
+      "sha": "55ac192c9b0ea38c7bd7a3d3b226eb9539b10f01",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-069.bin",
+      "sha": "4497a093e001fa44cf74ae64c5922823c2578e19",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-070.bin",
+      "sha": "cce936c0ae0090cf0f7ed2244ca9ca2f41bdb39b",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-071.bin",
+      "sha": "2ec227f64a3e3c6de941294398bb6d85dcd417c3",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-072.bin",
+      "sha": "f3133b1871cc42dfb2d9ee8490a854b04a22c2e5",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-073.bin",
+      "sha": "a094d8b53f959b441d205f95c2047f9af6d43ad1",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-074.bin",
+      "sha": "50dbb4c3083fda523191bd075f21ab63c04bd905",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-075.bin",
+      "sha": "21e1b62be8dfcbea2a7941c932ce7938f3076bf7",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-076.bin",
+      "sha": "6fccde12801b557f80922fb44d9ddd498ac0a356",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-077.bin",
+      "sha": "e5054f47e79d1b14eab53abc4e3e98e120900052",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-078.bin",
+      "sha": "63dbb8e758efc7c928622ed00118c94189dc0e01",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-079.bin",
+      "sha": "e25bf0d43d5a3e28b78db185fc281184c9cbf437",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-080.bin",
+      "sha": "ad5d2bd68e2a7ac8563e0548ab048479fba3cacb",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-081.bin",
+      "sha": "f14258d41ea71233faa6fd92464ea090fe8831dc",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-082.bin",
+      "sha": "8014758c50cf2328516a6b54d69e164b92aed25d",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-083.bin",
+      "sha": "cd4d83de54bf316efb706624f701451a25e47e6f",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-084.bin",
+      "sha": "61e8c683682698a425d86f85501e38a62bae773c",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-085.bin",
+      "sha": "10380d7b4d17fb0988c6b116c4a6d36242700f44",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-086.bin",
+      "sha": "096bc40ab3464421190ee4826ba90930d63ac274",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-087.bin",
+      "sha": "abb634564e533185ba661454752867cab56ccdde",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-088.bin",
+      "sha": "c364b20027000b5fd95886a340f59fef847f9259",
+      "size": 700000
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/parts/part-089.bin",
+      "sha": "c0d073daf6a924cfc41559e11307c4b9a5adc05c",
+      "size": 572042
+    },
+    {
+      "path": "src/audits/cr_alp_058_archive/reassemble.py",
+      "sha": "1757db4ce01a5cbbf88036552f468dc05c368734",
+      "size": 1783
+    },
+    {
+      "path": "src/audits/cr_alp_058_recovery/README.md",
+      "sha": "81f04212d86a4ccc6908f93eb50f1783fcb97748",
+      "size": 480
+    },
+    {
+      "path": "src/audits/cr_alp_058_recovery/VALIDATION.md",
+      "sha": "f45e7cc9c523a41525842728626be7fcd896fb14",
+      "size": 9107
+    },
+    {
+      "path": "src/audits/cr_alp_058_recovery/check_saved.py",
+      "sha": "056639544a085cd3fe1e838a3d05d410842e3051",
+      "size": 3395
+    },
+    {
+      "path": "src/audits/cr_alp_058_recovery/validate_geometry.py",
+      "sha": "b8c98ad3ff6cf159ccc473db7d5c74f35b7e0554",
+      "size": 2481
+    },
+    {
+      "path": "src/audits/cr_alp_058_recovery/validated.cpp",
+      "sha": "db1c9bac0c05cd82065d42fb8b5386245cda8d5b",
+      "size": 8366
+    },
+    {
+      "path": "src/audits/cr_alp_058_recovery/verification_result.json",
+      "sha": "45caf99b13e5a7867525fd0e7be946ecb3b1f95e",
+      "size": 3228
+    },
+    {
+      "path": "src/audits/cr_alp_122p_quantitative_collar.py",
+      "sha": "38de2cc4e562a9eef6fbfc9f3e708b052fc1ce32",
+      "size": 4210
+    },
+    {
+      "path": "src/audits/cr_alp_123a_pole_schur.py",
+      "sha": "6fb1960a4b3460291c837af7f7b99a49a1b3406a",
+      "size": 4592
+    },
+    {
+      "path": "src/audits/cr_alp_123aa_joint_direction_specific.py",
+      "sha": "6b701194e2855f60d78a0b3128bbb7368675e2c1",
+      "size": 5913
+    },
+    {
+      "path": "src/audits/cr_alp_123ac_response_column_defect.py",
+      "sha": "44620577d22ad4307142462db89053c730ca9136",
+      "size": 16003
+    },
+    {
+      "path": "src/audits/cr_alp_123ad_spectral_defect_receiver.py",
+      "sha": "d1d25ac721e47b538e839b75599351d8214c6080",
+      "size": 7449
+    },
+    {
+      "path": "src/audits/cr_alp_123ae_joint_projected_gram.py",
+      "sha": "a5913d6b3462cad622f579d31e1ba0f7cec29aea",
+      "size": 9962
+    },
+    {
+      "path": "src/audits/cr_alp_123b_pole_residual.py",
+      "sha": "e62bf6c6e254a1fa5e41bc415fed55c3e4185b9b",
+      "size": 5673
+    },
+    {
+      "path": "src/audits/cr_alp_123d_joint_comparator.py",
+      "sha": "d78a13e50200444646222dc70aa09c7cb971dca9",
+      "size": 5725
+    },
+    {
+      "path": "src/audits/cr_alp_123e_complete_bridge.py",
+      "sha": "c92c1c9e341071bc43c5e40994a1111e0fdbeaa9",
+      "size": 7310
+    },
+    {
+      "path": "src/audits/cr_alp_123g_joint_trial_bank.py",
+      "sha": "2a40d6466cd54e8af04d62c6421fc53d078eb1bf",
+      "size": 4289
+    },
+    {
+      "path": "src/audits/cr_alp_123i_full_residual_envelope.py",
+      "sha": "a8be8e125747de18ab1cf55f15fa203581e68df9",
+      "size": 11630
+    },
+    {
+      "path": "src/audits/cr_alp_123j_common_denominator_solve.py",
+      "sha": "bf57d09938448023c62871c0dd31c3a7f80598b6",
+      "size": 2282
+    },
+    {
+      "path": "src/audits/cr_alp_123l_matrix_order_receiver.py",
+      "sha": "d72ddb49517bfa1b8067d18d23089eb1cbc800ab",
+      "size": 4386
+    },
+    {
+      "path": "src/audits/cr_alp_123n_expanded_joint_trials.py",
+      "sha": "52c1624930018a963fbdffba9f2799686a4b9c85",
+      "size": 4181
+    },
+    {
+      "path": "src/audits/cr_alp_123o_centered_expanded_residual.py",
+      "sha": "faacafdab5438e1ccc32d3efe4488e14683528df",
+      "size": 12582
+    },
+    {
+      "path": "src/audits/cr_alp_123p_direction_specific_receiver.py",
+      "sha": "efa505467e3cab16ebc2c246f3b4566af10493b5",
+      "size": 5352
+    },
+    {
+      "path": "src/audits/cr_alp_123s_second_auxiliary_correction.py",
+      "sha": "02dab8ace9923a484af7061a9155d4a1c1dc2354",
+      "size": 15961
+    },
+    {
+      "path": "src/audits/cr_alp_123t_second_correction_direction_specific.py",
+      "sha": "8cbb0b9a41e13abc7a62a24ba5786e206748c528",
+      "size": 5902
+    },
+    {
+      "path": "src/audits/cr_alp_123v_conditioned_block_proposal.py",
+      "sha": "12e9d9ac983061017135961055d80acc574f387c",
+      "size": 2838
+    },
+    {
+      "path": "src/audits/cr_alp_123w_conditioned_joint_correction.py",
+      "sha": "9cb6682603f02fb7b81b1c5dc7c7bc16ea5046e5",
+      "size": 16812
+    },
+    {
+      "path": "src/audits/cr_alp_123x_scaled_tail_repair.py",
+      "sha": "eda169c19ffea4c29e0728820463cd73c36b57b0",
+      "size": 4344
+    },
+    {
+      "path": "src/audits/cr_alp_123y_signed_pole_tail.py",
+      "sha": "a5812874b3924e1b76574211e13ab3ab2f59604d",
+      "size": 3661
+    },
+    {
+      "path": "src/audits/cr_alp_123z_signed_tail_readback.py",
+      "sha": "df402965b51e309ba9045f170ec8ca47e0fc8fe5",
+      "size": 7902
+    }
+  ],
+  "branch_runs": [
+    {
+      "id": 45933049682,
+      "name": "CR-ALP-123AC weighted response-column defect receiver",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "bad7534924c7390abf45becfd3f819a7ba406f4b",
+      "updated_at": "2026-11-27T03:31:19Z"
+    },
+    {
+      "id": 45931136929,
+      "name": "CR-ALP-123Z signed pole-tail and direction-specific receiver",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e1aa76b6f15ca2a33c2357729f208947a9891fba",
+      "updated_at": "2026-11-27T02:55:46Z"
+    },
+    {
+      "id": 45929869573,
+      "name": "CR-ALP-123W conditioned joint correction",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "bf1e14f2cdd60d914e76aa56f1b285bd43fc48b3",
+      "updated_at": "2026-11-27T02:52:42Z"
+    },
+    {
+      "id": 45929279832,
+      "name": "CR-ALP-123W conditioned joint correction",
+      "status": "completed",
+      "conclusion": "failure",
+      "head_sha": "b7d36c0dacaeb59533345a701582c37f01877443",
+      "updated_at": "2026-11-27T02:41:06Z"
+    },
+    {
+      "id": 45928349158,
+      "name": "CR-ALP-123X direction-specific matrix receiver",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "5362ee7f364fc568d9181cc3be80f3adeb9aee8f",
+      "updated_at": "2026-11-27T02:26:54Z"
+    },
+    {
+      "id": 45927232333,
+      "name": "CR-ALP-123S second auxiliary correction",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "54ab7b4fc5a77758789995d1305e5cd4ce30d834",
+      "updated_at": "2026-11-27T02:25:34Z"
+    },
+    {
+      "id": 45926968480,
+      "name": "CR-ALP-123P direction-specific matrix receiver",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "88088746c37ba0550b40773df43e5a19881d65f7",
+      "updated_at": "2026-11-27T02:12:49Z"
+    },
+    {
+      "id": 45925861807,
+      "name": "CR-ALP-123O centered expanded residual",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "c2007b676253a91f2792313a9c62badce519674b",
+      "updated_at": "2026-11-27T02:07:53Z"
+    },
+    {
+      "id": 45925276065,
+      "name": "CR-ALP-123N2 expanded joint auxiliary trial bank",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "faa34ebc76c3deef6e4a83a68bcd5a775884dc00",
+      "updated_at": "2026-11-27T01:56:55Z"
+    },
+    {
+      "id": 45924648871,
+      "name": "CR-ALP-123N expanded joint auxiliary trial bank",
+      "status": "completed",
+      "conclusion": "failure",
+      "head_sha": "0ad97afebc9b205f5e824334067e9102950ac21e",
+      "updated_at": "2026-11-27T01:49:29Z"
+    },
+    {
+      "id": 45922720120,
+      "name": "CR-ALP-123I full auxiliary residual enclosure",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "32b95068db4146bae5a167802463762487b68532",
+      "updated_at": "2026-11-27T01:33:36Z"
+    },
+    {
+      "id": 45921071905,
+      "name": "CR-ALP-123G joint auxiliary trial bank",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "3e9f0f25d573aab71bf6395ef29a44879f100ada",
+      "updated_at": "2026-11-27T01:27:02Z"
+    },
+    {
+      "id": 45920542745,
+      "name": "CR-ALP-123E complete bridge comparator",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e26363c57e99b374ae81c3aa2123b231a354580e",
+      "updated_at": "2026-11-27T01:08:43Z"
+    },
+    {
+      "id": 45920135779,
+      "name": "CR-ALP-123D joint comparator feasibility",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "4077327d812d2d6ccf86ba87b5c9e4cb041154f3",
+      "updated_at": "2026-11-27T01:03:26Z"
+    },
+    {
+      "id": 45919679528,
+      "name": "CR-ALP-123B pole residual census",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "799dc2ecc4004d52bc3c5da8e2ab2f8a57611265",
+      "updated_at": "2026-11-27T00:57:31Z"
+    },
+    {
+      "id": 45919309633,
+      "name": "CR-ALP-123A finite pole Schur census",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "7721615d92af8d6fb40ee7001b67a653534f965a",
+      "updated_at": "2026-11-27T00:53:12Z"
+    },
+    {
+      "id": 45917791950,
+      "name": "CR-ALP-122P quantitative collar receiver",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "a5e3fe2235593e48443a36b29dbf809fd0e9b749",
+      "updated_at": "2026-11-27T00:37:34Z"
+    },
+    {
+      "id": 45916056754,
+      "name": "CR-ALP-122M original moment enclosure replay",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "ee06674753f0204df706eb7ae260591e68221acc",
+      "updated_at": "2026-11-27T00:27:58Z"
+    },
+    {
+      "id": 45915547172,
+      "name": "CR-ALP-122K per-input physical contract census",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "e4f077a7d180fe69db017ded90babaad5323093e",
+      "updated_at": "2026-11-27T00:14:30Z"
+    },
+    {
+      "id": 45915087621,
+      "name": "CR-ALP-122J response geometry census",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "85e897e2a3da0d2a364c0e5cd704a5dfb1a19b6a",
+      "updated_at": "2026-11-27T00:09:52Z"
+    },
+    {
+      "id": 45907320104,
+      "name": "CR-ALP-122H historical bridge bank replay",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "739501f68fccacd51d20c280e38324884d908f96",
+      "updated_at": "2026-11-26T22:54:28Z"
+    },
+    {
+      "id": 45907071473,
+      "name": "CR-ALP-122F original signed finite matrix replay",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "aa6bb38233505d87314dd1494352a384226c2188",
+      "updated_at": "2026-11-26T22:48:58Z"
+    },
+    {
+      "id": 45905958368,
+      "name": "CR-ALP-122E correction and prime norm replay",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "ad02d2fee0cd2cc9900b390fa46694bac13d562f",
+      "updated_at": "2026-11-26T22:38:07Z"
+    },
+    {
+      "id": 45905806608,
+      "name": "CR-ALP-122C historical source replay",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "c97da8a89d7fc64d8de4fcf94bce345d7065c56a",
+      "updated_at": "2026-11-26T22:36:49Z"
+    },
+    {
+      "id": 45905611858,
+      "name": "CR-ALP-122C historical source replay",
+      "status": "completed",
+      "conclusion": "failure",
+      "head_sha": "dbce9a5e0fb41ab94a2b0f5d291bb6a64380592e",
+      "updated_at": "2026-11-26T22:34:42Z"
+    },
+    {
+      "id": 45905439102,
+      "name": "CR-ALP-122B historical source custody",
+      "status": "completed",
+      "conclusion": "success",
+      "head_sha": "a357713027d0c094b50128b1328bbd63618e48d1",
+      "updated_at": "2026-11-26T22:33:06Z"
+    }
+  ],
+  "latest_job": [
+    {
+      "id": 140289849262,
+      "status": "completed",
+      "conclusion": "success",
+      "steps": [
+        {
+          "name": "Set up job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 1
+        },
+        {
+          "name": "Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 2
+        },
+        {
+          "name": "Authenticate all frozen inputs",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 3
+        },
+        {
+          "name": "Weighted response-column generation and complete defect evaluation",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 4
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 5
+        },
+        {
+          "name": "Preserve direction-specific receiver",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 6
+        },
+        {
+          "name": "Post Run actions/checkout@v4",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 12
+        },
+        {
+          "name": "Complete job",
+          "status": "completed",
+          "conclusion": "success",
+          "number": 13
+        }
+      ]
+    }
+  ],
+  "latest_artifacts": [
+    {
+      "id": 15170167880,
+      "name": "CR-ALP-123AC-direction-specific",
+      "size_in_bytes": 8506138,
+      "url": "https://api.github.com/repos/monocap-tech/canonical-return/actions/artifacts/15170167880",
+      "archive_download_url": "https://api.github.com/repos/monocap-tech/canonical-return/actions/artifacts/15170167880/zip",
+      "expired": false,
+      "created_at": "2026-11-27T03:31:12Z",
+      "expires_at": "2027-02-25T03:15:03Z",
+      "updated_at": "2026-11-27T03:31:12Z",
+      "digest": "sha256:32c2f2e01f228d56f54b8072f5b47515969dd9bfba43dd9d5cdbbc55d583e231",
+      "workflow_run": {
+        "id": 45933049682,
+        "repository_id": 1468220711,
+        "head_repository_id": 1468220711,
+        "head_branch": "research/cr-alp-122-fixed-collar-transfer-staged",
+        "head_sha": "bad7534924c7390abf45becfd3f819a7ba406f4b"
+      }
+    }
+  ],
+  "limitations": "Git tree metadata, not independent retrieval of large blobs. No new mathematical replay. Historical branches not comprehensively inventoried.",
+  "external_pins": {
+    "terminal_121_commit": "7c9dc0301df765ab31f9332e9e8c76015b59894c",
+    "terminal_121_blob": "2b55baf0e81ac9a296276f396f02633553e58b28",
+    "IV103_commit": "018f7e59f4129ce521cd3ae86d1afd59d3b64b5f",
+    "IV103_source_blob": "51a58fff565bb27453ab19fe276d49621b951563"
+  }
+}
