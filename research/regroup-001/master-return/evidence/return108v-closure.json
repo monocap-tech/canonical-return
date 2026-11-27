@@ -1,0 +1,960 @@
+{
+  "IV": "f2e8ec89ae4bf8687a652b299b730d6d1baa43f7",
+  "RECON": "8866d05c4d795bf153027b0b076a323262b0c71a",
+  "entries": {
+    "WeilDefect/Arithmetic/LogarithmicForm.lean": {
+      "blob": "ae932d4f3f7e4d6d06dbd778a5708927172238dc",
+      "imports": [
+        "WeilDefect/Arithmetic/PrimeSupport.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Arithmetic/NoSobolevBootstrap.lean": {
+      "blob": "57153cd26db57d683b5603913e9c1ace42ca8035",
+      "imports": [
+        "WeilDefect/Arithmetic/LogarithmicForm.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Arithmetic/PrimeSupport.lean": {
+      "blob": "ed91ac08a670ae1405cb994b05d06065f5452b5b",
+      "imports": [],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Filtration/CriticalDichotomy.lean": {
+      "blob": "7102a25b28f7a8cf72e805f845bad23daf535aa2",
+      "imports": [
+        "WeilDefect/Filtration/FiniteNegativeSector.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Filtration/FiniteNegativeSector.lean": {
+      "blob": "f7f2a50f8183ba1a617ce1cf97855461bbbbda5f",
+      "imports": [
+        "WeilDefect/Filtration/RightLimit.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Filtration/RightLimit.lean": {
+      "blob": "2df4a12993a7fdad3695deb5e68e7ae526b8ebee",
+      "imports": [
+        "WeilDefect/Screening/FinitePositiveShadows.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/MasterRecon/V04.lean": {
+      "blob": "ffc9963bb59770eb07f624908946de261b1da89e",
+      "imports": [],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterRecon/V06A.lean": {
+      "blob": "2a1023b4949ac17609d6a3d7249818ce06c53d6d",
+      "imports": [
+        "WeilDefect/MasterRecon/V04.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterRecon/V06B.lean": {
+      "blob": "3912835cb4f54fc4e879fdbaa1eee9ef0143c738",
+      "imports": [
+        "WeilDefect/MasterRecon/V06A.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterRecon/V06C.lean": {
+      "blob": "1ca24f3649e4571c63e3cca2cc3d6a9e8ac7fd21",
+      "imports": [
+        "WeilDefect/MasterRecon/V06B.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterRecon/V06D.lean": {
+      "blob": "f5947a6c5944984c3aad4c51aa26c22074d830fa",
+      "imports": [
+        "WeilDefect/MasterRecon/V06C.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterRecon/V07A.lean": {
+      "blob": "3b915e25416916f0dc8fcad5fe56370bbd727301",
+      "imports": [
+        "WeilDefect/MasterRecon/V06D.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterRecon/V07B.lean": {
+      "blob": "fbbdbd6926e7c180ba28a8c0234ffb026cc247e9",
+      "imports": [
+        "WeilDefect/MasterRecon/V07A.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterRecon/V07C.lean": {
+      "blob": "4590b7855fb367745164fa44af43a6c53d987c0e",
+      "imports": [
+        "WeilDefect/MasterRecon/V07B.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterRecon/V07D.lean": {
+      "blob": "9893eaf115130adb130d0a33f7a70aaef4f58d60",
+      "imports": [
+        "WeilDefect/MasterRecon/V07C.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterRecon/V07E.lean": {
+      "blob": "e10c2c9048d74d9c939ffd1b50008fc008b05f09",
+      "imports": [
+        "WeilDefect/MasterRecon/V07D.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterRecon/V07F.lean": {
+      "blob": "086f47f144a33654c38108d0465d4a6ee3f61f0c",
+      "imports": [
+        "WeilDefect/MasterRecon/V07E.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterRecon/V08A.lean": {
+      "blob": "3578e0f36b0d46525ddd8843a0ea371e84aca489",
+      "imports": [
+        "WeilDefect/MasterRecon/V07F.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterRecon/V08B.lean": {
+      "blob": "5b5cacfb04219f8fdf57d795b3e86bf58f7ed238",
+      "imports": [
+        "WeilDefect/MasterRecon/V08A.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterRecon/V08C.lean": {
+      "blob": "0c4a35e7edc24e58dae1eeb5ab5344318c85f104",
+      "imports": [
+        "WeilDefect/MasterRecon/V08B.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterRecon/V08D.lean": {
+      "blob": "bd7011eff0bd1a26083be42916e4dd17ea363289",
+      "imports": [
+        "WeilDefect/MasterRecon/V08C.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterRecon/V08E.lean": {
+      "blob": "07eacbb3edba45eb2ab8a1d39e8b2ea8f85fc1c8",
+      "imports": [
+        "WeilDefect/MasterRecon/V08D.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterRecon/V08F.lean": {
+      "blob": "14c087dc3b470a48644a6463a12d9b00c573a740",
+      "imports": [
+        "WeilDefect/MasterRecon/V08E.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterRecon/V08G.lean": {
+      "blob": "ef6ae787f2756a24019f43b413dae57cbdef3c1d",
+      "imports": [
+        "WeilDefect/MasterRecon/V08F.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterRecon/V08H.lean": {
+      "blob": "b0a23642380ff9e2a6b3b568b16916bbf2345cea",
+      "imports": [
+        "WeilDefect/MasterRecon/V08G.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterRecon/V08I.lean": {
+      "blob": "53d7a87bdd52e66203c05bfc9e3cf514789745d4",
+      "imports": [
+        "WeilDefect/MasterRecon/V08H.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterRecon/V08J.lean": {
+      "blob": "7e03f18e49211056110eb425465afc932cd09607",
+      "imports": [
+        "WeilDefect/MasterRecon/V08I.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterReturn/LogCarrierBridge.lean": {
+      "blob": "268105f19fd9bb8e1401219268b6bf5d42fef05d",
+      "imports": [
+        "WeilDefect/MasterReturn/LogWeightComparison.lean",
+        "WeilDefect/MasterRecon/V08J.lean",
+        "WeilDefect/Morphology/NeutralLogHilbertCarrier.lean"
+      ],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/MasterReturn/LogWeightComparison.lean": {
+      "blob": "ded335b61dc283c23ade7357430bc30e275d80ef",
+      "imports": [],
+      "origin": "RECON",
+      "required_by": [
+        "RECON"
+      ]
+    },
+    "WeilDefect/Morphology/Neutral.lean": {
+      "blob": "9c446407e5f9ecfada57d2dee5e1d85b7d8a5753",
+      "imports": [
+        "WeilDefect/Filtration/CriticalDichotomy.lean",
+        "WeilDefect/Screening/DefectIndex.lean",
+        "WeilDefect/Arithmetic/PrimeSupport.lean",
+        "WeilDefect/Arithmetic/NoSobolevBootstrap.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralArchimedeanExterior.lean": {
+      "blob": "dc3e8c0e1b72769c8cdd6970c8b1131d395c24bc",
+      "imports": [
+        "WeilDefect/Morphology/NeutralIntegralGrowthWeilIdentity.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralCanonicalFormDomain.lean": {
+      "blob": "2bf19165fce3a0cfa6e4d782d68caab268aaf82b",
+      "imports": [
+        "WeilDefect/Morphology/NeutralWeilSourceDiagonal.lean",
+        "WeilDefect/Morphology/NeutralSourceOperatorDomain.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralDigammaCancellation.lean": {
+      "blob": "6f1ffdfdd94ab79ce0f08ed1afa6195150e4b81d",
+      "imports": [
+        "WeilDefect/Morphology/NeutralDigammaEulerIdentity.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralDigammaCentering.lean": {
+      "blob": "0e2c679ae105a1fc0e7cead1cb33a6e190ea3183",
+      "imports": [
+        "WeilDefect/Morphology/NeutralDigammaRealBounds.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralDigammaEulerHolomorphic.lean": {
+      "blob": "e3ae2c1ecd5d0bca73ba5b2eb9fa1d328c0a69e1",
+      "imports": [
+        "WeilDefect/Morphology/NeutralDigammaRealComplexAnchor.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralDigammaEulerIdentity.lean": {
+      "blob": "5e236a85ccd8335f116e917e8c77cd94198ef626",
+      "imports": [
+        "WeilDefect/Morphology/NeutralDigammaEulerHolomorphic.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralDigammaLimit.lean": {
+      "blob": "68e9451c4e899c659f0d61e17b49384dc260aeb4",
+      "imports": [
+        "WeilDefect/Morphology/NeutralDigammaStepDecay.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralDigammaPairingLimit.lean": {
+      "blob": "23afba0e8b87f3255ebd9023f9d70161c22c3a7a",
+      "imports": [
+        "WeilDefect/Morphology/NeutralDigammaLimit.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralDigammaRealAnchor.lean": {
+      "blob": "ab7c5f233a4a2976bc3f6cca96dd529145fedff4",
+      "imports": [
+        "WeilDefect/Morphology/NeutralDigammaPairingLimit.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralDigammaRealBounds.lean": {
+      "blob": "82d0918374ac39fb1e1799a5ebf67e27e46ab87f",
+      "imports": [
+        "WeilDefect/Morphology/NeutralGaussExteriorWeak.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralDigammaRealComplexAnchor.lean": {
+      "blob": "ec5ef4a4c4eaf1c21b96b3f5a979fd4764a0531f",
+      "imports": [
+        "WeilDefect/Morphology/NeutralDigammaRealAnchor.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralDigammaStepDecay.lean": {
+      "blob": "ebdc030a45724aa77a9e96a9f4f847744824bded",
+      "imports": [
+        "WeilDefect/Morphology/NeutralDigammaCentering.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralExteriorAttachment.lean": {
+      "blob": "10b8eee12415382b27e69bd25e210973e20f8120",
+      "imports": [
+        "WeilDefect/Morphology/NeutralDigammaCancellation.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralExteriorResidual.lean": {
+      "blob": "016129d75f5368032392af46db03df752149f217",
+      "imports": [
+        "WeilDefect/Morphology/NeutralArchimedeanExterior.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralExteriorSourceAttachment.lean": {
+      "blob": "49daf738913f8f6e4587adfe8a509dcfb90895b3",
+      "imports": [
+        "WeilDefect/Morphology/NeutralExteriorAttachment.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralFiniteGauss.lean": {
+      "blob": "b5ba95325f037c893d1da96866bb3fd064764978",
+      "imports": [
+        "WeilDefect/Morphology/NeutralWeilCoreSplit.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralFiniteGaussConvolution.lean": {
+      "blob": "38c6bf719c8cb5aecc4ffcb5673d14af57d0fad9",
+      "imports": [
+        "WeilDefect/Morphology/NeutralLaplaceFourier.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralFourierCarrier.lean": {
+      "blob": "03fe8ab1b6a3190e40a91b7a467c975e0d87841d",
+      "imports": [
+        "WeilDefect/Morphology/Neutral.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralGaussExteriorLimit.lean": {
+      "blob": "9ec7fdf7e472a0b602482c1089a22ab7d7005eb8",
+      "imports": [
+        "WeilDefect/Morphology/NeutralShiftedDigammaAction.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralGaussExteriorWeak.lean": {
+      "blob": "079b87d17502e6159dffee61b3fb993ab31fa735",
+      "imports": [
+        "WeilDefect/Morphology/NeutralGaussExteriorLimit.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralGaussMultiplier.lean": {
+      "blob": "fd9a0350a97f5f02ce1d3eadc242cf74a83b11b7",
+      "imports": [
+        "WeilDefect/Morphology/NeutralFiniteGaussConvolution.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralGaussianAdmissibility.lean": {
+      "blob": "dfcfb49e443a00a6bea91c6bed15daed88ff0282",
+      "imports": [
+        "WeilDefect/Morphology/NeutralGaussianPairing.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralGaussianAssembly.lean": {
+      "blob": "01ce40bffd08cf73eb7d70e70f544ff479bfb4ce",
+      "imports": [
+        "WeilDefect/Morphology/NeutralGaussianCutoffPairing.lean",
+        "WeilDefect/Morphology/NeutralWeilPoleGrowth.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralGaussianCutoff.lean": {
+      "blob": "1cbe03541d4521026205de8475f78a733e62abe0",
+      "imports": [
+        "WeilDefect/Morphology/NeutralGaussianFilteredSchwartz.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralGaussianCutoffPairing.lean": {
+      "blob": "1accc07c182e5348212734f0b00cdf676a02b164",
+      "imports": [
+        "WeilDefect/Morphology/NeutralGaussianCutoff.lean",
+        "WeilDefect/Morphology/NeutralGaussianAdmissibility.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralGaussianDualityAudit.lean": {
+      "blob": "e9d4fde62ea2bbd8e7c586b134e81e58103b9085",
+      "imports": [
+        "WeilDefect/Morphology/NeutralGaussianAssembly.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralGaussianFilteredSchwartz.lean": {
+      "blob": "c639b2f5df08d2365cf9dc0c6933a60ed72dbebe",
+      "imports": [
+        "WeilDefect/Morphology/NeutralGaussianSchwartzSeed.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralGaussianHermitianBridge.lean": {
+      "blob": "b32fc8623b6c3e69efd3c0e82019997bf76a1e92",
+      "imports": [
+        "WeilDefect/Morphology/NeutralGaussianDualityAudit.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralGaussianPairing.lean": {
+      "blob": "54732470ab2cf2a3a99be646372fdc186225363a",
+      "imports": [
+        "WeilDefect/Morphology/NeutralGaussianTail.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralGaussianSchwartz.lean": {
+      "blob": "4bb1fec7270d25fc8a9b899b8d3f204e12b342b1",
+      "imports": [
+        "WeilDefect/Morphology/NeutralGaussianPairing.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralGaussianSchwartzSeed.lean": {
+      "blob": "5874ebc61f915e4612fa6ee02bec033a418b0d6a",
+      "imports": [
+        "WeilDefect/Morphology/NeutralGaussianSchwartz.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralGaussianSupportGap.lean": {
+      "blob": "d29c784bfdb15681c103e906f42a3ff946a0db76",
+      "imports": [
+        "WeilDefect/Morphology/NeutralWeilResidualCarrier.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralGaussianTail.lean": {
+      "blob": "7ee6dacf94e4e6b4c694209a7be9ee4ba72846e6",
+      "imports": [
+        "WeilDefect/Morphology/NeutralGaussianSupportGap.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralIntegralGrowthGaussian.lean": {
+      "blob": "a6c45e4a13c704a522164d0a420435bdc7858636",
+      "imports": [
+        "WeilDefect/Morphology/NeutralWeilPrimeRegularity.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralIntegralGrowthWeilIdentity.lean": {
+      "blob": "733587e649dadbc4fdbc8d2b97a2774813889753",
+      "imports": [
+        "WeilDefect/Morphology/NeutralIntegralGrowthGaussian.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralLaplaceFourier.lean": {
+      "blob": "63ed6b78651ff2ad5c9e4f78ede851d84b4ba70d",
+      "imports": [
+        "WeilDefect/Morphology/NeutralFiniteGauss.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralLogFormEnergy.lean": {
+      "blob": "8b91dba883fc31e1e77645dd2ffe67546c6e8bb4",
+      "imports": [
+        "WeilDefect/Morphology/NeutralLogFormGraph.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralLogFormGraph.lean": {
+      "blob": "6a25651c2c54d7ff9e4d20d4b410b56b7d5047a3",
+      "imports": [
+        "WeilDefect/Morphology/NeutralCanonicalFormDomain.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralLogHilbertCarrier.lean": {
+      "blob": "679d58b8f0cfa6b4f7d28c48ce844a41cdce2844",
+      "imports": [
+        "WeilDefect/Morphology/NeutralLogFormEnergy.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralShiftedDigammaAction.lean": {
+      "blob": "3a769eee13cff80100c34b154e153d1bfe2d2d7f",
+      "imports": [
+        "WeilDefect/Morphology/NeutralGaussMultiplier.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralSourceBoundaryRemoval.lean": {
+      "blob": "5cb7d738eed3876a2acf3ca03252954be1dbbbda",
+      "imports": [
+        "WeilDefect/Morphology/NeutralSourceDefectLocalization.lean",
+        "WeilDefect/Morphology/NeutralIntegralGrowthWeilIdentity.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralSourceDefectLocalization.lean": {
+      "blob": "b2d5fd9bad40f5d01cd82f1b2d1b6b5aab06277b",
+      "imports": [
+        "WeilDefect/Morphology/NeutralExteriorSourceAttachment.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralSourceOperatorDomain.lean": {
+      "blob": "2d7f07fe842550a4b2e5958e7d3a0d8c2de81250",
+      "imports": [
+        "WeilDefect/Morphology/NeutralSourceBoundaryRemoval.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralWeilCoreSplit.lean": {
+      "blob": "19705b44e1d3795be15b7b00646530f6e4ffd601",
+      "imports": [
+        "WeilDefect/Morphology/NeutralExteriorResidual.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralWeilFrozenExtension.lean": {
+      "blob": "9499aed94305708e559f2e8acbd63ee086f62c04",
+      "imports": [
+        "WeilDefect/Morphology/NeutralGaussianHermitianBridge.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralWeilMultiplier.lean": {
+      "blob": "4c24084c8a058cbb6685d54bc8226b746cabc413",
+      "imports": [
+        "WeilDefect/Morphology/NeutralFourierCarrier.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralWeilPoleGrowth.lean": {
+      "blob": "2c1b440bb7b8c32dcde58ac5addc0fbbeab607a2",
+      "imports": [
+        "WeilDefect/Morphology/NeutralGaussianAdmissibility.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralWeilPrimeRegularity.lean": {
+      "blob": "7e6d285d64357e775816dfcedbc2486e44b5049f",
+      "imports": [
+        "WeilDefect/Morphology/NeutralWeilSourceDiagonal.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralWeilPrimeShellTranslation.lean": {
+      "blob": "628f979cb0e7b33d22c1a1144ae9e5c25560d257",
+      "imports": [
+        "WeilDefect/Morphology/NeutralWeilFrozenExtension.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralWeilResidualCarrier.lean": {
+      "blob": "d11e51ea0199f134b3c8f17f76c341a27d6d2881",
+      "imports": [
+        "WeilDefect/Morphology/NeutralWeilMultiplier.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralWeilSourceDiagonal.lean": {
+      "blob": "e1949dd4a3996e2e9445c3117aaa3459d3da36b9",
+      "imports": [
+        "WeilDefect/Morphology/NeutralWeilSourceMixedForm.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralWeilSourceFormDomain.lean": {
+      "blob": "f094847751d2f3fb346eb766b8a1a9e541241b57",
+      "imports": [
+        "WeilDefect/Morphology/NeutralWeilSourceThreshold.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralWeilSourceMixedForm.lean": {
+      "blob": "f2ce89e5e020f09de54d1864da928bd99a841cbd",
+      "imports": [
+        "WeilDefect/Morphology/NeutralWeilSourceFormDomain.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralWeilSourceThreshold.lean": {
+      "blob": "2e1a1d755da1414651fe088cf42a787a3df213fa",
+      "imports": [
+        "WeilDefect/Morphology/NeutralWeilSourceWindowAttachment.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralWeilSourceWindowAttachment.lean": {
+      "blob": "5be297c758f1f169be2f4eadf00996beeae3a6e4",
+      "imports": [
+        "WeilDefect/Morphology/NeutralWeilPrimeShellTranslation.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Screening/DefectIndex.lean": {
+      "blob": "a98868b021e0e5dfa88a1b2c86a5ece424072056",
+      "imports": [],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Screening/FinitePositiveShadows.lean": {
+      "blob": "ed287dfd0dbe7e47cdbb074c0fda64bcd0bc6e41",
+      "imports": [
+        "WeilDefect/Screening/ShortedCovariance.lean"
+      ],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    },
+    "WeilDefect/Screening/ShortedCovariance.lean": {
+      "blob": "a0c3ee14272f34dff041601b5abdfaeca7841e8b",
+      "imports": [],
+      "origin": "IV",
+      "required_by": [
+        "IV"
+      ]
+    }
+  },
+  "explicit_cross_edge": [
+    "WeilDefect/MasterReturn/LogCarrierBridge.lean",
+    "WeilDefect/Morphology/NeutralLogHilbertCarrier.lean"
+  ],
+  "external_imports": [
+    "Mathlib",
+    "Mathlib.Algebra.IsPrimePow",
+    "Mathlib.Algebra.Ring.GeomSum",
+    "Mathlib.Analysis.Analytic.Constructions",
+    "Mathlib.Analysis.Analytic.IsolatedZeros",
+    "Mathlib.Analysis.Asymptotics.SpecificAsymptotics",
+    "Mathlib.Analysis.Asymptotics.SuperpolynomialDecay",
+    "Mathlib.Analysis.Calculus.BumpFunction.InnerProduct",
+    "Mathlib.Analysis.Complex.Exponential",
+    "Mathlib.Analysis.Complex.LocallyUniformLimit",
+    "Mathlib.Analysis.Complex.RealDeriv",
+    "Mathlib.Analysis.Convex.Deriv",
+    "Mathlib.Analysis.Convex.PathConnected",
+    "Mathlib.Analysis.Convolution",
+    "Mathlib.Analysis.Distribution.AEEqOfIntegralContDiff",
+    "Mathlib.Analysis.Distribution.Distribution",
+    "Mathlib.Analysis.Distribution.FourierMultiplier",
+    "Mathlib.Analysis.Distribution.Support",
+    "Mathlib.Analysis.Fourier.Convolution",
+    "Mathlib.Analysis.Fourier.FourierTransformDeriv",
+    "Mathlib.Analysis.Fourier.Inversion",
+    "Mathlib.Analysis.Fourier.LpSpace",
+    "Mathlib.Analysis.InnerProductSpace.Dual",
+    "Mathlib.Analysis.InnerProductSpace.Positive",
+    "Mathlib.Analysis.InnerProductSpace.ProdL2",
+    "Mathlib.Analysis.InnerProductSpace.Projection.Submodule",
+    "Mathlib.Analysis.InnerProductSpace.l2Space",
+    "Mathlib.Analysis.Normed.Algebra.Exponential",
+    "Mathlib.Analysis.Normed.Group.InfiniteSum",
+    "Mathlib.Analysis.Normed.Module.Connected",
+    "Mathlib.Analysis.Normed.Module.WeakDual",
+    "Mathlib.Analysis.Normed.Operator.Compact.Basic",
+    "Mathlib.Analysis.PSeries",
+    "Mathlib.Analysis.SpecialFunctions.Exponential",
+    "Mathlib.Analysis.SpecialFunctions.Gamma.BohrMollerup",
+    "Mathlib.Analysis.SpecialFunctions.Gamma.Digamma",
+    "Mathlib.Analysis.SpecialFunctions.Gaussian.GaussianIntegral",
+    "Mathlib.Analysis.SpecialFunctions.Gaussian.PoissonSummation",
+    "Mathlib.Analysis.SpecialFunctions.ImproperIntegrals",
+    "Mathlib.Analysis.SpecialFunctions.Log.Basic",
+    "Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics",
+    "Mathlib.Analysis.SpecialFunctions.Trigonometric.Basic",
+    "Mathlib.Analysis.SpecialFunctions.Trigonometric.Bounds",
+    "Mathlib.Analysis.SpecificLimits.Basic",
+    "Mathlib.Analysis.SpecificLimits.Normed",
+    "Mathlib.MeasureTheory.Function.L2Space",
+    "Mathlib.MeasureTheory.Function.LocallyIntegrable",
+    "Mathlib.MeasureTheory.Function.LpSpace.Basic",
+    "Mathlib.MeasureTheory.Function.LpSpace.ContinuousFunctions",
+    "Mathlib.MeasureTheory.Function.LpSpace.Indicator",
+    "Mathlib.MeasureTheory.Group.Integral",
+    "Mathlib.MeasureTheory.Group.Measure",
+    "Mathlib.MeasureTheory.Integral.Bochner.Basic",
+    "Mathlib.MeasureTheory.Integral.Bochner.Set",
+    "Mathlib.MeasureTheory.Integral.DominatedConvergence",
+    "Mathlib.MeasureTheory.Integral.ExpDecay",
+    "Mathlib.MeasureTheory.Measure.Haar.NormedSpace",
+    "Mathlib.MeasureTheory.Measure.Lebesgue.Basic",
+    "Mathlib.NumberTheory.ArithmeticFunction.VonMangoldt",
+    "Mathlib.NumberTheory.Harmonic.EulerMascheroni",
+    "Mathlib.Order.Filter.AtTopBot.Archimedean",
+    "Mathlib.RingTheory.Polynomial.Hermite.Gaussian",
+    "Mathlib.Tactic",
+    "Mathlib.Topology.Algebra.InfiniteSum.Module",
+    "Mathlib.Topology.Algebra.InfiniteSum.Order",
+    "Mathlib.Topology.Algebra.Module.ClosedSubmodule",
+    "Mathlib.Topology.Algebra.Module.FiniteDimension",
+    "Mathlib.Topology.ContinuousMap.Compact"
+  ],
+  "root": "WeilDefect/MasterReturn/LogCarrierBridge.lean"
+}

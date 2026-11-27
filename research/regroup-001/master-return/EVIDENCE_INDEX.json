@@ -1,0 +1,131 @@
+{
+  "scope": "REGROUP-001 final head; no new verification",
+  "frozenInventory": 35,
+  "preFreezeSuccessfulUnreconciledAuditTargets": 9,
+  "canonicalParent": "5f8349a18c823fda512d41f4871a9be73086f4e1",
+  "labHead": "62e893222ed96e3aedae0de5df82b779d5017dda",
+  "ivPin": "f2e8ec89ae4bf8687a652b299b730d6d1baa43f7",
+  "reconBridgePin": "d3067677cad7a0a583ef14b5466018dfad5f0afe",
+  "logs": [
+    {
+      "run": 45924509279,
+      "job": 140262610737,
+      "status": "PASS abstract 5",
+      "path": "research/regroup-001/master-return/evidence/run-45924509279-job-140262610737.log",
+      "characters": 33091
+    },
+    {
+      "run": 45924632711,
+      "job": 140262998127,
+      "status": "PASS translation 9",
+      "path": "research/regroup-001/master-return/evidence/run-45924632711-job-140262998127.log",
+      "characters": 78339
+    },
+    {
+      "run": 45926487392,
+      "job": 140268875004,
+      "status": "PASS graph 5",
+      "path": "research/regroup-001/master-return/evidence/run-45926487392-job-140268875004.log",
+      "characters": 35308
+    },
+    {
+      "run": 45927305613,
+      "job": 140271541361,
+      "status": "PASS scalar 5",
+      "path": "research/regroup-001/master-return/evidence/run-45927305613-job-140271541361.log",
+      "characters": 30031
+    },
+    {
+      "run": 45928477457,
+      "job": 140275348561,
+      "status": "PASS Mellin core 11",
+      "path": "research/regroup-001/master-return/evidence/run-45928477457-job-140275348561.log",
+      "characters": 97444
+    },
+    {
+      "run": 45934178977,
+      "job": 140293462771,
+      "status": "PASS bridge 9 pre-freeze receipt",
+      "path": "research/regroup-001/master-return/evidence/run-45934178977-job-140293462771.log",
+      "characters": 166898
+    },
+    {
+      "run": 45924177886,
+      "job": 140261573094,
+      "status": "FAIL original abstract audit",
+      "path": "research/regroup-001/master-return/evidence/run-45924177886-job-140261573094.log",
+      "characters": 34367
+    },
+    {
+      "run": 45924941471,
+      "job": 140263964507,
+      "status": "FAIL graph notation",
+      "path": "research/regroup-001/master-return/evidence/run-45924941471-job-140263964507.log",
+      "characters": 34153
+    },
+    {
+      "run": 45925084429,
+      "job": 140264418106,
+      "status": "FAIL V10B5c dependency",
+      "path": "research/regroup-001/master-return/evidence/run-45925084429-job-140264418106.log",
+      "characters": 121895
+    },
+    {
+      "run": 45926491992,
+      "job": 140268889502,
+      "status": "FAIL V10B5d dependency",
+      "path": "research/regroup-001/master-return/evidence/run-45926491992-job-140268889502.log",
+      "characters": 121080
+    },
+    {
+      "run": 45927079259,
+      "job": 140270815878,
+      "status": "FAIL Mellin projection rewrite",
+      "path": "research/regroup-001/master-return/evidence/run-45927079259-job-140270815878.log",
+      "characters": 98686
+    }
+  ],
+  "unavailable": [],
+  "priorLogs": [
+    {
+      "run": 45928561865,
+      "path": "research/master-return-108v/bridge-45928561865-job.log",
+      "blob": "1f67b05d39a4f9fc52fbdde437f12d9a7878e78f"
+    },
+    {
+      "run": 45929439860,
+      "path": "research/master-return-108w/bridge-45929439860-job.log",
+      "blob": "9f25526527295d09ddb0ad9afba3a54744b680e2"
+    }
+  ],
+  "artifacts": [
+    {
+      "run": 45929439860,
+      "id": 15168775440,
+      "sha256": "02b62e4f61cbf15928c1aff7e78fe18fd9b2fb99ffc8ec4b2392a5000c6bf66c",
+      "manifestSha256": "ce1f57d6e5d270413167c6aac4e0ed7a9021891c9381b95c69eceeeb960fdb24",
+      "manifestGitBlob": "c5073b3b3e739a1b0b9600f9298ddd3a86f720db",
+      "provenance": "reconstructed from W printed manifest by changing only pin and bridge blob; exact byte identity verified against independently downloaded V archive member"
+    },
+    {
+      "run": 45934178977,
+      "id": 15170390310,
+      "sha256": "db3d99a63633b5c38147633c730840324283be4c8040fac1ee271a92705d6a54",
+      "manifestSha256": "6c824f455dab73b17b690e7390fcf47f51b9a05289ca79f135658d3090ebc09b",
+      "manifestGitBlob": "7d70a54599b473998296cba8db43821efd787553",
+      "provenance": "extracted from printed job log; exact Git blob identity independently compared to downloaded archive member"
+    }
+  ],
+  "sourceBlobs": {
+    "KernelCompleteness.lean": "0fb7619245462b9f778d794596187f4e0d1e1443",
+    "CarrierTranslation.lean": "19f9587f886e71dc54e0a16d869b8140d0cfbf4a",
+    "GraphDensity.lean": "7ac84f8fa2ccb3dc746651d2cb420bb576ac8b1f",
+    "PacketGraphDensity.lean": "2b5554dd2dc5bd8a5114f286114033bec60f68c7",
+    "LogWeightComparison.lean": "ded335b61dc283c23ade7357430bc30e275d80ef",
+    "MellinKernelCore.lean": "f3a3b8cf4b26ff8feb5ccf3fbfd11fad3fefadab",
+    "LogCarrierBridge.lean": "2d45c6dac5353906a0daf2b9d500541be3be3e46",
+    "MellinKernelBank.lean": "68dca5fdf81597acac1fa9bb85f404fda6ef596a"
+  },
+  "assemblerBlob": "91964b13b7e53e1f22a534b0b7ae46800331c3b1",
+  "workflowBlob": "e225b6a1c9a504bf16bec8b16a0f982496d23cc0"
+}

@@ -1,0 +1,375 @@
+﻿2026-11-27T01:46:49.5708159Z Current runner version: '2.338.2'
+2026-11-27T01:46:49.5733479Z ##[group]Runner Image Provisioner
+2026-11-27T01:46:49.5734318Z Hosted Compute Agent
+2026-11-27T01:46:49.5734865Z Version: 20261111.635
+2026-11-27T01:46:49.5735603Z Commit: b8a594ea514ff44cadb5342986c68b1eac6e22ed
+2026-11-27T01:46:49.5736631Z Build Date: 2026-11-11T01:49:01Z
+2026-11-27T01:46:49.5737249Z Worker ID: {634664b0-3cc2-4829-9a48-9a10ea25b3af}
+2026-11-27T01:46:49.5737924Z Region: eastus3
+2026-11-27T01:46:49.5738432Z Cloud: Azure
+2026-11-27T01:46:49.5738903Z ##[endgroup]
+2026-11-27T01:46:49.5740397Z ##[group]Operating System
+2026-11-27T01:46:49.5741003Z Ubuntu
+2026-11-27T01:46:49.5741801Z 26.04.1
+2026-11-27T01:46:49.5742291Z LTS
+2026-11-27T01:46:49.5742744Z ##[endgroup]
+2026-11-27T01:46:49.5743266Z ##[group]Runner Image
+2026-11-27T01:46:49.5743820Z Image: ubuntu-26.04
+2026-11-27T01:46:49.5744354Z Version: 20261122.9.1
+2026-11-27T01:46:49.5745507Z Included Software: https://github.com/actions/runner-images/blob/ubuntu26/20261122.9/images/ubuntu/Ubuntu2604-Readme.md
+2026-11-27T01:46:49.5746879Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu26%2F20261122.9
+2026-11-27T01:46:49.5747742Z ##[endgroup]
+2026-11-27T01:46:49.5749144Z ##[group]GITHUB_TOKEN Permissions
+2026-11-27T01:46:49.5751343Z Contents: read
+2026-11-27T01:46:49.5751912Z Metadata: read
+2026-11-27T01:46:49.5752410Z ##[endgroup]
+2026-11-27T01:46:49.5754418Z Secret source: Actions
+2026-11-27T01:46:49.5755355Z Cache mode: write
+2026-11-27T01:46:49.5756146Z Prepare workflow directory
+2026-11-27T01:46:49.6188073Z Prepare all required actions
+2026-11-27T01:46:49.6258717Z Getting action download info
+2026-11-27T01:46:49.8390616Z Download action repository 'actions/checkout@v4' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-27T01:46:49.9053259Z Download action repository 'actions/upload-artifact@v4' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-27T01:46:50.0587477Z Complete job name: kernel
+2026-11-27T01:46:50.1384948Z ##[group]Run actions/checkout@v4
+2026-11-27T01:46:50.1385936Z with:
+2026-11-27T01:46:50.1386434Z   repository: monocap-tech/weil-lab
+2026-11-27T01:46:50.1390593Z   token: ***
+2026-11-27T01:46:50.1391468Z   ssh-strict: true
+2026-11-27T01:46:50.1391951Z   ssh-user: git
+2026-11-27T01:46:50.1392525Z   persist-credentials: true
+2026-11-27T01:46:50.1393064Z   clean: true
+2026-11-27T01:46:50.1393589Z   sparse-checkout-cone-mode: true
+2026-11-27T01:46:50.1394259Z   fetch-depth: 1
+2026-11-27T01:46:50.1394791Z   fetch-tags: false
+2026-11-27T01:46:50.1395263Z   show-progress: true
+2026-11-27T01:46:50.1395724Z   lfs: false
+2026-11-27T01:46:50.1396222Z   submodules: false
+2026-11-27T01:46:50.1396695Z   set-safe-directory: true
+2026-11-27T01:46:50.1397234Z   allow-unsafe-pr-checkout: false
+2026-11-27T01:46:50.1398285Z ##[endgroup]
+2026-11-27T01:46:50.3877186Z Syncing repository: monocap-tech/weil-lab
+2026-11-27T01:46:50.3881508Z ##[group]Getting Git version info
+2026-11-27T01:46:50.3883704Z Working directory is '/home/runner/work/weil-lab/weil-lab'
+2026-11-27T01:46:50.3886866Z [command]/usr/bin/git version
+2026-11-27T01:46:50.3892970Z git version 2.56.1
+2026-11-27T01:46:50.3906874Z ##[endgroup]
+2026-11-27T01:46:50.3919039Z Temporarily overriding HOME='/home/runner/work/_temp/5e36aac3-7377-44e1-8f59-9fd76979629e' before making global git config changes
+2026-11-27T01:46:50.3924051Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-27T01:46:50.3927978Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/weil-lab/weil-lab
+2026-11-27T01:46:50.3981950Z Deleting the contents of '/home/runner/work/weil-lab/weil-lab'
+2026-11-27T01:46:50.3985862Z ##[group]Initializing the repository
+2026-11-27T01:46:50.3989795Z [command]/usr/bin/git init /home/runner/work/weil-lab/weil-lab
+2026-11-27T01:46:50.4056358Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-27T01:46:50.4059995Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-27T01:46:50.4063958Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-27T01:46:50.4067191Z hint: call:
+2026-11-27T01:46:50.4069128Z hint:
+2026-11-27T01:46:50.4071208Z hint: 	git config --global init.defaultBranch <name>
+2026-11-27T01:46:50.4073620Z hint:
+2026-11-27T01:46:50.4075810Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-27T01:46:50.4078354Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-27T01:46:50.4081726Z hint:
+2026-11-27T01:46:50.4083415Z hint: 	git branch -m <name>
+2026-11-27T01:46:50.4085406Z hint:
+2026-11-27T01:46:50.4088081Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-27T01:46:50.4092389Z Initialized empty Git repository in /home/runner/work/weil-lab/weil-lab/.git/
+2026-11-27T01:46:50.4099932Z [command]/usr/bin/git remote add origin https://github.com/monocap-tech/weil-lab
+2026-11-27T01:46:50.4118804Z ##[endgroup]
+2026-11-27T01:46:50.4121592Z ##[group]Disabling automatic garbage collection
+2026-11-27T01:46:50.4123407Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-27T01:46:50.4153789Z ##[endgroup]
+2026-11-27T01:46:50.4155864Z ##[group]Setting up auth
+2026-11-27T01:46:50.4161549Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-27T01:46:50.4206168Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-27T01:46:50.4592462Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-27T01:46:50.4638455Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-27T01:46:50.4891008Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-27T01:46:50.4922402Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-27T01:46:50.5136184Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-27T01:46:50.5172078Z ##[endgroup]
+2026-11-27T01:46:50.5174613Z ##[group]Fetching the repository
+2026-11-27T01:46:50.5185800Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +38ffa7a96080e8c396eaabdd0283a4673bec444a:refs/remotes/origin/research/return108m-kernel-repair
+2026-11-27T01:46:50.9398861Z From https://github.com/monocap-tech/weil-lab
+2026-11-27T01:46:50.9402524Z  * [new ref]         38ffa7a96080e8c396eaabdd0283a4673bec444a -> origin/research/return108m-kernel-repair
+2026-11-27T01:46:50.9408998Z ##[endgroup]
+2026-11-27T01:46:50.9411494Z ##[group]Determining the checkout info
+2026-11-27T01:46:50.9414495Z ##[endgroup]
+2026-11-27T01:46:50.9416104Z [command]/usr/bin/git sparse-checkout disable
+2026-11-27T01:46:50.9458702Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-27T01:46:50.9485670Z ##[group]Checking out the ref
+2026-11-27T01:46:50.9491631Z [command]/usr/bin/git checkout --progress --force -B research/return108m-kernel-repair refs/remotes/origin/research/return108m-kernel-repair
+2026-11-27T01:46:50.9850552Z Switched to a new branch 'research/return108m-kernel-repair'
+2026-11-27T01:46:50.9856323Z branch 'research/return108m-kernel-repair' set up to track 'origin/research/return108m-kernel-repair'.
+2026-11-27T01:46:50.9862959Z ##[endgroup]
+2026-11-27T01:46:50.9904301Z [command]/usr/bin/git log -1 --format=%H
+2026-11-27T01:46:50.9925982Z 38ffa7a96080e8c396eaabdd0283a4673bec444a
+2026-11-27T01:46:51.0149582Z ##[group]Run git rev-parse HEAD
+2026-11-27T01:46:51.0150591Z [36;1mgit rev-parse HEAD[0m
+2026-11-27T01:46:51.0151793Z [36;1mgit hash-object WeilDefect/MasterReturn/KernelCompleteness.lean[0m
+2026-11-27T01:46:51.0153307Z [36;1mtest "$(git hash-object WeilDefect/MasterReturn/KernelCompleteness.lean)" = 0fb7619245462b9f778d794596187f4e0d1e1443[0m
+2026-11-27T01:46:51.0177755Z shell: /usr/bin/bash -e {0}
+2026-11-27T01:46:51.0178593Z ##[endgroup]
+2026-11-27T01:46:51.0256653Z 38ffa7a96080e8c396eaabdd0283a4673bec444a
+2026-11-27T01:46:51.0270617Z 0fb7619245462b9f778d794596187f4e0d1e1443
+2026-11-27T01:46:51.0339940Z ##[group]Run curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
+2026-11-27T01:46:51.0341662Z [36;1mcurl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y[0m
+2026-11-27T01:46:51.0342834Z [36;1mecho "$HOME/.elan/bin" >> "$GITHUB_PATH"[0m
+2026-11-27T01:46:51.0363354Z shell: /usr/bin/bash -e {0}
+2026-11-27T01:46:51.0364158Z ##[endgroup]
+2026-11-27T01:46:51.0853911Z info: downloading installer
+2026-11-27T01:46:51.5607546Z info: default toolchain set to 'stable'
+2026-11-27T01:46:51.5726495Z ##[group]Run lake update
+2026-11-27T01:46:51.5727045Z [36;1mlake update[0m
+2026-11-27T01:46:51.5751554Z shell: /usr/bin/bash -e {0}
+2026-11-27T01:46:51.5751989Z ##[endgroup]
+2026-11-27T01:46:52.2087199Z info: downloading https://releases.lean-lang.org/lean4/v4.34.0/lean-4.34.0-linux.tar.zst
+2026-11-27T01:46:58.9185222Z info: installing /home/runner/.elan/toolchains/leanprover--lean4---v4.34.0
+2026-11-27T01:47:04.8726509Z info: weil_defect: no previous manifest, creating one from scratch
+2026-11-27T01:47:04.8727928Z info: mathlib: cloning https://github.com/leanprover-community/mathlib4.git
+2026-11-27T01:47:35.6672968Z info: mathlib: checking out revision '5ed2965256430c3649e86755f9576b54eca72435'
+2026-11-27T01:47:36.7917229Z info: toolchain not updated; already up-to-date
+2026-11-27T01:47:37.7228156Z info: plausible: cloning https://github.com/leanprover-community/plausible
+2026-11-27T01:47:37.9789838Z info: plausible: checking out revision '118aa17ee84656b8bd727fef7c458ee8c833385c'
+2026-11-27T01:47:37.9897020Z info: LeanSearchClient: cloning https://github.com/leanprover-community/LeanSearchClient
+2026-11-27T01:47:38.2178084Z info: LeanSearchClient: checking out revision 'ddf04cf3949fa556442341e87d47f9f6e6074707'
+2026-11-27T01:47:38.2282963Z info: importGraph: cloning https://github.com/leanprover-community/import-graph
+2026-11-27T01:47:38.5223316Z info: importGraph: checking out revision 'e928b72544873815af278d38681b31c0293588e3'
+2026-11-27T01:47:38.5391164Z info: proofwidgets: cloning https://github.com/leanprover-community/ProofWidgets4
+2026-11-27T01:47:39.0248218Z info: proofwidgets: checking out revision '106ff4fafc74ef4ac99d81dbf3ab399118f497a5'
+2026-11-27T01:47:39.6171675Z info: aesop: cloning https://github.com/leanprover-community/aesop
+2026-11-27T01:47:40.1400194Z info: aesop: checking out revision '355695d523e41d0554926416cba2a2b3544fbbc9'
+2026-11-27T01:47:40.1550395Z info: Qq: cloning https://github.com/leanprover-community/quote4
+2026-11-27T01:47:40.4085706Z info: Qq: checking out revision '6a489d9af5d0c47e5b259e2e8bcdfc1811b5a259'
+2026-11-27T01:47:40.4188786Z info: batteries: cloning https://github.com/leanprover-community/batteries
+2026-11-27T01:47:42.9469795Z info: batteries: checking out revision 'f2effa3d803fda822b1f97b806c47cf2adfbcbc2'
+2026-11-27T01:47:42.9762823Z info: Cli: cloning https://github.com/leanprover/lean4-cli
+2026-11-27T01:47:43.2249694Z info: Cli: checking out revision 'e92c9f15fdfacc8536f31cfb3b7ad26c3c8cd204'
+2026-11-27T01:47:43.2353963Z info: mathlib: running post-update hooks
+2026-11-27T01:47:43.6383623Z ✔ [1/5] Built Cache.Cli (316ms)
+2026-11-27T01:47:43.6384051Z ✔ [2/5] Built Cache.Lean (347ms)
+2026-11-27T01:47:45.7462730Z ✔ [7/42] Built Cache.Cli:c.o (245ms)
+2026-11-27T01:47:45.7463504Z ✔ [8/42] Built Cache.Lean:c.o (216ms)
+2026-11-27T01:47:45.8644911Z ✔ [10/42] Built Cache.Env (365ms)
+2026-11-27T01:47:46.0626985Z ✔ [11/42] Built Cache.Env:c.o (198ms)
+2026-11-27T01:47:46.2632761Z ✔ [12/42] Built Cache.Infra (440ms)
+2026-11-27T01:47:46.4632710Z ✔ [13/42] Built Cache.Infra:c.o (226ms)
+2026-11-27T01:47:46.8641558Z ✔ [14/42] Built Cache.IO (1.4s)
+2026-11-27T01:47:47.5662439Z ✔ [15/42] Built Cache.Hashing (662ms)
+2026-11-27T01:47:48.1658364Z ✔ [16/42] Built Cache.Hashing:c.o (559ms)
+2026-11-27T01:47:48.4664521Z ✔ [17/42] Built Cache.IO:c.o (1.6s)
+2026-11-27T01:47:49.3674045Z ✔ [18/42] Built Cache.Requests (1.8s)
+2026-11-27T01:47:49.8732677Z ✔ [19/42] Built Cache.Marker (460ms)
+2026-11-27T01:47:49.9725076Z ✔ [20/42] Built Cache.Marker:c.o (155ms)
+2026-11-27T01:47:50.6782698Z ✔ [21/42] Built Cache.Upload.Dest (822ms)
+2026-11-27T01:47:50.6832421Z ✔ [22/42] Built Cache.Query (871ms)
+2026-11-27T01:47:50.8781590Z ✔ [23/42] Built Cache.Upload.Dest:c.o (190ms)
+2026-11-27T01:47:51.2782494Z ✔ [24/42] Built Cache.Query:c.o (435ms)
+2026-11-27T01:47:51.6772487Z ✔ [25/42] Built Cache.Upload.Curl (944ms)
+2026-11-27T01:47:51.6812226Z ✔ [26/42] Built Cache.Upload.Rclone (970ms)
+2026-11-27T01:47:51.8762948Z ✔ [27/42] Built Cache.Upload.Rclone:c.o (233ms)
+2026-11-27T01:47:51.9792954Z ✔ [28/42] Built Cache.Upload.Curl:c.o (305ms)
+2026-11-27T01:47:52.1792342Z ✔ [29/42] Built Cache.Warning (940ms)
+2026-11-27T01:47:52.5808474Z ✔ [30/42] Built Cache.Upload.Azure (747ms)
+2026-11-27T01:47:52.6798179Z ✔ [31/42] Built Cache.Warning:c.o (431ms)
+2026-11-27T01:47:52.7794600Z ✔ [32/42] Built Cache.Upload.Azure:c.o (155ms)
+2026-11-27T01:47:52.8796305Z ✔ [33/42] Built Cache.Upload.S3 (917ms)
+2026-11-27T01:47:52.8797226Z ✔ [34/42] Built Cache.Requests:c.o (3.6s)
+2026-11-27T01:47:53.1799797Z ✔ [35/42] Built Cache.Upload.S3:c.o (327ms)
+2026-11-27T01:47:53.3802229Z ✔ [36/42] Built Cache.Upload.Defs (494ms)
+2026-11-27T01:47:53.4803928Z ✔ [37/42] Built Cache.Upload.Defs:c.o (140ms)
+2026-11-27T01:47:53.7807611Z ✔ [38/42] Built Cache.Upload (434ms)
+2026-11-27T01:47:53.8808352Z ✔ [39/42] Built Cache.Upload:c.o (115ms)
+2026-11-27T01:47:54.7817120Z ✔ [40/42] Built Cache.Main (981ms)
+2026-11-27T01:47:55.6827104Z ✔ [41/42] Built Cache.Main:c.o (881ms)
+2026-11-27T01:47:56.2838229Z ✔ [42/42] Built cache:exe (633ms)
+2026-11-27T01:47:58.1135957Z Current branch: HEAD
+2026-11-27T01:47:58.1136852Z Using cache from origin: (some leanprover-community/mathlib4)
+2026-11-27T01:47:58.1137877Z Attempting to download 8908 file(s) from leanprover-community/mathlib4 cache at https://cache.mathlib.org/mathlib4-master
+2026-11-27T01:47:58.2351971Z 
+2026-11-27T01:47:58.3412863Z Downloaded: 53 file(s) [attempted 53/8908 = 0%, 1755 KB/s], Decompressed: 3
+2026-11-27T01:47:58.4442539Z Downloaded: 158 file(s) [attempted 158/8908 = 1%, 3167 KB/s], Decompressed: 3
+2026-11-27T01:47:58.5414350Z Downloaded: 236 file(s) [attempted 236/8908 = 2%, 163 KB/s], Decompressed: 53
+2026-11-27T01:47:58.6421682Z Downloaded: 303 file(s) [attempted 303/8908 = 3%, 272 KB/s], Decompressed: 53
+2026-11-27T01:47:58.7452470Z Downloaded: 440 file(s) [attempted 440/8908 = 4%, 982 KB/s], Decompressed: 53
+2026-11-27T01:47:58.8472440Z Downloaded: 548 file(s) [attempted 548/8908 = 6%, 472 KB/s], Decompressed: 53
+2026-11-27T01:47:58.9529844Z Downloaded: 671 file(s) [attempted 671/8908 = 7%, 2239 KB/s], Decompressed: 193
+2026-11-27T01:47:59.0529356Z Downloaded: 800 file(s) [attempted 800/8908 = 8%, 3701 KB/s], Decompressed: 193
+2026-11-27T01:47:59.1665248Z Downloaded: 962 file(s) [attempted 962/8908 = 10%, 3317 KB/s], Decompressed: 193
+2026-11-27T01:47:59.2654687Z Downloaded: 1081 file(s) [attempted 1081/8908 = 12%, 4287 KB/s], Decompressed: 193
+2026-11-27T01:47:59.3792774Z Downloaded: 1219 file(s) [attempted 1219/8908 = 13%, 1502 KB/s], Decompressed: 193
+2026-11-27T01:47:59.4825030Z Downloaded: 1353 file(s) [attempted 1353/8908 = 15%, 1054 KB/s], Decompressed: 193
+2026-11-27T01:47:59.5815408Z Downloaded: 1452 file(s) [attempted 1452/8908 = 16%, 2519 KB/s], Decompressed: 193
+2026-11-27T01:47:59.6782297Z Downloaded: 1542 file(s) [attempted 1542/8908 = 17%, 765 KB/s], Decompressed: 193
+2026-11-27T01:47:59.7802496Z Downloaded: 1607 file(s) [attempted 1607/8908 = 18%, 579 KB/s], Decompressed: 193
+2026-11-27T01:47:59.8786119Z Downloaded: 1726 file(s) [attempted 1726/8908 = 19%, 543 KB/s], Decompressed: 193
+2026-11-27T01:47:59.9871025Z Downloaded: 1845 file(s) [attempted 1845/8908 = 20%, 581 KB/s], Decompressed: 193
+2026-11-27T01:48:00.0873716Z Downloaded: 1953 file(s) [attempted 1953/8908 = 21%, 2839 KB/s], Decompressed: 193
+2026-11-27T01:48:00.1900112Z Downloaded: 2062 file(s) [attempted 2062/8908 = 23%, 749 KB/s], Decompressed: 598
+2026-11-27T01:48:00.2879688Z Downloaded: 2163 file(s) [attempted 2163/8908 = 24%, 364 KB/s], Decompressed: 598
+2026-11-27T01:48:00.3877031Z Downloaded: 2272 file(s) [attempted 2272/8908 = 25%, 606 KB/s], Decompressed: 598
+2026-11-27T01:48:00.5012676Z Downloaded: 2404 file(s) [attempted 2404/8908 = 26%, 5607 KB/s], Decompressed: 598
+2026-11-27T01:48:00.6038823Z Downloaded: 2570 file(s) [attempted 2570/8908 = 28%, 2377 KB/s], Decompressed: 598
+2026-11-27T01:48:00.7071357Z Downloaded: 2696 file(s) [attempted 2696/8908 = 30%, 4796 KB/s], Decompressed: 598
+2026-11-27T01:48:00.8313176Z Downloaded: 2808 file(s) [attempted 2808/8908 = 31%, 2093 KB/s], Decompressed: 598
+2026-11-27T01:48:00.9333237Z Downloaded: 2856 file(s) [attempted 2856/8908 = 32%, 1097 KB/s], Decompressed: 598
+2026-11-27T01:48:01.0474540Z Downloaded: 2957 file(s) [attempted 2957/8908 = 33%, 266 KB/s], Decompressed: 598
+2026-11-27T01:48:01.1492632Z Downloaded: 3067 file(s) [attempted 3067/8908 = 34%, 379 KB/s], Decompressed: 598
+2026-11-27T01:48:01.2532240Z Downloaded: 3167 file(s) [attempted 3167/8908 = 35%, 840 KB/s], Decompressed: 598
+2026-11-27T01:48:01.3502571Z Downloaded: 3277 file(s) [attempted 3277/8908 = 36%, 72 KB/s], Decompressed: 598
+2026-11-27T01:48:01.4566882Z Downloaded: 3399 file(s) [attempted 3399/8908 = 38%, 1967 KB/s], Decompressed: 598
+2026-11-27T01:48:01.5642270Z Downloaded: 3506 file(s) [attempted 3506/8908 = 39%, 3608 KB/s], Decompressed: 598
+2026-11-27T01:48:01.6842725Z Downloaded: 3627 file(s) [attempted 3627/8908 = 40%, 1162 KB/s], Decompressed: 598
+2026-11-27T01:48:01.7865511Z Downloaded: 3726 file(s) [attempted 3726/8908 = 41%, 3906 KB/s], Decompressed: 598
+2026-11-27T01:48:01.8956507Z Downloaded: 3879 file(s) [attempted 3879/8908 = 43%, 1619 KB/s], Decompressed: 598
+2026-11-27T01:48:02.0021443Z Downloaded: 4007 file(s) [attempted 4007/8908 = 44%, 3000 KB/s], Decompressed: 598
+2026-11-27T01:48:02.1080935Z Downloaded: 4115 file(s) [attempted 4115/8908 = 46%, 2477 KB/s], Decompressed: 598
+2026-11-27T01:48:02.2090766Z Downloaded: 4199 file(s) [attempted 4199/8908 = 47%, 1523 KB/s], Decompressed: 598
+2026-11-27T01:48:02.3112427Z Downloaded: 4261 file(s) [attempted 4261/8908 = 47%, 160 KB/s], Decompressed: 598
+2026-11-27T01:48:02.4112510Z Downloaded: 4387 file(s) [attempted 4387/8908 = 49%, 987 KB/s], Decompressed: 598
+2026-11-27T01:48:02.5201513Z Downloaded: 4524 file(s) [attempted 4524/8908 = 50%, 678 KB/s], Decompressed: 598
+2026-11-27T01:48:02.6246978Z Downloaded: 4659 file(s) [attempted 4659/8908 = 52%, 2130 KB/s], Decompressed: 598
+2026-11-27T01:48:02.7292429Z Downloaded: 4771 file(s) [attempted 4771/8908 = 53%, 2895 KB/s], Decompressed: 598
+2026-11-27T01:48:02.8253811Z Downloaded: 4888 file(s) [attempted 4888/8908 = 54%, 1029 KB/s], Decompressed: 598
+2026-11-27T01:48:02.9336010Z Downloaded: 5018 file(s) [attempted 5018/8908 = 56%, 541 KB/s], Decompressed: 598
+2026-11-27T01:48:03.0334194Z Downloaded: 5144 file(s) [attempted 5144/8908 = 57%, 524 KB/s], Decompressed: 598
+2026-11-27T01:48:03.1678115Z Downloaded: 5277 file(s) [attempted 5277/8908 = 59%, 373 KB/s], Decompressed: 598
+2026-11-27T01:48:03.2784604Z Downloaded: 5364 file(s) [attempted 5364/8908 = 60%, 774 KB/s], Decompressed: 598
+2026-11-27T01:48:03.3847268Z Downloaded: 5458 file(s) [attempted 5458/8908 = 61%, 161 KB/s], Decompressed: 598
+2026-11-27T01:48:03.4862544Z Downloaded: 5508 file(s) [attempted 5508/8908 = 61%, 106 KB/s], Decompressed: 598
+2026-11-27T01:48:03.5848258Z Downloaded: 5608 file(s) [attempted 5608/8908 = 62%, 881 KB/s], Decompressed: 598
+2026-11-27T01:48:03.6902416Z Downloaded: 5734 file(s) [attempted 5734/8908 = 64%, 971 KB/s], Decompressed: 598
+2026-11-27T01:48:03.7916571Z Downloaded: 5851 file(s) [attempted 5851/8908 = 65%, 173 KB/s], Decompressed: 598
+2026-11-27T01:48:03.8962100Z Downloaded: 5950 file(s) [attempted 5950/8908 = 66%, 133 KB/s], Decompressed: 598
+2026-11-27T01:48:03.9964504Z Downloaded: 6048 file(s) [attempted 6048/8908 = 67%, 150 KB/s], Decompressed: 598
+2026-11-27T01:48:04.1061481Z Downloaded: 6144 file(s) [attempted 6144/8908 = 68%, 858 KB/s], Decompressed: 598
+2026-11-27T01:48:04.2362913Z Downloaded: 6288 file(s) [attempted 6288/8908 = 70%, 2996 KB/s], Decompressed: 598
+2026-11-27T01:48:04.3383267Z Downloaded: 6350 file(s) [attempted 6350/8908 = 71%, 1608 KB/s], Decompressed: 598
+2026-11-27T01:48:04.4400420Z Downloaded: 6469 file(s) [attempted 6469/8908 = 72%, 813 KB/s], Decompressed: 598
+2026-11-27T01:48:04.5432659Z Downloaded: 6590 file(s) [attempted 6590/8908 = 73%, 1874 KB/s], Decompressed: 1989
+2026-11-27T01:48:04.6482489Z Downloaded: 6679 file(s) [attempted 6679/8908 = 74%, 1035 KB/s], Decompressed: 1989
+2026-11-27T01:48:04.7516330Z Downloaded: 6771 file(s) [attempted 6771/8908 = 76%, 4017 KB/s], Decompressed: 1989
+2026-11-27T01:48:04.8582297Z Downloaded: 6849 file(s) [attempted 6849/8908 = 76%, 83 KB/s], Decompressed: 1989
+2026-11-27T01:48:04.9553174Z Downloaded: 6975 file(s) [attempted 6975/8908 = 78%, 1920 KB/s], Decompressed: 1989
+2026-11-27T01:48:05.0592553Z Downloaded: 7095 file(s) [attempted 7095/8908 = 79%, 2687 KB/s], Decompressed: 1989
+2026-11-27T01:48:05.1574423Z Downloaded: 7222 file(s) [attempted 7222/8908 = 81%, 265 KB/s], Decompressed: 1989
+2026-11-27T01:48:05.2585355Z Downloaded: 7343 file(s) [attempted 7343/8908 = 82%, 583 KB/s], Decompressed: 1989
+2026-11-27T01:48:05.3590110Z Downloaded: 7419 file(s) [attempted 7419/8908 = 83%, 1950 KB/s], Decompressed: 1989
+2026-11-27T01:48:05.4632326Z Downloaded: 7540 file(s) [attempted 7540/8908 = 84%, 1800 KB/s], Decompressed: 1989
+2026-11-27T01:48:05.5682271Z Downloaded: 7633 file(s) [attempted 7633/8908 = 85%, 233 KB/s], Decompressed: 1989
+2026-11-27T01:48:05.6769618Z Downloaded: 7743 file(s) [attempted 7743/8908 = 86%, 226 KB/s], Decompressed: 1989
+2026-11-27T01:48:05.7763557Z Downloaded: 7894 file(s) [attempted 7894/8908 = 88%, 2174 KB/s], Decompressed: 1989
+2026-11-27T01:48:05.8821962Z Downloaded: 8011 file(s) [attempted 8011/8908 = 89%, 320 KB/s], Decompressed: 1989
+2026-11-27T01:48:05.9922262Z Downloaded: 8096 file(s) [attempted 8096/8908 = 90%, 127 KB/s], Decompressed: 1989
+2026-11-27T01:48:06.0922398Z Downloaded: 8171 file(s) [attempted 8171/8908 = 91%, 425 KB/s], Decompressed: 1989
+2026-11-27T01:48:06.1922762Z Downloaded: 8290 file(s) [attempted 8290/8908 = 93%, 106 KB/s], Decompressed: 1989
+2026-11-27T01:48:06.3062201Z Downloaded: 8411 file(s) [attempted 8411/8908 = 94%, 995 KB/s], Decompressed: 1989
+2026-11-27T01:48:06.4082541Z Downloaded: 8539 file(s) [attempted 8539/8908 = 95%, 258 KB/s], Decompressed: 1989
+2026-11-27T01:48:06.5162174Z Downloaded: 8674 file(s) [attempted 8674/8908 = 97%, 1791 KB/s], Decompressed: 1989
+2026-11-27T01:48:06.5719013Z Downloaded: 8823 file(s) [attempted 8823/8908 = 99%, 488 KB/s], Decompressed: 1989
+2026-11-27T01:48:06.5732330Z Downloaded: 8908 file(s) [attempted 8908/8908 = 100%, 488 KB/s], Decompressed: 1989
+2026-11-27T01:48:23.5010709Z Decompressed 8908 file(s)
+2026-11-27T01:48:23.5011798Z Already decompressed 8908 file(s)
+2026-11-27T01:48:23.5465687Z ##[group]Run lake exe cache get
+2026-11-27T01:48:23.5465986Z [36;1mlake exe cache get[0m
+2026-11-27T01:48:23.5487357Z shell: /usr/bin/bash -e {0}
+2026-11-27T01:48:23.5487631Z ##[endgroup]
+2026-11-27T01:48:27.0806995Z Current branch: HEAD
+2026-11-27T01:48:27.0807375Z Using cache from origin: (some leanprover-community/mathlib4)
+2026-11-27T01:48:27.0807713Z No files to download
+2026-11-27T01:48:27.0807939Z Already decompressed 8908 file(s)
+2026-11-27T01:48:27.1067685Z ##[group]Run set -euo pipefail
+2026-11-27T01:48:27.1068047Z [36;1mset -euo pipefail[0m
+2026-11-27T01:48:27.1068586Z [36;1mlake env lean WeilDefect/MasterReturn/KernelCompleteness.lean 2>&1 | tee return108m-lean.log[0m
+2026-11-27T01:48:27.1069149Z [36;1mpython3 - <<'PY'[0m
+2026-11-27T01:48:27.1069413Z [36;1mimport re[0m
+2026-11-27T01:48:27.1069845Z [36;1mfrom pathlib import Path[0m
+2026-11-27T01:48:27.1070187Z [36;1ms = Path("return108m-lean.log").read_text()[0m
+2026-11-27T01:48:27.1071449Z [36;1mnames = ["finiteDimensional_of_compact_fixed","fullKernel_finite_of_compactSigned","independent_of_vandermonde_observations","zero_of_arbitrarily_large_kernel_banks","fullSample_zero_of_enlarged_compact"][0m
+2026-11-27T01:48:27.1072478Z [36;1mallowed = {"propext","Classical.choice","Quot.sound"}[0m
+2026-11-27T01:48:27.1072883Z [36;1mfor name in names:[0m
+2026-11-27T01:48:27.1073275Z [36;1m    q = "WeilDefect.MasterReturn.KernelCompleteness." + name[0m
+2026-11-27T01:48:27.1073854Z [36;1m    m = re.search(r"'" + re.escape(q) + r"' depends on axioms: \[([^\]]*)\]", s)[0m
+2026-11-27T01:48:27.1074283Z [36;1m    if m is None:[0m
+2026-11-27T01:48:27.1074616Z [36;1m        if f"'{q}' does not depend on any axioms" not in s:[0m
+2026-11-27T01:48:27.1075045Z [36;1m            raise SystemExit("Missing axiom audit: " + q)[0m
+2026-11-27T01:48:27.1075403Z [36;1m    else:[0m
+2026-11-27T01:48:27.1075760Z [36;1m        axioms = {x.strip() for x in m.group(1).split(",") if x.strip()}[0m
+2026-11-27T01:48:27.1076197Z [36;1m        if not axioms <= allowed:[0m
+2026-11-27T01:48:27.1076639Z [36;1m            raise SystemExit(f"Unexpected axioms for {q}: {axioms - allowed}")[0m
+2026-11-27T01:48:27.1077099Z [36;1m    print("PASS", q)[0m
+2026-11-27T01:48:27.1077437Z [36;1mprint("RETURN108-M strict axiom audit PASS 5/5")[0m
+2026-11-27T01:48:27.1077788Z [36;1mPY[0m
+2026-11-27T01:48:27.1101235Z shell: /usr/bin/bash --noprofile --norc -e -o pipefail {0}
+2026-11-27T01:48:27.1101702Z ##[endgroup]
+2026-11-27T01:48:30.0243073Z WeilDefect/MasterReturn/KernelCompleteness.lean:54:4: warning: `ContinuousLinearMap.add_apply` has been deprecated: Use `add_apply` instead
+2026-11-27T01:48:30.0261951Z 
+2026-11-27T01:48:30.0262824Z Note: The updated constant is in a different namespace. Dot notation may need to be changed (e.g., from `x.add_apply` to `add_apply x`).
+2026-11-27T01:48:30.0263723Z WeilDefect/MasterReturn/KernelCompleteness.lean:97:2: warning: Try this: 
+2026-11-27T01:48:30.0264553Z   letI̵
+2026-11-27T01:48:30.0264729Z 
+2026-11-27T01:48:30.0264976Z The goal is a proposition, so `let` is preferred over `letI`.
+2026-11-27T01:48:30.0265722Z The difference between `let` and `letI` is that `letI` inlines the value.
+2026-11-27T01:48:30.0266498Z But this is not relevant for proofs because of proof irrelevance.
+2026-11-27T01:48:30.0266937Z 
+2026-11-27T01:48:30.0267299Z Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+2026-11-27T01:48:30.0267951Z 'WeilDefect.MasterReturn.KernelCompleteness.finiteDimensional_of_compact_fixed' depends on axioms: [propext,
+2026-11-27T01:48:30.0268458Z  Classical.choice,
+2026-11-27T01:48:30.0268880Z  Quot.sound]
+2026-11-27T01:48:30.0269414Z 'WeilDefect.MasterReturn.KernelCompleteness.fullKernel_finite_of_compactSigned' depends on axioms: [propext,
+2026-11-27T01:48:30.0269958Z  Classical.choice,
+2026-11-27T01:48:30.0270411Z  Quot.sound]
+2026-11-27T01:48:30.0270865Z 'WeilDefect.MasterReturn.KernelCompleteness.independent_of_vandermonde_observations' depends on axioms: [propext,
+2026-11-27T01:48:30.0271642Z  Classical.choice,
+2026-11-27T01:48:30.0271834Z  Quot.sound]
+2026-11-27T01:48:30.0272268Z 'WeilDefect.MasterReturn.KernelCompleteness.zero_of_arbitrarily_large_kernel_banks' depends on axioms: [propext,
+2026-11-27T01:48:30.0272760Z  Classical.choice,
+2026-11-27T01:48:30.0272947Z  Quot.sound]
+2026-11-27T01:48:30.0273379Z 'WeilDefect.MasterReturn.KernelCompleteness.fullSample_zero_of_enlarged_compact' depends on axioms: [propext,
+2026-11-27T01:48:30.0274159Z  Classical.choice,
+2026-11-27T01:48:30.0274351Z  Quot.sound]
+2026-11-27T01:48:30.1334743Z PASS WeilDefect.MasterReturn.KernelCompleteness.finiteDimensional_of_compact_fixed
+2026-11-27T01:48:30.1335927Z PASS WeilDefect.MasterReturn.KernelCompleteness.fullKernel_finite_of_compactSigned
+2026-11-27T01:48:30.1336958Z PASS WeilDefect.MasterReturn.KernelCompleteness.independent_of_vandermonde_observations
+2026-11-27T01:48:30.1337868Z PASS WeilDefect.MasterReturn.KernelCompleteness.zero_of_arbitrarily_large_kernel_banks
+2026-11-27T01:48:30.1338467Z PASS WeilDefect.MasterReturn.KernelCompleteness.fullSample_zero_of_enlarged_compact
+2026-11-27T01:48:30.1338908Z RETURN108-M strict axiom audit PASS 5/5
+2026-11-27T01:48:30.1430542Z ##[group]Run actions/upload-artifact@v4
+2026-11-27T01:48:30.1430827Z with:
+2026-11-27T01:48:30.1431025Z   name: return108m-lean
+2026-11-27T01:48:30.1431515Z   path: return108m-lean.log
+2026-11-27T01:48:30.1431755Z   if-no-files-found: warn
+2026-11-27T01:48:30.1431980Z   compression-level: 6
+2026-11-27T01:48:30.1432191Z   overwrite: false
+2026-11-27T01:48:30.1432401Z   include-hidden-files: false
+2026-11-27T01:48:30.1432635Z ##[endgroup]
+2026-11-27T01:48:30.3088357Z (node:3130) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-27T01:48:30.3089044Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-27T01:48:30.3132379Z With the provided path, there will be 1 file uploaded
+2026-11-27T01:48:30.3138201Z Artifact name is valid!
+2026-11-27T01:48:30.3138819Z Root directory input is valid!
+2026-11-27T01:48:30.5876471Z Beginning upload of artifact content to blob storage
+2026-11-27T01:48:30.6084618Z (node:3130) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-27T01:48:30.6902714Z Uploaded bytes 682
+2026-11-27T01:48:30.7208932Z Finished uploading artifact content to blob storage!
+2026-11-27T01:48:30.7209854Z SHA256 digest of uploaded artifact zip is 96e7d288277e118200bdb6a53ed1a198cc13e76d41ea3e57c4f0e4a10c5602cc
+2026-11-27T01:48:30.7210972Z Finalizing artifact upload
+2026-11-27T01:48:31.0442368Z Artifact return108m-lean.zip successfully finalized. Artifact ID 15165574502
+2026-11-27T01:48:31.0443993Z Artifact return108m-lean has been successfully uploaded! Final size is 682 bytes. Artifact ID is 15165574502
+2026-11-27T01:48:31.0448939Z Artifact download URL: https://github.com/monocap-tech/weil-lab/actions/runs/45924509279/artifacts/15165574502
+2026-11-27T01:48:31.0736544Z Post job cleanup.
+2026-11-27T01:48:31.1554572Z [command]/usr/bin/git version
+2026-11-27T01:48:31.1602301Z git version 2.56.1
+2026-11-27T01:48:31.1637011Z Temporarily overriding HOME='/home/runner/work/_temp/52f7f60c-f948-4d3f-b9b3-998d91893bd3' before making global git config changes
+2026-11-27T01:48:31.1638713Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-27T01:48:31.1641901Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/weil-lab/weil-lab
+2026-11-27T01:48:31.1675433Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-27T01:48:31.1705798Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-27T01:48:31.1943264Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-27T01:48:31.1982651Z http.https://github.com/.extraheader
+2026-11-27T01:48:31.2015268Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-27T01:48:31.2048334Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-27T01:48:31.2313642Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-27T01:48:31.2344990Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-27T01:48:31.2764012Z Cleaning up orphan processes
+2026-11-27T01:48:31.3044833Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@v4, actions/upload-artifact@v4. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
