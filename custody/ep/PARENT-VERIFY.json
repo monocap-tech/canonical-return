@@ -1,0 +1,124 @@
+{
+  "checked_at": "2026-11-26 Pacific",
+  "repository": "monocap-tech/canonical-return",
+  "meaning": "Downloaded each hosted Actions ZIP through authenticated artifact endpoint; local SHA-256 matches recorded digest and ZIP CRC passed. ZIPs are not duplicated in Git.",
+  "artifacts": [
+    {
+      "name": "EP-parent-CE-evidence.zip",
+      "expected": "27bb880e11023982d6958c83335ebb839d0fd3b52dc6ade48f57bc9ad3f0e1f9",
+      "observed": "27bb880e11023982d6958c83335ebb839d0fd3b52dc6ade48f57bc9ad3f0e1f9",
+      "exit_code": 0,
+      "artifact_id": 15005276646,
+      "member_count": 28,
+      "crc": "PASS"
+    },
+    {
+      "name": "EP-parent-CK-evidence.zip",
+      "expected": "5515471ab4fb6f0923153b2d921af3ef60ab9fd3067b11cd3716dfe705f26924",
+      "observed": "5515471ab4fb6f0923153b2d921af3ef60ab9fd3067b11cd3716dfe705f26924",
+      "exit_code": 0,
+      "artifact_id": 15076025966,
+      "member_count": 43,
+      "crc": "PASS"
+    },
+    {
+      "name": "EP-parent-CQ-evidence.zip",
+      "expected": "4a1609d13ea139cb424c2fb104ff90b9651bd3610a177f159e0c572cf8602832",
+      "observed": "4a1609d13ea139cb424c2fb104ff90b9651bd3610a177f159e0c572cf8602832",
+      "exit_code": 0,
+      "artifact_id": 15079499842,
+      "member_count": 120,
+      "crc": "PASS"
+    },
+    {
+      "name": "EP-parent-CR-evidence.zip",
+      "expected": "3416d60ca4365f965414850360f6edcb4b0529797187e2a05f32e935144a9dc7",
+      "observed": "3416d60ca4365f965414850360f6edcb4b0529797187e2a05f32e935144a9dc7",
+      "exit_code": 0,
+      "artifact_id": 15080617622,
+      "member_count": 70,
+      "crc": "PASS"
+    },
+    {
+      "name": "EP-parent-DA-evidence.zip",
+      "expected": "0e5991a939ccba39769f392eac47aef794c6430c280a8063cc78d48f501904c2",
+      "observed": "0e5991a939ccba39769f392eac47aef794c6430c280a8063cc78d48f501904c2",
+      "exit_code": 0,
+      "artifact_id": 15087527747,
+      "member_count": 70,
+      "crc": "PASS"
+    },
+    {
+      "name": "EP-parent-DG-evidence.zip",
+      "expected": "5d489d109eb9be238b3f6872fe7a566c8d6a98e6de51b2dd901696edffadfa2f",
+      "observed": "5d489d109eb9be238b3f6872fe7a566c8d6a98e6de51b2dd901696edffadfa2f",
+      "exit_code": 0,
+      "artifact_id": 15091138321,
+      "member_count": 120,
+      "crc": "PASS"
+    },
+    {
+      "name": "EP-parent-DK-evidence.zip",
+      "expected": "6749b4e15c210a4691a9dcb08a4a10c6ce331423dbd06a74c361ffc9477ee4ae",
+      "observed": "6749b4e15c210a4691a9dcb08a4a10c6ce331423dbd06a74c361ffc9477ee4ae",
+      "exit_code": 0,
+      "artifact_id": 15093677686,
+      "member_count": 120,
+      "crc": "PASS"
+    },
+    {
+      "name": "EP-parent-DM-evidence.zip",
+      "expected": "9ed332c6aba405fd000bf7d31c83307b9b20a1bf37f2966d9659b45c95f21bb0",
+      "observed": "9ed332c6aba405fd000bf7d31c83307b9b20a1bf37f2966d9659b45c95f21bb0",
+      "exit_code": 0,
+      "artifact_id": 15095926201,
+      "member_count": 17,
+      "crc": "PASS"
+    },
+    {
+      "name": "EP-parent-DV-evidence.zip",
+      "expected": "88dc6e2cc665acbb302e171ceb56859445e1208bc07a396ad97570eccc892af0",
+      "observed": "88dc6e2cc665acbb302e171ceb56859445e1208bc07a396ad97570eccc892af0",
+      "exit_code": 0,
+      "artifact_id": 15137968549,
+      "member_count": 95,
+      "crc": "PASS"
+    },
+    {
+      "name": "EP-parent-DZ-evidence.zip",
+      "expected": "81e259d5b3a3ed83b20f99fe7a0a3d892f3d64ff564a06630d1dde391a97da24",
+      "observed": "81e259d5b3a3ed83b20f99fe7a0a3d892f3d64ff564a06630d1dde391a97da24",
+      "exit_code": 0,
+      "artifact_id": 15143469045,
+      "member_count": 46,
+      "crc": "PASS"
+    },
+    {
+      "name": "EP-parent-EG-evidence.zip",
+      "expected": "23ef1507da618991585e1c713494448161c73969afd18cad3a22705b8b6dbb08",
+      "observed": "23ef1507da618991585e1c713494448161c73969afd18cad3a22705b8b6dbb08",
+      "exit_code": 0,
+      "artifact_id": 15149914062,
+      "member_count": 29,
+      "crc": "PASS"
+    },
+    {
+      "name": "EP-parent-EN-evidence.zip",
+      "expected": "f6d19a6a71df5cdaadfe0122015038716a44662895be2ba95b3eb3258a037674",
+      "observed": "f6d19a6a71df5cdaadfe0122015038716a44662895be2ba95b3eb3258a037674",
+      "exit_code": 0,
+      "artifact_id": 15157874537,
+      "member_count": 43,
+      "crc": "PASS"
+    },
+    {
+      "name": "EP-parent-EO-evidence.zip",
+      "expected": "d5ff6b256825c41abf93fa043b634d74391d0ebf8032f1f15eb85c4997510435",
+      "observed": "d5ff6b256825c41abf93fa043b634d74391d0ebf8032f1f15eb85c4997510435",
+      "exit_code": 0,
+      "artifact_id": 15158312822,
+      "member_count": 9,
+      "crc": "PASS"
+    }
+  ]
+}
