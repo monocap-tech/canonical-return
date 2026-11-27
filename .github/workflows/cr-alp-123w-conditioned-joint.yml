@@ -1,0 +1,52 @@
+name: CR-ALP-123W conditioned joint correction
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-123w-conditioned-joint.yml']
+permissions:
+  contents: write
+jobs:
+  correction:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate frozen source and prepare proposal solver
+        run: |
+          set -euo pipefail
+          python3 -m pip install --disable-pip-version-check numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0
+          test "$(git hash-object src/audits/cr_alp_123w_conditioned_joint_correction.py)" = 9cb6682603f02fb7b81b1c5dc7c7bc16ea5046e5
+          (cd custody/cr-alp-123n-expanded-joint-trials; sha256sum -c SHA256SUMS)
+          (cd custody/cr-alp-122p-quantitative-collar; sha256sum -c SHA256SUMS)
+          test "$(git hash-object src/audits/cr_alp_123v_conditioned_block_proposal.py)" = eb1003c8dc959f85c80efcd3f56fd348e9a72c1e
+          python3 -m py_compile src/audits/cr_alp_123w_conditioned_joint_correction.py src/audits/cr_alp_123v_conditioned_block_proposal.py
+          OPENBLAS_NUM_THREADS=2 python3 src/audits/cr_alp_123v_conditioned_block_proposal.py
+          mkdir -p /tmp/alp123w /tmp/alp123w-evidence
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/alp123w/package.zip
+          python3 -m zipfile -e /tmp/alp123w/package.zip /tmp/alp123w
+      - name: Conditioned E850 joint correction and complete residual evaluation
+        env:
+          OPENBLAS_NUM_THREADS: '2'
+        run: |
+          set -euo pipefail
+          python3 -u src/audits/cr_alp_123w_conditioned_joint_correction.py /tmp/alp123w custody/cr-alp-123n-expanded-joint-trials/result.json custody/cr-alp-122p-quantitative-collar/result.json /tmp/alp123w-evidence/result.json | tee /tmp/alp123w-evidence/receiver.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-123W-conditioned-joint
+          path: /tmp/alp123w-evidence/
+          if-no-files-found: warn
+      - name: Preserve exact second correction receiver
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-123w-conditioned-joint
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          git checkout --detach FETCH_HEAD
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp123w-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum *.log *.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+          git add "$ROOT"
+          git commit -m 'CR-ALP-123W: preserve second auxiliary correction [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
