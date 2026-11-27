@@ -7,6 +7,8 @@
 **Standing:** Planning and editorial governance; manuscripts not released; no new mathematical claim admitted.  
 **Custody:** `monocap-tech/canonical-return` is the disclosure entry point. The research repositories and their existing lineages remain authoritative for their own mathematical claims.
 
+**Evidence baseline:** [D1 reconciliation report](disclosure/baselines/2026-11-27/BASELINE_REPORT.md) · [Immutable source manifest](disclosure/baselines/2026-11-27/EVIDENCE_MANIFEST.json). Selected-source freeze recorded; evidence-completeness and independent review remain open. D2 may proceed within these limitations.
+
 ## 1. Purpose and jurisdiction
 
 Produce a coherent, independently examinable scientific disclosure of the mathematical research program and its AI-assisted investigative methodology. The package must be useful to mathematicians, formal-methods researchers, AI research engineers, and institutional scientific leadership independently of any prospective collaboration or RH outcome.
@@ -111,7 +113,7 @@ A successful workflow is not automatically a successful theorem. A conditional p
 | Gate | Required evidence | Initial state |
 |---|---|---|
 | D0 — Charter | Scope, jurisdictions, document plan, claim rules | Charter recorded; owner review pending |
-| D1 — Evidence freeze | Immutable per-lineage snapshot and completeness inventory | Open |
+| D1 — Evidence freeze | Immutable per-lineage snapshot and completeness inventory | Selected baseline recorded; completeness gaps retained |
 | D2 — Deliberation | Document-specific thesis, outline, audience, claim list, exclusions | Open |
 | D3 — Drafting | Complete manuscript and references | Open |
 | D4 — Adversarial review | Claim-by-claim challenge, prior-art audit, limitation reconciliation | Open |
@@ -126,7 +128,7 @@ Suggested publication sequence: v0.1 initial methodological and mathematical dis
 
 ## 6. Immediate work package
 
-D1 is the next editorial task. Recover the actual admitted and investigative heads of all seven lineages, governing amendments, terminal comparative records, exact claim ledgers and executable evidence. Reconcile contradictory or stale descriptions and mark inaccessible material. Freeze the snapshot with a source manifest before composing technical conclusions.
+D1 has recorded the selected seven-lineage baseline linked above. Exact theorem inventories, necessary executable evidence and incomplete historical producer custody remain scoped review obligations; no comprehensive audit is claimed.
 
 D2 then produces a separate deliberation record for each of SD-00 through SD-07, with document architecture, source map, intended claims, counterclaims, open questions and reviewer checklist. Draft SD-01 through SD-07 from this evidence; derive the executive brief from reviewed material rather than letting it dictate technical claims.
 
