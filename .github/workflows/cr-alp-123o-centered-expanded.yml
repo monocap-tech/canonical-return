@@ -1,0 +1,46 @@
+name: CR-ALP-123O centered expanded residual
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-123o-centered-expanded.yml']
+permissions:
+  contents: write
+jobs:
+  envelope:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate expanded bank and quantitative receiver
+        run: |
+          set -euo pipefail
+          (cd custody/cr-alp-123n-expanded-joint-trials; sha256sum -c SHA256SUMS)
+          (cd custody/cr-alp-122p-quantitative-collar; sha256sum -c SHA256SUMS)
+          python3 -m py_compile src/audits/cr_alp_123o_centered_expanded_residual.py
+          mkdir -p /tmp/alp123o /tmp/alp123o-evidence
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/alp123o/package.zip
+          python3 -m zipfile -e /tmp/alp123o/package.zip /tmp/alp123o
+      - name: Evaluate centered infinite residual and matrix-order receiver
+        run: |
+          set -euo pipefail
+          python3 -u src/audits/cr_alp_123o_centered_expanded_residual.py /tmp/alp123o custody/cr-alp-123n-expanded-joint-trials/result.json custody/cr-alp-122p-quantitative-collar/result.json /tmp/alp123o-evidence/result.json | tee /tmp/alp123o-evidence/receiver.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-123O-centered-expanded
+          path: /tmp/alp123o-evidence/
+          if-no-files-found: warn
+      - name: Preserve centered expanded receiver
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-123o-centered-expanded
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          git checkout --detach FETCH_HEAD
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp123o-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum *.log *.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+          git add "$ROOT"
+          git commit -m 'CR-ALP-123O: preserve centered expanded receiver [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
