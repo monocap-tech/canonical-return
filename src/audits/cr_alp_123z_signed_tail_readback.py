@@ -36,7 +36,6 @@ def psi_pair(x,y=ZERO):''')
     replace('li=atan(y/xx)','li=atan_wide(y/xx)')
     replace('range(1,N+1)};trig=', '(1,2,2049,2050,2111,2112,3071,3072)};trig=')
     replace('for j in ids};Hb={}\n for j in ids:', 'for j in nu if j%2==k%2};Hb={}\n for j in c:')
-    replace('return order,[[convert(H,i,j) for j in order],','return order,[[convert(H,i,j) for j in order],') if False else None
     replace(' return order,[[convert(H,i,j) for j in order] for i in order],[[convert(Mass,i,j) for j in order] for i in order]',
             ' return c,Hb')
     g={'__file__':str(src),'__name__':'cr_alp_123z_sparse'}
