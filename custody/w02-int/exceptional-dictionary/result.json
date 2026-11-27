@@ -1,0 +1,117 @@
+{
+  "status": "PASS",
+  "scope": "exact admissible TN and pole representative reconstruction; SVD is a proposal only; no archived Gram identity or inverse certification",
+  "source_commit": "80d1dacf140116f3ff0cb83df35c32246806b08f",
+  "energy_evidence": "0fe64d7b30dcf369968c46a776c931127b6317f4",
+  "records": [
+    {
+      "coordinates": 384,
+      "trig_radius": "203/50000000000000000000000000000000000000000000000000",
+      "difference_to_recomputed_numerical_representative_upper": "300989102382886305094497200303644886358005035160601098446541072859387781/495176015714152109959649689600000000000000000000000000000000000000000000000000",
+      "difference_decimal": 6.078426515646042e-07,
+      "sha256": "3b3de688a5b49da66c3a09e51f6aa74facbde8fd819ec3f9ab9e0dcecdd61f1d",
+      "admissibility": "raw TN span plus exact sinh pole representative, hence span(F,g) by inherited BK identity"
+    },
+    {
+      "coordinates": 500,
+      "trig_radius": "203/50000000000000000000000000000000000000000000000000",
+      "difference_to_recomputed_numerical_representative_upper": "20519762172654586833333681793976660169480209922378021723412144905114939/30948500982134506872478105600000000000000000000000000000000000000000000000000",
+      "difference_decimal": 6.630292751335495e-07,
+      "sha256": "fc7475f8cd502e5f71e4b77f8d55a7aff508b65eeb2fa5baadf7c42438a0f052",
+      "admissibility": "raw TN span plus exact sinh pole representative, hence span(F,g) by inherited BK identity"
+    }
+  ],
+  "source": {
+    "bk_archive_sha256": "805fa6a91f0bdb9dbfffde06a9c8a774df744c0ef7b1df74690447e0454669ac",
+    "dictionary_sha256": "6e2c1abae0f828f6d551a3d936b891020fa8858db5bb6b2ad585c6dacbedac9c",
+    "exceptional_sha256": "f9452107d18a0a77da0e3bf5803dbc36e6543811860120f2be3c1f625f5ccf10",
+    "trials": [
+      {
+        "stage": "dv",
+        "name": "trial31/bs_trial.npz",
+        "sha256": "99180fc55311d09e375bf0fd15899c8945df0f8ea11e7435d8de14631abdbaec"
+      },
+      {
+        "stage": "dv",
+        "name": "trial32/bs_trial.npz",
+        "sha256": "abbf5b6875903c4d632642a87e9ffc0cf803eee5ebf70fa7f6c33b98e12a36c9"
+      },
+      {
+        "stage": "dz",
+        "name": "trial31/bs_trial.npz",
+        "sha256": "599dce394bb522bff9087190c48fa2ecf4eb50bf96be0709b515e64cc46066cf"
+      },
+      {
+        "stage": "cr",
+        "name": "trial14/bs_trial.npz",
+        "sha256": "8a7c8ade0e3aa4de163c6828a2764fcfdd598b2b17bc16791f6b66d1b0935cf8"
+      },
+      {
+        "stage": "da",
+        "name": "trial19/bs_trial.npz",
+        "sha256": "e54e29c7e449ebe0a2bbf271fa214e12539bf225d2e56c5688de83532c4071bd"
+      },
+      {
+        "stage": "ck",
+        "name": "trial13/bs_trial.npz",
+        "sha256": "0eab55c9bcf538fa2ec2764f859cad8ec0b812f3bb9da2cc63fbb2ce6deeafc8"
+      },
+      {
+        "stage": "cq",
+        "name": "trial14/bs_trial.npz",
+        "sha256": "5ec000e6752196f979fdf3586466b7187bdd2090b8bfff165db2a546d373c67f"
+      },
+      {
+        "stage": "cq",
+        "name": "trial15/bs_trial.npz",
+        "sha256": "407781835fb0086dcd27e1774cd284e14789d0515a0f21b62bc9b0223062160b"
+      },
+      {
+        "stage": "cq",
+        "name": "trial16/bs_trial.npz",
+        "sha256": "f9d1a55e71163ff49b15678db2382454149d2bbec63e120fd73d7802ceeb7649"
+      },
+      {
+        "stage": "dg",
+        "name": "trial22/bs_trial.npz",
+        "sha256": "c0de0142e7d00f724ffb3045631d4b25fbad6615641857c1f45ed79f716ff8fa"
+      },
+      {
+        "stage": "dg",
+        "name": "trial23/bs_trial.npz",
+        "sha256": "ee32020435f40258c05bce6c7e164442eebd295173229f6d1b803c6f1a3425fd"
+      },
+      {
+        "stage": "dg",
+        "name": "trial24/bs_trial.npz",
+        "sha256": "14d7dc1c25d698703ef058b9edf4a5f0cd70538324d2660412c68aab56f53cbc"
+      },
+      {
+        "stage": "dk",
+        "name": "trial24/bs_trial.npz",
+        "sha256": "f4499d7c57799c6a2cb84feb83357fd37995180be5abf7ce58cea7de54c6d5d4"
+      },
+      {
+        "stage": "dk",
+        "name": "trial25/bs_trial.npz",
+        "sha256": "f8823f95e5e15289777cc4952c4033976010e6ff9d6faea70e2922f39408dcb5"
+      },
+      {
+        "stage": "dk",
+        "name": "trial26/bs_trial.npz",
+        "sha256": "c38b2a4e6e819d1a068ba89c16271937dd315bfbe98443c574a9b67e38555c21"
+      }
+    ],
+    "dictionary_rows": 5143,
+    "exact_coordinates": 119,
+    "historical_columns": 329,
+    "rounded_column_identity": "PASS"
+  },
+  "basis": {
+    "rank_proposed": 115,
+    "coefficient_error": "77/10000000000000000000000000000000000000000000000000",
+    "difference_to_recomputed_sample_basis_upper": "3907513090128939050132942807772344331467136375027237251381279253569918418439/123794003928538027489912422400000000000000000000000000000000000000000000000000",
+    "difference_decimal": 0.03156463936964678,
+    "archived_svd_orientation": "not established; recomputed proposal frozen explicitly"
+  }
+}
