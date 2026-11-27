@@ -1,0 +1,178 @@
+name: W02 INT exact exceptional dictionary attachment
+on:
+  push:
+    branches: [research/cr-int-t1d-ep-targeted-corrector-staged]
+    paths: [.github/workflows/t1d-w02-int-exceptional-dictionary.yml]
+permissions:
+  contents: write
+jobs:
+  dictionary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      OPENBLAS_NUM_THREADS: "2"
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            custody/dv/generated
+            custody/dz/generated
+            custody/cr/generated
+            custody/da/generated
+            custody/ck/generated
+            custody/cq/generated
+            custody/dg/generated
+            custody/dk/generated
+            custody/eo/generated
+            custody/ep/full-reoptimization
+            custody/ee/generated/sources/cr_int_t1d_ca_odd/bw_prepare.py
+      - uses: actions/checkout@v4
+        with:
+          ref: 36579dfa51c81e43ebce1ead4771eb3a3dd52af3
+          path: bk-source
+          sparse-checkout: |
+            custody/T1D-archives/parts/CR-INT-T1D-BK-reproducibility.zip
+      - uses: actions/checkout@v4
+        with:
+          ref: 0fe64d7b30dcf369968c46a776c931127b6317f4
+          path: energy-evidence
+          sparse-checkout: |
+            custody/w02-int/direct-energy/result.json
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Exact dictionary reconstruction and admissible trial freeze
+        run: |
+          python -m pip install numpy==2.3.5
+          mkdir -p custody/w02-int/exceptional-dictionary
+          python - <<'PY'
+          import hashlib,json,pathlib,zipfile,io,os,traceback
+          from fractions import Fraction as F
+          from math import isqrt
+          import numpy as np
+          P=pathlib.Path
+          out=P('custody/w02-int/exceptional-dictionary')
+          def sha(b):return hashlib.sha256(b).hexdigest()
+          def gitsha(b):return hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+          def read(p,h,git=False):
+              b=p.read_bytes();assert (gitsha(b) if git else sha(b))==h,p;return b
+          def npz(b):
+              with np.load(io.BytesIO(b),allow_pickle=False) as z:return {k:z[k] for k in z.files}
+          def obj(a):return np.vectorize(int,otypes=[object])(a)
+          def dyadic(a):
+              r=[float(v).as_integer_ratio() for v in a.flat];s=max(q for _,q in r)
+              return np.array([n*(s//q) for n,q in r],object).reshape(a.shape),s
+          def norm(a,s):
+              q=sum(int(v)**2 for v in a.flat);r=isqrt(q)
+              return F(r+(r*r<q),s)
+          receipt={'status':'INCOMPLETE','scope':'exact admissible TN and pole representative reconstruction; SVD is a proposal only; no archived Gram identity or inverse certification','source_commit':os.environ['GITHUB_SHA'],'energy_evidence':'0fe64d7b30dcf369968c46a776c931127b6317f4','records':[]}
+          def save():(out/'result.json').write_text(json.dumps(receipt,indent=2)+'\n')
+          try:
+              ee=json.loads(read(P('energy-evidence/custody/w02-int/direct-energy/result.json'),'a532b10186e270f9fab142bc2e83bdf704bd9971',True))
+              assert ee['status']=='PASS' and all(x['margin_after_energy_only_decimal']>0 for x in ee['records'])
+              pins={'dv':'dc58e2c0003c4d47ccaec7ab2251a6af4890f48b','dz':'036d47d3710631055e0cc6e7458af7ab339ae688','cr':'85b77e4beaddbeba6c69a40087db283bc52c182f','da':'5bd5ba86d8454e6c730c03f4ed890ef3587957f1','ck':'eb81cbe578e5efb3745daf6229ac2e089b3704ff','cq':'77e08780d29f3ffe9cc6c0e8785598ab5a94557a','dg':'40392aeea044e5d05e81495dc0ccbc58249f6b5e','dk':'78caa974fe4df2e8329e1a6719861e87f9445eea'}
+              S=10**12
+              V=[];C=[];trials=[];js=weights=None
+              for stage,pin in pins.items():
+                  p=P('custody')/stage/'generated'
+                  m=read(p/'sha256.txt',pin,True)
+                  hs={n.removeprefix('./'):h for h,n in (l.split(maxsplit=1) for l in m.decode().splitlines())}
+                  for name in sorted(n for n in hs if n.endswith('/bs_trial.npz')):
+                      a=npz(read(p/name,hs[name]))
+                      if js is None:js=a['js'];weights=a['a']
+                      assert np.array_equal(js,a['js']) and np.array_equal(weights,a['a'])
+                      assert int(a['scale'])==S and a['v0'].shape[0]==119
+                      V.append(obj(a['v0']));C.append(-obj(a['c'][:-len(weights)]))
+                      trials.append({'stage':stage,'name':name,'sha256':hs[name]})
+              Vi=np.column_stack(V);Ci=np.column_stack(C);jf=js[:-len(weights)];rj=js[-len(weights):]
+              assert len(jf)==5143 and len(rj)==1882 and len(set(js))==7025
+              # Literal original BK dictionary, not an inferred matrix from
+              # the rounded historical trigonometric columns.
+              parts=sorted(P('bk-source/custody/T1D-archives/parts/CR-INT-T1D-BK-reproducibility.zip').glob('part-*.bin'))
+              bb=b''.join(x.read_bytes() for x in parts)
+              assert len(bb)==2992441 and sha(bb)=='805fa6a91f0bdb9dbfffde06a9c8a774df744c0ef7b1df74690447e0454669ac'
+              with zipfile.ZipFile(io.BytesIO(bb)) as z:
+                  assert z.testzip() is None
+                  def get(n):
+                      hits=[x for x in z.namelist() if x.endswith('/odd/'+n) or x=='odd/'+n];assert len(hits)==1,(n,hits);return z.read(hits[0])
+                  dr=get('physical_dictionary.npz');er=get('exceptional.npz')
+              pd=npz(dr);ex=npz(er);assert np.array_equal(pd['indices'],jf)
+              E=obj(ex['E']);es=int(ex['scale']);ws=int(pd['weight_scale']);w=obj(pd['weights'])
+              assert E.shape==(5143,119) and all(x>=0 for x in w) and es>0 and ws>0
+              # Reproduce every archived rounded dictionary column exactly.
+              roots=np.array([isqrt(int(x)*S*S//ws) for x in w],object)
+              raw=E@Vi
+              assert np.array_equal(Ci,roots[:,None]*raw//(es*S))
+              (out/'physical_dictionary.npz').write_bytes(dr);(out/'exceptional.npz').write_bytes(er)
+              receipt['source']={'bk_archive_sha256':sha(bb),'dictionary_sha256':sha(dr),'exceptional_sha256':sha(er),'trials':trials,'dictionary_rows':len(jf),'exact_coordinates':119,'historical_columns':Vi.shape[1],'rounded_column_identity':'PASS'}
+              save()
+              # The original numerical SVD defines a proposal for exact
+              # rational combinations of the true weighted TN columns.
+              Vf=Vi.astype(float)/S;Cf=Ci.astype(float)/S
+              u,s,ht=np.linalg.svd(Vf,full_matrices=False);rank=115
+              assert s[rank-1]>0
+              R,rs=dyadic(ht[:rank].T/s[:rank])
+              J=Vi@R;jscl=S*rs
+              basis=(Cf+.5e-12)@ht[:rank].T/s[:rank]
+              # Exact true synthesis coefficients are sqrt(w/ws)*E*J/(es*jscl).
+              # Enclose them on a 10^50 grid and retain a Frobenius radius.
+              G=10**50
+              def weighted(A,ascale):
+                  X=E@A;den=es*ascale
+                  wr=np.array([isqrt(int(x)*G*G//ws) for x in w],object)
+                  low=np.minimum(wr[:,None]*X,(wr[:,None]+1)*X)//den
+                  high=-((-np.maximum(wr[:,None]*X,(wr[:,None]+1)*X))//den)
+                  mid=(low+high)//2
+                  return mid,norm(np.maximum(mid-low,high-mid),G)
+              def difference(A,B):
+                  b,bs=dyadic(B);return norm(A*bs-b*G,G*bs)
+              b0,be=weighted(J,jscl);bd=difference(b0,basis)+be
+              # Restriction of the orthonormal odd circle basis to I has
+              # operator norm <=1, hence coefficient Frobenius bounds suffice.
+              receipt['basis']={'rank_proposed':rank,'coefficient_error':str(be),'difference_to_recomputed_sample_basis_upper':str(bd),'difference_decimal':float(bd),'archived_svd_orientation':'not established; recomputed proposal frozen explicitly'}
+              eo=P('custody/eo/generated')
+              a=npz(read(eo/'candidate32.npz','69c082df8e992af4e94c7a0f9bdc303ce2a36abb78c7dac2265d48d988cdda89'))
+              ap=npz(read(eo/'candidate32_positive_t.npz','1bfc186ced7ba583c8654481d46084d2daa1dd9685be5280d098a2aed20e436e'))
+              q=np.column_stack([a['Q'],ap['Q']]);ve=np.column_stack([a['V']@a['Q'],ap['V']@ap['Q']])
+              assert q.shape==(119,64) and ve.shape==(120,64)
+              U,us=dyadic((u[:,:rank].T@ve[:-1])[:,32:]);ec=basis@(u[:,:rank].T@ve[:-1])
+              outer=read(P('custody/ep/full-reoptimization/EP-full-reoptimization-custody-ready.zip'),'89b16e4250bf3b0a261cf6ff54863ef32c7d415d956a89240d455434a3cf8d73')
+              with zipfile.ZipFile(io.BytesIO(outer)) as z:inner=z.read('EP-full-reoptimization-provisional.zip')
+              assert sha(inner)=='6b469aeeb5d86db79215700a8f687a54053c7b2908f90fbbb1f1e7895c22ab77'
+              for n,h in [(384,'050574bfa759ed820fc97238fd0993f050fabb386128a3707428ed2a83498c81'),(500,'0e87d069459e369ad83c403253e50c4fc30098611506877165652249b09bd6e7')]:
+                  with zipfile.ZipFile(io.BytesIO(inner)) as z:
+                      raw=z.read(f'EP-kernel-full-reopt-block-1-{n}.npz');assert sha(raw)==h
+                  t=npz(raw);assert np.array_equal(t['Q'],ap['Q'])
+                  if n==500:
+                      H,hs=dyadic(t['T'][384:499]);A=H*us-U*hs;ascale=hs*us
+                      g0,gs=dyadic(-ve[-1:,32:]);g1,g1s=dyadic(t['T'][499:500]);g=g0*g1s+g1*gs;gs*=g1s
+                      center=-ec[:,32:]+basis@t['T'][384:499]
+                  else:
+                      A=-U;ascale=us;g,gs=dyadic(-ve[-1:,32:]);center=-ec[:,32:]
+                  B=J@A;bs=jscl*ascale
+                  z,ze=weighted(B,bs);diff=difference(z,center)+ze
+                  dest=out/f'exceptional-trial-{n}.npz'
+                  np.savez_compressed(dest,indices=jf,raw_coordinates=np.array(B,str),raw_scale=str(bs),trig_center=np.array(z,str),trig_scale=str(G),trig_error=str(ze),pole_coeff=np.array(g,str),pole_scale=str(gs),T=t['T'],Q=t['Q'])
+                  receipt['records'].append({'coordinates':n,'trig_radius':str(ze),'difference_to_recomputed_numerical_representative_upper':str(diff),'difference_decimal':float(diff),'sha256':sha(dest.read_bytes()),'admissibility':'raw TN span plus exact sinh pole representative, hence span(F,g) by inherited BK identity'})
+              np.savez_compressed(out/'basis.npz',indices=jf,raw_coordinates=np.array(J,str),raw_scale=str(jscl),trig_center=np.array(b0,str),trig_scale=str(G),trig_error=str(be),svd_u=u,svd_s=s,svd_ht=ht)
+              receipt['status']='PASS';save()
+          except Exception as e:
+              receipt['error']=repr(e);receipt['traceback']=traceback.format_exc();save();raise
+          PY
+      - name: Persist exact dictionary evidence
+        if: always()
+        run: |
+          mkdir -p custody/w02-int/exceptional-dictionary
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          branch="research/cr-int-w02-exceptional-dictionary-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git switch -c "$branch"
+          git add --sparse -f custody/w02-int/exceptional-dictionary/
+          git commit -m "W02 INT exact exceptional dictionary evidence ${GITHUB_RUN_ID}"
+          git push origin "HEAD:refs/heads/$branch"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: w02-int-exceptional-dictionary
+          path: custody/w02-int/exceptional-dictionary/
