@@ -313,7 +313,51 @@ jobs:
               Gd=inflate(Gd,ed)
               # ||(sinh(x/2))'||_L2(I) < 2.
               Gp=4*rat(pc.T@pc,ps*ps)
-              Gs=(h/3)**2*young(Gd,Gp)
+              Gs_old=(h/3)**2*young(Gd,Gp)
+              # Exact cell-mean projection loss on the entire 16-period
+              # circle, an upper bound on the physical cells' projection loss.
+              # For f=sum c_j sin(j*pi*x/8)/2, ||f||^2=2 sum_j c_j^2.
+              # The cell averages equal Im(sum_k d_k exp(2*pi*i*k*l/N))/2,
+              # where d_k=sum_{j mod N=k} c_j exp(i*(-j*pi/2+j*pi/N))
+              # sinc(j*pi/N). Thus their norm Gram (16/N cell measure)
+              # is sum_k Re((d_k-conj(d_-k))^*(d_k-conj(d_-k))).
+              # Preserve arbitrary labels and exact collision/reflection sums.
+              assert len(set(jfull))==len(jfull) and np.all(jfull>0)
+              C0=i64(Cfull*R//G)
+              F0=2*rat(gram(C0),R*R)
+              bins=np.union1d(jfull%N,(-jfull)%N)
+              ii=np.searchsorted(bins,jfull%N)
+              neg=np.searchsorted(bins,(-bins)%N)
+              assert np.array_equal(bins[ii],jfull%N)
+              assert np.array_equal(bins[neg],(-bins)%N)
+              assert np.array_equal(neg[neg],np.arange(len(bins)))
+              A=np.zeros((len(bins),32),object);B=A.copy()
+              wr,wi,sc=phase_arrays(jfull)
+              np.add.at(A,ii,obj(C0)*wr*sc//(R*G))
+              np.add.at(B,ii,obj(C0)*wi*sc//(R*G))
+              # A,B have grid G; reflect before rounding to the exact-dot grid.
+              a0=i64((A-A[neg])*R//G);b0=i64((B+B[neg])*R//G)
+              Gmean=rat(gram(a0)+gram(b0),R*R)
+              # Each unaliased complex pair has two component errors <=
+              # phase_error(M); reflection has norm at most 2. Triangle
+              # over all labels is deliberately conservative even on collisions.
+              M=F(max(abs(int(x)) for x in C0.flat),R)
+              epair=2*phase_error(M)
+              em=2*len(jfull)*sqrtup(F(32))*epair+2*sqrtup(F(len(bins)*32))/R
+              V0=F0-Gmean+(2*sqrtup(rows(Gmean))*em+em*em)*np.eye(32,dtype=object)
+              assert np.array_equal(V0,V0.T)
+              # Physical cells are a subset of the full circle cells. The
+              # true smooth coefficients differ from C0 by the directed
+              # coefficient radii and exact rounding; projection is contractive.
+              ec0=sqrtup(F(2*C0.size))*(max(cerror,coeferr)+F(1,R))
+              Gtrig=inflate(V0,ec0)
+              Gpole=(h/3)**2*Gp
+              Gs_parseval=young(Gtrig,Gpole)
+              receipt['smooth_variance']={'method':'full-circle alias-aware exact cell projection loss; restriction and coefficient uncertainty; separate pole bound','bins':len(bins),'input_labels':len(jfull),'mean_gram_error':str(em),'coefficient_transport':str(ec0),'derivative_bound_norm':float(rows(Gs_old)),'parseval_bound_norm':float(rows(Gs_parseval)),'trig_variance_norm':float(rows(Gtrig)),'pole_variance_norm':float(rows(Gpole))}
+              print('smooth variance old/new',float(rows(Gs_old)),float(rows(Gs_parseval)),flush=True)
+              del A,B,a0,b0,C0,wr,wi,sc
+              Gs=Gs_parseval
+              save()
               # Orthogonal cell means and within-cell error. No assumption
               # that the sampled FFT residual bounds the continuous residual.
               PR=i64(obj(PV)-obj(PS)-obj(Zbar));ePR=ePV+ePS+eZbar
@@ -328,10 +372,34 @@ jobs:
               cross=h*rat(gram(U,PV),R*R);mc=h*rat(gram(U,i64(obj(PS)+obj(Zbar))),R*R)
               Fup=2*sym(cross)-sym(mc)+nu*(2*ePV+ePS+eZbar)*np.eye(32,dtype=object)
               delta=F(str(v['delta']));t=F(str(v['t']));mu=F(str(v['mu']));assert delta>0 and t>0 and mu==F(53,10000)
-              H=Fup+(1+delta*(1+1/t))*Gr+delta*(1+t)*Gu
               E=fr(v['E']);pen=fr(v['penalty']);er=F(str(v['energy_error']))
+              lam=1+delta*(1+1/t)
+              Gmean_res=inflate(h*rat(gram(PR),R*R),ePR)
+              fixed=E-pen-(Fup+delta*(1+t)*Gu+lam*Gmean_res)/mu-er*np.eye(32,dtype=object)
+              # Numerical choice of a single positive rational Young parameter
+              # is only a proposal. Every candidate is a global Loewner bound.
+              # Retain the historical derivative method as a control.
+              fixedf=np.array(fixed,float);zf=np.array(Gz,float)*float(lam/mu)
+              screens=[];best=None
+              for tag,Sv in [('derivative',Gs_old),('parseval',Gs_parseval)]:
+                  sf=np.array(Sv,float)*float(lam/mu)
+                  eta0=max(F(1,10**20),sqrtup(rows(Sv))/max(sqrtup(rows(Gz)),F(1,10**20)))
+                  for k in range(-16,17):
+                      eta=eta0*F(2)**(k//2) if k%2==0 else eta0*F(7,5)*F(2)**((k-1)//2)
+                      assert isinstance(eta,F) and eta>0
+                      mat=fixedf-(1+float(eta))*zf-(1+1/float(eta))*sf
+                      value=float(np.linalg.eigvalsh((mat+mat.T)/2)[0])
+                      screens.append({'method':tag,'eta':str(eta),'minimum_eigenvalue_diagnostic':value})
+                      if best is None or value>best[0]:best=(value,tag,eta,Sv)
+              _,method,eta,Gs=best
+              Gr=Gmean_res+(1+eta)*Gz+(1+1/eta)*Gs
+              H=Fup+lam*Gr+delta*(1+t)*Gu
               L=E-pen-H/mu-er*np.eye(32,dtype=object);assert np.array_equal(L,L.T)
               eig=np.linalg.eigvalsh(np.array(L,float))
+              receipt['variance_screen']={'selected_method':method,'selected_eta':str(eta),'proposals':screens,'selected_residual_gram_norm':float(rows(Gr)),'scope':'numerical scalar selection only; acceptance below exact rational LDL'}
+              receipt['continuous']['smooth_variance_norm_squared_upper']=float(rows(Gs))
+              receipt['continuous']['continuous_residual_gram_norm_upper']=float(rows(Gr))
+              save()
               # Exact lower comparison via symmetric integer flooring and
               # diagonal subtraction, followed by exact rational LDL.
               S=10**14
@@ -353,7 +421,7 @@ jobs:
               q=np.array([a*(den//b) for a,b in qs],object).reshape(119,32)
               qdef=rows(rat(q.T@q,den*den)-np.eye(32,dtype=object));assert qdef<1
               dest=out/'comparison.npz'
-              np.savez_compressed(dest,Gu=np.array(Gu,str),Gz=np.array(Gz,str),Gs=np.array(Gs,str),Gr=np.array(Gr,str),Fup=np.array(Fup,str),H=np.array(H,str),L=np.array(L,str),integer_comparison=np.array(A,str),scale=str(S),Q_gram_defect=str(qdef),lower=str(lower))
+              np.savez_compressed(dest,Gu=np.array(Gu,str),Gz=np.array(Gz,str),Gs=np.array(Gs,str),Gs_old=np.array(Gs_old,str),Gs_parseval=np.array(Gs_parseval,str),Gtrig=np.array(Gtrig,str),Gpole=np.array(Gpole,str),Gr=np.array(Gr,str),Fup=np.array(Fup,str),H=np.array(H,str),L=np.array(L,str),integer_comparison=np.array(A,str),scale=str(S),Q_gram_defect=str(qdef),lower=str(lower))
               receipt['comparison']={'minimum_eigenvalue_diagnostic':float(eig[0]),'positive_count_diagnostic':int(sum(eig>0)),'exact_ldl_positive':positive,'lower':str(lower),'Q_gram_defect':str(qdef),'output_sha256':sha(dest.read_bytes()),'acceptance':'candidate only pending independent physical audit' if positive else 'insufficient upper bound; no negativity inference'}
               receipt['status']='PASS';save()
           except Exception as e:
