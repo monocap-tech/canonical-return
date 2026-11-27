@@ -1,0 +1,77 @@
+name: CR-ALP-123AG frozen directional inverse bracket
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-123ag-directional-inverse.yml']
+permissions:
+  contents: write
+concurrency:
+  group: cr-alp-123ag-frozen-direction
+  cancel-in-progress: false
+jobs:
+  receiver:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate and execute only signed residual reconstruction
+        run: |
+          set -euo pipefail
+          E=/tmp/alp123ag-evidence
+          mkdir -p "$E"
+          {
+            python3 --version
+            git rev-parse HEAD
+            test "$(git hash-object src/audits/cr_alp_123ag_directional_inverse_bracket.py)" = 78abf694955e2319fe05c2749ff1551c1b795d53
+            test "$(git hash-object src/audits/cr_alp_046_full_finite.py)" = 554e7ab54da4545987d89aa660a4abe6c951cb63
+            test "$(git hash-object src/audits/CR-ALP-068_pole_centered_gamma_result.json)" = 1a7fe8629daa8b8e6cec185a79b6746d6b28975d
+            test "$(git hash-object src/audits/cr_alp_123w_conditioned_joint_correction.py)" = 9cb6682603f02fb7b81b1c5dc7c7bc16ea5046e5
+            test "$(git hash-object research/CR-ALP-123AF_FROZEN_SCALAR_AMPLIFICATION_OBSTRUCTION.md)" = ca9a68ebceeb07e0221ddd179e7dc4f88fd50c66
+            test "$(git hash-object custody/cr-alp-122e-correction-replay/prime.log)" = d960e41188bbe6a53a26f80126dee8d7cc4cfa6d
+            echo '7c45c7f493062cc1236d3f8de6c6aec636dc474119d51676308849606a191897  custody/cr-alp-123z-signed-direction-specific/joint-repaired.json' | sha256sum -c -
+            echo 'a7a334e6eca63543d7f322aef124c4491c986ba878bd1434f484e86743856473  custody/cr-alp-123ac-response-defect/result.json' | sha256sum -c -
+            python3 -m py_compile src/audits/cr_alp_123ag_directional_inverse_bracket.py
+          } | tee "$E/preflight.log"
+          python3 -u src/audits/cr_alp_123ag_directional_inverse_bracket.py custody/cr-alp-123z-signed-direction-specific/joint-repaired.json custody/cr-alp-123ac-response-defect/result.json "$E/result.json" | tee "$E/receiver.log"
+          python3 - "$E/result.json" <<'PY'
+          import json,sys
+          from fractions import Fraction as F
+          sys.set_int_max_str_digits(0)
+          d=json.load(open(sys.argv[1]))
+          assert d['status']=='CONDITIONAL_DIRECTIONAL_INVERSE_BRACKET' and set(d['sectors'])=={'1','2'}
+          for k,r in d['sectors'].items():
+              assert r['dimension']==44-int(k) and r['source_overlap_checks']==4
+              assert int(r['prefix_grid'])==10**340
+              assert [j for j,l,h in r['signed_prefix_intervals']]==list(range(87 if k=='1' else 86,2049,2))
+              assert all(int(l)<=int(h) for j,l,h in r['signed_prefix_intervals'])
+              assert len(r['directional_centers'])==r['dimension']
+              assert F(r['directional_charge2_over_E_upper'])>=0
+          print('Frozen signed prefix structure PASS')
+          PY
+          test "$(wc -c < "$E/result.json")" -lt 50000000
+          (cd "$E"; sha256sum preflight.log receiver.log result.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-123AG-frozen-direction
+          path: /tmp/alp123ag-evidence/
+          if-no-files-found: warn
+      - name: Preserve verified result on same branch
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-123ag-directional-inverse
+          test ! -e "$ROOT"
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp123ag-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum -c SHA256SUMS)
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$ROOT"
+          git commit -m 'CR-ALP-123AG: preserve directional receiver and signed prefix [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)"
+          REMOTE="$(mktemp -d)"
+          git archive FETCH_HEAD "$ROOT" | tar -x -C "$REMOTE"
+          (cd "$REMOTE/$ROOT"; sha256sum -c SHA256SUMS)
+          echo 'Remote output readback PASS'
