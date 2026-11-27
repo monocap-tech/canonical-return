@@ -1,0 +1,56 @@
+name: CR-ALP-123P direction-specific matrix receiver
+on:
+  workflow_dispatch:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['custody/cr-alp-123p-activation/READY']
+permissions:
+  contents: write
+jobs:
+  receiver:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate all frozen inputs
+        run: |
+          set -euo pipefail
+          P=/tmp/alp123p
+          E=/tmp/alp123p-evidence
+          C="$PWD/custody/cr-alp-074-077"
+          mkdir -p "$P" "$E"
+          test "$(git hash-object src/audits/cr_alp_123p_direction_specific_receiver.py)" = efa505467e3cab16ebc2c246f3b4566af10493b5
+          (cd "$C/replayed-082"; sha256sum -c SHA256SUMS)
+          (cd "$C/replayed-091"; sha256sum -c SHA256SUMS)
+          (cd custody/cr-alp-122p-quantitative-collar; sha256sum -c SHA256SUMS)
+          (cd custody/cr-alp-123o-centered-expanded; sha256sum -c SHA256SUMS)
+          git fetch --depth=1 origin 7c9dc0301df765ab31f9332e9e8c76015b59894c
+          git show 7c9dc0301df765ab31f9332e9e8c76015b59894c:custody/cr-alp-074-077/replayed-121/result.json > "$P/frozen.json"
+          test "$(git hash-object "$P/frozen.json")" = 2b55baf0e81ac9a296276f396f02633553e58b28
+          python3 -m py_compile src/audits/cr_alp_123p_direction_specific_receiver.py
+          python3 src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+          python3 -m zipfile -e "$P/package.zip" "$P"
+      - name: Generalized separation and direction-specific inverse quadratic
+        run: |
+          set -euo pipefail
+          python3 -u src/audits/cr_alp_123p_direction_specific_receiver.py /tmp/alp123p custody/cr-alp-074-077 /tmp/alp123p/frozen.json custody/cr-alp-122p-quantitative-collar/result.json custody/cr-alp-123o-centered-expanded/result.json /tmp/alp123p-evidence/result.json | tee /tmp/alp123p-evidence/receiver.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-123P-direction-specific
+          path: /tmp/alp123p-evidence/
+          if-no-files-found: warn
+      - name: Preserve direction-specific receiver
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-123p-direction-specific
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          git checkout --detach FETCH_HEAD
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp123p-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum *.log *.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+          git add "$ROOT"
+          git commit -m 'CR-ALP-123P: preserve direction-specific inverse receiver [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
