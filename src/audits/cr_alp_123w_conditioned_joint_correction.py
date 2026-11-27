@@ -227,7 +227,7 @@ def psi_pair(x,y=ZERO):''')
             H0=-2/a*ML0-(tau*I(cap)+alpha)*Cb
             charge(1,H0.up()+80*fb.up()+40*T.up())
             logs=2*fb.up()
-            tail=sum(z*(F(11,15)**s)*up_sqrt(F(1,(2*s-1)*J**(2*s-1))) for s,z in pows.items())
+            tail=sum(z*(F(11,15)**s)*up_sqrt(F(J,2*s-1))/J**s for s,z in pows.items())
             # log(3J) < 10 for J=2048, checked using original outward log.
             assert g['log'](I(3*J)).h<10*S
             tail+=logs*F(11,15)*up_sqrt(F(122,J))
