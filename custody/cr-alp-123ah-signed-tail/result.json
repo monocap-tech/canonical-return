@@ -1,0 +1,38 @@
+{
+  "status": "CONDITIONAL_SIGNED_COMMON_TAIL_DIAGNOSTIC",
+  "sectors": {
+    "1": {
+      "prefix_lo_over_E": "8277491267/500000000",
+      "prefix_hi_over_E": "3310996507/200000000",
+      "lead_tail_hi_over_E": "434344743/50000000",
+      "prefix_plus_lead_lo_over_E": "18059610667/500000000",
+      "prefix_plus_lead_hi_over_E": "49223795877/1000000000",
+      "remainder_hi_over_E": "235466144853/250000000",
+      "new_center_hi_over_E": "1421716819941/1000000000",
+      "old_center_hi_over_E": "730712014391/500000000",
+      "available_budget_over_E": "114804837/200000000",
+      "bracket_error2_over_E_upper": "40399010511/40000000",
+      "directional_charge2_over_E_upper": "2053062564683/500000000",
+      "loss_over_E_upper": "2053275552591/500000000",
+      "classification": "SUFFICIENT_BOUND_INCONCLUSIVE",
+      "prefix_alone_exceeds_frozen_budget": true
+    },
+    "2": {
+      "prefix_lo_over_E": "1493009507/1000000000",
+      "prefix_hi_over_E": "373252377/250000000",
+      "lead_tail_hi_over_E": "611451609/1000000000",
+      "prefix_plus_lead_lo_over_E": "3056062433/1000000000",
+      "prefix_plus_lead_hi_over_E": "200333099/50000000",
+      "remainder_hi_over_E": "51080262189/1000000000",
+      "new_center_hi_over_E": "41797669139/500000000",
+      "old_center_hi_over_E": "8560140781/100000000",
+      "available_budget_over_E": "622235601/1000000000",
+      "bracket_error2_over_E_upper": "14146848763/250000000",
+      "directional_charge2_over_E_upper": "28888030383/125000000",
+      "loss_over_E_upper": "28935250933/125000000",
+      "classification": "SUFFICIENT_BOUND_INCONCLUSIVE",
+      "prefix_alone_exceeds_frozen_budget": true
+    }
+  },
+  "scope": "Same fixed trial, capped comparator and Dbar; no lower bound on full inverse action; no new response solves."
+}
