@@ -1,0 +1,36 @@
+name: RETURN104-D Arb infinite leading-tail replay
+on:
+  push:
+    branches: [research/master-return-090-restricted-audit]
+    paths:
+      - 'research/master-return-104d/**'
+      - '.github/workflows/master-return-104d.yml'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      PYTHONINTMAXSTRDIGITS: '0'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Authenticate original archives and permanent tail references
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 origin 87c9cd17b29da9d0a57cd426e0aa76a24eea0f65
+          mkdir -p "$RUNNER_TEMP/work" "$RUNNER_TEMP/results"
+          bash archive/master-return/reconstruct.sh "$RUNNER_TEMP/archives"
+          unzip -oq "$RUNNER_TEMP/archives/RETURN083_reproduction.zip" -d "$RUNNER_TEMP/work"
+          python -m pip install python-flint==0.8.0
+          python -m py_compile research/master-return-104d/arb_infinite_tail.py
+      - name: Replace infinite-tail transcendental primitives and require exact bank equality
+        run: python research/master-return-104d/arb_infinite_tail.py "$RUNNER_TEMP/work" "$RUNNER_TEMP/results"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: return104d-arb-infinite-tail
+          path: ${{ runner.temp }}/results/
