@@ -77,4 +77,5 @@ def leading(g,k,J,fb,T,H0):
     return lead+remainder,{'constant':[str(F(A.l,S)),str(F(A.h,S))],
        'log_coefficient':[str(F(B.l,S)),str(F(B.h,S))],
        'cosine_coefficients':[[str(F(v.l,S)),str(F(v.h,S))] for v in C],
-       'leading_norm_upper':str(lead),'pole_remainder_norm_upper':str(remainder)}
+       'leading_norm_upper':str(lead),'pole_remainder_norm_upper':str(remainder),
+       'pointwise_inverse_square_upper':str(p2),'pointwise_inverse_cube_upper':str(p3)}
