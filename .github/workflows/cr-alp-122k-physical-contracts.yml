@@ -1,0 +1,109 @@
+name: CR-ALP-122K per-input physical contract census
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-122k-physical-contracts.yml']
+permissions:
+  contents: write
+jobs:
+  census:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate preserved inputs and audit exact contracts
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/alp122k-evidence /tmp/alp122k-old
+          C="$PWD/custody/cr-alp-074-077"
+          (cd "$C/archives"; sha256sum -c SHA256SUMS) > /tmp/alp122k-evidence/manifests.log
+          for p in "$C"/replayed-*; do
+            if test -f "$p/SHA256SUMS"; then (cd "$p"; sha256sum -c SHA256SUMS) >> /tmp/alp122k-evidence/manifests.log; fi
+          done
+          python3 -m zipfile -e "$C/archives/CR-ALP-075-source-bank.zip" /tmp/alp122k-old
+          (cd /tmp/alp122k-old; sha256sum -c SHA256SUMS) >> /tmp/alp122k-evidence/manifests.log
+          python3 - <<'PY' | tee /tmp/alp122k-evidence/census.log
+          from pathlib import Path
+          from fractions import Fraction as F
+          import hashlib,json,re
+          C=Path('custody/cr-alp-074-077')
+          stages=sorted(C.glob('replayed-*'))
+          records=[]; trials=[]; logs=[]; geometry=[]
+          def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()
+          def source(p):
+              it=iter(p.read_text().split()); k=int(next(it)); assert k in (1,2)
+              def rd():
+                  l,h=F(next(it)),F(next(it));assert l<=h
+                  return max(abs(l),abs(h))
+              assert rd()<100 and rd()<100
+              n=int(next(it));assert n==425
+              st=F(0)
+              for j in range(k,851,2):
+                  assert int(next(it))==j
+                  st+=rd()+rd()
+              assert st<10**17
+              assert int(next(it))==128
+              lo=F(0)
+              for _ in range(128):
+                  assert rd()<256;lo+=rd()
+              assert lo<10**14
+              assert int(next(it))==25
+              gm=F(0)
+              for _ in range(25):
+                  assert rd()<=3*2**31-F(1,2)
+                  assert int(next(it))==40
+                  gm+=sum(rd() for _ in range(40))
+              assert gm<1000 and next(it,None) is None
+              records.append({'file':str(p),'sha256':digest(p),'parity':k})
+          for p in sorted(Path('/tmp/alp122k-old').rglob('input_*.txt')):source(p)
+          assert len(records)==70
+          for s in stages:
+              for p in sorted(s.rglob('input_*.txt')):source(p)
+              if s.name=='replayed-077':
+                  for p in sorted(s.glob('*.txt')):source(p)
+              for p in sorted(s.rglob('trial.txt')):
+                  a=[(int(j),F(l),F(h)) for j,l,h in map(str.split,p.read_text().splitlines())]
+                  assert a and all(l==h for j,l,h in a)
+                  k=a[0][0]%2 or 2
+                  assert [j for j,l,h in a]==[j for j in range(k,2049,2) if j>85]
+                  diag=[(int(j),F(l),F(h)) for j,l,h in map(str.split,(p.parent/'diag.txt').read_text().splitlines())]
+                  assert len(diag)==len(a) and all(j==i and l==h==F(72,25) for (i,_,_),(j,l,h) in zip(a,diag))
+                  # Orthogonal projection is contractive; l1 <= sqrt(n) l2.
+                  norm2=sum(l*l for j,l,h in a)
+                  bound2=len(a)*norm2
+                  trials.append({'file':str(p),'sha256':digest(p),'l1_squared_upper':str(bound2),'direct_l1_contract':bound2*F(72,25)**2<100**2})
+              for p in sorted(s.rglob('*radius.log')):
+                  txt=p.read_text()
+                  vals=[F(x) for x in re.findall(r'max point radius ([0-9.eE+-]+)',txt)]
+                  assert all(0<=v<F(1,100) for v in vals)
+                  logs.append({'file':str(p),'sha256':digest(p),'radius_rows':len(vals),'max_radius':str(max(vals)) if vals else None})
+              for p in sorted(s.rglob('*geometry.log')):
+                  txt=p.read_text()
+                  assert '96 independent exact root and weight brackets PASS' in txt
+                  assert 'direct product quadrature and shift displacement budgets PASS' in txt
+                  geometry.append({'file':str(p),'sha256':digest(p)})
+          assert len(trials)>=65 and len(logs)>=181 and len(geometry)>=122
+          result={'status':'PHYSICAL_CONTRACT_CENSUS','source_inputs':records,'trial_inputs':trials,'radius_logs':logs,'geometry_logs':geometry,'scope':'Exact source format and magnitude checks, finite trial contract sufficient bound, archived radius and geometry log census. Not a fresh physical integration or proof of hardware arithmetic.'}
+          Path('/tmp/alp122k-evidence/result.json').write_text(json.dumps(result,indent=2)+'\n')
+          print('source inputs',len(records),'trials',len(trials),'direct trial bounds',sum(t['direct_l1_contract'] for t in trials),'radius logs',len(logs),'geometry logs',len(geometry),'logs without radius rows',sum(not t['radius_rows'] for t in logs))
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-122K-physical-contracts
+          path: /tmp/alp122k-evidence/
+          if-no-files-found: error
+      - name: Preserve physical contract census
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-122k-physical-contracts
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          git checkout --detach FETCH_HEAD
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp122k-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum *.log *.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+          git add "$ROOT"
+          git commit -m 'CR-ALP-122K: durable physical contract census [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
