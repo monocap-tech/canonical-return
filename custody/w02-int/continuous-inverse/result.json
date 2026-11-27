@@ -1,0 +1,8 @@
+{
+  "status": "INCOMPLETE",
+  "source_commit": "dabfcabf35660e6fbe1f996c91a231e0f89f851a",
+  "receiver_evidence": "a4b63576f4a617c42975fdae85898fd1842739d6",
+  "scope": "directed continuous response to frozen 500-coordinate receiver; conditional inherited source, metric and integer-dot identities",
+  "error": "AssertionError()",
+  "traceback": "Traceback (most recent call last):\n  File \"<stdin>\", line 110, in <module>\nAssertionError\n"
+}
