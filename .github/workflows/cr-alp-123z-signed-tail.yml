@@ -24,13 +24,15 @@ jobs:
           (cd "$C/replayed-091"; sha256sum -c SHA256SUMS)
           (cd custody/cr-alp-122p-quantitative-collar; sha256sum -c SHA256SUMS)
           (cd custody/cr-alp-123s-second-correction; sha256sum -c SHA256SUMS)
+          (cd custody/cr-alp-123w-conditioned-joint; sha256sum -c SHA256SUMS)
+          test "$(git hash-object src/audits/cr_alp_123aa_joint_direction_specific.py)" = 6b701194e2855f60d78a0b3128bbb7368675e2c1
           git fetch --depth=1 origin 7c9dc0301df765ab31f9332e9e8c76015b59894c
           git show 7c9dc0301df765ab31f9332e9e8c76015b59894c:custody/cr-alp-074-077/replayed-121/result.json > "$P/frozen.json"
           test "$(git hash-object "$P/frozen.json")" = 2b55baf0e81ac9a296276f396f02633553e58b28
           (cd custody/cr-alp-123n-expanded-joint-trials; sha256sum -c SHA256SUMS)
-          test "$(git hash-object src/audits/cr_alp_123z_signed_tail_readback.py)" = deadd843f75d53c6f962cb9eac1f1aa9f3c122bb
+          test "$(git hash-object src/audits/cr_alp_123z_signed_tail_readback.py)" = df402965b51e309ba9045f170ec8ca47e0fc8fe5
           test "$(git hash-object src/audits/cr_alp_123y_signed_pole_tail.py)" = a5812874b3924e1b76574211e13ab3ab2f59604d
-          python3 -m py_compile src/audits/cr_alp_123t_second_correction_direction_specific.py src/audits/cr_alp_123z_signed_tail_readback.py
+          python3 -m py_compile src/audits/cr_alp_123t_second_correction_direction_specific.py src/audits/cr_alp_123z_signed_tail_readback.py src/audits/cr_alp_123aa_joint_direction_specific.py
           python3 src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
           python3 -m zipfile -e "$P/package.zip" "$P"
       - name: Generalized separation and direction-specific inverse quadratic
@@ -38,6 +40,8 @@ jobs:
           set -euo pipefail
           python3 -u src/audits/cr_alp_123z_signed_tail_readback.py custody/cr-alp-123s-second-correction/result.json custody/cr-alp-123n-expanded-joint-trials/result.json custody/cr-alp-122p-quantitative-collar/result.json /tmp/alp123z-evidence/repaired.json | tee /tmp/alp123z-evidence/repair.log
           python3 -u src/audits/cr_alp_123t_second_correction_direction_specific.py /tmp/alp123z custody/cr-alp-074-077 /tmp/alp123z/frozen.json custody/cr-alp-122p-quantitative-collar/result.json /tmp/alp123z-evidence/repaired.json /tmp/alp123z-evidence/result.json | tee /tmp/alp123z-evidence/receiver.log
+          python3 -u src/audits/cr_alp_123z_signed_tail_readback.py custody/cr-alp-123w-conditioned-joint/result.json custody/cr-alp-123n-expanded-joint-trials/result.json custody/cr-alp-122p-quantitative-collar/result.json /tmp/alp123z-evidence/joint-repaired.json | tee /tmp/alp123z-evidence/joint-repair.log
+          python3 -u src/audits/cr_alp_123aa_joint_direction_specific.py /tmp/alp123z custody/cr-alp-074-077 /tmp/alp123z/frozen.json custody/cr-alp-122p-quantitative-collar/result.json /tmp/alp123z-evidence/joint-repaired.json /tmp/alp123z-evidence/joint-result.json | tee /tmp/alp123z-evidence/joint-receiver.log
       - uses: actions/upload-artifact@v4
         if: always()
         with:
