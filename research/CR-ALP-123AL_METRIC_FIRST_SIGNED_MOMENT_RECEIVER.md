@@ -1,0 +1,30 @@
+# CR-ALP-123AL — Metric-first signed moment receiver
+W02 delegated continuation; frozen AC response bank, original capped comparator, original E,U,b2. No response solves or new physical integration.
+
+## 123AK acceptance
+Run 45978243665 completed successfully, durable commit b01801e1af4bc955a68f7de7e52a94570b4f154b. Original artifact 15188735048 independently downloaded: 254049 bytes, SHA256 ffb2b3a8c017e69407b62456d143b7bfc976f199c0bb1bfef17041a7b38bbd67, ZIP CRC PASS and all member manifest SHA256 checks PASS. Result 834549 bytes SHA256 a2c465dd692b0afbc0cd1a15b9f3599864085101bb8f52f7d225c1125adf453c, independently reconstructed Git blob e306566c157b80210d5265c6437dd03e39a1bdb3. Both exact-metric lower obstruction tests inconclusive (0.02641085289277 vs 1.34755111077228 cosh; 0.02260748197083 vs 1.64715256812956 sinh). No proposed Schur lower matrix passed the AK floating feasibility screen; no accepted metric from AK itself. This is not a proof of impossibility. Local exploratory eigenvalues showed the corrected-energy-relative prefix upper Gram modest (~0.15507/~0.13068) but the independent columnwise tail diagonal majorants enormous (~1325/~570 relative to Hlo). These exploratory eigenvalues are not certificates.
+
+## New exact receiver
+Use the actual corrected-energy lower matrix H_- from AK in its same invertible L diag(w) coordinate frame, where w are the stored rational upper square-root proposals. In this frame let G=Z*C^-1 Z (all transformed quantities understood). Let P be the saved positive-semidefinite majorant of the prefix diagonal-comparator inverse Gram. For rational B (integer grid 10^30), verify B H_- B* > I by exact integer fraction-free elimination. This implies H_-^-1 <= B*B. Verify P < p H_- independently by exact elimination; no floating eigenvalue is trusted.
+
+Let T_tail be the unweighted tail response map in the same frame. Re-express every stored signed common-basis moment row m (including the AK frame roots) by m B*, BEFORE taking absolute values. For the common scalar tail functions of 123AC, their L2 norm bounds are the original multiplicative factors. Thus the sum of transformed row norm bounds gives an operator norm bound for the explicit geometric series terms. The nine-function leading pole/cosine/log tail is bounded in the same frame by the trace of the interval Gram using the inherited 123AD/AH entrywise kernel. This preserves cancellations between columns. The scalar geometric series remainder is bounded by subtracting downward-rounded known positive moment charges from the original saved sine_series_norm_upper (the literal sum of those positive charges and the omitted geometric remainder charge in AC). This is subtraction of charged budgets, not subtraction of actual norms. Add original pole remainder; bound its action after transformation by absolute B and the componentwise remainder bounds. No assumption of cancellation in the unknown remainder.
+
+If the resulting tail map norm bound is t, dropping the pole constraint in the diagonal inverse comparator as in AC gives G <= (p + t^2/d_cap) H_-. Here d_cap=1.822938456. Round the right coefficient upward to rho. For rho<1, S_C=Hhat-G >=(1-rho) H_- >0, and the generalized actual inverse metric amplification is <=rho/(1-rho). The exact finite response charge b can still use the original Dbar upper bound on S_C^-1, independently of the new amplification bound; there is no need to worsen it by a coordinate factor. Therefore use the original E,U,b2 in the scalar sufficient receiver with the new eta.
+
+## Executed local rational receipt
+Source src/audits/cr_alp_123al_metric_first_signed_moments.py, 8685 bytes SHA256 b86d444c781144a2eb1de41bb91301a65937b5b32a5a5369bce66b169096cb06, commit 7e37bf07f644605598a667c97ad31f1acf797ba6 blob 5c31296ffcfb563b8087050847129ff055727234 verified exact remote readback. Inputs original AC and AK result.json bytes authenticated in executable. Local exact execution passed both sectors. Result JSON 131541 bytes SHA256 302368ae4957dc01fc46c7f93a6c3ce07d2091d8b4a989aee280c1f81c63c0a5 Git blob identity 4b5b45077b3ce93c44ed5b767033b31554f3304e (local identity, not yet a remote object). Full local witness includes rational whitening matrices and all 96 moment bounds per sector. Compact exact result:
+| quantity | cosh | sinh |
+|---|---:|---:|
+| prefix relative upper p | 155069/1000000 | 26137/200000 |
+| leading tail trace upper (unweighted) | 34094871/200000000 | 37949589/250000000 |
+| explicit series norm upper | 723604111/1000000000 | 654951479/1000000000 |
+| unknown remainder norm upper | 813293/125000000 | 5941861/500000000 |
+| tail relative upper | 44791677/62500000 | 153060979/250000000 |
+| rho upper | 108967/125000 | 742929/1000000 |
+| Schur fraction lower | 16033/125000 | 257071/1000000 |
+| eta upper | 108967/16033 | 742929/257071 |
+| loss/E upper | 1660543161/500000000 | 734747209/500000000 |
+Both IMPROVED_METRIC_SUFFICIENT_BOUND_INCONCLUSIVE. Loss/E upper 3.321086322 and 1.469494418 vs AE 4106.036707/226.673566. Numerical improvement is large but no pole sign. Rho must be below approximately 0.574024/0.622236 even ignoring finite charge. The dominant new bound is the explicit series norm; unknown remainder now tiny. A stronger joint Gram for the explicit common-frequency tail, or sharper scalar kernel norm and cross-label correlation, is the appropriate bounded successor, not response bank expansion.
+
+## Custody boundary
+Source and compact exact local receipt remotely preserved. Full local witness transfer through text-only connector is impractical; independent bounded CI replay will reconstruct from exact durable AC/AK inputs and retain the full result (including whitening matrices). Floating proposals can differ on replay; exact inequalities and outward bound ceilings determine acceptance. Local result remains provisional for dependent progression until full replay custody verified. All inherited original physical/comparator and signed-moment kernel premises remain conditional. Both pole signs OPEN; no global claim.
