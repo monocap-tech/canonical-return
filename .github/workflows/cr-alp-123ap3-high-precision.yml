@@ -1,0 +1,91 @@
+name: CR-ALP-123AP3 high precision frozen trial replay
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-123ap3-high-precision.yml']
+permissions:
+  contents: write
+concurrency:
+  group: cr-alp-123ap3-high-precision
+  cancel-in-progress: false
+jobs:
+  audit:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Authenticate frozen coefficients and trial coordinates
+        run: |
+          set -euo pipefail
+          P=/tmp/alp123ap3
+          E=/tmp/alp123ap3-evidence
+          mkdir -p "$P" "$E"
+          {
+            python --version
+            git rev-parse HEAD
+            test "$(git hash-object src/audits/cr_alp_123ap3_high_precision_replay.py)" = 30ae775ce313465c85325840448b939cae1b0a96
+            test "$(git hash-object src/audits/cr_alp_046_full_finite.py)" = 554e7ab54da4545987d89aa660a4abe6c951cb63
+            test "$(git hash-object src/audits/cr_alp_123y_signed_pole_tail.py)" = a5812874b3924e1b76574211e13ab3ab2f59604d
+            test "$(git hash-object src/audits/CR-ALP-068_pole_centered_gamma_result.json)" = 1a7fe8629daa8b8e6cec185a79b6746d6b28975d
+            test "$(git hash-object custody/cr-alp-123ao-direct-schur/result.json)" = d373ef429fec33769ba9e9c1cd743f0dc9986756
+            test "$(git hash-object src/audits/cr_alp_058_archive/reassemble.py)" = 1757db4ce01a5cbbf88036552f468dc05c368734
+            python src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+            python -m zipfile -e "$P/package.zip" "$P"
+            python -m py_compile src/audits/cr_alp_123ap3_high_precision_replay.py
+          } 2>&1 | tee "$E/preflight.log"
+      - name: Direct original coefficient evaluation at restored grid and independent shift
+        run: |
+          set -euo pipefail
+          E=/tmp/alp123ap3-evidence
+          python -u src/audits/cr_alp_123ap3_high_precision_replay.py /tmp/alp123ap3 custody/cr-alp-123z-signed-direction-specific/joint-repaired.json custody/cr-alp-123ac-response-defect/result.json custody/cr-alp-123ak-actual-schur/result.json custody/cr-alp-123al-metric-first/result.json custody/cr-alp-123ao-direct-schur/result.json "$E/result.json" 2>&1 | tee "$E/receiver.log"
+          python - "$E/result.json" <<'PY'
+          import json,sys
+          from fractions import Fraction as F
+          sys.set_int_max_str_digits(0)
+          d=json.load(open(sys.argv[1]))
+          assert d['status']=='CONDITIONAL_FROZEN_TRIAL_DIRECT_REPLAY' and set(d['sectors'])=={'1','2'}
+          for k,s in d['sectors'].items():
+              n=44-int(k)
+              assert s['dimension']==n and s['finite_form_and_mass_overlaps']==2*n*n
+              assert len(s['low_trial_coordinates'])==n
+              assert len(s['corrected_tail_coordinates'])==425-n
+              assert [r[0] for r in s['prefix_intervals']]==list(range(87 if k=='1' else 86,2049,2))
+              assert len(s['conditioned_residual_intervals'])==n
+              assert all(len(r)==32 for r in s['signed_moments'].values()) and len(s['signed_moments'])==3
+              assert int(s['grid'])==10**340
+              assert 0<=F(s['energy_relative_width'])<=F(1,10**8)
+              for key in ('energy_interval','block_initial_energy_interval','block_final_energy_interval','polarized_final_energy_interval'):
+                  lo,hi=map(F,s[key]);assert 0<lo<=hi and (hi-lo)*10**8<=lo
+              assert F(s['E'])>F(s['U'])>0
+              assert (F(s['loss_over_E_upper'])<1)==(s['classification']=='FROZEN_TRIAL_DIRECT_REPLAY_PASS')
+          print('Frozen trial audit output contract PASS')
+          PY
+          (cd "$E"; sha256sum preflight.log receiver.log result.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-123AP3-high-precision
+          path: /tmp/alp123ap3-evidence/
+          if-no-files-found: warn
+      - name: Preserve direct trial evidence and verify remote custody
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-123ap3-high-precision
+          test ! -e "$ROOT"
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp123ap3-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum -c SHA256SUMS)
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$ROOT"
+          git commit -m 'CR-ALP-123AP3: preserve high precision frozen trial audit [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)"
+          REMOTE="$(mktemp -d)"
+          git archive FETCH_HEAD "$ROOT" | tar -x -C "$REMOTE"
+          (cd "$REMOTE/$ROOT"; sha256sum -c SHA256SUMS)
+          echo 'Remote output readback PASS'
