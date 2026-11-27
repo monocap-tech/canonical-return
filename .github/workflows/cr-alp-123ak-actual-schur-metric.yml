@@ -1,0 +1,92 @@
+name: CR-ALP-123AK actual Schur metric diagnostic
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-123ak-actual-schur-metric.yml']
+permissions:
+  contents: write
+concurrency:
+  group: cr-alp-123ak-schur-metric
+  cancel-in-progress: false
+jobs:
+  receiver:
+    runs-on: ubuntu-26.04
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Authenticate frozen inputs and reconstruct finite Schur energy
+        env:
+          OPENBLAS_NUM_THREADS: '2'
+        run: |
+          set -euo pipefail
+          P=/tmp/alp123ak
+          E=/tmp/alp123ak-evidence
+          mkdir -p "$P" "$E"
+          {
+            python --version
+            python -m pip install --only-binary=:all: numpy==2.2.6
+            python -c 'import numpy; print(numpy.__version__); numpy.show_config()'
+            git rev-parse HEAD
+            test "$(git hash-object src/audits/cr_alp_123ak_actual_schur_metric.py)" = b47a53f5505239377cd615e584241e1f26335b10
+            test "$(git hash-object src/audits/cr_alp_123ah_signed_tail_pairing.py)" = a12f36468e3fad788a1dde4915fc2ab35e326735
+            test "$(git hash-object src/audits/cr_alp_046_full_finite.py)" = 554e7ab54da4545987d89aa660a4abe6c951cb63
+            test "$(git hash-object src/audits/CR-ALP-068_pole_centered_gamma_result.json)" = 1a7fe8629daa8b8e6cec185a79b6746d6b28975d
+            test "$(git hash-object src/audits/cr_alp_058_archive/reassemble.py)" = 1757db4ce01a5cbbf88036552f468dc05c368734
+            test "$(git hash-object custody/cr-alp-122e-correction-replay/prime.log)" = d960e41188bbe6a53a26f80126dee8d7cc4cfa6d
+            test "$(git hash-object research/CR-ALP-123AJ_REAL_RAY_OBSTRUCTION.md)" = e47c62137ae72f57296c5d8a1095895131bb43ad
+            echo 'a7a334e6eca63543d7f322aef124c4491c986ba878bd1434f484e86743856473  custody/cr-alp-123ac-response-defect/result.json' | sha256sum -c -
+            python src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+            python -m zipfile -e "$P/package.zip" "$P"
+            python -m py_compile src/audits/cr_alp_123ak_actual_schur_metric.py
+          } 2>&1 | tee "$E/preflight.log"
+          python -u src/audits/cr_alp_123ak_actual_schur_metric.py "$P" custody/cr-alp-123ac-response-defect/result.json "$E/result.json" 2>&1 | tee "$E/receiver.log"
+          python - "$E/result.json" <<'PY'
+          import json,sys
+          from fractions import Fraction as F
+          sys.set_int_max_str_digits(0)
+          d=json.load(open(sys.argv[1]))
+          assert d['status']=='CONDITIONAL_ACTUAL_SCHUR_METRIC_DIAGNOSTIC' and set(d['sectors'])=={'1','2'}
+          for k,s in d['sectors'].items():
+              n=44-int(k);assert s['dimension']==n and int(s['matrix_grid'])==10**40
+              for key in ('corrected_energy_lower','corrected_energy_upper','defect_gram_lower','prefix_inverse_gram_upper'):
+                  M=s[key];assert len(M)==n and all(len(row)==n for row in M) and M==list(map(list,zip(*M)))
+              v=list(map(int,s['actual_metric_ray']));assert len(v)==n and any(v)
+              def q(key):return sum(v[i]*int(s[key][i][j])*v[j] for i in range(n) for j in range(n))
+              gl=q('defect_gram_lower');su=q('corrected_energy_upper')-gl
+              assert su>0 and F(s['actual_metric_eta_lower'])==max(F(0),F(gl,su))
+              assert s['exact_metric_scalar_obstructed']==(F(s['actual_metric_eta_lower'])>=F(s['necessary_eta_ceiling']))
+              a=s['accepted_metric']
+              if a is not None:
+                  assert F(a['eta_upper'])>0 and F(a['finite_charge_upper'])>=0
+          print('Exact generalized ray readback and output contract PASS')
+          PY
+          test "$(wc -c < "$E/result.json")" -lt 50000000
+          (cd "$E"; sha256sum preflight.log receiver.log result.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-123AK-schur-metric
+          path: /tmp/alp123ak-evidence/
+          if-no-files-found: warn
+      - name: Preserve exact matrices and verify remote branch
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-123ak-actual-schur
+          test ! -e "$ROOT"
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp123ak-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum -c SHA256SUMS)
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$ROOT"
+          git commit -m 'CR-ALP-123AK: preserve actual Schur metric diagnostic [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)"
+          REMOTE="$(mktemp -d)"
+          git archive FETCH_HEAD "$ROOT" | tar -x -C "$REMOTE"
+          (cd "$REMOTE/$ROOT"; sha256sum -c SHA256SUMS)
+          echo 'Remote output readback PASS'
