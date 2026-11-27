@@ -1,0 +1,72 @@
+{
+  "scope": "Original failed-run excerpts, not reconstructed successful replacements",
+  "failures": [
+    {
+      "run": 45905611858,
+      "job": 140201486380,
+      "conclusion": "failure",
+      "steps": [
+        {
+          "name": "Authenticate and extract historical archive",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 3
+        },
+        {
+          "name": "Run actions/upload-artifact@v4",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 6
+        }
+      ],
+      "log_excerpt": [
+        "2026-11-26T22:34:40.2483894Z cr_alp_056/correction_1.json: FAILED open or read",
+        "2026-11-26T22:34:40.2484493Z cr_alp_056/correction_2.json: FAILED open or read",
+        "2026-11-26T22:34:40.2485051Z cr_alp_056/result_1.json: FAILED open or read",
+        "2026-11-26T22:34:40.2485818Z cr_alp_056/result_2.json: FAILED open or read",
+        "2026-11-26T22:34:40.2486419Z cr_alp_056/result_extended_1.json: FAILED open or read",
+        "2026-11-26T22:34:40.2486953Z cr_alp_056/result_extended_2.json: FAILED open or read",
+        "2026-11-26T22:34:40.2487291Z cr_alp_056/verification.json: FAILED open or read",
+        "2026-11-26T22:34:40.2487674Z cr_alp_056/verification_extended.json: FAILED open or read",
+        "2026-11-26T22:34:40.2508288Z ##[error]Process completed with exit code 1."
+      ]
+    },
+    {
+      "run": 45924648871,
+      "job": 140263048244,
+      "conclusion": "failure",
+      "steps": [
+        {
+          "name": "Recover enlarged joint trials and exact interval residuals",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 4
+        }
+      ],
+      "log_excerpt": [
+        "2026-11-27T01:49:26.1773713Z Traceback (most recent call last):",
+        "2026-11-27T01:49:26.1788471Z TypeError: string indices must be integers, not 'str'",
+        "2026-11-27T01:49:26.2617743Z ##[error]Process completed with exit code 1."
+      ]
+    },
+    {
+      "run": 45929279832,
+      "job": 140277874162,
+      "conclusion": "failure",
+      "steps": [
+        {
+          "name": "Authenticate frozen source and prepare proposal solver",
+          "status": "completed",
+          "conclusion": "failure",
+          "number": 3
+        }
+      ],
+      "log_excerpt": [
+        "2026-11-27T02:41:01.0802375Z   │ exit code: 1",
+        "2026-11-27T02:41:01.0862128Z       ../scipy/meson.build:274:9: ERROR: Dependency \"OpenBLAS\" not found (tried pkg-config and cmake)",
+        "2026-11-27T02:41:01.1234798Z       ../scipy/meson.build:274:9: ERROR: Dependency \"OpenBLAS\" not found (tried pkg-config and cmake)",
+        "2026-11-27T02:41:02.5905574Z ##[error]Process completed with exit code 1."
+      ]
+    }
+  ]
+}
