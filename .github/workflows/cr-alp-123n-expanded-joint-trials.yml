@@ -1,0 +1,47 @@
+name: CR-ALP-123N expanded joint auxiliary trial bank
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-123n-expanded-joint-trials.yml']
+permissions:
+  contents: write
+jobs:
+  census:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate and prepare candidate solver
+        run: |
+          set -euo pipefail
+          python3 -m pip install --disable-pip-version-check mpmath==1.3.0
+          python3 -m py_compile src/audits/cr_alp_123n_expanded_joint_trials.py
+          (cd custody/cr-alp-123b-pole-residual; sha256sum -c SHA256SUMS)
+          (cd custody/cr-alp-123g-joint-trials; sha256sum -c SHA256SUMS)
+          mkdir -p /tmp/alp123n /tmp/alp123n-evidence
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/alp123n/package.zip
+          python3 -m zipfile -e /tmp/alp123n/package.zip /tmp/alp123n
+      - name: Recover enlarged joint trials and exact interval residuals
+        run: |
+          set -euo pipefail
+          python3 -u src/audits/cr_alp_123n_expanded_joint_trials.py /tmp/alp123n custody/cr-alp-123b-pole-residual/result.json custody/cr-alp-123g-joint-trials/result.json /tmp/alp123n-evidence/result.json | tee /tmp/alp123n-evidence/census.log
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-123N-expanded-joint-trials
+          path: /tmp/alp123n-evidence/
+          if-no-files-found: warn
+      - name: Preserve expanded joint witnesses
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-123n-expanded-joint-trials
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          git checkout --detach FETCH_HEAD
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp123n-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum *.log *.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+          git add "$ROOT"
+          git commit -m 'CR-ALP-123N: preserve expanded joint trial bank [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
