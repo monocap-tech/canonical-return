@@ -1,0 +1,30 @@
+digamma complete 20
+digamma complete 40
+digamma complete 60
+digamma complete 80
+digamma complete 100
+digamma complete 120
+digamma complete 140
+digamma complete 160
+digamma complete 180
+digamma complete 200
+digamma complete 220
+digamma complete 240
+digamma complete 260
+digamma complete 280
+digamma complete 300
+digamma complete 320
+digamma complete 340
+digamma complete 360
+joint witness parity 1 cutoff 165 energy 3.035161580508139e-38 conditioned finite residual norm2 upper 9.705619494791006e-180 available auxiliary tail norm2 lower 1.5557015121437066e-38
+candidate parity 1 cutoff 165 energy 3.035161580508139e-38 3.035161580508139e-38 POSITIVE_TRIAL_ENERGY_ONLY
+joint witness parity 1 cutoff 245 energy 2.516635094233045e-38 conditioned finite residual norm2 upper 7.566078099645057e-180 available auxiliary tail norm2 lower 2.478024913945785e-39
+candidate parity 1 cutoff 245 energy 2.516635094233045e-38 2.516635094233045e-38 POSITIVE_TRIAL_ENERGY_ONLY
+joint witness parity 1 cutoff 365 energy 2.3717871627184496e-38 conditioned finite residual norm2 upper 5.590570748968386e-180 available auxiliary tail norm2 lower 1.1004187048685909e-178
+candidate parity 1 cutoff 365 energy 2.3717871627184496e-38 2.3717871627184496e-38 POSITIVE_TRIAL_ENERGY_ONLY
+joint witness parity 2 cutoff 164 energy 5.008780018106924e-33 conditioned finite residual norm2 upper 5.71289549436422e-180 available auxiliary tail norm2 lower 2.3710059531255347e-33
+candidate parity 2 cutoff 165 energy 5.008780018106924e-33 5.008780018106924e-33 POSITIVE_TRIAL_ENERGY_ONLY
+joint witness parity 2 cutoff 244 energy 4.345277195387423e-33 conditioned finite residual norm2 upper 5.916672921817182e-180 available auxiliary tail norm2 lower 6.44215996191068e-34
+candidate parity 2 cutoff 245 energy 4.345277195387423e-33 4.345277195387423e-33 POSITIVE_TRIAL_ENERGY_ONLY
+joint witness parity 2 cutoff 364 energy 3.761150488339508e-33 conditioned finite residual norm2 upper 6.380807248046863e-180 available auxiliary tail norm2 lower 1.0598033218211532e-178
+candidate parity 2 cutoff 365 energy 3.761150488339508e-33 3.761150488339508e-33 POSITIVE_TRIAL_ENERGY_ONLY
