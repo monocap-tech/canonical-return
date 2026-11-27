@@ -1,0 +1,145 @@
+name: W02 INT frozen trial directed energy transport
+on:
+  push:
+    branches: [research/cr-int-t1d-ep-targeted-corrector-staged]
+    paths: [.github/workflows/t1d-w02-int-energy-transport.yml]
+permissions:
+  contents: write
+jobs:
+  transport:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OPENBLAS_NUM_THREADS: "2"
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            custody/ep/archive
+            custody/ep/manifest.json
+            custody/ep/full-reoptimization
+            custody/en/generated/merged/odd_BQ_energy.npz
+            custody/eo/generated/candidate32_positive_t.npz
+      - uses: actions/checkout@v4
+        with:
+          ref: 420b4ad3013b4ea78cb2e3dec46094ec525cd289
+          path: energy-evidence
+          sparse-checkout: |
+            custody/w02-int/kernel-energy
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Exact restricted energy transport
+        run: |
+          python -m pip install numpy==2.3.5
+          mkdir -p custody/w02-int/energy-transport
+          python - <<'PY'
+          import hashlib,json,pathlib,zipfile,io,os,traceback
+          from fractions import Fraction as F
+          from math import isqrt
+          import numpy as np
+          P=pathlib.Path
+          out=P('custody/w02-int/energy-transport')
+          ev=P('energy-evidence/custody/w02-int/kernel-energy')
+          def sha(b):return hashlib.sha256(b).hexdigest()
+          def gitsha(b):return hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+          def read(p,h,git=False):
+              b=p.read_bytes();assert (gitsha(b) if git else sha(b))==h,p;return b
+          def npz(b):
+              with np.load(io.BytesIO(b),allow_pickle=False) as z:return {k:z[k] for k in z.files}
+          def obj(a):return np.vectorize(int,otypes=[object])(a)
+          def dyadic(a):
+              r=[float(v).as_integer_ratio() for v in a.flat];s=max(q for _,q in r)
+              return np.array([n*(s//q) for n,q in r],object).reshape(a.shape),s
+          def sqrtup(v):
+              assert v>=0
+              g=10**40;n=isqrt(v.numerator*g*g//v.denominator)
+              return F(n+(F(n*n,g*g)<v),g)
+          def op(a,s):
+              # Exact row-sum bound on the Gram, valid for a rectangular matrix.
+              G=a.T@a
+              return sqrtup(F(max(sum(abs(int(t)) for t in row) for row in G),s*s))
+          def rows(a):return max(sum(abs(t) for t in row) for row in a)
+          def fracmat(a,s):return np.vectorize(lambda v:F(int(v),s),otypes=[object])(a)
+          def delta(a,s,b):
+              B,bs=dyadic(b);return a*bs-B*s,s*bs
+          def cross(A,as_,E,es,B,bs):
+              return fracmat(A.T@E@B,as_*es*bs)
+          receipt={'status':'INCOMPLETE','source_commit':os.environ['GITHUB_SHA'],'energy_evidence':'420b4ad3013b4ea78cb2e3dec46094ec525cd289','scope':'energy transport on frozen positive-t trials only; no inverse, penalty, exceptional dictionary or final positivity acceptance','records':[]}
+          def save():(out/'result.json').write_text(json.dumps(receipt,indent=2)+'\n')
+          try:
+              rec=json.loads(read(ev/'result.json','25c7c0f62f11369e13a51cb2039a7e4b8d3c39a5',True));assert rec['status']=='PASS'
+              new=npz(read(ev/'odd_kernel_energy.npz',rec['output_sha256']))
+              old=npz(read(P('custody/en/generated/merged/odd_BQ_energy.npz'),'0628d1f7886d2ce40ae4a4b97d6e7207ed10fb8230d1b5f929d9b9851ed5114e'))
+              eo=npz(read(P('custody/eo/generated/candidate32_positive_t.npz'),'1bfc186ced7ba583c8654481d46084d2daa1dd9685be5280d098a2aed20e436e'))
+              ep=P('custody/ep');m=json.loads((ep/'manifest.json').read_text());b=b''.join(P(x['path']).read_bytes() for x in m['parts'])
+              assert sha(b)=='7b5c0f48b0b63e719be161e4197c603be40d74aee051538fa086791624bada21'
+              with zipfile.ZipFile(io.BytesIO(b)) as z:
+                  raw=z.read('EP-kernel-energy.npz');assert sha(raw)=='bfc3438d0aed6b57e069aa9d5ba05cda6b0c60a98d1366c3ff67e30530a4b196'
+                  numeric=npz(raw)
+                  for name in ('ep_kernel_receiving.py','ep_expanded_exceptional_replay.py'):
+                      raw=z.read(name);q=next(x for x in m['members'] if x['name']==name);assert sha(raw)==q['sha256'];(out/name).write_bytes(raw)
+              outer=read(ep/'full-reoptimization/EP-full-reoptimization-custody-ready.zip','89b16e4250bf3b0a261cf6ff54863ef32c7d415d956a89240d455434a3cf8d73')
+              with zipfile.ZipFile(io.BytesIO(outer)) as z:inner=z.read('EP-full-reoptimization-provisional.zip')
+              assert sha(inner)=='6b469aeeb5d86db79215700a8f687a54053c7b2908f90fbbb1f1e7895c22ab77'
+              Q,qs=dyadic(eo['Q']);assert Q.shape==(119,32)
+              # Match the historical binary64 proposal convention. Freeze this
+              # product explicitly; its assembly relation to the stored A,B,C
+              # is a separate obligation, not assumed here.
+              X,xs=dyadic(eo['X']@eo['Q']);assert X.shape==(368,32)
+              assert float(eo['t'])>0 and float(eo['delta'])>0
+              blocks=[]
+              for key in ('K','D'):
+                  s=int(old['scale']);a=obj(old[key]);v=old[key].astype(float)/float(s)
+                  d,ds=delta(a,s,v);blocks.append((key,d,ds,F(str(old[key+'error']))))
+              for key in ('K','Dcross','Dnew'):
+                  d,ds=delta(obj(new[key]),int(new[key+'scale']),numeric[key])
+                  blocks.append(('kernel_'+key,d,ds,F(str(new[key+'error']))))
+              assert all(x[3]>=0 for x in blocks)
+              with zipfile.ZipFile(io.BytesIO(inner)) as z:
+                  for n,h in [(384,'050574bfa759ed820fc97238fd0993f050fabb386128a3707428ed2a83498c81'),(500,'0e87d069459e369ad83c403253e50c4fc30098611506877165652249b09bd6e7')]:
+                      raw=z.read(f'EP-kernel-full-reopt-block-1-{n}.npz');assert sha(raw)==h
+                      t=npz(raw);assert np.array_equal(t['Q'],eo['Q']) and t['T'].shape==(n,32)
+                      U,us=dyadic(t['T'][:16]);V,vs=dyadic(t['T'][16:384])
+                      # Total old physical coordinate = original XQ + receiving update.
+                      L=X*vs+V*xs;ls=xs*vs
+                      nq,nl,nu=op(Q,qs),op(L,ls),op(U,us)
+                      pairs=[(L,ls,Q,qs,True),(L,ls,L,ls,False),(U,us,Q,qs,True),(U,us,L,ls,True),(U,us,U,us,False)]
+                      corr=np.zeros((32,32),object);err=F(0);details=[]
+                      for (key,E,es,e),(A,as_,B,bs,mixed) in zip(blocks,pairs):
+                          c=cross(A,as_,E,es,B,bs)
+                          if mixed:c=c+c.T
+                          else:c=(c+c.T)/2
+                          radius=(2 if mixed else 1)*op(A,as_)*op(B,bs)*e
+                          err+=radius;corr+=c
+                          details.append({'block':key,'restricted_directed_radius':str(radius),'restricted_center_shift_rows':str(rows(c)),'radius_decimal':float(radius)})
+                      assert np.array_equal(corr,corr.T)
+                      # Lower shift may exploit sign of exact directed-center
+                      # correction; no assumption of positive numerical shift.
+                      lo=min(corr[i,i]-sum(abs(corr[i,j]) for j in range(32) if j!=i) for i in range(32))
+                      loss=max(F(0),err-lo)
+                      margin=F(27 if n==384 else 39,10**7)
+                      receipt['records'].append({'coordinates':n,'trial_operator_bounds':{'Q':str(nq),'old_total':str(nl),'kernel':str(nu)},'blocks':details,'center_shift_lower':str(lo),'total_directed_radius':str(err),'energy_loss_upper':str(loss),'energy_loss_upper_decimal':float(loss),'center_margin':str(margin),'margin_after_energy_only':str(margin-loss),'margin_after_energy_only_decimal':float(margin-loss)})
+                      np.savez_compressed(out/f'frozen-energy-{n}.npz',Q=np.array(Q,str),Qscale=str(qs),X=np.array(X,str),Xscale=str(xs),old_total=np.array(L,str),old_total_scale=str(ls),kernel=np.array(U,str),kernel_scale=str(us),center_shift=np.array(corr,str),radius=str(err),lower_shift=str(lo))
+                      save()
+              receipt['status']='PASS';save()
+          except Exception as e:
+              receipt['error']=repr(e);receipt['traceback']=traceback.format_exc();save();raise
+          PY
+      - name: Persist directed transport
+        if: always()
+        run: |
+          mkdir -p custody/w02-int/energy-transport
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          branch="research/cr-int-w02-energy-transport-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git switch -c "$branch"
+          git add --sparse -f custody/w02-int/energy-transport/
+          git commit -m "W02 INT restricted energy transport ${GITHUB_RUN_ID}"
+          git push origin "HEAD:refs/heads/$branch"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: w02-int-energy-transport
+          path: custody/w02-int/energy-transport/
