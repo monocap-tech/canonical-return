@@ -1,0 +1,58 @@
+name: RETURN102-C supplemental permanent evidence custody
+on:
+  push:
+    branches: [research/master-return-090-restricted-audit]
+    paths:
+      - '.github/workflows/master-return-102c-custody.yml'
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: return102c-permanent-custody
+  cancel-in-progress: false
+jobs:
+  preserve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate and preserve all five original evidence archives
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json,os,subprocess,zipfile
+          from pathlib import Path
+          inventory=Path('research/master-return-102c/custody_inventory.json')
+          d=json.loads(inventory.read_text())
+          assert d['repository']==os.environ['GITHUB_REPOSITORY']=='monocap-tech/canonical-return'
+          assert len(d['artifacts'])==5 and d['total_bytes']==1040248
+          target=Path('archive/master-return-101-102');assert not target.exists();target.mkdir()
+          for a in d['artifacts']:
+              f=target/(str(a['id'])+'-'+a['name']+'.zip')
+              with f.open('wb') as fd:
+                  subprocess.run(['gh','api',f"repos/{d['repository']}/actions/artifacts/{a['id']}/zip"],stdout=fd,check=True)
+              data=f.read_bytes()
+              assert len(data)==a['bytes'] and hashlib.sha256(data).hexdigest()==a['sha256']
+              with zipfile.ZipFile(f) as z:assert z.testzip() is None
+              a['path']=f.name
+              print('authenticated',a['id'],len(data),flush=True)
+          (target/'manifest.json').write_text(json.dumps(d,indent=2)+'\n')
+          print('RETURN102-C ALL FIVE ZIP ARCHIVES AUTHENTICATED',flush=True)
+          PY
+      - name: Preserve on distinct non-overwriting custody branch
+        run: |
+          set -euo pipefail
+          branch=research/master-return-102-custody
+          if git ls-remote --exit-code --heads origin "$branch"; then
+            echo "Existing ref: refusing replacement"
+            exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add archive/master-return-101-102/
+          git commit -m "Preserve RETURN101–102 independently verified evidence ZIPs"
+          git push --force-with-lease="refs/heads/$branch:" origin "HEAD:refs/heads/$branch"
+          test "$(git rev-parse HEAD)" = "$(git ls-remote --heads origin "$branch" | cut -f1)"
+          echo "RETURN102-C PERMANENT CUSTODY VERIFIED $(git rev-parse HEAD)"
