@@ -1,0 +1,11 @@
+{
+  "artifact_id": 15232356317,
+  "run_id": 46067568612,
+  "archive_sha256": "42cb9924d5b89d6c9516b528770f217a3516dd3473daedce9eaf5ba0c20aa525",
+  "files": {
+    "result.json": "70e46c2c4f6ebbf6019e79abafcd25b458422a9a0934ee8cb1bd4680868ca8ad",
+    "comparison.npz": "cc362ae7d949db7680c47b8a99c2a93423c445684a4aa15724948ca6fda70baa",
+    "bn_energy.py": "11f2e6aadec7f1997366b50a081bd49e80a4f368b478c41bbec740d629190efa"
+  },
+  "status": "payload authenticated"
+}
