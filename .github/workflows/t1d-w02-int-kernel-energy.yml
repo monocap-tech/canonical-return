@@ -1,0 +1,152 @@
+name: W02 INT directed kernel mixed and self energy
+on:
+  push:
+    branches: [research/cr-int-t1d-ep-targeted-corrector-staged]
+    paths: [.github/workflows/t1d-w02-int-kernel-energy.yml]
+permissions:
+  contents: write
+jobs:
+  energy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      OPENBLAS_NUM_THREADS: "2"
+      PYTHONUNBUFFERED: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: |
+            custody/ep/archive
+            custody/ep/manifest.json
+            custody/en/generated/merged/odd_merged_corrector.npz
+            custody/en/generated/merged/odd_combined_projection.npz
+      - uses: actions/checkout@v4
+        with:
+          ref: 121e6d329e2d4ca623b57eb7cacf1fc510e7e996
+          path: kernel-evidence
+          sparse-checkout: |
+            custody/w02-int/kernel-pilot
+      - uses: actions/checkout@v4
+        with:
+          ref: bdeab62ca70948e9d53e16b3cca720241fa442e6
+          path: action-evidence
+          sparse-checkout: |
+            custody/w02-int/kernel-action/1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Exact interval contraction and reciprocity
+        run: |
+          python -m pip install numpy==2.3.5
+          mkdir -p custody/w02-int/kernel-energy
+          python - <<'PY'
+          import hashlib,json,pathlib,zipfile,io,os,sys,traceback
+          from fractions import Fraction as F
+          from math import isqrt
+          import numpy as np
+          P=pathlib.Path
+          out=P('custody/w02-int/kernel-energy')
+          ev=P('kernel-evidence/custody/w02-int/kernel-pilot')
+          av=P('action-evidence/custody/w02-int/kernel-action/1')
+          old=P('custody/en/generated/merged')
+          def sha(b):return hashlib.sha256(b).hexdigest()
+          def gitsha(b):return hashlib.sha1(b'blob '+str(len(b)).encode()+b'\0'+b).hexdigest()
+          def read(p,h,git=False):
+              b=p.read_bytes();assert (gitsha(b) if git else sha(b))==h,p;return b
+          def npz(b):
+              with np.load(io.BytesIO(b),allow_pickle=False) as z:return {k:z[k] for k in z.files}
+          def obj(a):return np.vectorize(int,otypes=[object])(a)
+          def norm(a,s=1):
+              q=sum(int(v)**2 for v in a.flat);r=isqrt(q)
+              return F(r+(r*r<q),s)
+          receipt={'status':'INCOMPLETE','scope':'directed finite-support signed energy pairings; conditional on inherited physical source enclosures; no inverse or positivity claim','source_commit':os.environ['GITHUB_SHA'],'kernel_evidence':'121e6d329e2d4ca623b57eb7cacf1fc510e7e996','action_evidence':'bdeab62ca70948e9d53e16b3cca720241fa442e6'}
+          def save():(out/'result.json').write_text(json.dumps(receipt,indent=2)+'\n')
+          try:
+              pilot=json.loads(read(ev/'result.json','be1a592226ae64128033a4a484328fad3a96f66c',True));assert pilot['status']=='PASS'
+              action=json.loads(read(av/'result.json','646bfecf2d57ec57ba4c5d8b668b0cd336ad7b59',True));assert action['status']=='PASS'
+              k=npz(read(ev/'odd_kernel_corrector.npz','3e57b83839176ed9b7ee3f4d313199295e202ded',True))
+              u=npz(read(old/'odd_merged_corrector.npz','9558261d14698861a6681c8f432c717f0496de898fd312ce8020f59b466c1284'))
+              p=npz(read(old/'odd_combined_projection.npz','1ff91b70bd9b64f6ec695efa7efccab2f9368507d5a83ec5487ea266cd441ddc'))
+              y=npz(read(av/'odd_U_1_16383.npz',action['action']['sha256']))
+              assert p['Y'].shape==(8192,487) and int(p['d0'])==119 and y['Y'].shape==(8192,16)
+              assert np.array_equal(y['indices'],np.arange(1,16384,2))
+              assert int(y['scale'])==int(p['Yscale'])==10**12
+              assert F(str(y['error']))==F(action['action']['finite_action_error'])
+              assert k['coefficient'].shape==(139,16) and u['coefficient'].shape==(507,368)
+              src=read(ev/'bn_energy.py','11f2e6aadec7f1997366b50a081bd49e80a4f368b478c41bbec740d629190efa')
+              (out/'bn_energy.py').write_bytes(src);sys.path.insert(0,str(out.resolve()))
+              from bn_energy import I,D,pi,sqrtint
+              S=10**60
+              def embed(a):
+                  ids=list(map(int,a['indices']));assert len(set(ids))==len(ids) and all(1<n<16384 and n%2 for n in ids)
+                  C=obj(a['coefficient']);cs=int(a['coefficient_scale']);ec=F(str(a['coefficient_error']));assert ec>=0
+                  # BQ orthonormal Neumann embedding: sqrt(2)*(v_n-r_n*v_1).
+                  r=[(F(1,4)+(pi/4)**2)/(F(1,4)+(pi*n/4)**2) for n in ids]
+                  mass=sqrtint(2);R=np.zeros((len(ids)+1,len(ids)),object);E=R.copy()
+                  for i,t in enumerate(r):
+                      for row,v in ((0,-mass*t),(i+1,mass)):
+                          l=v.l*S//D;h=-((-v.h*S)//D);m=(l+h)//2
+                          R[row,i]=m;E[row,i]=max(m-l,h-m)
+                  eR=norm(E,S);nr=norm(R,S);nc=norm(C,cs)
+                  B=R@C;bs=S*cs;eb=nr*ec+eR*(nc+ec)
+                  return np.array([0]+[(n-1)//2 for n in ids]),B,bs,eb
+              def pairing(a,Y,ys,ey):
+                  ix,B,bs,eb=embed(a)
+                  Y=obj(Y[ix]);N=B.T@Y;den=bs*ys
+                  e=norm(B,bs)*ey+eb*(norm(Y,ys)+ey)
+                  # Selection of support rows is a contraction, so the entire
+                  # inherited Frobenius action radius remains valid on this subset.
+                  return N,den,e
+              K,ks,ek=pairing(k,p['Y'][:,:119],int(p['Yscale']),F(str(p['head_error'])))
+              C,cs,ec=pairing(k,p['Y'][:,119:],int(p['Yscale']),F(str(p['U_error'])))
+              H,hs,eh=pairing(k,y['Y'],int(y['scale']),F(str(y['error'])))
+              reverse,rs,er=pairing(u,y['Y'],int(y['scale']),F(str(y['error'])))
+              reciprocity=norm(C*rs-reverse.T*cs,cs*rs)
+              assert reciprocity<=ec+er
+              symdef=norm(H-H.T,hs);assert symdef<=2*eh
+              # Self-energy is symmetric; averaging does not enlarge its Frobenius radius.
+              H=H+H.T;hs*=2
+              manifest=json.loads(P('custody/ep/manifest.json').read_text())
+              bb=b''.join(P(x['path']).read_bytes() for x in manifest['parts'])
+              assert len(bb)==8020408 and sha(bb)=='7b5c0f48b0b63e719be161e4197c603be40d74aee051538fa086791624bada21'
+              with zipfile.ZipFile(io.BytesIO(bb)) as z:
+                  raw=z.read('EP-kernel-energy.npz');assert sha(raw)=='bfc3438d0aed6b57e069aa9d5ba05cda6b0c60a98d1366c3ff67e30530a4b196'
+              numerical=npz(raw)
+              def diff(A,s,B):
+                  assert A.shape==B.shape
+                  ratios=[float(v).as_integer_ratio() for v in B.flat];d=max(q for _,q in ratios)
+                  BI=np.array([n*(d//q) for n,q in ratios],object).reshape(B.shape)
+                  return norm(A*d-BI*s,s*d)
+              def rec(A,s,e,key):
+                  d=diff(A,s,numerical[key])
+                  return {'shape':list(A.shape),'directed_radius':str(e),'numerical_center_difference_upper':str(d),'physical_vs_numerical_error_upper':str(e+d),'physical_vs_numerical_error_upper_decimal':float(e+d)}
+              # Choose the tighter of the two valid mixed-energy enclosures,
+              # measured against the original frozen numerical center.
+              c1=rec(C,cs,ec,'Dcross');c2=rec(reverse.T,rs,er,'Dcross')
+              if F(c2['physical_vs_numerical_error_upper'])<F(c1['physical_vs_numerical_error_upper']):
+                  C,cs,ec=reverse.T,rs,er;direction='old physical coefficients against new action'
+              else:direction='new coefficients against old physical action'
+              records={'K':rec(K,ks,ek,'K'),'Dcross':rec(C,cs,ec,'Dcross'),'Dnew':rec(H,hs,eh,'Dnew')}
+              dest=out/'odd_kernel_energy.npz'
+              np.savez_compressed(dest,K=np.array(K,str),Kscale=str(ks),Kerror=str(ek),Dcross=np.array(C,str),Dcrossscale=str(cs),Dcrosserror=str(ec),Dnew=np.array(H,str),Dnewscale=str(hs),Dnewerror=str(eh))
+              receipt.update(status='PASS',energy=records,reciprocity_upper=str(reciprocity),reciprocity_combined_radius=str(F(c1['directed_radius'])+F(c2['directed_radius'])),self_symmetry_defect_upper=str(symdef),mixed_direction=direction,output_sha256=sha(dest.read_bytes()))
+              save()
+          except Exception as e:
+              receipt['error']=repr(e);receipt['traceback']=traceback.format_exc();save();raise
+          PY
+      - name: Persist exact energy evidence
+        if: always()
+        run: |
+          mkdir -p custody/w02-int/kernel-energy
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          branch="research/cr-int-w02-kernel-energy-${GITHUB_RUN_ID}-${GITHUB_RUN_ATTEMPT}"
+          git switch -c "$branch"
+          git add --sparse -f custody/w02-int/kernel-energy/
+          git commit -m "W02 INT directed kernel energy evidence ${GITHUB_RUN_ID}"
+          git push origin "HEAD:refs/heads/$branch"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: w02-int-kernel-energy
+          path: custody/w02-int/kernel-energy/
