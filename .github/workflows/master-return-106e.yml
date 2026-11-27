@@ -1,0 +1,71 @@
+name: RETURN106-E final literal attachment custody
+on:
+  push:
+    branches: [research/master-return-090-restricted-audit]
+    paths:
+      - '.github/workflows/master-return-106e.yml'
+permissions:
+  contents: write
+  actions: read
+concurrency:
+  group: return106e-final-custody
+  cancel-in-progress: false
+jobs:
+  preserve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate and preserve successful fine-scale attachment
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          python - <<'PY'
+          import hashlib,json,os,subprocess,zipfile
+          from pathlib import Path
+          repo='monocap-tech/canonical-return'
+          assert os.environ['GITHUB_REPOSITORY']==repo
+          a={'id':15164070068,'run':45918731836,'name':'return106b2-fine-scale-literal-attachment','bytes':21394300,'sha256':'a09d215906721e0c9cbbc04eef693407d040d95bfd5d402ba519e2b6627a164c'}
+          z=Path(os.environ['RUNNER_TEMP'])/'106b2.zip'
+          with z.open('wb') as f:
+              subprocess.run(['gh','api',f"repos/{repo}/actions/artifacts/{a['id']}/zip"],stdout=f,check=True)
+          assert z.stat().st_size==a['bytes'] and hashlib.sha256(z.read_bytes()).hexdigest()==a['sha256']
+          with zipfile.ZipFile(z) as f:
+              assert f.testzip() is None
+              r=f.read('receipt.json');d=json.loads(r)
+              assert d['status']=='PASS' and d['entries']==d['contained']==1411314
+              assert d['old_scale']==10**16 and d['new_scale']==10**24
+              assert len(d['records'])==4 and all(v['entries']==v['contained'] and v['disjoint']==0 for v in d['records'])
+              assert hashlib.sha256(f.read('fine_rows.json')).hexdigest()==d['fine_rows_sha256']
+          target=Path('archive/master-return-106');assert not target.exists();target.mkdir()
+          (target/'receipt.json').write_bytes(r)
+          parts=[];whole=hashlib.sha256();total=0
+          with z.open('rb') as f:
+              while chunk:=f.read(16*1024*1024):
+                  p=target/f'archive.zip.part{len(parts):03d}';p.write_bytes(chunk)
+                  parts.append({'path':p.name,'bytes':len(chunk),'sha256':hashlib.sha256(chunk).hexdigest()})
+          for p in parts:
+              b=(target/p['path']).read_bytes()
+              assert len(b)==p['bytes'] and hashlib.sha256(b).hexdigest()==p['sha256']
+              whole.update(b);total+=len(b)
+          assert whole.hexdigest()==a['sha256'] and total==a['bytes']
+          a['parts']=parts
+          manifest={'schema':'return106e-custody-v1','scope':'byte-identical fine-scale attachment evidence; no theorem promotion','artifacts':[a],'total_bytes':total,'receipt_sha256':hashlib.sha256(r).hexdigest()}
+          (target/'manifest.json').write_text(json.dumps(manifest,indent=2)+'\n')
+          print('RETURN106-E FINAL ARCHIVE AUTHENTICATED',total,flush=True)
+          PY
+      - name: Preserve distinct non-overwriting custody branch
+        run: |
+          set -euo pipefail
+          branch=research/master-return-106-custody
+          if git ls-remote --exit-code --heads origin "$branch"; then
+            echo "Existing branch: refusing replacement"; exit 1
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add archive/master-return-106/
+          git commit -m "Preserve final RETURN106-B2 literal finite attachment"
+          git push --force-with-lease="refs/heads/$branch:" origin "HEAD:refs/heads/$branch"
+          test "$(git rev-parse HEAD)" = "$(git ls-remote --heads origin "$branch" | cut -f1)"
+          echo "RETURN106-E PERMANENT CUSTODY VERIFIED $(git rev-parse HEAD)"
