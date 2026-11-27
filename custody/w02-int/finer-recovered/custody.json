@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "verified_payload_commit": "9e139c64c15d8ec2aaecefd84ed657102f1839fc",
+  "response_sha256": "a065d42213b78847ee4dd7cc229fb08a809e6ddf598551dd2d2d31fd21263454",
+  "response_bytes": 21052492,
+  "parts": 11,
+  "scope": "all committed blobs authenticated; independent exact arithmetic replay PASS; inherited analytical hypotheses unchanged"
+}
