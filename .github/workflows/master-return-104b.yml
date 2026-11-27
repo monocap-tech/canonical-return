@@ -1,0 +1,39 @@
+name: RETURN104-B exact integer auxiliary Gram replay
+on:
+  push:
+    branches: [research/master-return-090-restricted-audit]
+    paths:
+      - 'research/master-return-104b/**'
+      - '.github/workflows/master-return-104b.yml'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      PYTHONINTMAXSTRDIGITS: '0'
+      OPENBLAS_NUM_THREADS: '2'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Authenticate permanent and original sources
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 origin 87c9cd17b29da9d0a57cd426e0aa76a24eea0f65
+          mkdir -p "$RUNNER_TEMP/work" "$RUNNER_TEMP/bank" "$RUNNER_TEMP/results"
+          bash archive/master-return/reconstruct.sh "$RUNNER_TEMP/archives"
+          for i in 083_reproduction 086_audit; do
+            unzip -oq "$RUNNER_TEMP/archives/RETURN$i.zip" -d "$RUNNER_TEMP/work"
+          done
+          python -m pip install python-flint==0.8.0 numpy==2.2.6 scipy==1.15.3 mpmath==1.3.0
+          python -m py_compile research/master-return-104b/exact_auxiliary.py
+      - name: Replay common and augmented auxiliary matrices with exact FLINT integer products
+        run: python research/master-return-104b/exact_auxiliary.py "$RUNNER_TEMP/work" "$RUNNER_TEMP/bank" "$RUNNER_TEMP/results"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: return104b-exact-integer-auxiliary
+          path: ${{ runner.temp }}/results/
