@@ -1,0 +1,52 @@
+name: RETURN104-A complete finite Arb source regeneration
+on:
+  push:
+    branches: [research/master-return-090-restricted-audit]
+    paths:
+      - 'research/master-return-104a/**'
+      - '.github/workflows/master-return-104a.yml'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Authenticate source archives and permanent early reference
+        run: |
+          set -euo pipefail
+          git fetch --no-tags --depth=1 origin 87c9cd17b29da9d0a57cd426e0aa76a24eea0f65
+          mkdir -p "$RUNNER_TEMP/work" "$RUNNER_TEMP/results" "$RUNNER_TEMP/ref"
+          bash archive/master-return/reconstruct.sh "$RUNNER_TEMP/archives"
+          unzip -q "$RUNNER_TEMP/archives/RETURN083_reproduction.zip" -d "$RUNNER_TEMP/work"
+          python - <<'PY'
+          import os, json, hashlib, subprocess, zipfile
+          from pathlib import Path
+          ref='87c9cd17b29da9d0a57cd426e0aa76a24eea0f65'
+          base='archive/master-return-088-099'
+          def get(p):return subprocess.check_output(['git','show',ref+':'+base+'/'+p])
+          assert subprocess.check_output(['git','rev-parse',ref+':'+base+'/manifest.json'],text=True).strip()=='37eb603b84a5a92b78d6623ab74fe880e191ef6c'
+          a=next(x for x in json.loads(get('manifest.json'))['archives'] if x['id']==15158350445)
+          b=b''
+          for p in a['parts']:
+              z=get(p['path']);assert len(z)==p['bytes'] and hashlib.sha256(z).hexdigest()==p['sha256']
+              b+=z
+          assert len(b)==a['bytes'] and hashlib.sha256(b).hexdigest()==a['sha256']=='5563638a2b07f685642150d56c5f38bc4e314dda698c1ac3cbfbf764844558f1'
+          f=Path(os.environ['RUNNER_TEMP'])/'ref'/'097bc.zip';f.write_bytes(b)
+          with zipfile.ZipFile(f) as z:
+              assert z.testzip() is None
+              z.extractall(f.parent)
+          PY
+          python -m pip install python-flint==0.8.0 numpy==2.2.6
+          python -m py_compile research/master-return-104a/regenerate_finite_arb.py
+      - name: Independent Arb finite mixed rows and compressed feature containment
+        run: python research/master-return-104a/regenerate_finite_arb.py "$RUNNER_TEMP/work" "$RUNNER_TEMP/results" "$RUNNER_TEMP/ref"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: return104a-complete-finite-arb
+          path: ${{ runner.temp }}/results/
