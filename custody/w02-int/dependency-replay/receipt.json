@@ -1,0 +1,8 @@
+{
+  "status": "INCOMPLETE",
+  "source_commit": "dbbdd416036cce620ef6dbde88c71e6353d5cd92",
+  "bo_source_commit": "36579dfa51c81e43ebce1ead4771eb3a3dd52af3",
+  "scope": "dependency bytes and exact frozen numerical centers only; no physical acceptance",
+  "python": "3.13.18 (main, Oct 26 2026, 14:19:33) [GCC 15.2.0]",
+  "error": "AssertionError()"
+}
