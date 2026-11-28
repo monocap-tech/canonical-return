@@ -2,6 +2,8 @@
 
 This file is a provider-neutral restart guide. The governing claim and change rules remain [governance/CLAIMS.md](governance/CLAIMS.md) and [governance/WORKFLOW.md](governance/WORKFLOW.md). Read them before editing. This repository owns Canonical Return mathematics and its native evidence. Do not edit another repository's acceptance ledger through this one.
 
+The dated [three-repository current situation](https://github.com/monocap-tech/provenance/blob/main/CURRENT_SITUATION.md) is a navigation index when private provenance access is available. Check its observation and reviewed-standing timestamps, then verify the exact native evidence here. If it is stale or inaccessible, record that and proceed from this repository's live refs and governing ledger.
+
 ## Start from live evidence
 
 1. Fetch all refs and inspect `main`, active `research/` branches, PRs, Actions runs, run attempts, jobs, artifacts, and custody commits. The README describes the initial import; it is not a complete live status board.
