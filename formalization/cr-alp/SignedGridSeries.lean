@@ -74,16 +74,21 @@ def trigDen (e i : ℕ) : ℕ := (2*i+e+1)*(2*i+e+2)
 
 theorem trigTermSucc (e i : ℕ) (x : ℝ) :
     trigTerm e (i+1) x = trigTerm e i x * (-(x^2)) / (trigDen e i:ℝ) := by
-  unfold trigTerm trigDen
-  rw [show 2*(i+1)+e=2*i+e+1+1 by omega,
+  have hpow : x^(2*(i+1)+e) = x^(2*i+e)*x^2 := by
+    rw [show 2*(i+1)+e=2*i+e+2 by omega,pow_add]
+  have hf : (Nat.factorial (2*(i+1)+e):ℝ) =
+      (Nat.factorial (2*i+e):ℝ)*(trigDen e i:ℝ) := by
+    rw [show 2*(i+1)+e=2*i+e+1+1 by omega,
       Nat.factorial_succ,Nat.factorial_succ]
-  push_cast
-  rw [show 2*i+e+1+1=2*i+e+2 by omega,pow_add,pow_succ (-1:ℝ) i]
-  have hf : (Nat.factorial (2*i+e):ℝ) ≠ 0 := by positivity
-  have h1 : (2*(i:ℝ)+(e:ℝ)+1) ≠ 0 := by positivity
-  have h2 : (2*(i:ℝ)+(e:ℝ)+1+1) ≠ 0 := by positivity
-  have h3 : (2*(i:ℝ)+(e:ℝ)+2) ≠ 0 := by positivity
-  field_simp [hf,h1,h2,h3] <;> ring
+    unfold trigDen
+    push_cast <;> ring
+  have hF : (Nat.factorial (2*i+e):ℝ) ≠ 0 := by positivity
+  have hD : (trigDen e i:ℝ) ≠ 0 := by
+    unfold trigDen
+    positivity
+  unfold trigTerm
+  rw [hpow,hf,pow_succ (-1:ℝ) i]
+  field_simp [hF,hD] <;> ring
 
 def trigStep (e : ℕ) (v : Grid) (t mid : ℕ → Grid) (i : Fin 399) : Prop :=
   mulOK (t i.val) v (mid i.val) ∧
