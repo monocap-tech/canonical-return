@@ -1,4 +1,4 @@
-name: CR-ALP LEAN-03B2B1 actual Machin and collar exponentials
+name: CR-ALP LEAN-03B2B1-R1 cast normalization repair
 on:
   push:
     branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
@@ -39,9 +39,11 @@ jobs:
             test "$(git hash-object formalization/cr-alp/generate_log2_trace.py)" = 74746f92044b8e84529d2a9c78e843462b67bd24
             test "$(git hash-object formalization/cr-alp/redteam_log2_trace.js)" = d880113fb1cb6a7afb62cc9eea651792d39ac0d8
             test "$(git hash-object custody/cr-alp-lean-03b2a-log2-trace/run-46097300574-attempt-1/receipts.json)" = b062333e1f0bae692cbd7844ce0207288b6aa1de
-            test "$(git hash-object formalization/cr-alp/RationalTrace.lean)" = e91872e12ff3431a189b389a33352212c3f505d6
+            test "$(git hash-object formalization/cr-alp/RationalTrace.lean)" = 3d448b5064c912afc2c0766fac9b5d086bda54d0
             test "$(git hash-object formalization/cr-alp/generate_constant_traces.py)" = 0b5aa85556cb5c93f33d6547a54850f2d11ecd41
             test "$(git hash-object formalization/cr-alp/redteam_constant_traces.js)" = 163a6e939c0779211e6ea7c36074b4e5e02bd2be
+            test "$(git hash-object custody/cr-alp-lean-03b2b1-constant-traces/run-46097766440-attempt-1/receipts.json)" = 3e623d75903e505014d268dad3417698846f0ca6
+            test "$(git hash-object formalization/cr-alp/LEAN-03B2B1-R1_REDTEAM.md)" = 265ba37995511542a66adda638d0104fcb0dc578
             python3 - <<'PY'
           import json,re
           from pathlib import Path
@@ -108,7 +110,20 @@ jobs:
           done
           for mod in RationalTrace ConstAtan5 ConstAtan239 ConstExpA ConstExpHalfA ConstPi; do
             rc=0
-            { time timeout 12m lake env lean -o ".lake/build/lib/lean/$mod.olean" "$mod.lean"; } 2>&1 | tee "$E/$mod.log" || rc=$?
+            blocked=""
+            case "$mod" in
+              ConstPi)
+                for dep in ConstAtan5 ConstAtan239; do
+                  if [ ! -s ".lake/build/lib/lean/$dep.olean" ]; then blocked="$blocked $dep"; fi
+                done ;;
+              Const*) if [ ! -s .lake/build/lib/lean/RationalTrace.olean ]; then blocked="RationalTrace"; fi ;;
+            esac
+            if [ -n "$blocked" ]; then
+              printf '%s\n' "DEPENDENCY_BLOCKED:$blocked" > "$E/$mod.log"
+              rc=125
+            else
+              { time timeout 12m lake env lean -o ".lake/build/lib/lean/$mod.olean" "$mod.lean"; } 2>&1 | tee "$E/$mod.log" || rc=$?
+            fi
             printf '%s\n' "$rc" > "$E/$mod.exit"
             if [ "$rc" = 0 ]; then
               test -s ".lake/build/lib/lean/$mod.olean"
@@ -142,6 +157,10 @@ jobs:
               rc=int((p/(mod+'.exit')).read_text())
               log=(p/(mod+'.log')).read_text()
               found={};issues=[]
+              if rc==125 and log.startswith('DEPENDENCY_BLOCKED:'):
+                  modules[mod]={'status':'BLOCKED','expected':count,'declarations':{},'issues':[log.strip()]}
+                  all_ok=False
+                  continue
               if rc!=0:issues.append('compiler exit '+str(rc))
               if re.search(r'(?m)^\s*(?:error:|.*: error:)',log):issues.append('compiler error')
               for name in names:
