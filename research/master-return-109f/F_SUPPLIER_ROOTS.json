@@ -1,0 +1,92 @@
+{
+  "status": "direct-root inventory; recursive closure not yet executed",
+  "base_run": 46090300703,
+  "base_manifest_count": 283,
+  "IV": "f2e8ec89ae4bf8687a652b299b730d6d1baa43f7",
+  "RECON": "d3067677cad7a0a583ef14b5466018dfad5f0afe",
+  "roots": [
+    {
+      "path": "WeilDefect/Arithmetic/ActualZetaFullGraphRawDivisorQuadratic.lean",
+      "side": "IV",
+      "blob": "5070335202dfdb22de66f01b254571c80e24c7dd",
+      "inE2": false
+    },
+    {
+      "path": "WeilDefect/Arithmetic/ActualZetaSmoothCorrelationRegularity.lean",
+      "side": "IV",
+      "blob": "7e93794c922a3275a2d17347556ac7af438c1396",
+      "inE2": false
+    },
+    {
+      "path": "WeilDefect/MasterRecon/V08J.lean",
+      "side": "RECON",
+      "blob": "7e03f18e49211056110eb425465afc932cd09607",
+      "inE2": true
+    },
+    {
+      "path": "WeilDefect/Arithmetic/ActualZetaCorrelationFourierAgreement.lean",
+      "side": "IV",
+      "blob": "60453bd214c43feedb0fa64d74a15bd452e48998",
+      "inE2": true
+    },
+    {
+      "path": "WeilDefect/Arithmetic/ActualZetaArchimedeanTransport.lean",
+      "side": "IV",
+      "blob": "9abe6465ad2b07eb66b72342ea97292865f78f2a",
+      "inE2": true
+    },
+    {
+      "path": "WeilDefect/MasterRecon/V08I.lean",
+      "side": "RECON",
+      "blob": "53d7a87bdd52e66203c05bfc9e3cf514789745d4",
+      "inE2": true
+    },
+    {
+      "path": "WeilDefect/External/Zeta23/Theorems/Thm_Zeta23_WeilEF_digamma_growth_strip.lean",
+      "side": "IV",
+      "blob": "6b3236430c5f3aa1ccaa9383d74f34303a9a89d8",
+      "inE2": true
+    },
+    {
+      "path": "WeilDefect/Arithmetic/ActualZetaIV071GammaFinitePrelude.lean",
+      "side": "IV",
+      "blob": "d472080290f2da95575f28df1e17050eb6bfbc19",
+      "inE2": false
+    },
+    {
+      "path": "WeilDefect/Arithmetic/ActualZetaCorrelationPoles.lean",
+      "side": "IV",
+      "blob": "cdc88bdc00072ec91cc5252bc57d9aa1c88ccbe2",
+      "inE2": true
+    },
+    {
+      "path": "WeilDefect/Arithmetic/ActualZetaIV085OriginalPrimeFiniteGate.lean",
+      "side": "IV",
+      "blob": "e75aeb9043f65a7d3f1762f48881bfa4cbecf553",
+      "inE2": false
+    },
+    {
+      "path": "WeilDefect/MasterReturn/CarrierTranslation.lean",
+      "side": "RECON",
+      "blob": "19f9587f886e71dc54e0a16d869b8140d0cfbf4a",
+      "inE2": true
+    }
+  ],
+  "external_imports": [
+    "Mathlib.Analysis.Calculus.BumpFunction.Normed",
+    "Mathlib.Analysis.Calculus.ContDiff.Convolution",
+    "Mathlib.Analysis.Fourier.Convolution",
+    "Mathlib.Analysis.InnerProductSpace.Continuous",
+    "Mathlib.Analysis.Normed.Lp.SmoothApprox",
+    "Mathlib.Analysis.SpecialFunctions.Trigonometric.Bounds",
+    "Mathlib.Analysis.SpecificLimits.Normed",
+    "Mathlib.MeasureTheory.Function.L2Space",
+    "Mathlib.MeasureTheory.Integral.Bochner.Set",
+    "Mathlib.MeasureTheory.Integral.DominatedConvergence",
+    "Mathlib.MeasureTheory.Measure.Haar.NormedSpace",
+    "Mathlib.Tactic",
+    "Mathlib.Topology.Algebra.Module.Equiv"
+  ],
+  "staged_modules": 16,
+  "staged_targets": 111
+}
