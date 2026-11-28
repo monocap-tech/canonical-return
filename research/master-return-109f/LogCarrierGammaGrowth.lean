@@ -7,6 +7,8 @@ from the actual existing strip-growth supplier. It does not imply
 the coefficient-one bounded remainder needed for G. -/
 namespace WeilDefect.MasterReturn.LogCarrierGammaGrowth
 
+open WeilDefect.MasterRecon
+
 noncomputable section
 
 theorem gamma_logWeight_bound :
