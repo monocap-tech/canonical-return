@@ -7,13 +7,13 @@ open CRALP.GridTrace CRALP.DirectedEvaluation CRALP.DirectedInterval CRALP.Ratio
 
 theorem sumSound (t : ℕ → Grid) (f : ℕ → ℝ)
     (h : ∀ i ∈ range 400, Encl (t i) (f i)) :
-    Contains (val (∑ i ∈ range 400, (t i).lo))
-      (val (∑ i ∈ range 400, (t i).hi)) (∑ i ∈ range 400, f i) := by
-  have hl : (∑ i ∈ range 400, val (t i).lo) ≤ ∑ i ∈ range 400, f i :=
+    Contains (GridTrace.val (∑ i ∈ range 400, (t i).lo))
+      (GridTrace.val (∑ i ∈ range 400, (t i).hi)) (∑ i ∈ range 400, f i) := by
+  have hl : (∑ i ∈ range 400, GridTrace.val (t i).lo) ≤ ∑ i ∈ range 400, f i :=
     Finset.sum_le_sum (fun i hi => (h i hi).1)
-  have hu : (∑ i ∈ range 400, f i) ≤ ∑ i ∈ range 400, val (t i).hi :=
+  have hu : (∑ i ∈ range 400, f i) ≤ ∑ i ∈ range 400, GridTrace.val (t i).hi :=
     Finset.sum_le_sum (fun i hi => (h i hi).2)
-  unfold val at *
+  unfold GridTrace.val at *
   push_cast
   rw [Finset.sum_div,Finset.sum_div]
   exact ⟨hl,hu⟩
@@ -25,13 +25,13 @@ theorem attachGrid {t : ℕ → Grid} {f : ℕ → ℝ} {y : ℝ} {out : Grid}
     (hu : out.hi=(∑ i ∈ range 400, (t i).hi)+1) :
     Encl out y := by
   have ha := attach (sumSound t f h) he
-  have hL : val out.lo = val (∑ i ∈ range 400, (t i).lo)-ElementarySeries.unit := by
+  have hL : GridTrace.val out.lo = GridTrace.val (∑ i ∈ range 400, (t i).lo)-ElementarySeries.unit := by
     rw [hl,unitEq]
-    unfold val
+    unfold GridTrace.val
     push_cast <;> ring
-  have hU : val out.hi = val (∑ i ∈ range 400, (t i).hi)+ElementarySeries.unit := by
+  have hU : GridTrace.val out.hi = GridTrace.val (∑ i ∈ range 400, (t i).hi)+ElementarySeries.unit := by
     rw [hu,unitEq]
-    unfold val
+    unfold GridTrace.val
     push_cast <;> ring
   unfold Encl
   rw [hL,hU]
