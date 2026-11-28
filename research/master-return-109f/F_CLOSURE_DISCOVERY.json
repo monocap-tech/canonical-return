@@ -211,11 +211,15 @@
         "WeilDefect.Arithmetic.ActualZetaArchimedeanTransport",
         "WeilDefect.External.Zeta23.Theorems.Thm_Zeta23_StirlingVert_digamma_stirling"
       ]
+    },
+    "WeilDefect/Morphology/NeutralLogBackgroundEnergy.lean": {
+      "blob": "77112d87bad6633ce59690df69a212399bf45e63",
+      "imports": [
+        "WeilDefect.Morphology.NeutralLogBackgroundSourceAttachment"
+      ]
     }
   },
-  "pending": [
-    "WeilDefect/Morphology/NeutralLogBackgroundEnergy.lean"
-  ],
+  "pending": [],
   "external": [
     "Mathlib",
     "Mathlib.Analysis.Calculus.ContDiff.Convolution",
@@ -231,5 +235,5 @@
     "Mathlib.Tactic",
     "Mathlib.Topology.Algebra.InfiniteSum.Real"
   ],
-  "status": "partial recursive IV expansion; raw import lines"
+  "status": "recursive raw-import expansion complete; full lexical verification required"
 }
