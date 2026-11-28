@@ -1,0 +1,120 @@
+name: CR-ALP LEAN-02B1 integer witness soundness and row pilot
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-lean-02b1-integer-pilot.yml']
+permissions:
+  contents: write
+concurrency:
+  group: cr-alp-lean-02b1-integer-pilot
+  cancel-in-progress: false
+jobs:
+  integer-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate accepted sources and transfer actual matrix literals
+        run: |
+          set -euo pipefail
+          E=/tmp/cr-alp-lean02b1-evidence
+          P=/tmp/cr-alp-lean02b1-project
+          mkdir -p "$E" "$P"
+          {
+            git rev-parse HEAD
+            python3 --version
+            test "$(git hash-object formalization/cr-alp/MatrixSoundnessR2.lean)" = a91282b6bc883380009ecdec589cafc177686fc8
+            test "$(git hash-object formalization/cr-alp/IntegerWitness.lean)" = c1930282f53bbc7ad41d52c55d0a30f71979fa39
+            test "$(git hash-object formalization/cr-alp/generate_integer_pilot.py)" = 74d52b4efe547459b8bde59934f79bd795f13e41
+            test "$(git hash-object custody/cr-alp-lean-02ar2-matrix-soundness/receipts.json)" = e214b8bca500722a4b7581f6f419999ca070ddc4
+            python3 formalization/cr-alp/generate_integer_pilot.py "$E/Pilot.lean"
+            python3 - "$E/Pilot.lean" <<'PY'
+          import re,sys
+          from pathlib import Path
+          for p in ['formalization/cr-alp/MatrixSoundnessR2.lean','formalization/cr-alp/IntegerWitness.lean',sys.argv[1]]:
+              s=Path(p).read_text()
+              assert not re.search(r'\b(?:sorry|admit|sorryAx|axiom|native_decide)\b',s),p
+          s=Path(sys.argv[1]).read_text()
+          assert len(re.findall(r'(?m)^theorem pilotEntry\d+ :$',s))==43
+          assert s.count(':= by decide')==43
+          print('Kernel-only concrete propositions preflight PASS')
+          PY
+          } 2>&1 | tee "$E/preflight.log"
+          cp formalization/cr-alp/MatrixSoundnessR2.lean formalization/cr-alp/IntegerWitness.lean "$P/"
+          cp "$E/Pilot.lean" "$P/"
+      - name: Install exact Lean and Mathlib environment
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp-lean02b1-project
+          E=/tmp/cr-alp-lean02b1-evidence
+          cp custody/cr-alp-lean-02ar2-matrix-soundness/lean-toolchain "$P/"
+          cp custody/cr-alp-lean-02ar2-matrix-soundness/lakefile.toml "$P/"
+          cp custody/cr-alp-lean-02ar2-matrix-soundness/lake-manifest.json "$P/"
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+          export PATH="$HOME/.elan/bin:$PATH"
+          cd "$P"
+          { lean --version; lake --version; lake exe cache get; } 2>&1 | tee "$E/setup.log"
+          test "$(git -C .lake/packages/mathlib rev-parse HEAD)" = 5ed2965256430c3649e86755f9576b54eca72435
+          cp lean-toolchain lakefile.toml lake-manifest.json "$E/"
+          git -C .lake/packages/mathlib rev-parse HEAD > "$E/mathlib-commit.txt"
+      - name: Compile accepted matrix theorem and integer soundness bridge
+        run: |
+          set -euo pipefail
+          E=/tmp/cr-alp-lean02b1-evidence
+          cd /tmp/cr-alp-lean02b1-project
+          lake build MatrixSoundnessR2 2>&1 | tee "$E/matrix-build.log"
+          test -s .lake/build/lib/lean/MatrixSoundnessR2.olean
+          lake env lean -o .lake/build/lib/lean/IntegerWitness.olean IntegerWitness.lean 2>&1 | tee "$E/bridge.log"
+          test -s .lake/build/lib/lean/IntegerWitness.olean
+      - name: Kernel-check 43 actual residual entry propositions and row assembly
+        run: |
+          set -euo pipefail
+          E=/tmp/cr-alp-lean02b1-evidence
+          cd /tmp/cr-alp-lean02b1-project
+          timeout 15m lake env lean -o .lake/build/lib/lean/Pilot.olean Pilot.lean 2>&1 | tee "$E/pilot.log"
+          test -s .lake/build/lib/lean/Pilot.olean
+          sha256sum .lake/build/lib/lean/{MatrixSoundnessR2,IntegerWitness,Pilot}.olean > "$E/olean.sha256"
+          python3 - "$E" <<'PY'
+          from pathlib import Path
+          import json,re,sys
+          p=Path(sys.argv[1])
+          allowed={'propext','Classical.choice','Quot.sound'}
+          found={}
+          for f,n in [('bridge.log','CRALP.intWitnessLower'),('pilot.log','CRALP.Pilot.pilotRow')]:
+              t=(p/f).read_text()
+              pat=re.compile(r"^'"+re.escape(n)+r"' (?:depends on axioms: \[([^\]]*)\]|does not depend on any axioms)\s*$",re.M)
+              hits=list(pat.finditer(t));assert len(hits)==1,(n,len(hits))
+              axioms={a.strip() for a in hits[0].group(1).split(',') if a.strip()} if hits[0].group(1) is not None else set()
+              assert axioms<=allowed,(n,axioms-allowed)
+              assert not re.search(r'(?m)^\s*(?:error:|.*: error:)',t)
+              found[n]=sorted(axioms)
+          (p/'receipts.json').write_text(json.dumps({'status':'NATIVE_INTEGER_BRIDGE_AND_ROW_PILOT_PASS','declarations':found,'kernel_entries':43,'matrix':'1P','row':42,'scope':'Generic integer soundness bridge and one actual row. All six full kernel matrix checks remain pending; physical interval attachment separate.'},indent=2)+'\n')
+          print('Native integer bridge and actual row pilot PASS')
+          PY
+          (cd "$E"; sha256sum Pilot.lean preflight.log setup.log matrix-build.log bridge.log pilot.log lean-toolchain lakefile.toml lake-manifest.json mathlib-commit.txt olean.sha256 receipts.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-LEAN-02B1-integer-pilot
+          path: /tmp/cr-alp-lean02b1-evidence/
+          if-no-files-found: warn
+      - name: Preserve native evidence and verify remote readback
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-lean-02b1-integer-pilot
+          test ! -e "$ROOT"
+          mkdir -p "$ROOT"
+          cp -a /tmp/cr-alp-lean02b1-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum -c SHA256SUMS)
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$ROOT"
+          git commit -m 'CR-ALP LEAN-02B1: preserve native integer bridge and row pilot [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)"
+          REMOTE="$(mktemp -d)"
+          git archive FETCH_HEAD "$ROOT" | tar -x -C "$REMOTE"
+          (cd "$REMOTE/$ROOT"; sha256sum -c SHA256SUMS)
+          echo 'Remote native receipt readback PASS'
