@@ -1,0 +1,26 @@
+DirectedInterval.lean:97:37: warning: Variable name `ha` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _ha
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+DirectedInterval.lean:97:50: warning: Variable name `hb` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hb
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+'CRALP.DirectedInterval.widen' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.DirectedInterval.add' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.DirectedInterval.neg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.DirectedInterval.sub' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.DirectedInterval.scaleCorners' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.DirectedInterval.mulCorners' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.DirectedInterval.reciprocalPositive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.DirectedInterval.divCornersPositive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.DirectedInterval.divCornersNegative' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.DirectedInterval.squarePositive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.DirectedInterval.squareNegative' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.DirectedInterval.squareCrossZero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.DirectedInterval.sqrtRounded' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.DirectedInterval.scaledRatio' depends on axioms: [propext, Classical.choice, Quot.sound]

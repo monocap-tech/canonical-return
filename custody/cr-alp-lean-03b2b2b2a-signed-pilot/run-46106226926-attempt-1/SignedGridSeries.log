@@ -1,0 +1,30 @@
+SignedGridSeries.lean:31:14: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+SignedGridSeries.lean:35:14: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+SignedGridSeries.lean:54:22: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+SignedGridSeries.lean:91:25: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+SignedGridSeries.lean:84:14: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+SignedGridSeries.lean:91:25: warning: Unused tactic linter: `ring` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+'CRALP.SignedGridSeries.sumSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedGridSeries.attachGrid' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedGridSeries.atanPowerTrace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedGridSeries.atanTrace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedGridSeries.trigTermSucc' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedGridSeries.trigPowerTrace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedGridSeries.sinTrace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedGridSeries.cosTrace' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m5.014s
+user	0m4.467s
+sys	0m1.242s

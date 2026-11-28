@@ -1,0 +1,200 @@
+{
+  "status": "NATIVE_SIGNED_PILOT_PASS",
+  "source_head": "9d82941c1ec9d799ebd1cf05bb564cb9d0d17ae3",
+  "modules": {
+    "SignedGridSeries": {
+      "status": "PASS",
+      "expected": 8,
+      "declarations": {
+        "CRALP.SignedGridSeries.sumSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedGridSeries.attachGrid": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedGridSeries.atanPowerTrace": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedGridSeries.atanTrace": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedGridSeries.trigTermSucc": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedGridSeries.trigPowerTrace": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedGridSeries.sinTrace": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedGridSeries.cosTrace": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": []
+    },
+    "SignedPilot": {
+      "status": "PASS",
+      "expected": 34,
+      "declarations": {
+        "CRALP.SignedPilot.collarSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.shiftSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.nu0Sound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.nuSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.argSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.periodicSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.reducedSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.qSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.halfSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.atanArgSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.vSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.Sin.tSize": [],
+        "CRALP.SignedPilot.Sin.mSize": [],
+        "CRALP.SignedPilot.Sin.initial": [],
+        "CRALP.SignedPilot.Sin.allSteps": [
+          "propext"
+        ],
+        "CRALP.SignedPilot.Sin.lowerSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.Sin.upperSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.Sin.actualReduced": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.Sin.actual": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.Cos.tSize": [],
+        "CRALP.SignedPilot.Cos.mSize": [],
+        "CRALP.SignedPilot.Cos.initial": [
+          "propext"
+        ],
+        "CRALP.SignedPilot.Cos.allSteps": [
+          "propext"
+        ],
+        "CRALP.SignedPilot.Cos.lowerSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.Cos.upperSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.Cos.actualReduced": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.Cos.actual": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.Atan.tSize": [],
+        "CRALP.SignedPilot.Atan.mSize": [],
+        "CRALP.SignedPilot.Atan.initial": [],
+        "CRALP.SignedPilot.Atan.allSteps": [
+          "propext"
+        ],
+        "CRALP.SignedPilot.Atan.lowerSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.Atan.upperSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedPilot.Atan.actualReduced": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": []
+    }
+  },
+  "trace_terms": 1200,
+  "pilot_operations": 2406,
+  "redteam_mutations": 4812,
+  "width_units": {
+    "Sin": "14402668",
+    "Cos": "14297535",
+    "Atan": "707"
+  },
+  "independent_replay": "INDEPENDENT_SIGNED_PILOT_PASS",
+  "scope": "Actual 046 sine/cosine j85 n9 and shifted atan j85 pilot only; bulk evaluation and physical coefficients remain separate."
+}

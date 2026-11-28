@@ -1,0 +1,7 @@
+# LEAN-03B2B2B2A-R1 — Namespace-only repair red-team
+
+R0 run 46105441217, custody bf94aae3dd860c36cbef27363dcca0916c46efec, receipt ea5b8c964a51446ef10d597b68c47b256518a2e3, compiler log ac2a2abf4c82c7c36139cfa91ba80a67fcd05466. Three clean recurrence declarations; all other errors trace to ambiguous val at three unfold sites in sumSound and attachGrid. Pilot dependency-blocked.
+
+Repair qualifies all eleven grid-decoder occurrences in these two theorems only, including the three ambiguous unfold commands. Exact reversal recovers old source byte-for-byte; the entire suffix from atanPowerTrace onward is unchanged, preserving all three clean declarations and remaining terminal proofs. All eight receiver and 34 generated pilot audit names retained. No forbidden proof constructs. Source 0ec8d4993f7e22e68e960cf0c36c1cd8a697dfbd, blob fb10b236e1271948f2e7409b0ec045aa0541ba0d. Generator and JS independent replay byte-identical.
+
+Executed exact pre-submission replay of R0 trace 976d53b498cc827aebdc91e218a7a9785c41e248: 2406 four-corner checks, 4812 inward endpoint mutations rejected, 600 nonpositive signed terms inspected. Exact argument reduction, initial states, array lengths, analytic guards, endpoint sums and widths preserved. R1 runner must reproduce original JSON and generated SignedPilot.lean byte-for-byte, compile both modules, pass all 42 named audits, preserve remote readback. Native compilation not performed locally; no promotion on static checks. No successor gate activated.

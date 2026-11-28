@@ -1,0 +1,61 @@
+SignedPilot.lean:26:69: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+SignedPilot.lean:29:98: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+SignedPilot.lean:32:79: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+SignedPilot.lean:34:103: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+SignedPilot.lean:36:86: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+SignedPilot.lean:38:130: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+SignedPilot.lean:39:20: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+SignedPilot.lean:39:33: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+SignedPilot.lean:45:91: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+SignedPilot.lean:49:103: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+SignedPilot.lean:51:36: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+SignedPilot.lean:53:91: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+SignedPilot.lean:862:61: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+SignedPilot.lean:866:65: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+SignedPilot.lean:1678:38: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+SignedPilot.lean:1679:61: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+SignedPilot.lean:1683:65: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+SignedPilot.lean:2498:58: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+SignedPilot.lean:2502:65: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+'CRALP.SignedPilot.collarSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.shiftSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.nu0Sound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.nuSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.argSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.periodicSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.reducedSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.qSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.halfSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.atanArgSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.vSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.Sin.tSize' does not depend on any axioms
+'CRALP.SignedPilot.Sin.mSize' does not depend on any axioms
+'CRALP.SignedPilot.Sin.initial' does not depend on any axioms
+'CRALP.SignedPilot.Sin.allSteps' depends on axioms: [propext]
+'CRALP.SignedPilot.Sin.lowerSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.Sin.upperSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.Sin.actualReduced' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.Sin.actual' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.Cos.tSize' does not depend on any axioms
+'CRALP.SignedPilot.Cos.mSize' does not depend on any axioms
+'CRALP.SignedPilot.Cos.initial' depends on axioms: [propext]
+'CRALP.SignedPilot.Cos.allSteps' depends on axioms: [propext]
+'CRALP.SignedPilot.Cos.lowerSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.Cos.upperSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.Cos.actualReduced' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.Cos.actual' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.Atan.tSize' does not depend on any axioms
+'CRALP.SignedPilot.Atan.mSize' does not depend on any axioms
+'CRALP.SignedPilot.Atan.initial' does not depend on any axioms
+'CRALP.SignedPilot.Atan.allSteps' depends on axioms: [propext]
+'CRALP.SignedPilot.Atan.lowerSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.Atan.upperSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.SignedPilot.Atan.actualReduced' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	2m16.494s
+user	4m5.102s
+sys	0m9.199s
