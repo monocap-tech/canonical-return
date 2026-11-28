@@ -41,9 +41,12 @@ theorem correlation_fourier_ae (a : ℝ) (f g : RealComplexL2)
       fun ξ => conj ((𝓕 f : RealComplexL2) ξ) * (𝓕 g : RealComplexL2) ξ := by
   filter_upwards [neutralIntegrableL2_fourier_ae f (supported_integrable a f hf),
     neutralIntegrableL2_fourier_ae g (supported_integrable a g hg)] with ξ hξf hξg
+  change (𝓕 (neutralWindowCorrelation a f g)) ξ =
+    conj ((𝓕 f : RealComplexL2) ξ) * (𝓕 g : RealComplexL2) ξ
   rw [neutralRawTransform_fourier, neutralWindowCorrelation_rawTransform]
   simp only [Complex.conj_ofReal]
-  rw [hξf, hξg, supported_fourier_window a f hf, supported_fourier_window a g hg]
+  rw [hξf, hξg, supported_fourier_window a f hf ξ,
+    supported_fourier_window a g hg ξ]
 
 theorem literal_arch_integrand_ae (a : ℝ) (f g : RealComplexL2)
     (hf : ∀ᵐ x ∂volume, x ∉ Set.Icc (-a) a → f x = 0)
@@ -78,8 +81,7 @@ theorem literal_arch_spectral (a : ℝ) (f g : RealComplexL2)
   have he : (∫ ξ : ℝ, F ((-2 * Real.pi) * ξ)) = _ :=
     integral_congr_ae (literal_arch_integrand_ae a f g hf hg)
   have hc : (1 / (2 * Real.pi) : ℂ) = ((1 / (2 * Real.pi) : ℝ) : ℂ) := by
-    push_cast
-    rfl
+    push_cast <;> rfl
   rw [hc]
   exact h.symm.trans he
 
