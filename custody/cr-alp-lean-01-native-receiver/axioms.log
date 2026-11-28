@@ -1,0 +1,16 @@
+Receiver.lean:1:0: warning: 
+'Mathlib.Data.Real.Basic' has been deprecated: please replace this import by
+
+import Mathlib.Basic.Real.Basic
+Receiver.lean:17:33: warning: Variable name `hx` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hx
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+'CRALP.directSchurLower' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.squareCeiling' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.poleBudget' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.coshTerminal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.sinhTerminal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.bothMarginsPositive' depends on axioms: [propext, Classical.choice, Quot.sound]

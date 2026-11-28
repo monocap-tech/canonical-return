@@ -1,0 +1,36 @@
+{
+  "status": "NATIVE_SCALAR_RECEIVER_PASS",
+  "declarations": {
+    "CRALP.directSchurLower": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.squareCeiling": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.poleBudget": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.coshTerminal": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.sinhTerminal": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.bothMarginsPositive": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "scope": "Physical receiver and coefficient bounds remain explicit hypotheses; full fixed-collar positivity not certified."
+}
