@@ -1,16 +1,16 @@
 #!/usr/bin/env python3
-"""Generate a standalone F closure assembler from an exact E3 base.
+"""Generate a standalone F closure assembler from the admitted E6 base.
 No execution of Lean, workflow activation, or admission occurs here.
 Usage: python prepare_f_assembly.py BASE_ASSEMBLER CANONICAL_CHECKOUT OUTPUT
-Canonical checkout must be at the pinned F discovery revision.
-Rebase deliberately if E3 is superseded; never silently consume a later repair.
+Canonical checkout must contain the pinned F manifest revision.
+Rebase deliberately if E6 is superseded; never silently consume a later repair.
 """
 import hashlib, json, pathlib, re, subprocess, sys
 
-BASE_BLOB = "fe53f17be764a23a10810bd82095f2d940a17052"
-CANONICAL = "a39ee422b5bf777e673296163909ebc441e7cd7e"
+BASE_BLOB = "b25ed55d1ab8511a784cf3863aa630db9bb84a55"
+CANONICAL = "3ee0cc9b3a169fc82b95561f91974457cbf524b9"
 DIR = pathlib.Path("research/master-return-109f")
-MANIFEST_BLOB = "3b1a1c374d65d2577078d959e8b6dfea0bbd35ff"
+MANIFEST_BLOB = "e75c411518b422b10e9f5fdae86b4b951e55b94d"
 ROOTS_BLOB = "9ae4efda9bad8a024ef2db5ddff4e2299035d564"
 DISCOVERY_BLOB = "e3c3cf6237eb7cb2e9a23193efc80376ab04fc8e"
 
@@ -26,7 +26,7 @@ def main():
     assert len(sys.argv) == 4, __doc__
     base, c, out = map(pathlib.Path, sys.argv[1:])
     data = base.read_bytes()
-    assert digest(data) == BASE_BLOB, "E3 assembler drift"
+    assert digest(data) == BASE_BLOB, "E6 assembler drift"
     f = json.loads(read(c, DIR / "F_NAMED_AUDIT_MANIFEST.json", MANIFEST_BLOB))
     roots = json.loads(read(c, DIR / "F_SUPPLIER_ROOTS.json", ROOTS_BLOB))
     d = json.loads(read(c, DIR / "F_CLOSURE_DISCOVERY.json", DISCOVERY_BLOB))
@@ -54,10 +54,12 @@ for p, sha in f_expected.items():
 print("RETURN109-F6 supplier delta authenticated:", len(f_expected))
 """
     src = data.decode("utf-8")
+    assert "67fc9656ae64efc72b084634e5ecee10b54aa2c8" in src, "admitted E6 attachment missing"
     marker = "# No source files are written until the entire selected closure passes."
     assert src.count(marker) == 1
     src = src.replace(marker, block + marker)
     # Append exact staged source bytes, never regenerate theorem text.
+    src += """\nassert digest(pathlib.Path('WeilDefect/MasterReturn/LogCarrierBoundedAnalysis.lean').read_bytes()) == '67fc9656ae64efc72b084634e5ecee10b54aa2c8'\nassert len(manifest) == 314\n"""
     names = set()
     staged = {}
     for e in f["modules"]:
@@ -83,7 +85,7 @@ assert digest(f_path.read_bytes()) == {e["blob"]!r}
     assert len(names) == 111
     src += f"""
 f_result = {{"canonical": {CANONICAL!r}, "base_assembler_blob": {BASE_BLOB!r},
-    "supplier_delta": f_expected, "staged": {staged!r},
+    "supplier_delta": f_expected, "staged": {staged!r},\n    "admitted_E_blob": "67fc9656ae64efc72b084634e5ecee10b54aa2c8", "supplier_count": 314,
     "named_targets": 111, "status": "source assembly only; native audit pending"}}
 pathlib.Path("return109f-closure.json").write_text(json.dumps(f_result, indent=2, sort_keys=True)+"\\n")
 print("RETURN109-F6 staged source assembly PASS 16 modules / 111 names")
