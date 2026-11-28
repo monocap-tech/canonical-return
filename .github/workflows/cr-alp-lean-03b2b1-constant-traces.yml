@@ -1,0 +1,201 @@
+name: CR-ALP LEAN-03B2B1 actual Machin and collar exponentials
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-lean-03b2b1-constant-traces.yml']
+permissions:
+  contents: write
+concurrency:
+  group: cr-alp-lean-03b2b1-constant-traces
+  cancel-in-progress: false
+jobs:
+  analytic-guards:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate accepted finite receipts and literal analytic source
+        run: |
+          set -euo pipefail
+          E="$RUNNER_TEMP/alp03b2b1-evidence"
+          P="$RUNNER_TEMP/alp03b2b1-project"
+          mkdir -p "$E" "$P"
+          {
+            git rev-parse HEAD
+            test "$(git hash-object custody/cr-alp-lean-02b2-complete-matrices/run-46092426583-attempt-1/receipts.json)" = f204e0a7b516d726717eaf59ca3986d64405f655
+            test "$(git hash-object src/audits/cr_alp_046_full_finite.py)" = 554e7ab54da4545987d89aa660a4abe6c951cb63
+            test "$(git hash-object src/audits/cr_alp_123av_elementary_remainder_guards.js)" = 9f9793525d4b52e98b2f0456a7588d440f837788
+            test "$(git hash-object custody/cr-alp-123av-elementary-guards/result.json)" = 1268d87f67bc601001c8416ec64f5f03e768f832
+            test "$(git hash-object formalization/cr-alp/AnalyticGuards.lean)" = b90973adab348c0e673880c3e436f359ed034673
+            test "$(git hash-object formalization/cr-alp/DirectedInterval.lean)" = b7efa01d7560f80e9bce521b2d52c02ef21488c7
+            test "$(git hash-object custody/cr-alp-lean-03a-analytic-guards/run-46094742420-attempt-1/receipts.json)" = 4e049f4b520c0c6647516717ea81b44dfa2a6e6e
+            test "$(git hash-object formalization/cr-alp/ElementarySeries.lean)" = b9bf86656be650f89ffb39dc729f26491a20c220
+            test "$(git hash-object formalization/cr-alp/TrigSeries.lean)" = b8b092604b260ea0b0e0a36aaded778ecd7aa625
+            test "$(git hash-object custody/cr-alp-lean-03b1-elementary-series/run-46095435384-attempt-1/receipts.json)" = 11369e6f41ba94e69a02d00ba0951ebbda73e2d2
+            test "$(git hash-object custody/cr-alp-lean-03b1-elementary-series/run-46095678439-attempt-1/receipts.json)" = fadab467f2a881dffabb12ad68d469fdf473ff18
+            test "$(git hash-object formalization/cr-alp/LEAN-03B1-R2_REDTEAM.md)" = bfffce8cb841c9ef2cde292310edf7c7f7d41fc8
+            test "$(git hash-object custody/cr-alp-lean-03b1-elementary-series/run-46096529851-attempt-1/receipts.json)" = a7dddec8c79a5588a07b5bd26af178676beb2369
+            test "$(git hash-object formalization/cr-alp/DirectedEvaluation.lean)" = 8bbc1c655410ef91bd4ebb8c93fd5c1b2f833834
+            test "$(git hash-object formalization/cr-alp/generate_log2_trace.py)" = 74746f92044b8e84529d2a9c78e843462b67bd24
+            test "$(git hash-object formalization/cr-alp/redteam_log2_trace.js)" = d880113fb1cb6a7afb62cc9eea651792d39ac0d8
+            test "$(git hash-object custody/cr-alp-lean-03b2a-log2-trace/run-46097300574-attempt-1/receipts.json)" = b062333e1f0bae692cbd7844ce0207288b6aa1de
+            test "$(git hash-object formalization/cr-alp/RationalTrace.lean)" = e91872e12ff3431a189b389a33352212c3f505d6
+            test "$(git hash-object formalization/cr-alp/generate_constant_traces.py)" = 0b5aa85556cb5c93f33d6547a54850f2d11ecd41
+            test "$(git hash-object formalization/cr-alp/redteam_constant_traces.js)" = 163a6e939c0779211e6ea7c36074b4e5e02bd2be
+            python3 - <<'PY'
+          import json,re
+          from pathlib import Path
+          p=Path('custody/cr-alp-lean-02b2-complete-matrices/run-46092426583-attempt-1/receipts.json')
+          r=json.loads(p.read_text())
+          assert r['status']=='NATIVE_SIX_MATRICES_PASS' and r['kernel_entries']==10839 and not r['missing'] and not r['issues']
+          a=json.loads(Path('custody/cr-alp-lean-03a-analytic-guards/run-46094742420-attempt-1/receipts.json').read_text())
+          assert a['status']=='NATIVE_ANALYTIC_GUARD_RECEIVERS_PASS'
+          b=json.loads(Path('custody/cr-alp-lean-03b1-elementary-series/run-46096529851-attempt-1/receipts.json').read_text())
+          assert b['status']=='NATIVE_ELEMENTARY_SERIES_PASS'
+          assert all(v['status']=='PASS' and not v['issues'] for v in b['modules'].values())
+          c=json.loads(Path('custody/cr-alp-lean-03b2a-log2-trace/run-46097300574-attempt-1/receipts.json').read_text())
+          assert c['status']=='NATIVE_LOG2_DIRECTED_TRACE_PASS' and c['trace_terms']==400
+          for mod,count in [('RationalTrace',7)]:
+              t=Path('formalization/cr-alp/'+mod+'.lean').read_text()
+              assert not re.search(r'\b(?:sorry|admit|sorryAx|axiom|native_decide)\b',t)
+              assert len(re.findall(r'(?m)^#print axioms ',t))==count
+          print('Accepted finite matrix custody and analytic source pins PASS')
+          PY
+          } 2>&1 | tee "$E/preflight.log"
+          cp formalization/cr-alp/{AnalyticGuards,DirectedInterval,ElementarySeries,TrigSeries,DirectedEvaluation,RationalTrace}.lean "$P/"
+          cp formalization/cr-alp/{generate_constant_traces.py,redteam_constant_traces.js} "$E/"
+          python3 -m py_compile formalization/cr-alp/generate_constant_traces.py
+          node --check formalization/cr-alp/redteam_constant_traces.js
+          python3 formalization/cr-alp/generate_constant_traces.py src/audits/cr_alp_046_full_finite.py "$P/" | tee "$E/trace-generation.log"
+          node formalization/cr-alp/redteam_constant_traces.js "$P/constant-traces.json" > "$E/redteam-replay.json"
+          cp "$P/constant-traces.json" "$E/"
+          cp "$P/"*.lean "$E/"
+          python3 - "$P" <<'PY'
+          import re,sys
+          from pathlib import Path
+          p=Path(sys.argv[1])
+          for name,count in [('ConstAtan5',4),('ConstAtan239',4),('ConstExpA',4),('ConstExpHalfA',4),('ConstPi',3)]:
+              t=(p/(name+'.lean')).read_text()
+              assert not re.search(r'\b(?:sorry|admit|sorryAx|axiom|native_decide)\b',t)
+              assert len(re.findall(r'(?m)^#print axioms ',t))==count
+          PY
+          cp custody/cr-alp-lean-02ar2-matrix-soundness/{lean-toolchain,lakefile.toml,lake-manifest.json} "$P/"
+          cp "$P/"{lean-toolchain,lakefile.toml,lake-manifest.json} "$E/"
+          printf '%s\n' "$GITHUB_SHA" > "$E/source-head.txt"
+      - name: Install pinned Lean and Mathlib
+        run: |
+          set -euo pipefail
+          P="$RUNNER_TEMP/alp03b2b1-project"
+          E="$RUNNER_TEMP/alp03b2b1-evidence"
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+          export PATH="$HOME/.elan/bin:$PATH"
+          cd "$P"
+          { lean --version; lake --version; lake exe cache get; } 2>&1 | tee "$E/setup.log"
+          test "$(git -C .lake/packages/mathlib rev-parse HEAD)" = 5ed2965256430c3649e86755f9576b54eca72435
+          git -C .lake/packages/mathlib rev-parse HEAD > "$E/mathlib-commit.txt"
+      - name: Compile accepted dependencies and actual constant certificates
+        run: |
+          set -euo pipefail
+          P="$RUNNER_TEMP/alp03b2b1-project"
+          E="$RUNNER_TEMP/alp03b2b1-evidence"
+          cd "$P"
+          mkdir -p .lake/build/lib/lean
+          for mod in AnalyticGuards DirectedInterval ElementarySeries TrigSeries DirectedEvaluation; do
+            timeout 12m lake env lean -o ".lake/build/lib/lean/$mod.olean" "$mod.lean" 2>&1 | tee "$E/$mod-build.log"
+            test -s ".lake/build/lib/lean/$mod.olean"
+            sha256sum ".lake/build/lib/lean/$mod.olean" >> "$E/olean.sha256"
+          done
+          for mod in RationalTrace ConstAtan5 ConstAtan239 ConstExpA ConstExpHalfA ConstPi; do
+            rc=0
+            { time timeout 12m lake env lean -o ".lake/build/lib/lean/$mod.olean" "$mod.lean"; } 2>&1 | tee "$E/$mod.log" || rc=$?
+            printf '%s\n' "$rc" > "$E/$mod.exit"
+            if [ "$rc" = 0 ]; then
+              test -s ".lake/build/lib/lean/$mod.olean"
+              sha256sum ".lake/build/lib/lean/$mod.olean" >> "$E/olean.sha256"
+            fi
+          done
+      - name: Audit all named declarations and classify acceptance
+        run: |
+          set -euo pipefail
+          E="$RUNNER_TEMP/alp03b2b1-evidence"
+          python3 - "$E" <<'PY'
+          import json,re,sys
+          from pathlib import Path
+          p=Path(sys.argv[1]);allowed={'propext','Classical.choice','Quot.sound'}
+          import hashlib
+          trace=json.loads((p/'constant-traces.json').read_text())
+          red=json.loads((p/'redteam-replay.json').read_text())
+          cases=trace['cases']
+          assert set(cases)=={'Atan5','Atan239','ExpA','ExpHalfA','Pi'}
+          assert red['status']=='INDEPENDENT_CONSTANT_REPLAY_PASS' and red['matched'] and red['terms']==1600 and red['mutations']==3200
+          assert all(cases[k]['terms']==400 and len(cases[k]['rows'])==400 for k in cases if k!='Pi')
+          assert {k:v['width'] for k,v in cases.items()}=={'Atan5':'398','Atan239':'402','ExpA':'402','ExpHalfA':'400','Pi':'7976'}
+          for k,v in cases.items():
+              assert hashlib.sha256((p/('Const'+k+'.lean')).read_bytes()).hexdigest()==v['sha256']
+              assert all(v[f]==x for f,x in red['cases'][k].items())
+          modules={}; all_ok=True
+          for mod,count in [('RationalTrace',7),('ConstAtan5',4),('ConstAtan239',4),('ConstExpA',4),('ConstExpHalfA',4),('ConstPi',3)]:
+              src=(p/(mod+'.lean')).read_text()
+              names=re.findall(r'(?m)^#print axioms ([\w.]+)$',src)
+              assert len(names)==count and len(set(names))==count
+              rc=int((p/(mod+'.exit')).read_text())
+              log=(p/(mod+'.log')).read_text()
+              found={};issues=[]
+              if rc!=0:issues.append('compiler exit '+str(rc))
+              if re.search(r'(?m)^\s*(?:error:|.*: error:)',log):issues.append('compiler error')
+              for name in names:
+                  hits=list(re.finditer(r"^'"+re.escape(name)+r"' (?:depends on axioms: \[([^\]]*)\]|does not depend on any axioms)\s*$",log,re.M))
+                  if len(hits)!=1:
+                      issues.append(name+': missing or duplicate audit');continue
+                  ax={a.strip() for a in (hits[0].group(1) or '').split(',') if a.strip()}
+                  if not ax<=allowed:issues.append(name+': forbidden axiom '+str(sorted(ax-allowed)))
+                  else:found[name]=sorted(ax)
+              ok=not issues and len(found)==count
+              modules[mod]={'status':'PASS' if ok else 'FAIL','expected':count,'declarations':found,'issues':issues}
+              all_ok=all_ok and ok
+          (p/'receipts.json').write_text(json.dumps({'status':'NATIVE_CONSTANT_TRACES_PASS' if all_ok else 'PARTIAL_OR_FAILED','source_head':(p/'source-head.txt').read_text().strip(),'modules':modules,'trace_terms':red['terms'],'redteam_mutations':red['mutations'],'width_units':{k:v['width'] for k,v in cases.items()},'independent_replay':red['status'],'scope':'Actual 046 fixed Machin arctangent inputs, pi and two collar exponentials only; remaining variable-argument evaluations and physical coefficient attachment separate.'},indent=2)+'\n')
+          print('Constant trace module disposition:',{k:v['status'] for k,v in modules.items()})
+          PY
+      - name: Seal evidence
+        if: always()
+        run: |
+          set -euo pipefail
+          E="$RUNNER_TEMP/alp03b2b1-evidence"
+          mkdir -p "$E"
+          printf 'source=%s\njob_status=%s\n' "$GITHUB_SHA" "${{ job.status }}" > "$E/attempt.txt"
+          cd "$E"
+          find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
+          sha256sum -c SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cr-alp-lean03b2b1-constant-traces
+          path: ${{ runner.temp }}/alp03b2b1-evidence/
+          if-no-files-found: error
+      - name: Preserve remote evidence, then enforce native acceptance
+        if: always()
+        run: |
+          set -euo pipefail
+          ROOT="custody/cr-alp-lean-03b2b1-constant-traces/run-$GITHUB_RUN_ID-attempt-$GITHUB_RUN_ATTEMPT"
+          test ! -e "$ROOT"
+          mkdir -p "$ROOT"
+          cp -a "$RUNNER_TEMP/alp03b2b1-evidence/." "$ROOT/"
+          (cd "$ROOT"; sha256sum -c SHA256SUMS)
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          git add "$ROOT"
+          git commit -m 'CR-ALP LEAN-03B2B1: preserve actual elementary constant evidence [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)"
+          REMOTE="$(mktemp -d)"
+          git archive FETCH_HEAD "$ROOT" | tar -x -C "$REMOTE"
+          (cd "$REMOTE/$ROOT"; sha256sum -c SHA256SUMS)
+          echo 'Remote native evidence readback PASS'
+          python3 - "$ROOT/receipts.json" <<'PY'
+          import json,sys
+          r=json.load(open(sys.argv[1]));assert r['status']=='NATIVE_CONSTANT_TRACES_PASS',r['status']
+          PY
