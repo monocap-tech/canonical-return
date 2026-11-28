@@ -1,0 +1,23 @@
+test_audit_error (__main__.TestAudit.test_audit_error) ... ok
+test_build_error (__main__.TestAudit.test_build_error) ... ok
+test_closure_drift (__main__.TestAudit.test_closure_drift) ... ok
+test_duplicate_audit (__main__.TestAudit.test_duplicate_audit) ... ok
+test_forbidden_axiom (__main__.TestAudit.test_forbidden_axiom) ... ok
+test_missing_audit (__main__.TestAudit.test_missing_audit) ... ok
+test_plan_drift (__main__.TestAudit.test_plan_drift) ... ok
+test_source_drift (__main__.TestAudit.test_source_drift) ... ok
+test_valid (__main__.TestAudit.test_valid) ... ok
+test_base_drift (__main__.TestGenerator.test_base_drift) ... ok
+test_destination_collision (__main__.TestGenerator.test_destination_collision) ... ok
+test_import_drift (__main__.TestGenerator.test_import_drift) ... ok
+test_lineage (__main__.TestGenerator.test_lineage) ... ok
+test_name_drift (__main__.TestGenerator.test_name_drift) ... ok
+test_source_drift (__main__.TestGenerator.test_source_drift) ... ok
+test_supplier_blob (__main__.TestGenerator.test_supplier_blob) ... ok
+test_unexpected_delta (__main__.TestGenerator.test_unexpected_delta) ... ok
+test_valid (__main__.TestGenerator.test_valid) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 3.247s
+
+OK
