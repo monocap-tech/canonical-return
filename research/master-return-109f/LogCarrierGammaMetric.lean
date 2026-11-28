@@ -7,6 +7,8 @@ The global logarithmic gain estimate and measurability remain explicit
 premises until separately proved. No replacement of the actual symbol. -/
 namespace WeilDefect.MasterReturn.LogCarrierGammaMetric
 
+open WeilDefect.MasterRecon
+
 open MeasureTheory
 noncomputable section
 
