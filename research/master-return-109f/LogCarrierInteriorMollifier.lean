@@ -41,9 +41,12 @@ theorem bump_fourier_error (φ : ContDiffBump (0 : ℝ)) (u : ℝ) :
   let E : ℝ → ℂ := fun x => Complex.exp (Complex.I * ((-2*Real.pi*x*u : ℝ) : ℂ))
   have hE : Continuous E := by dsimp [E]; fun_prop
   have hB : Continuous (bumpComplex φ) := (bumpComplex_smooth φ).continuous
+  have hcomp : HasCompactSupport (fun x => E x * bumpComplex φ x) := by
+    apply HasCompactSupport.intro (K := Set.Icc (-φ.rOut) φ.rOut) isCompact_Icc
+    intro x hx
+    rw [bumpComplex_zero φ x (le_of_not_ge (fun h => hx (abs_le.mp h))), mul_zero]
   have hi : Integrable (fun x => E x * bumpComplex φ x) :=
-    (hE.mul hB).integrable_of_hasCompactSupport
-      ((bumpComplex_compact φ).mul_left E)
+    (hE.mul hB).integrable_of_hasCompactSupport hcomp
   have hmass : (∫ x, bumpComplex φ x) = 1 := by
     simpa only [bumpComplex, Complex.real_smul, mul_one] using
       (φ.integral_normed_smul (μ := volume) (1 : ℂ))
@@ -105,6 +108,7 @@ theorem smoothCompressed_smooth (φ : ContDiffBump (0 : ℝ)) (s : ℝ)
     (hs : 0 < s) (f : ℝ → ℂ) (hf : Integrable f) :
     ContDiff ℝ ∞ (smoothCompressed φ s f) := by
   unfold smoothCompressed
+  change ContDiff ℝ ∞ (bumpComplex φ ⋆[ContinuousLinearMap.mul ℝ ℂ] compress s f)
   exact (bumpComplex_compact φ).contDiff_convolution_left
     (ContinuousLinearMap.mul ℝ ℂ) (bumpComplex_smooth φ)
     (compress_integrable s hs f hf).locallyIntegrable
@@ -125,6 +129,35 @@ theorem smoothCompressed_zero (φ : ContDiffBump (0 : ℝ)) (a s : ℝ)
     have hz : |x-y| > s*a := by linarith [lt_of_not_ge hy]
     simp [compress_zero a s ha hs f hf _ hz]
 
+theorem smoothCompressed_compact (φ : ContDiffBump (0 : ℝ)) (a s : ℝ)
+    (ha : 0 ≤ a) (hs : 0 < s) (f : ℝ → ℂ)
+    (hf : ∀ x, |x| > a → f x = 0) :
+    HasCompactSupport (smoothCompressed φ s f) := by
+  apply HasCompactSupport.intro (K := Set.Icc (-(s*a+φ.rOut)) (s*a+φ.rOut))
+    isCompact_Icc
+  intro x hx
+  exact smoothCompressed_zero φ a s ha hs f hf x
+    (lt_of_not_ge (fun h => hx (abs_le.mp h)))
+
+theorem smoothCompressed_interior (φ : ContDiffBump (0 : ℝ)) (a s : ℝ)
+    (ha : 0 ≤ a) (hs : 0 < s) (hr : s*a+φ.rOut < a) (f : ℝ → ℂ)
+    (hf : ∀ x, |x| > a → f x = 0) :
+    Function.support (smoothCompressed φ s f) ⊆ Set.Ioo (-a) a := by
+  intro x hx
+  have h : |x| ≤ s*a+φ.rOut := by
+    by_contra hn
+    exact hx (smoothCompressed_zero φ a s ha hs f hf x (lt_of_not_ge hn))
+  exact abs_lt.mp (h.trans_lt hr)
+
+theorem bump_fourier_tendsto_one (φ : ℕ → ContDiffBump (0 : ℝ))
+    (hφ : Filter.Tendsto (fun n => (φ n).rOut) Filter.atTop (nhds 0))
+    (u : ℝ) :
+    Filter.Tendsto (fun n => (𝓕 (bumpComplex (φ n))) u) Filter.atTop (nhds 1) := by
+  apply tendsto_iff_norm_sub_tendsto_zero.mpr
+  have h := (tendsto_const_nhds (x := 2*Real.pi*|u|)).mul hφ
+  simp only [mul_zero] at h
+  exact squeeze_zero (fun n => norm_nonneg _) (fun n => bump_fourier_error (φ n) u) h
+
 end
 end WeilDefect.MasterReturn.LogCarrierInteriorMollifier
 
@@ -136,3 +169,6 @@ end WeilDefect.MasterReturn.LogCarrierInteriorMollifier
 #print axioms WeilDefect.MasterReturn.LogCarrierInteriorMollifier.compress_zero
 #print axioms WeilDefect.MasterReturn.LogCarrierInteriorMollifier.smoothCompressed_smooth
 #print axioms WeilDefect.MasterReturn.LogCarrierInteriorMollifier.smoothCompressed_zero
+#print axioms WeilDefect.MasterReturn.LogCarrierInteriorMollifier.smoothCompressed_compact
+#print axioms WeilDefect.MasterReturn.LogCarrierInteriorMollifier.smoothCompressed_interior
+#print axioms WeilDefect.MasterReturn.LogCarrierInteriorMollifier.bump_fourier_tendsto_one
