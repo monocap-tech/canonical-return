@@ -1,0 +1,249 @@
+{
+  "status": "unactivated stage plan; E admission prerequisite for final identity",
+  "manifest_commit": "9183f8ca85fa5aa6fe075d28856ef63a2b0647d8",
+  "allowed_axioms": [
+    "propext",
+    "Classical.choice",
+    "Quot.sound"
+  ],
+  "stages": [
+    {
+      "stage": "F-A-arithmetic",
+      "modules": [
+        {
+          "module": "WeilDefect.MasterReturn.LogCarrierClosedDomainCore",
+          "blob": "b86b7374612fd85916e191e36954b682b22e7bbf",
+          "targets": [
+            "WeilDefect.MasterReturn.LogCarrierClosedDomainCore.smooth_graph_literature",
+            "WeilDefect.MasterReturn.LogCarrierClosedDomainCore.continuous_extension_unique"
+          ]
+        },
+        {
+          "module": "WeilDefect.MasterReturn.LogCarrierGammaMetric",
+          "blob": "1f932ec79767bea7426cfe558576069ef936fa39",
+          "targets": [
+            "WeilDefect.MasterReturn.LogCarrierGammaMetric.angular_log_gap",
+            "WeilDefect.MasterReturn.LogCarrierGammaMetric.receiving_remainder_bounds",
+            "WeilDefect.MasterReturn.LogCarrierGammaMetric.remainderBound_nonneg",
+            "WeilDefect.MasterReturn.LogCarrierGammaMetric.receiving_remainder_abs",
+            "WeilDefect.MasterReturn.LogCarrierGammaMetric.gammaRemainder_norm",
+            "WeilDefect.MasterReturn.LogCarrierGammaMetric.gammaRemainderOperator_ae"
+          ]
+        },
+        {
+          "module": "WeilDefect.MasterReturn.LogCarrierGammaGrowth",
+          "blob": "ade8c09d4a4d16cb520cc6ebcd0771950860c153",
+          "targets": [
+            "WeilDefect.MasterReturn.LogCarrierGammaGrowth.gamma_logWeight_bound"
+          ]
+        },
+        {
+          "module": "WeilDefect.MasterReturn.LogCarrierPrimePole",
+          "blob": "8d5d8e7d7e71251fce2938b29c573635a9356a60",
+          "targets": [
+            "WeilDefect.MasterReturn.LogCarrierPrimePole.physical_continuous",
+            "WeilDefect.MasterReturn.LogCarrierPrimePole.window_eq_ae",
+            "WeilDefect.MasterReturn.LogCarrierPrimePole.correlation_inner",
+            "WeilDefect.MasterReturn.LogCarrierPrimePole.shift_continuous",
+            "WeilDefect.MasterReturn.LogCarrierPrimePole.correlation_diagonal_continuous",
+            "WeilDefect.MasterReturn.LogCarrierPrimePole.correlation_diagonal_norm_le",
+            "WeilDefect.MasterReturn.LogCarrierPrimePole.primeFinite_continuous",
+            "WeilDefect.MasterReturn.LogCarrierPrimePole.primeLiteral_eq_finite",
+            "WeilDefect.MasterReturn.LogCarrierPrimePole.poleDiagonal_continuous",
+            "WeilDefect.MasterReturn.LogCarrierPrimePole.poleLiteral_eq_diagonal",
+            "WeilDefect.MasterReturn.LogCarrierPrimePole.primePole_continuous"
+          ]
+        },
+        {
+          "module": "WeilDefect.MasterReturn.LogCarrierFourierAttachment",
+          "blob": "0ca641a51faa4b1167388729e0e7e18fdccb2712",
+          "targets": [
+            "WeilDefect.MasterReturn.LogCarrierFourierAttachment.supported_window_ae",
+            "WeilDefect.MasterReturn.LogCarrierFourierAttachment.supported_integrable",
+            "WeilDefect.MasterReturn.LogCarrierFourierAttachment.supported_fourier_window",
+            "WeilDefect.MasterReturn.LogCarrierFourierAttachment.correlation_fourier_ae",
+            "WeilDefect.MasterReturn.LogCarrierFourierAttachment.literal_arch_integrand_ae",
+            "WeilDefect.MasterReturn.LogCarrierFourierAttachment.literal_arch_spectral",
+            "WeilDefect.MasterReturn.LogCarrierFourierAttachment.gammaBracket_measurable"
+          ]
+        },
+        {
+          "module": "WeilDefect.MasterReturn.LogCarrierArchContinuity",
+          "blob": "31b41d6f8c902b28e153390f00a08bb8d3e91f69",
+          "targets": [
+            "WeilDefect.MasterReturn.LogCarrierArchContinuity.gammaRatio_measurable",
+            "WeilDefect.MasterReturn.LogCarrierArchContinuity.gammaRatio_bound",
+            "WeilDefect.MasterReturn.LogCarrierArchContinuity.literalArch_integrable",
+            "WeilDefect.MasterReturn.LogCarrierArchContinuity.literalArch_pairing",
+            "WeilDefect.MasterReturn.LogCarrierArchContinuity.literalArch_continuous"
+          ]
+        }
+      ],
+      "count": 32
+    },
+    {
+      "stage": "F-B-density-foundation",
+      "modules": [
+        {
+          "module": "WeilDefect.MasterReturn.LogCarrierFormDensityReceivers",
+          "blob": "8e13bfffe60a5a59d6794cabd990380cf6235245",
+          "targets": [
+            "WeilDefect.MasterReturn.LogCarrierFormDensityReceivers.logWeight_div_le",
+            "WeilDefect.MasterReturn.LogCarrierFormDensityReceivers.logWeight_div_le_twice",
+            "WeilDefect.MasterReturn.LogCarrierFormDensityReceivers.logCarrier_sub_energy",
+            "WeilDefect.MasterReturn.LogCarrierFormDensityReceivers.multiplier_error_bound",
+            "WeilDefect.MasterReturn.LogCarrierFormDensityReceivers.weighted_multiplier_error_integral_tendsto",
+            "WeilDefect.MasterReturn.LogCarrierFormDensityReceivers.lift_error_energy"
+          ]
+        },
+        {
+          "module": "WeilDefect.MasterReturn.LogCarrierDilationFourier",
+          "blob": "dcad0b8236ef35c0662f17a5d93c43eff4e6a4f6",
+          "targets": [
+            "WeilDefect.MasterReturn.LogCarrierDilationFourier.compress_rawTransform",
+            "WeilDefect.MasterReturn.LogCarrierDilationFourier.compress_fourier",
+            "WeilDefect.MasterReturn.LogCarrierDilationFourier.bumpComplex_integrable",
+            "WeilDefect.MasterReturn.LogCarrierDilationFourier.bump_fourier_norm_le",
+            "WeilDefect.MasterReturn.LogCarrierDilationFourier.bump_convolution_fourier"
+          ]
+        },
+        {
+          "module": "WeilDefect.MasterReturn.LogCarrierInteriorMollifier",
+          "blob": "017d80dcdadf026bb08a826d954e9cb42fdf7f4b",
+          "targets": [
+            "WeilDefect.MasterReturn.LogCarrierInteriorMollifier.bumpComplex_smooth",
+            "WeilDefect.MasterReturn.LogCarrierInteriorMollifier.bumpComplex_zero",
+            "WeilDefect.MasterReturn.LogCarrierInteriorMollifier.bumpComplex_compact",
+            "WeilDefect.MasterReturn.LogCarrierInteriorMollifier.bump_fourier_error",
+            "WeilDefect.MasterReturn.LogCarrierInteriorMollifier.compress_integrable",
+            "WeilDefect.MasterReturn.LogCarrierInteriorMollifier.compress_zero",
+            "WeilDefect.MasterReturn.LogCarrierInteriorMollifier.smoothCompressed_smooth",
+            "WeilDefect.MasterReturn.LogCarrierInteriorMollifier.smoothCompressed_zero",
+            "WeilDefect.MasterReturn.LogCarrierInteriorMollifier.smoothCompressed_compact",
+            "WeilDefect.MasterReturn.LogCarrierInteriorMollifier.smoothCompressed_interior",
+            "WeilDefect.MasterReturn.LogCarrierInteriorMollifier.bump_fourier_tendsto_one"
+          ]
+        }
+      ],
+      "count": 22
+    },
+    {
+      "stage": "F-C-dilation",
+      "modules": [
+        {
+          "module": "WeilDefect.MasterReturn.LogCarrierCompressionL2",
+          "blob": "6776b6a5c4ac35028fa9eb42bc379d1c59b7a8a4",
+          "targets": [
+            "WeilDefect.MasterReturn.LogCarrierCompressionL2.compress_memLp",
+            "WeilDefect.MasterReturn.LogCarrierCompressionL2.window_measurable",
+            "WeilDefect.MasterReturn.LogCarrierCompressionL2.window_memLp",
+            "WeilDefect.MasterReturn.LogCarrierCompressionL2.window_integrable",
+            "WeilDefect.MasterReturn.LogCarrierCompressionL2.window_zero",
+            "WeilDefect.MasterReturn.LogCarrierCompressionL2.compressedL2_ae",
+            "WeilDefect.MasterReturn.LogCarrierCompressionL2.compressedL2_integrable",
+            "WeilDefect.MasterReturn.LogCarrierCompressionL2.compressedL2_support",
+            "WeilDefect.MasterReturn.LogCarrierCompressionL2.compressedL2_fourier_ae",
+            "WeilDefect.MasterReturn.LogCarrierCompressionL2.window_fourier_ae"
+          ]
+        },
+        {
+          "module": "WeilDefect.MasterReturn.LogCarrierDilationEnergy",
+          "blob": "c6487e3f5e5b6b3ab1848ce5bb155e7fc7c7adc4",
+          "targets": [
+            "WeilDefect.MasterReturn.LogCarrierDilationEnergy.energy_nonneg",
+            "WeilDefect.MasterReturn.LogCarrierDilationEnergy.dilatedEnergy_nonneg",
+            "WeilDefect.MasterReturn.LogCarrierDilationEnergy.dilatedEnergy_pointwise",
+            "WeilDefect.MasterReturn.LogCarrierDilationEnergy.dilatedEnergy_integrable",
+            "WeilDefect.MasterReturn.LogCarrierDilationEnergy.dilatedEnergy_budget",
+            "WeilDefect.MasterReturn.LogCarrierDilationEnergy.tail_measurable",
+            "WeilDefect.MasterReturn.LogCarrierDilationEnergy.dilatedEnergy_tail",
+            "WeilDefect.MasterReturn.LogCarrierDilationEnergy.window_fourier_continuous",
+            "WeilDefect.MasterReturn.LogCarrierDilationEnergy.window_energy_integrable",
+            "WeilDefect.MasterReturn.LogCarrierDilationEnergy.compressed_log_integrable"
+          ]
+        },
+        {
+          "module": "WeilDefect.MasterReturn.LogCarrierDilationConvergence",
+          "blob": "9be89dd375410bde6dc3e830f554e6d83b91ca4b",
+          "targets": [
+            "WeilDefect.MasterReturn.LogCarrierDilationConvergence.err_nonneg",
+            "WeilDefect.MasterReturn.LogCarrierDilationConvergence.err_le",
+            "WeilDefect.MasterReturn.LogCarrierDilationConvergence.err_integrable",
+            "WeilDefect.MasterReturn.LogCarrierDilationConvergence.compact_error_tendsto",
+            "WeilDefect.MasterReturn.LogCarrierDilationConvergence.tail_energy_tendsto",
+            "WeilDefect.MasterReturn.LogCarrierDilationConvergence.err_tail_budget",
+            "WeilDefect.MasterReturn.LogCarrierDilationConvergence.strong_weighted_dilation"
+          ]
+        }
+      ],
+      "count": 27
+    },
+    {
+      "stage": "F-D-density-assembly",
+      "modules": [
+        {
+          "module": "WeilDefect.MasterReturn.LogCarrierCompressionLift",
+          "blob": "3a536668ef6a081cfb2e3dc2614dad33dc0e70c3",
+          "targets": [
+            "WeilDefect.MasterReturn.LogCarrierCompressionLift.compression_support_old",
+            "WeilDefect.MasterReturn.LogCarrierCompressionLift.compression_physical",
+            "WeilDefect.MasterReturn.LogCarrierCompressionLift.compression_error",
+            "WeilDefect.MasterReturn.LogCarrierCompressionLift.compression_tendsto"
+          ]
+        },
+        {
+          "module": "WeilDefect.MasterReturn.LogCarrierMollifierLift",
+          "blob": "6085bc5b67e8bad763d59dab1aa3b85ebcddae1b",
+          "targets": [
+            "WeilDefect.MasterReturn.LogCarrierMollifierLift.smoothWindow_smooth",
+            "WeilDefect.MasterReturn.LogCarrierMollifierLift.smoothWindow_compact",
+            "WeilDefect.MasterReturn.LogCarrierMollifierLift.smoothWindow_interior",
+            "WeilDefect.MasterReturn.LogCarrierMollifierLift.smoothWindow_memLp",
+            "WeilDefect.MasterReturn.LogCarrierMollifierLift.smoothL2_ae",
+            "WeilDefect.MasterReturn.LogCarrierMollifierLift.smoothL2_support",
+            "WeilDefect.MasterReturn.LogCarrierMollifierLift.smoothL2_integrable",
+            "WeilDefect.MasterReturn.LogCarrierMollifierLift.smoothL2_fourier_ae",
+            "WeilDefect.MasterReturn.LogCarrierMollifierLift.smoothL2_log_integrable",
+            "WeilDefect.MasterReturn.LogCarrierMollifierLift.smoothLift_physical",
+            "WeilDefect.MasterReturn.LogCarrierMollifierLift.smoothLift_error"
+          ]
+        },
+        {
+          "module": "WeilDefect.MasterReturn.LogCarrierInteriorDensity",
+          "blob": "847bde30389207e0e6cae0345777a5bbb7ea1955",
+          "targets": [
+            "WeilDefect.MasterReturn.LogCarrierInteriorDensity.smoothLift_mem_core",
+            "WeilDefect.MasterReturn.LogCarrierInteriorDensity.radius_pos",
+            "WeilDefect.MasterReturn.LogCarrierInteriorDensity.radius_lt",
+            "WeilDefect.MasterReturn.LogCarrierInteriorDensity.radius_tendsto",
+            "WeilDefect.MasterReturn.LogCarrierInteriorDensity.collarBump_rOut",
+            "WeilDefect.MasterReturn.LogCarrierInteriorDensity.smoothLift_tendsto",
+            "WeilDefect.MasterReturn.LogCarrierInteriorDensity.interiorCore_dense"
+          ]
+        }
+      ],
+      "count": 22
+    },
+    {
+      "stage": "F-E-closed-identity",
+      "modules": [
+        {
+          "module": "WeilDefect.MasterReturn.LogCarrierClosedDomainIdentity",
+          "blob": "954e70a2e05045f9deef19a71d27a4b68416a744",
+          "targets": [
+            "WeilDefect.MasterReturn.LogCarrierClosedDomainIdentity.ivInteriorCore_dense",
+            "WeilDefect.MasterReturn.LogCarrierClosedDomainIdentity.ivCore_window_smooth",
+            "WeilDefect.MasterReturn.LogCarrierClosedDomainIdentity.arithmeticForm_decompose",
+            "WeilDefect.MasterReturn.LogCarrierClosedDomainIdentity.arithmeticForm_continuous",
+            "WeilDefect.MasterReturn.LogCarrierClosedDomainIdentity.signedForm_continuous",
+            "WeilDefect.MasterReturn.LogCarrierClosedDomainIdentity.graph_core_identity",
+            "WeilDefect.MasterReturn.LogCarrierClosedDomainIdentity.graph_signed_of_literal",
+            "WeilDefect.MasterReturn.LogCarrierClosedDomainIdentity.actual_closed_domain_identity"
+          ]
+        }
+      ],
+      "count": 8
+    }
+  ],
+  "total": 111
+}
