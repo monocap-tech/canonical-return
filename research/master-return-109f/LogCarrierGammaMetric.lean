@@ -18,11 +18,12 @@ theorem angular_log_gap (r : ℝ) :
   have hq : 0 < 1 + r^2 := by positivity
   have hs : |r|^2 = r^2 := sq_abs r
   have hlo : 1 + r^2 ≤ (2 + |r|)^2 := by
-    nlinarith [abs_nonneg r]
+    nlinarith [hs, abs_nonneg r]
   have hhi : (2 + |r|)^2 ≤ 5 * (1 + r^2) := by
-    nlinarith [sq_nonneg (2 * |r| - 1)]
+    nlinarith [hs, sq_nonneg (2 * |r| - 1)]
   have hl := Real.log_le_log hq hlo
-  have hu := Real.log_le_log (sq_pos_of_pos hp) hhi
+  have hsq : 0 < (2 + |r|)^2 := by positivity
+  have hu := Real.log_le_log hsq hhi
   rw [Real.log_pow] at hl hu
   rw [Real.log_mul (by norm_num : (5 : ℝ) ≠ 0) hq.ne'] at hu
   norm_num at hl hu
