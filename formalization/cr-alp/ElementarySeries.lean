@@ -25,7 +25,7 @@ theorem logLooseGuard : 4 * (7/20 : ℝ)^801 < unit := by
   have h' := AnalyticGuard.ratio_lt_unit _ _ _ (by decide) (by decide) h
   unfold unit
   push_cast at h' ⊢
-  rw [div_pow, mul_div_assoc]
+  rw [div_pow, ← mul_div_assoc]
   exact h'
 
 theorem logReduced (u : ℝ) (hu : |u| ≤ 7/20) :
@@ -53,7 +53,15 @@ theorem logReduced (u : ℝ) (hu : |u| ≤ 7/20) :
     unfold logPoly
     ring
   rw [hh]
-  exact lt_of_le_of_lt (by linarith only [h,hb]) logLooseGuard
+  have hbase : |1/2 * Real.log ((1+u)/(1-u)) -
+      ∑ i ∈ range 400, u^(2*i+1)/(2*i+1 : ℕ)| ≤
+      |u|^801 / (1-u^2) := by
+    simpa only [Nat.cast_add, Nat.cast_mul, Nat.cast_ofNat] using h
+  calc
+    _ ≤ 2 * (2*(7/20 : ℝ)^801) :=
+      mul_le_mul_of_nonneg_left (hbase.trans hb) (by norm_num)
+    _ = 4*(7/20 : ℝ)^801 := by ring
+    _ < unit := logLooseGuard
 
 theorem logMöbius (x : ℝ) (hx : 0 < x)
     (h : |(x-1)/(x+1)| ≤ 7/20) :
@@ -126,7 +134,7 @@ theorem atanReduced (x : ℝ) (hx : |x| ≤ 1/3) :
   have B : ∀ y ∈ Icc (-|x|) |x|, ‖F' y‖ ≤ |x|^800 := by
     intro y hy
     have hpow := pow_le_pow_left₀ (abs_nonneg y) (abs_le.2 hy) 800
-    have hd : (1:ℝ) ≤ 1+y^2 := by positivity
+    have hd : (1:ℝ) ≤ 1+y^2 := by linarith [sq_nonneg y]
     rw [Real.norm_eq_abs]
     dsimp [F']
     rw [abs_div, abs_mul, abs_pow, abs_neg, abs_one, one_pow, one_mul,
@@ -139,7 +147,8 @@ theorem atanReduced (x : ℝ) (hx : |x| ≤ 1/3) :
       (show x ∈ Icc (-|x|) |x| by simp [le_abs_self, neg_le, neg_le_abs x])
   have h0 : F 0 = 0 := by simp [F,atanPoly]
   have hC : |F x| ≤ |x|^801 := by
-    simpa only [h0, sub_zero, Real.norm_eq_abs, pow_succ] using C
+    rw [pow_succ]
+    simpa only [h0, sub_zero, Real.norm_eq_abs] using C
   exact lt_of_le_of_lt (hC.trans (pow_le_pow_left₀ (abs_nonneg _) hx 801)) atanLooseGuard
 
 theorem atanQuarterReduction (x : ℝ) (hx : 0 ≤ x) :
