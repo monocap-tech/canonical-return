@@ -1,6 +1,6 @@
 {
-  "status": "F-A1 namespace repair; 2 prior F-A declarations clean; 111 candidates, full F audit pending",
-  "source_commit": "4818214399030817e7cfcc2556d71ba1990bca48",
+  "status": "F-A2 one proof-line repair; 8 prior clean F-A declarations; compiler pending",
+  "source_commit": "c62285f1feb38fd06aea59bdc277f2c805a83952",
   "accepted_native_head": "109-E",
   "allowed_axioms": [
     "propext",
@@ -192,7 +192,7 @@
     },
     {
       "path": "research/master-return-109f/LogCarrierGammaGrowth.lean",
-      "blob": "3f178d49b961751f4bd1f1b5b38bdb640581712c",
+      "blob": "7d8fadbe27e900505fe6b82aab84780a8c0960be",
       "imports": [
         "WeilDefect.MasterRecon.V08I",
         "WeilDefect.External.Zeta23.Theorems.Thm_Zeta23_WeilEF_digamma_growth_strip",
