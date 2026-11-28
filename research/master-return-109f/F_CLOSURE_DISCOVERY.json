@@ -104,16 +104,57 @@
       "imports": [
         "WeilDefect.Arithmetic.ActualZetaGreenGraphAnalysis"
       ]
+    },
+    "WeilDefect/Screening/ResidualBudget.lean": {
+      "blob": "1ffb6b2a80620b266798d40e68fe3329dc2cfb78",
+      "imports": [
+        "WeilDefect.Screening.BackgroundCustody",
+        "WeilDefect.Screening.Douglas",
+        "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
+        "Mathlib.Analysis.InnerProductSpace.StarOrder",
+        "Mathlib"
+      ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaGreenGraphAnalysis.lean": {
+      "blob": "947432e012bcaeb5be9a406916b650554849699c",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaGreenPacketDensity"
+      ]
+    },
+    "WeilDefect/Screening/BackgroundCustody.lean": {
+      "blob": "eec7e8db876cf2504bc3cca349b68bb60d93a626",
+      "imports": [
+        "WeilDefect.Screening.Quadratic",
+        "WeilDefect.Screening.DefectIndex",
+        "WeilDefect.Screening.Douglas",
+        "Mathlib"
+      ]
+    },
+    "WeilDefect/Screening/Douglas.lean": {
+      "blob": "319a5981f41c1469cfb64c00036d396abb0aa541",
+      "imports": [
+        "WeilDefect.Screening.DefectIndex",
+        "Mathlib"
+      ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaGreenPacketDensity.lean": {
+      "blob": "2325cfc5812ee50a993de4e4a382b7cc0e3d532f",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaGreenGraphPackets"
+      ]
     }
   },
   "pending": [
-    "WeilDefect/Screening/ResidualBudget.lean",
-    "WeilDefect/Arithmetic/ActualZetaGreenGraphAnalysis.lean"
+    "WeilDefect/Screening/Quadratic.lean",
+    "WeilDefect/Arithmetic/ActualZetaGreenGraphPackets.lean"
   ],
   "external": [
+    "Mathlib",
     "Mathlib.Analysis.Calculus.ContDiff.Convolution",
     "Mathlib.Analysis.Complex.ExponentialBounds",
+    "Mathlib.Analysis.InnerProductSpace.StarOrder",
     "Mathlib.Analysis.Normed.Operator.Extend",
+    "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
     "Mathlib.NumberTheory.Harmonic.EulerMascheroni",
     "Mathlib.Tactic",
     "Mathlib.Topology.Algebra.InfiniteSum.Real"
