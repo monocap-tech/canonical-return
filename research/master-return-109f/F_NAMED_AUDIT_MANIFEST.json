@@ -1,6 +1,6 @@
 {
-  "status": "source-only; compiler pending",
-  "source_commit": "3c4a76c7995f3d760d1d8317d22394ee4bf5a9f1",
+  "status": "revised arithmetic and terminal source pins; compiler pending; density red-team pending",
+  "source_commit": "fc71c55f12556b76cbd572bab837f3719177fda9",
   "accepted_native_head": "109-D",
   "allowed_axioms": [
     "propext",
@@ -12,7 +12,7 @@
   "modules": [
     {
       "path": "research/master-return-109f/LogCarrierArchContinuity.lean",
-      "blob": "31b41d6f8c902b28e153390f00a08bb8d3e91f69",
+      "blob": "9cce705e12f0a728403b72d0fb740099d38a4acd",
       "imports": [
         "WeilDefect.MasterReturn.LogCarrierFourierAttachment",
         "WeilDefect.MasterReturn.LogCarrierGammaGrowth",
@@ -40,7 +40,7 @@
     },
     {
       "path": "research/master-return-109f/LogCarrierClosedDomainIdentity.lean",
-      "blob": "954e70a2e05045f9deef19a71d27a4b68416a744",
+      "blob": "ca950ff2971d8961cea0a89fdb7bfdc5fffffd43",
       "imports": [
         "WeilDefect.MasterReturn.LogCarrierBoundedAnalysis",
         "WeilDefect.MasterReturn.LogCarrierClosedDomainCore",
@@ -174,7 +174,7 @@
     },
     {
       "path": "research/master-return-109f/LogCarrierFourierAttachment.lean",
-      "blob": "0ca641a51faa4b1167388729e0e7e18fdccb2712",
+      "blob": "2f95a78653471be9838c5915f1867e7463f11502",
       "imports": [
         "WeilDefect.Arithmetic.ActualZetaArchimedeanTransport",
         "WeilDefect.MasterRecon.V08I",
@@ -192,7 +192,7 @@
     },
     {
       "path": "research/master-return-109f/LogCarrierGammaGrowth.lean",
-      "blob": "ade8c09d4a4d16cb520cc6ebcd0771950860c153",
+      "blob": "0534bdb38a682b23598f6d833935b1279998d3ba",
       "imports": [
         "WeilDefect.MasterRecon.V08I",
         "WeilDefect.External.Zeta23.Theorems.Thm_Zeta23_WeilEF_digamma_growth_strip",
@@ -204,7 +204,7 @@
     },
     {
       "path": "research/master-return-109f/LogCarrierGammaMetric.lean",
-      "blob": "1f932ec79767bea7426cfe558576069ef936fa39",
+      "blob": "20f71519c91cc8f6f0de5f278ad34ebee27ded02",
       "imports": [
         "WeilDefect.MasterRecon.V08I",
         "WeilDefect.Arithmetic.ActualZetaIV071GammaFinitePrelude",
@@ -282,7 +282,7 @@
     },
     {
       "path": "research/master-return-109f/LogCarrierPrimePole.lean",
-      "blob": "8d5d8e7d7e71251fce2938b29c573635a9356a60",
+      "blob": "a8ea7826607cb3156edfed8f1a02eb568893b6fe",
       "imports": [
         "WeilDefect.Arithmetic.ActualZetaCorrelationPoles",
         "WeilDefect.Arithmetic.ActualZetaIV085OriginalPrimeFiniteGate",
