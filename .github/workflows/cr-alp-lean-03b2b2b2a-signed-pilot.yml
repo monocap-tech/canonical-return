@@ -1,0 +1,237 @@
+name: CR-ALP LEAN-03B2B2B2A signed series pilot
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-lean-03b2b2b2a-signed-pilot.yml']
+permissions:
+  contents: write
+concurrency:
+  group: cr-alp-lean-03b2b2b2a-signed-pilot
+  cancel-in-progress: false
+jobs:
+  signed-pilot:
+    runs-on: ubuntu-latest
+    timeout-minutes: 50
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate inputs and independently replay original signed pilot
+        run: |
+          set -euo pipefail
+          E="$RUNNER_TEMP/alp03b2b2b2a-evidence"
+          P="$RUNNER_TEMP/alp03b2b2b2a-project"
+          mkdir -p "$E" "$P"
+          {
+            git rev-parse HEAD
+            test "$(git hash-object src/audits/cr_alp_046_full_finite.py)" = 554e7ab54da4545987d89aa660a4abe6c951cb63
+            test "$(git hash-object custody/cr-alp-lean-02b2-complete-matrices/run-46092426583-attempt-1/receipts.json)" = f204e0a7b516d726717eaf59ca3986d64405f655
+            test "$(git hash-object custody/cr-alp-lean-03b2a-log2-trace/run-46097300574-attempt-1/receipts.json)" = b062333e1f0bae692cbd7844ce0207288b6aa1de
+            test "$(git hash-object custody/cr-alp-lean-03b2a-log2-trace/run-46097300574-attempt-1/Log2Actual.lean)" = 03446f8adc47d045ef8fb85776fb5530cd8fe31e
+            test "$(git hash-object custody/cr-alp-lean-03b2a-log2-trace/run-46097300574-attempt-1/log2-trace.json)" = 051eb0f03c2ddb9389203ca9527241abb0b8c528
+            test "$(git hash-object custody/cr-alp-lean-03b2b1-constant-traces/run-46099447047-attempt-1/receipts.json)" = 20a57c32f79819dfc68e97c0f1dccd7da85a3f8b
+            test "$(git hash-object formalization/cr-alp/AnalyticGuards.lean)" = b90973adab348c0e673880c3e436f359ed034673
+            test "$(git hash-object formalization/cr-alp/DirectedInterval.lean)" = b7efa01d7560f80e9bce521b2d52c02ef21488c7
+            test "$(git hash-object formalization/cr-alp/ElementarySeries.lean)" = b9bf86656be650f89ffb39dc729f26491a20c220
+            test "$(git hash-object formalization/cr-alp/TrigSeries.lean)" = b8b092604b260ea0b0e0a36aaded778ecd7aa625
+            test "$(git hash-object formalization/cr-alp/DirectedEvaluation.lean)" = 8bbc1c655410ef91bd4ebb8c93fd5c1b2f833834
+            test "$(git hash-object formalization/cr-alp/RationalTrace.lean)" = 3d448b5064c912afc2c0766fac9b5d086bda54d0
+            test "$(git hash-object formalization/cr-alp/PrimeLogTrace.lean)" = d909b4fba1f837131c2eb300b9ff1978f44a40ec
+            test "$(git hash-object formalization/cr-alp/generate_prime_log_traces.py)" = bebf3dda986212c5d28221a7195f06d1bf37a83d
+            test "$(git hash-object formalization/cr-alp/redteam_prime_log_traces.js)" = c2695c9663bf3e4504cebb1d8cdeb6d2abd86e76
+            test "$(git hash-object formalization/cr-alp/LEAN-03B2B2A_REDTEAM.md)" = 339f57d400ec4b256afd3036921d26b570c86c3e
+            test "$(git hash-object custody/cr-alp-lean-02ar2-matrix-soundness/lean-toolchain)" = 12359f928f18e4a89ebd1444a0310b025931b17d
+            test "$(git hash-object custody/cr-alp-lean-02ar2-matrix-soundness/lakefile.toml)" = 91d92eeae216036845ba4218e0354ca315c3ebda
+            test "$(git hash-object custody/cr-alp-lean-02ar2-matrix-soundness/lake-manifest.json)" = d86ee01b0973a6cd834dc6726b41a80febd3bd68
+            test "$(git hash-object custody/cr-alp-lean-03b2b2a-prime-logs/run-46100522620-attempt-1/receipts.json)" = c562a24013438c542b188c4fbb7bf1ab3f460284
+            test "$(git hash-object custody/cr-alp-lean-03b2b1-constant-traces/run-46099447047-attempt-1/constant-traces.json)" = 71853342939435b797582e4f84c9b1cd30d03418
+            test "$(git hash-object custody/cr-alp-lean-03b2b1-constant-traces/run-46099447047-attempt-1/ConstAtan5.lean)" = 4495a4ffb96e6537b45af0c0f179f116be8baa5d
+            test "$(git hash-object custody/cr-alp-lean-03b2b1-constant-traces/run-46099447047-attempt-1/ConstAtan239.lean)" = 1be636dda49dc3c8e4782d61dad5b1a4fb5f992e
+            test "$(git hash-object custody/cr-alp-lean-03b2b1-constant-traces/run-46099447047-attempt-1/ConstPi.lean)" = 70c7d2c3899d960314a6aac07903fa6aafa27e4e
+            test "$(git hash-object formalization/cr-alp/GridTrace.lean)" = cb8983ff95c4a2897bed040bd4cf99c11d3835f5
+            test "$(git hash-object formalization/cr-alp/generate_log_pi_trace.py)" = 32cccb7d62aca223f8a893a991322a61e4cbee99
+            test "$(git hash-object formalization/cr-alp/redteam_log_pi_trace.js)" = 96d6e22fd39aad7b181b4090b4ceadd0dcc8a3c0
+            test "$(git hash-object formalization/cr-alp/LEAN-03B2B2B1_REDTEAM.md)" = ebcf009ae043c8630f9e6f84eaefcce7d0fb8205
+            test "$(git hash-object custody/cr-alp-lean-03b2b2b1-log-pi/run-46101819000-attempt-1/receipts.json)" = 3376cb1eafd13146fd112359f021e2e6f08b7f9c
+            test "$(git hash-object custody/cr-alp-lean-03b2b2b1-log-pi/run-46101819000-attempt-1/GridTrace.log)" = 00d546adea4edd28c6977bb0b283089e8b2aed80
+            test "$(git hash-object custody/cr-alp-lean-03b2b2b1-log-pi/run-46101819000-attempt-1/log-pi-trace.json)" = e788499f1dddde62dc7b5db164e9b88af51ca911
+            test "$(git hash-object custody/cr-alp-lean-03b2b2b1-log-pi/run-46101819000-attempt-1/LogPiActual.lean)" = daaa73b4160d130e020532cef6970c901cf70e23
+            test "$(git hash-object formalization/cr-alp/LEAN-03B2B2B1-R1_REDTEAM.md)" = e1033da43f61d8b674eabd926799d37c69bac48f
+            test "$(git hash-object custody/cr-alp-lean-03b2b2b1-log-pi/run-46103612891-attempt-1/receipts.json)" = 5514a3446e2a7dd2055d128529ddbcc8e72d3c02
+            test "$(git hash-object custody/cr-alp-lean-03b2b2b1-log-pi/run-46103612891-attempt-1/LogPiActual.log)" = 81843744042a2ebcd01c90743e761323e944b271
+            test "$(git hash-object custody/cr-alp-lean-03b2b2b1-log-pi/run-46103612891-attempt-1/log-pi-trace.json)" = e788499f1dddde62dc7b5db164e9b88af51ca911
+            test "$(git hash-object formalization/cr-alp/LEAN-03B2B2B1-R2_REDTEAM.md)" = 26deeb75515f17b614a639007824c05fcdbee546
+            test "$(git hash-object custody/cr-alp-lean-03b2b2b1-log-pi/run-46104602405-attempt-1/receipts.json)" = b18ced433241ca09584e88827d98cc85e7d9def8
+            test "$(git hash-object custody/cr-alp-lean-03b2b2a-prime-logs/run-46100522620-attempt-1/prime-log-traces.json)" = 8216611c4cd48815f878c5aae3b0e98c2097bd38
+            test "$(git hash-object custody/cr-alp-lean-03b2b2a-prime-logs/run-46100522620-attempt-1/PrimeLogs.lean)" = ef26ba2acf884333ec6b1b62e365bab1d5d9d491
+            test "$(git hash-object custody/cr-alp-lean-03b2b2a-prime-logs/run-46100522620-attempt-1/PrimeLog3.lean)" = 0def875f15fc38da3e7dcb0ee7292dbd40e13545
+            test "$(git hash-object custody/cr-alp-lean-03b2b2a-prime-logs/run-46100522620-attempt-1/PrimeLog5.lean)" = 7cc1e95aa7f56a8e4b367cdd4c3d8fb1ecae1806
+            test "$(git hash-object custody/cr-alp-lean-03b2b2a-prime-logs/run-46100522620-attempt-1/PrimeLog7.lean)" = 822a6b6e66495164146b5ed0555c78589386f666
+            test "$(git hash-object custody/cr-alp-lean-03b2b2a-prime-logs/run-46100522620-attempt-1/PrimeLog9.lean)" = b1ae5cc9f26bb8eb7c5057b59b30623e4bd16b38
+            test "$(git hash-object formalization/cr-alp/SignedGridSeries.lean)" = d6f6ac77ccb34e225c8e8706765187c328d83b08
+            test "$(git hash-object formalization/cr-alp/generate_signed_pilot.py)" = 7a6a2bf6600842eb64d5db26fb922b6ba4c16ef7
+            test "$(git hash-object formalization/cr-alp/redteam_signed_pilot.js)" = 4ab25254d6de629ab59b70b373f7a3c2fbc4b631
+            test "$(git hash-object formalization/cr-alp/LEAN-03B2B2B2A_REDTEAM.md)" = 0b5cfb8b92775207e43bab8be03251212628b1b7
+            python3 - <<'PY'
+          import json
+          from pathlib import Path
+          a=json.loads(Path('custody/cr-alp-lean-03b2a-log2-trace/run-46097300574-attempt-1/receipts.json').read_text())
+          b=json.loads(Path('custody/cr-alp-lean-03b2b1-constant-traces/run-46099447047-attempt-1/receipts.json').read_text())
+          assert a['status']=='NATIVE_LOG2_DIRECTED_TRACE_PASS' and a['trace_terms']==400
+          assert b['status']=='NATIVE_CONSTANT_TRACES_PASS' and b['trace_terms']==1600
+          assert all(v['status']=='PASS' and not v['issues'] for v in b['modules'].values())
+          c=json.loads(Path('custody/cr-alp-lean-03b2b2a-prime-logs/run-46100522620-attempt-1/receipts.json').read_text())
+          assert c['status']=='NATIVE_PRIME_LOG_TRACES_PASS' and c['new_trace_terms']==1600
+          assert all(v['status']=='PASS' and not v['issues'] for v in c['modules'].values())
+          g=json.loads(Path('custody/cr-alp-lean-03b2b2b1-log-pi/run-46104602405-attempt-1/receipts.json').read_text())
+          assert g['status']=='NATIVE_LOG_PI_TRACE_PASS' and g['trace_terms']==400
+          assert all(v['status']=='PASS' and not v['issues'] for v in g['modules'].values())
+          print('Accepted native dependencies PASS')
+          PY
+          } 2>&1 | tee "$E/preflight.log"
+          cp formalization/cr-alp/{AnalyticGuards,DirectedInterval,ElementarySeries,TrigSeries,DirectedEvaluation,RationalTrace,GridTrace,PrimeLogTrace,SignedGridSeries}.lean "$P/"
+          cp custody/cr-alp-lean-03b2a-log2-trace/run-46097300574-attempt-1/Log2Actual.lean "$P/"
+          cp custody/cr-alp-lean-03b2b1-constant-traces/run-46099447047-attempt-1/{ConstAtan5,ConstAtan239,ConstPi}.lean "$P/"
+          cp custody/cr-alp-lean-03b2b2a-prime-logs/run-46100522620-attempt-1/{PrimeLog3,PrimeLog5,PrimeLog7,PrimeLog9,PrimeLogs}.lean "$P/"
+          cp formalization/cr-alp/{generate_signed_pilot.py,redteam_signed_pilot.js,LEAN-03B2B2B2A_REDTEAM.md} "$E/"
+          cp custody/cr-alp-lean-02ar2-matrix-soundness/{lean-toolchain,lakefile.toml,lake-manifest.json} "$P/"
+          cp "$P/"{lean-toolchain,lakefile.toml,lake-manifest.json} "$E/"
+          printf '%s\n' "$GITHUB_SHA" > "$E/source-head.txt"
+          python3 -m py_compile formalization/cr-alp/generate_signed_pilot.py
+          node --check formalization/cr-alp/redteam_signed_pilot.js
+          python3 formalization/cr-alp/generate_signed_pilot.py src/audits/cr_alp_046_full_finite.py "$P/" custody/cr-alp-lean-03b2b1-constant-traces/run-46099447047-attempt-1/constant-traces.json custody/cr-alp-lean-03b2b2a-prime-logs/run-46100522620-attempt-1/prime-log-traces.json | tee "$E/trace-generation.log"
+          node formalization/cr-alp/redteam_signed_pilot.js custody/cr-alp-lean-03b2b1-constant-traces/run-46099447047-attempt-1/constant-traces.json custody/cr-alp-lean-03b2b2a-prime-logs/run-46100522620-attempt-1/prime-log-traces.json "$P/signed-pilot.json" > "$E/redteam-replay.json"
+          cp "$P/signed-pilot.json" "$E/"
+          cp "$P/"*.lean "$E/"
+          python3 - "$P" <<'PY'
+          import re,sys
+          from pathlib import Path
+          p=Path(sys.argv[1])
+          for name,count in [('SignedGridSeries',8),('SignedPilot',34)]:
+              t=(p/(name+'.lean')).read_text()
+              assert not re.search(r'\b(?:sorry|admit|sorryAx|axiom|native_decide)\b',t)
+              assert len(re.findall(r'(?m)^#print axioms ',t))==count
+          PY
+      - name: Install pinned Lean and Mathlib
+        run: |
+          set -euo pipefail
+          P="$RUNNER_TEMP/alp03b2b2b2a-project"
+          E="$RUNNER_TEMP/alp03b2b2b2a-evidence"
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+          export PATH="$HOME/.elan/bin:$PATH"
+          cd "$P"
+          { lean --version; lake --version; lake exe cache get; } 2>&1 | tee "$E/setup.log"
+          test "$(git -C .lake/packages/mathlib rev-parse HEAD)" = 5ed2965256430c3649e86755f9576b54eca72435
+          git -C .lake/packages/mathlib rev-parse HEAD > "$E/mathlib-commit.txt"
+      - name: Compile accepted dependencies and new signed-series pilot
+        run: |
+          set -euo pipefail
+          P="$RUNNER_TEMP/alp03b2b2b2a-project"
+          E="$RUNNER_TEMP/alp03b2b2b2a-evidence"
+          cd "$P"
+          mkdir -p .lake/build/lib/lean
+          for mod in AnalyticGuards DirectedInterval ElementarySeries TrigSeries DirectedEvaluation RationalTrace Log2Actual ConstAtan5 ConstAtan239 ConstPi GridTrace PrimeLogTrace PrimeLog3 PrimeLog5 PrimeLog7 PrimeLog9 PrimeLogs; do
+            timeout 12m lake env lean -o ".lake/build/lib/lean/$mod.olean" "$mod.lean" 2>&1 | tee "$E/$mod-build.log"
+            test -s ".lake/build/lib/lean/$mod.olean"
+            sha256sum ".lake/build/lib/lean/$mod.olean" >> "$E/olean.sha256"
+          done
+          for mod in SignedGridSeries SignedPilot; do
+            rc=0
+            blocked=""
+            if [ "$mod" = SignedPilot ] && [ ! -s .lake/build/lib/lean/SignedGridSeries.olean ]; then blocked="SignedGridSeries"; fi
+            if [ -n "$blocked" ]; then
+              printf '%s\n' "DEPENDENCY_BLOCKED:$blocked" > "$E/$mod.log"
+              rc=125
+            else
+              { time timeout 12m lake env lean -o ".lake/build/lib/lean/$mod.olean" "$mod.lean"; } 2>&1 | tee "$E/$mod.log" || rc=$?
+            fi
+            printf '%s\n' "$rc" > "$E/$mod.exit"
+            if [ "$rc" = 0 ]; then
+              test -s ".lake/build/lib/lean/$mod.olean"
+              sha256sum ".lake/build/lib/lean/$mod.olean" >> "$E/olean.sha256"
+            fi
+          done
+      - name: Strict named audit and numerical cross-replay acceptance
+        run: |
+          set -euo pipefail
+          E="$RUNNER_TEMP/alp03b2b2b2a-evidence"
+          python3 - "$E" <<'PY'
+          import json,re,sys,hashlib
+          from pathlib import Path
+          p=Path(sys.argv[1])
+          allowed={'propext','Classical.choice','Quot.sound'}
+          trace=json.loads((p/'signed-pilot.json').read_text())
+          red=json.loads((p/'redteam-replay.json').read_text())
+          assert red['status']=='INDEPENDENT_SIGNED_PILOT_PASS' and red['matched']
+          assert red['ops']==2406 and red['mutations']==4812 and trace['period']==42
+          assert {k:v['width'] for k,v in trace['traces'].items()}=={'Sin':'14402668','Cos':'14297535','Atan':'707'}
+          assert all(trace[k]==red[k] for k in trace if k not in ('source_blob','sha256'))
+          assert hashlib.sha256((p/'SignedPilot.lean').read_bytes()).hexdigest()==trace['sha256']
+          modules={};all_ok=True
+          for mod,count in [('SignedGridSeries',8),('SignedPilot',34)]:
+              src=(p/(mod+'.lean')).read_text()
+              names=re.findall(r'(?m)^#print axioms ([\w.]+)$',src)
+              assert len(names)==count and len(set(names))==count
+              rc=int((p/(mod+'.exit')).read_text())
+              log=(p/(mod+'.log')).read_text()
+              found={};issues=[]
+              if rc==125 and log.startswith('DEPENDENCY_BLOCKED:'):
+                  modules[mod]={'status':'BLOCKED','expected':count,'declarations':{},'issues':[log.strip()]}
+                  all_ok=False
+                  continue
+              if rc!=0:issues.append('compiler exit '+str(rc))
+              if re.search(r'(?m)^\s*(?:error:|.*: error:)',log):issues.append('compiler error')
+              for name in names:
+                  hits=list(re.finditer(r"^'"+re.escape(name)+r"' (?:depends on axioms: \[([^\]]*)\]|does not depend on any axioms)\s*$",log,re.M))
+                  if len(hits)!=1:
+                      issues.append(name+': missing or duplicate audit');continue
+                  ax={a.strip() for a in (hits[0].group(1) or '').split(',') if a.strip()}
+                  if not ax<=allowed:issues.append(name+': forbidden axiom '+str(sorted(ax-allowed)))
+                  else:found[name]=sorted(ax)
+              ok=not issues and len(found)==count
+              modules[mod]={'status':'PASS' if ok else 'FAIL','expected':count,'declarations':found,'issues':issues}
+              all_ok=all_ok and ok
+          (p/'receipts.json').write_text(json.dumps({'status':'NATIVE_SIGNED_PILOT_PASS' if all_ok else 'PARTIAL_OR_FAILED','source_head':(p/'source-head.txt').read_text().strip(),'modules':modules,'trace_terms':1200,'pilot_operations':red['ops'],'redteam_mutations':red['mutations'],'width_units':{k:v['width'] for k,v in trace['traces'].items()},'independent_replay':red['status'],'scope':'Actual 046 sine/cosine j85 n9 and shifted atan j85 pilot only; bulk evaluation and physical coefficients remain separate.'},indent=2)+'\n')
+          print('Signed series module disposition:',{k:v['status'] for k,v in modules.items()})
+          PY
+      - name: Seal evidence
+        if: always()
+        run: |
+          set -euo pipefail
+          E="$RUNNER_TEMP/alp03b2b2b2a-evidence"
+          mkdir -p "$E"
+          printf 'source=%s\njob_status=%s\n' "$GITHUB_SHA" "${{ job.status }}" > "$E/attempt.txt"
+          cd "$E"
+          find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
+          sha256sum -c SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cr-alp-lean03b2b2b2a-signed-pilot
+          path: ${{ runner.temp }}/alp03b2b2b2a-evidence/
+          if-no-files-found: error
+      - name: Preserve remote evidence, then enforce native acceptance
+        if: always()
+        run: |
+          set -euo pipefail
+          ROOT="custody/cr-alp-lean-03b2b2b2a-signed-pilot/run-$GITHUB_RUN_ID-attempt-$GITHUB_RUN_ATTEMPT"
+          test ! -e "$ROOT"
+          mkdir -p "$ROOT"
+          cp -a "$RUNNER_TEMP/alp03b2b2b2a-evidence/." "$ROOT/"
+          (cd "$ROOT"; sha256sum -c SHA256SUMS)
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          git add "$ROOT"
+          git commit -m 'CR-ALP LEAN-03B2B2B2A: preserve signed series pilot evidence [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)"
+          REMOTE="$(mktemp -d)"
+          git archive FETCH_HEAD "$ROOT" | tar -x -C "$REMOTE"
+          (cd "$REMOTE/$ROOT"; sha256sum -c SHA256SUMS)
+          echo 'Remote native evidence readback PASS'
+          python3 - "$ROOT/receipts.json" <<'PY'
+          import json,sys
+          r=json.load(open(sys.argv[1]));assert r['status']=='NATIVE_SIGNED_PILOT_PASS',r['status']
+          PY
