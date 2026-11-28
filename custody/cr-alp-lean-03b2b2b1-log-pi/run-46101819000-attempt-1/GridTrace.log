@@ -1,0 +1,48 @@
+GridTrace.lean:13:4: error(lean.dependsOnNoncomputable): failed to compile definition, consider marking it as 'noncomputable' because it depends on 'Real.instDivInvMonoid', which is 'noncomputable'
+GridTrace.lean:16:55: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+GridTrace.lean:97:45: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+GridTrace.lean:97:45: warning: Unused tactic linter: `ring` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+GridTrace.lean:180:35: error: Application type mismatch: The argument
+  hl
+has type
+  ∑ i ∈ range 400, ↑(term i).lo / ↑logScale ≤ ∑ i ∈ range 400, u ^ (2 * i + 1) / ↑(2 * i + 1)
+but is expected to have type
+  ∑ i ∈ range 400, ↑(term i).lo / ↑logScale ≤ ∑ x ∈ range 400, u ^ (2 * x + 1) / (2 * ↑x + 1)
+in the application
+  mul_le_mul_of_nonneg_left hl
+GridTrace.lean:180:78: error: Application type mismatch: The argument
+  hu
+has type
+  ∑ i ∈ range 400, u ^ (2 * i + 1) / ↑(2 * i + 1) ≤ ∑ i ∈ range 400, ↑(term i).hi / ↑logScale
+but is expected to have type
+  ∑ x ∈ range 400, u ^ (2 * x + 1) / (2 * ↑x + 1) ≤ ∑ i ∈ range 400, ↑(term i).hi / ↑logScale
+in the application
+  mul_le_mul_of_nonneg_left hu
+GridTrace.lean:193:14: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+GridTrace.lean:197:14: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+'CRALP.GridTrace.scalePos' depends on axioms: [propext]
+'CRALP.GridTrace.scalePosReal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.GridTrace.pointSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.GridTrace.plusSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.GridTrace.minusSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.GridTrace.negativeSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.GridTrace.mulCornerSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.GridTrace.mulSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.GridTrace.divCornerSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.GridTrace.divSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.GridTrace.absSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.GridTrace.logPowerTrace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.GridTrace.logPolynomialTrace' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'CRALP.GridTrace.logTrace' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+
+real	0m3.505s
+user	0m3.311s
+sys	0m0.990s
