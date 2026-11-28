@@ -1,4 +1,4 @@
-name: CR-ALP LEAN-03B2B2B1 scaled recurrence and actual log pi
+name: CR-ALP LEAN-03B2B2B1-R1 decoder and sum normalization repair
 on:
   push:
     branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
@@ -46,10 +46,15 @@ jobs:
             test "$(git hash-object custody/cr-alp-lean-03b2b1-constant-traces/run-46099447047-attempt-1/ConstAtan5.lean)" = 4495a4ffb96e6537b45af0c0f179f116be8baa5d
             test "$(git hash-object custody/cr-alp-lean-03b2b1-constant-traces/run-46099447047-attempt-1/ConstAtan239.lean)" = 1be636dda49dc3c8e4782d61dad5b1a4fb5f992e
             test "$(git hash-object custody/cr-alp-lean-03b2b1-constant-traces/run-46099447047-attempt-1/ConstPi.lean)" = 70c7d2c3899d960314a6aac07903fa6aafa27e4e
-            test "$(git hash-object formalization/cr-alp/GridTrace.lean)" = 248180df217162e5bb075f92c5670ccd64b8d250
+            test "$(git hash-object formalization/cr-alp/GridTrace.lean)" = cb8983ff95c4a2897bed040bd4cf99c11d3835f5
             test "$(git hash-object formalization/cr-alp/generate_log_pi_trace.py)" = 42113a66c72794e96a1ad68537f22709f28d764a
             test "$(git hash-object formalization/cr-alp/redteam_log_pi_trace.js)" = 96d6e22fd39aad7b181b4090b4ceadd0dcc8a3c0
             test "$(git hash-object formalization/cr-alp/LEAN-03B2B2B1_REDTEAM.md)" = ebcf009ae043c8630f9e6f84eaefcce7d0fb8205
+            test "$(git hash-object custody/cr-alp-lean-03b2b2b1-log-pi/run-46101819000-attempt-1/receipts.json)" = 3376cb1eafd13146fd112359f021e2e6f08b7f9c
+            test "$(git hash-object custody/cr-alp-lean-03b2b2b1-log-pi/run-46101819000-attempt-1/GridTrace.log)" = 00d546adea4edd28c6977bb0b283089e8b2aed80
+            test "$(git hash-object custody/cr-alp-lean-03b2b2b1-log-pi/run-46101819000-attempt-1/log-pi-trace.json)" = e788499f1dddde62dc7b5db164e9b88af51ca911
+            test "$(git hash-object custody/cr-alp-lean-03b2b2b1-log-pi/run-46101819000-attempt-1/LogPiActual.lean)" = daaa73b4160d130e020532cef6970c901cf70e23
+            test "$(git hash-object formalization/cr-alp/LEAN-03B2B2B1-R1_REDTEAM.md)" = e1033da43f61d8b674eabd926799d37c69bac48f
             python3 - <<'PY'
           import json
           from pathlib import Path
@@ -75,6 +80,10 @@ jobs:
           node --check formalization/cr-alp/redteam_log_pi_trace.js
           python3 formalization/cr-alp/generate_log_pi_trace.py src/audits/cr_alp_046_full_finite.py "$P/" custody/cr-alp-lean-03b2b1-constant-traces/run-46099447047-attempt-1/constant-traces.json custody/cr-alp-lean-03b2a-log2-trace/run-46097300574-attempt-1/log2-trace.json | tee "$E/trace-generation.log"
           node formalization/cr-alp/redteam_log_pi_trace.js custody/cr-alp-lean-03b2b1-constant-traces/run-46099447047-attempt-1/constant-traces.json custody/cr-alp-lean-03b2a-log2-trace/run-46097300574-attempt-1/log2-trace.json "$P/log-pi-trace.json" > "$E/redteam-replay.json"
+          cmp "$P/log-pi-trace.json" custody/cr-alp-lean-03b2b2b1-log-pi/run-46101819000-attempt-1/log-pi-trace.json
+          cmp "$P/LogPiActual.lean" custody/cr-alp-lean-03b2b2b1-log-pi/run-46101819000-attempt-1/LogPiActual.lean
+          cp formalization/cr-alp/LEAN-03B2B2B1-R1_REDTEAM.md "$E/"
+          echo 'R0 literal trace and generated pilot source identity PASS' | tee "$E/identity.log"
           cp "$P/log-pi-trace.json" "$E/"
           cp "$P/"*.lean "$E/"
           python3 - "$P" <<'PY'
