@@ -37,16 +37,52 @@
       "imports": [
         "WeilDefect.Arithmetic.ActualZetaSelectedBackground"
       ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaSmoothLiteralFormulaAutomatic.lean": {
+      "blob": "b1ba6f16fd36b861a535d2cf7d2d63abdee9bdd0",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaSmoothLiteralFormula",
+        "Mathlib.Topology.Algebra.InfiniteSum.Real"
+      ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaOriginalCollarGammaLower.lean": {
+      "blob": "fbdcffbaa30f0abcf134ed7c515ffc0fbe4e2c07",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaNativeSymbolSign",
+        "WeilDefect.External.Zeta23.Theorems.Thm_Zeta23_DigammaSeries_hasSum_digamma_series",
+        "Mathlib.Analysis.Complex.ExponentialBounds"
+      ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaIV080GammaLinearEnvelopeGate.lean": {
+      "blob": "8935c75a1948e4fdcfa13296852147562f7f89a1",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaIV071GammaFinitePrelude",
+        "Mathlib.Tactic"
+      ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaSmoothLiteralFormula.lean": {
+      "blob": "056b8946634973c7829a09028ca70249e59d8eba",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaLiteralFormula"
+      ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaNativeSymbolSign.lean": {
+      "blob": "a0e4c27abd712dde032bb2a8b551d420b6f29afb",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaBackgroundGramTests",
+        "Mathlib.NumberTheory.Harmonic.EulerMascheroni"
+      ]
     }
   },
   "pending": [
-    "WeilDefect/Arithmetic/ActualZetaSmoothLiteralFormulaAutomatic.lean",
-    "WeilDefect/Arithmetic/ActualZetaOriginalCollarGammaLower.lean",
-    "WeilDefect/Arithmetic/ActualZetaIV080GammaLinearEnvelopeGate.lean"
+    "WeilDefect/Arithmetic/ActualZetaBackgroundGramTests.lean"
   ],
   "external": [
     "Mathlib.Analysis.Calculus.ContDiff.Convolution",
-    "Mathlib.Tactic"
+    "Mathlib.Analysis.Complex.ExponentialBounds",
+    "Mathlib.NumberTheory.Harmonic.EulerMascheroni",
+    "Mathlib.Tactic",
+    "Mathlib.Topology.Algebra.InfiniteSum.Real"
   ],
-  "status": "partial recursive IV expansion; raw import lines; full lexical verification required"
+  "status": "partial recursive IV expansion; raw import lines"
 }
