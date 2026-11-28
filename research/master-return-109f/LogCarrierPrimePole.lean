@@ -59,7 +59,7 @@ theorem correlation_diagonal_norm_le (a t : ℝ) (f : NeutralLogHilbertCarrier a
     ‖neutralWindowCorrelation a (physical a f) (physical a f) t‖ ≤
       ‖physical a f‖ ^ 2 := by
   rw [correlation_inner]
-  have h := norm_inner_le_norm (shiftPhysical t (physical a f)) (physical a f)
+  have h := norm_inner_le_norm (𝕜 := ℂ) (shiftPhysical t (physical a f)) (physical a f)
   have hs : ‖shiftPhysical t (physical a f)‖ = ‖physical a f‖ :=
     Lp.norm_compMeasurePreserving _ (shift_preserving t)
   rw [hs] at h
