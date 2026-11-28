@@ -1,0 +1,198 @@
+{
+  "status": "NATIVE_PRIME_LOG_TRACES_PASS",
+  "source_head": "dd13861d80627a4549560f989ae81aeedddefb73",
+  "modules": {
+    "PrimeLogTrace": {
+      "status": "PASS",
+      "expected": 3,
+      "declarations": {
+        "CRALP.PrimeLogTrace.termIdentity": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.PrimeLogTrace.reducedTrace": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.PrimeLogTrace.scaleTrace": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": []
+    },
+    "PrimeLog3": {
+      "status": "PASS",
+      "expected": 4,
+      "declarations": {
+        "CRALP.PrimeLog3.allTerms": [
+          "propext"
+        ],
+        "CRALP.PrimeLog3.lowerSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.PrimeLog3.upperSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.PrimeLog3.actual": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": []
+    },
+    "PrimeLog5": {
+      "status": "PASS",
+      "expected": 4,
+      "declarations": {
+        "CRALP.PrimeLog5.allTerms": [
+          "propext"
+        ],
+        "CRALP.PrimeLog5.lowerSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.PrimeLog5.upperSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.PrimeLog5.actual": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": []
+    },
+    "PrimeLog7": {
+      "status": "PASS",
+      "expected": 4,
+      "declarations": {
+        "CRALP.PrimeLog7.allTerms": [
+          "propext"
+        ],
+        "CRALP.PrimeLog7.lowerSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.PrimeLog7.upperSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.PrimeLog7.actual": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": []
+    },
+    "PrimeLog9": {
+      "status": "PASS",
+      "expected": 4,
+      "declarations": {
+        "CRALP.PrimeLog9.allTerms": [
+          "propext"
+        ],
+        "CRALP.PrimeLog9.lowerSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.PrimeLog9.upperSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.PrimeLog9.actual": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": []
+    },
+    "PrimeLogs": {
+      "status": "PASS",
+      "expected": 21,
+      "declarations": {
+        "CRALP.PrimeLogs.N2.lowerEq": [],
+        "CRALP.PrimeLogs.N2.upperEq": [],
+        "CRALP.PrimeLogs.N2.actual": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.PrimeLogs.N3.lowerEq": [],
+        "CRALP.PrimeLogs.N3.upperEq": [],
+        "CRALP.PrimeLogs.N3.actual": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.PrimeLogs.N4.lowerEq": [],
+        "CRALP.PrimeLogs.N4.upperEq": [],
+        "CRALP.PrimeLogs.N4.actual": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.PrimeLogs.N5.lowerEq": [],
+        "CRALP.PrimeLogs.N5.upperEq": [],
+        "CRALP.PrimeLogs.N5.actual": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.PrimeLogs.N7.lowerEq": [],
+        "CRALP.PrimeLogs.N7.upperEq": [],
+        "CRALP.PrimeLogs.N7.actual": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.PrimeLogs.N8.lowerEq": [],
+        "CRALP.PrimeLogs.N8.upperEq": [],
+        "CRALP.PrimeLogs.N8.actual": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.PrimeLogs.N9.lowerEq": [],
+        "CRALP.PrimeLogs.N9.upperEq": [],
+        "CRALP.PrimeLogs.N9.actual": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": []
+    }
+  },
+  "trace_terms": 2000,
+  "new_trace_terms": 1600,
+  "redteam_mutations": 4000,
+  "width_units": {
+    "2": "802",
+    "3": "1596",
+    "4": "1604",
+    "5": "2406",
+    "7": "2406",
+    "8": "2406",
+    "9": "3210"
+  },
+  "independent_replay": "INDEPENDENT_PRIME_LOG_REPLAY_PASS",
+  "scope": "Actual seven 046 prime-window logarithms only; variable nonrational elementary evaluations and physical coefficient attachment remain separate."
+}

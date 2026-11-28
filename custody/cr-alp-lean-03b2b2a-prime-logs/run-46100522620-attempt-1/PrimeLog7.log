@@ -1,0 +1,9 @@
+PrimeLog7.lean:810:77: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+'CRALP.PrimeLog7.allTerms' depends on axioms: [propext]
+'CRALP.PrimeLog7.lowerSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.PrimeLog7.upperSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.PrimeLog7.actual' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m31.980s
+user	0m39.360s
+sys	0m2.406s

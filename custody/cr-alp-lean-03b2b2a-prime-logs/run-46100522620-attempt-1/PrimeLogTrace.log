@@ -1,0 +1,19 @@
+PrimeLogTrace.lean:38:14: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+PrimeLogTrace.lean:42:14: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+PrimeLogTrace.lean:64:14: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+PrimeLogTrace.lean:68:14: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+'CRALP.PrimeLogTrace.termIdentity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.PrimeLogTrace.reducedTrace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.PrimeLogTrace.scaleTrace' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m3.904s
+user	0m2.422s
+sys	0m1.608s

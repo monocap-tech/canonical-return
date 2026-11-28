@@ -1,0 +1,25 @@
+'CRALP.PrimeLogs.N2.lowerEq' does not depend on any axioms
+'CRALP.PrimeLogs.N2.upperEq' does not depend on any axioms
+'CRALP.PrimeLogs.N2.actual' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.PrimeLogs.N3.lowerEq' does not depend on any axioms
+'CRALP.PrimeLogs.N3.upperEq' does not depend on any axioms
+'CRALP.PrimeLogs.N3.actual' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.PrimeLogs.N4.lowerEq' does not depend on any axioms
+'CRALP.PrimeLogs.N4.upperEq' does not depend on any axioms
+'CRALP.PrimeLogs.N4.actual' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.PrimeLogs.N5.lowerEq' does not depend on any axioms
+'CRALP.PrimeLogs.N5.upperEq' does not depend on any axioms
+'CRALP.PrimeLogs.N5.actual' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.PrimeLogs.N7.lowerEq' does not depend on any axioms
+'CRALP.PrimeLogs.N7.upperEq' does not depend on any axioms
+'CRALP.PrimeLogs.N7.actual' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.PrimeLogs.N8.lowerEq' does not depend on any axioms
+'CRALP.PrimeLogs.N8.upperEq' does not depend on any axioms
+'CRALP.PrimeLogs.N8.actual' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.PrimeLogs.N9.lowerEq' does not depend on any axioms
+'CRALP.PrimeLogs.N9.upperEq' does not depend on any axioms
+'CRALP.PrimeLogs.N9.actual' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m4.297s
+user	0m2.813s
+sys	0m1.706s
