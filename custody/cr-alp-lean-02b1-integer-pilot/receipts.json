@@ -1,0 +1,19 @@
+{
+  "status": "NATIVE_INTEGER_BRIDGE_AND_ROW_PILOT_PASS",
+  "declarations": {
+    "CRALP.intWitnessLower": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Pilot.pilotRow": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "kernel_entries": 43,
+  "matrix": "1P",
+  "row": 42,
+  "scope": "Generic integer soundness bridge and one actual row. All six full kernel matrix checks remain pending; physical interval attachment separate."
+}

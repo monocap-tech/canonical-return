@@ -1,0 +1,5 @@
+f00642f9706a0823b86e43f519ca2d934a377761
+Python 3.14.4
+All six matrix literal identities and 10839 exact residual entries PASS
+Generated 43 kernel entry propositions and row proof for cosh prefix Gram (row 42).
+Kernel-only concrete propositions preflight PASS
