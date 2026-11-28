@@ -1,0 +1,80 @@
+name: RETURN109-F-A1 arithmetic receiver namespace repair
+on:
+  push:
+    branches: [research/return108s-kernel-core]
+    paths:
+      - ".github/workflows/return108w-bridge.yml"
+permissions:
+  contents: read
+jobs:
+  bridge:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - name: Verify and generate transported closure
+        shell: bash
+        run: |
+          set -euo pipefail
+          test "$(git hash-object research/return109f/transport.py)" = 48218b0c20366ad581eb6a2cc9fb8a6e2d56f098
+          cp -r research/return109f "$RUNNER_TEMP/return109f"
+          F="$RUNNER_TEMP/return109f"
+          python3 "$F/transport.py" research/return108w/assemble_closure.py "$F/assembled.py" "$F/plan.json" 2>&1 | tee "$F/transport.log"
+          python3 "$F/test_f6r.py" 2>&1 | tee "$F/fixture.log"
+      - name: Authenticated actual F closure
+        shell: bash
+        run: |
+          set -euo pipefail
+          F="$RUNNER_TEMP/return109f"
+          git fetch --no-tags --depth=1 origin f2e8ec89ae4bf8687a652b299b730d6d1baa43f7 d3067677cad7a0a583ef14b5466018dfad5f0afe
+          git checkout --detach f2e8ec89ae4bf8687a652b299b730d6d1baa43f7
+          python3 "$F/assembled.py" 2>&1 | tee return109f-assembly.log
+          cat return109f-closure.json
+      - name: Install Elan
+        run: |
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Resolve pinned dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake update
+          cat lake-manifest.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          packages = json.loads(Path("lake-manifest.json").read_text())["packages"]
+          assert [p["rev"] for p in packages if p["name"] == "mathlib"] == ["5ed2965256430c3649e86755f9576b54eca72435"]
+          PY
+          lean --version
+      - name: Fetch mathlib cache
+        run: lake exe cache get
+      - name: Rebuild admitted E attachment
+        shell: bash
+        run: |
+          set -euo pipefail
+          lake build WeilDefect.MasterReturn.LogCarrierBoundedAnalysis 2>&1 | tee return109f-E-rebuild.log
+      - name: F-A arithmetic only strict named audit
+        shell: bash
+        run: |
+          set -euo pipefail
+          F="$RUNNER_TEMP/return109f"
+          python3 "$F/audit_f_stage.py" "$F/plan.json" F-A-arithmetic return109f-a-evidence 2>&1 | tee return109f-a-audit.log
+      - name: Preserve verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: return109f-a1-integration
+          path: |
+            ${{ runner.temp }}/return109f/transport.log
+            ${{ runner.temp }}/return109f/fixture.log
+            ${{ runner.temp }}/return109f/assembled.py
+            ${{ runner.temp }}/return109f/plan.json
+            return108w-closure.json
+            return109f-closure.json
+            return109f-assembly.log
+            return109f-E-rebuild.log
+            return109f-a-audit.log
+            return109f-a-evidence/
+            lake-manifest.json
