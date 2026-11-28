@@ -1,0 +1,165 @@
+{
+  "status": "PARTIAL_OR_FAILED",
+  "source_head": "ae5e1e870418f9e0932308349b73af2d00235265",
+  "modules": {
+    "RationalTrace": {
+      "status": "PASS",
+      "expected": 7,
+      "declarations": {
+        "CRALP.RationalTrace.sumTrace": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.RationalTrace.atanTerm": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.RationalTrace.expTerm": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.RationalTrace.unitEq": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.RationalTrace.widenTrace": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.RationalTrace.atanTrace": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.RationalTrace.expTrace": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": []
+    },
+    "ConstAtan5": {
+      "status": "FAIL",
+      "expected": 4,
+      "declarations": {
+        "CRALP.ConstAtan5.allTerms": [
+          "propext"
+        ],
+        "CRALP.ConstAtan5.lowerSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.ConstAtan5.upperSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": [
+        "compiler exit 1",
+        "compiler error",
+        "CRALP.ConstAtan5.actual: forbidden axiom ['sorryAx']"
+      ]
+    },
+    "ConstAtan239": {
+      "status": "FAIL",
+      "expected": 4,
+      "declarations": {
+        "CRALP.ConstAtan239.allTerms": [
+          "propext"
+        ],
+        "CRALP.ConstAtan239.lowerSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.ConstAtan239.upperSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": [
+        "compiler exit 1",
+        "compiler error",
+        "CRALP.ConstAtan239.actual: forbidden axiom ['sorryAx']"
+      ]
+    },
+    "ConstExpA": {
+      "status": "PASS",
+      "expected": 4,
+      "declarations": {
+        "CRALP.ConstExpA.allTerms": [
+          "propext"
+        ],
+        "CRALP.ConstExpA.lowerSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.ConstExpA.upperSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.ConstExpA.actual": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": []
+    },
+    "ConstExpHalfA": {
+      "status": "PASS",
+      "expected": 4,
+      "declarations": {
+        "CRALP.ConstExpHalfA.allTerms": [
+          "propext"
+        ],
+        "CRALP.ConstExpHalfA.lowerSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.ConstExpHalfA.upperSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.ConstExpHalfA.actual": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": []
+    },
+    "ConstPi": {
+      "status": "BLOCKED",
+      "expected": 3,
+      "declarations": {},
+      "issues": [
+        "DEPENDENCY_BLOCKED: ConstAtan5 ConstAtan239"
+      ]
+    }
+  },
+  "trace_terms": 1600,
+  "redteam_mutations": 3200,
+  "width_units": {
+    "Atan5": "398",
+    "Atan239": "402",
+    "ExpA": "402",
+    "ExpHalfA": "400",
+    "Pi": "7976"
+  },
+  "independent_replay": "INDEPENDENT_CONSTANT_REPLAY_PASS",
+  "scope": "Actual 046 fixed Machin arctangent inputs, pi and two collar exponentials only; remaining variable-argument evaluations and physical coefficient attachment separate."
+}

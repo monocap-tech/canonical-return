@@ -1,0 +1,43 @@
+AnalyticGuards.lean:16:92: warning: exponent 801 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+AnalyticGuards.lean:20:32: warning: exponent 801 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+AnalyticGuards.lean:22:72: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+AnalyticGuards.lean:26:32: warning: exponent 801 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+AnalyticGuards.lean:28:84: warning: exponent 800 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+AnalyticGuards.lean:32:44: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+AnalyticGuards.lean:34:93: warning: exponent 400 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+AnalyticGuards.lean:38:44: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+AnalyticGuards.lean:40:98: warning: exponent 290 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+AnalyticGuards.lean:44:44: warning: exponent 290 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+AnalyticGuards.lean:46:93: warning: exponent 290 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+AnalyticGuards.lean:50:44: warning: exponent 290 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+AnalyticGuards.lean:52:98: warning: exponent 290 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+AnalyticGuards.lean:56:44: warning: exponent 290 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+AnalyticGuards.lean:58:93: warning: exponent 290 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+AnalyticGuards.lean:62:44: warning: exponent 290 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+AnalyticGuards.lean:64:106: warning: exponent 1025 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+AnalyticGuards.lean:68:32: warning: exponent 1025 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+'CRALP.AnalyticGuard.ratio_lt_unit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.AnalyticGuard.log_400_remainder' depends on axioms: [propext]
+'CRALP.AnalyticGuard.log_400_remainder_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.AnalyticGuard.atan_400_remainder' depends on axioms: [propext]
+'CRALP.AnalyticGuard.atan_400_remainder_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.AnalyticGuard.sincos_400_remainder' depends on axioms: [propext]
+'CRALP.AnalyticGuard.sincos_400_remainder_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.AnalyticGuard.exp_400_remainder' depends on axioms: [propext]
+'CRALP.AnalyticGuard.exp_400_remainder_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.AnalyticGuard.digamma_EM_512' depends on axioms: [propext]
+'CRALP.AnalyticGuard.digamma_EM_512_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.AnalyticGuard.trigamma_EM_512' depends on axioms: [propext]
+'CRALP.AnalyticGuard.trigamma_EM_512_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.AnalyticGuard.digamma_EM_768' depends on axioms: [propext]
+'CRALP.AnalyticGuard.digamma_EM_768_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.AnalyticGuard.trigamma_EM_768' depends on axioms: [propext]
+'CRALP.AnalyticGuard.trigamma_EM_768_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.AnalyticGuard.reflected_resolvent_K256_remainder' depends on axioms: [propext]
+'CRALP.AnalyticGuard.reflected_resolvent_K256_remainder_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.AnalyticGuard.exp_minus_a_lt_2_over_5' depends on axioms: [propext]
+'CRALP.AnalyticGuard.exp_half_a_gt_17_over_10' depends on axioms: [propext]
+'CRALP.AnalyticGuard.exp_half_a_lt_7_over_4' depends on axioms: [propext]
+'CRALP.AnalyticGuard.anchor_cosh_bound' does not depend on any axioms
+'CRALP.AnalyticGuard.anchor_sinh_bound' does not depend on any axioms
+'CRALP.AnalyticGuard.reflected_factor_uniform_bound' does not depend on any axioms

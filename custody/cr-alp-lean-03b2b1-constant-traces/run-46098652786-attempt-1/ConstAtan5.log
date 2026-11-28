@@ -1,0 +1,15 @@
+ConstAtan5.lean:810:76: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+ConstAtan5.lean:814:2: error: Type mismatch
+  atanTrace 1 5 lo hi L U ?m.21 allTerms lowerSum upperSum
+has type
+  Contains (↑L / ↑logScale) (↑U / ↑logScale) (Real.arctan (↑1 / ↑5))
+but is expected to have type
+  Contains (↑L / ↑logScale) (↑U / ↑logScale) (Real.arctan (1 / 5))
+'CRALP.ConstAtan5.allTerms' depends on axioms: [propext]
+'CRALP.ConstAtan5.lowerSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ConstAtan5.upperSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ConstAtan5.actual' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+
+real	0m40.298s
+user	0m46.910s
+sys	0m3.963s

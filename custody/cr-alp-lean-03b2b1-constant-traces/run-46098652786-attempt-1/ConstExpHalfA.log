@@ -1,0 +1,9 @@
+ConstExpHalfA.lean:810:76: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+'CRALP.ConstExpHalfA.allTerms' depends on axioms: [propext]
+'CRALP.ConstExpHalfA.lowerSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ConstExpHalfA.upperSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ConstExpHalfA.actual' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m32.837s
+user	0m41.021s
+sys	0m2.266s

@@ -1,0 +1,15 @@
+ConstAtan239.lean:810:78: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+ConstAtan239.lean:814:2: error: Type mismatch
+  atanTrace 1 239 lo hi L U ?m.21 allTerms lowerSum upperSum
+has type
+  Contains (↑L / ↑logScale) (↑U / ↑logScale) (Real.arctan (↑1 / ↑239))
+but is expected to have type
+  Contains (↑L / ↑logScale) (↑U / ↑logScale) (Real.arctan (1 / 239))
+'CRALP.ConstAtan239.allTerms' depends on axioms: [propext]
+'CRALP.ConstAtan239.lowerSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ConstAtan239.upperSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ConstAtan239.actual' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+
+real	0m36.323s
+user	0m44.499s
+sys	0m2.353s
