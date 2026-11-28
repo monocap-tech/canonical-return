@@ -1,0 +1,195 @@
+name: CR-ALP LEAN-02B2 complete six-matrix integer certificate
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-lean-02b2-complete-matrices.yml']
+permissions:
+  contents: read
+concurrency:
+  group: cr-alp-lean-02b2-complete-matrices
+  cancel-in-progress: false
+jobs:
+  matrix:
+    name: Kernel matrix ${{ matrix.key }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      max-parallel: 3
+      matrix:
+        key: ['1H','1W','1P','2H','2W','2P']
+    env:
+      KEY: ${{ matrix.key }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate immutable sources and generate one complete matrix
+        run: |
+          set -euo pipefail
+          E="$RUNNER_TEMP/alp-evidence"
+          P="$RUNNER_TEMP/alp-project"
+          mkdir -p "$E/generated" "$P"
+          {
+            git rev-parse HEAD
+            python3 --version
+            test "$(git hash-object formalization/cr-alp/MatrixSoundnessR2.lean)" = a91282b6bc883380009ecdec589cafc177686fc8
+            test "$(git hash-object formalization/cr-alp/IntegerWitness.lean)" = c1930282f53bbc7ad41d52c55d0a30f71979fa39
+            test "$(git hash-object formalization/cr-alp/generate_integer_full.py)" = b5b0db0136551bdbdde21e62241bc502cd4efca7
+            test "$(git hash-object custody/cr-alp-lean-02ar2-matrix-soundness/receipts.json)" = e214b8bca500722a4b7581f6f419999ca070ddc4
+            test "$(git hash-object custody/cr-alp-lean-02b1o-row-pilot/receipts.json)" = 598b9b95cc245c730f108f0e4ddc31903db6819a
+            python3 -m py_compile formalization/cr-alp/generate_integer_full.py
+            python3 formalization/cr-alp/generate_integer_full.py "$E/generated" "$KEY"
+          } 2>&1 | tee "$E/preflight.log"
+          cp formalization/cr-alp/{MatrixSoundnessR2,IntegerWitness}.lean "$P/"
+          cp "$E/generated/"*.lean "$P/"
+          cp custody/cr-alp-lean-02ar2-matrix-soundness/{lean-toolchain,lakefile.toml,lake-manifest.json} "$P/"
+          cp "$P/"{lean-toolchain,lakefile.toml,lake-manifest.json} "$E/"
+          printf '%s\n' "$GITHUB_SHA" > "$E/source-head.txt"
+      - name: Install exact Lean and Mathlib environment
+        run: |
+          set -euo pipefail
+          P="$RUNNER_TEMP/alp-project"
+          E="$RUNNER_TEMP/alp-evidence"
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+          export PATH="$HOME/.elan/bin:$PATH"
+          cd "$P"
+          { lean --version; lake --version; lake exe cache get; } 2>&1 | tee "$E/setup.log"
+          test "$(git -C .lake/packages/mathlib rev-parse HEAD)" = 5ed2965256430c3649e86755f9576b54eca72435
+          git -C .lake/packages/mathlib rev-parse HEAD > "$E/mathlib-commit.txt"
+      - name: Compile soundness bridge and all row shards
+        run: |
+          set -euo pipefail
+          P="$RUNNER_TEMP/alp-project"
+          E="$RUNNER_TEMP/alp-evidence"
+          cd "$P"
+          lake build MatrixSoundnessR2 2>&1 | tee "$E/matrix-build.log"
+          lake env lean -o .lake/build/lib/lean/IntegerWitness.olean IntegerWitness.lean 2>&1 | tee "$E/bridge.log"
+          test -s .lake/build/lib/lean/IntegerWitness.olean
+          python3 - "$E/generated/manifest.json" <<'PY' > "$E/module-order.txt"
+          import json,sys
+          m=json.load(open(sys.argv[1]))
+          print(m['data'])
+          for s in m['shards']: print(s['module'])
+          print(m['terminal'])
+          PY
+          while IFS= read -r mod; do
+            { time timeout 12m lake env lean -o ".lake/build/lib/lean/$mod.olean" "$mod.lean"; } 2>&1 | tee "$E/$mod.log"
+            test -s ".lake/build/lib/lean/$mod.olean"
+            sha256sum ".lake/build/lib/lean/$mod.olean" >> "$E/olean.sha256"
+          done < "$E/module-order.txt"
+          sha256sum .lake/build/lib/lean/{MatrixSoundnessR2,IntegerWitness}.olean >> "$E/olean.sha256"
+      - name: Audit every row and the terminal matrix declaration
+        run: |
+          set -euo pipefail
+          E="$RUNNER_TEMP/alp-evidence"
+          python3 - "$E" <<'PY'
+          from pathlib import Path
+          import hashlib,json,re,sys
+          p=Path(sys.argv[1]);m=json.loads((p/'generated/manifest.json').read_text())
+          ns=m['namespace'];n=m['dimension']
+          allowed={'propext','Classical.choice','Quot.sound'}
+          found={}
+          def audit(log,name):
+              t=(p/log).read_text()
+              pat=re.compile(r"^'"+re.escape(name)+r"' (?:depends on axioms: \[([^\]]*)\]|does not depend on any axioms)\s*$",re.M)
+              hits=list(pat.finditer(t));assert len(hits)==1,(name,len(hits))
+              ax={a.strip() for a in hits[0].group(1).split(',') if a.strip()} if hits[0].group(1) is not None else set()
+              assert ax<=allowed,(name,ax-allowed)
+              assert not re.search(r'(?m)^\s*(?:error:|.*: error:)',t)
+              found[name]=sorted(ax)
+          audit('bridge.log','CRALP.intWitnessLower')
+          rows=[]
+          for s in m['shards']:
+              for i in range(s['first'],s['end_exclusive']):
+                  audit(s['module']+'.log',ns+'.row_'+str(i));rows.append(i)
+          assert rows==list(range(n))
+          for name in ('allRows','matrixLower'):audit(m['terminal']+'.log',ns+'.'+name)
+          for f in m['files']:
+              b=(p/'generated'/(f['module']+'.lean')).read_bytes()
+              assert hashlib.sha256(b).hexdigest()==f['sha256']
+          assert m['entries']==n*n and m['rows']==n
+          (p/'receipts.json').write_text(json.dumps({'status':'NATIVE_MATRIX_PASS','matrix':m['matrix'],'dimension':n,'kernel_entries':n*n,'rows':n,'declarations':found,'scope':'Exact integer residual and real coercivity of the authenticated literal matrix; physical analytical attachment separate.'},indent=2)+'\n')
+          print('Native complete matrix PASS',m['matrix'],n*n)
+          PY
+      - name: Seal evidence, including failed attempts
+        if: always()
+        run: |
+          set -euo pipefail
+          E="$RUNNER_TEMP/alp-evidence"
+          mkdir -p "$E"
+          printf 'matrix=%s\nsource=%s\njob_status=%s\n' "$KEY" "$GITHUB_SHA" "${{ job.status }}" > "$E/attempt.txt"
+          cd "$E"
+          find . -type f ! -name SHA256SUMS -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS
+          sha256sum -c SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cr-alp-lean02b2-${{ matrix.key }}
+          path: ${{ runner.temp }}/alp-evidence/
+          if-no-files-found: error
+  custody:
+    name: Assemble six receipts and preserve remote evidence
+    if: always()
+    needs: matrix
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: cr-alp-lean02b2-*
+          path: /tmp/alp-02b2-shards
+      - name: Verify coverage and preserve complete or partial native receipts
+        run: |
+          set -euo pipefail
+          ROOT="custody/cr-alp-lean-02b2-complete-matrices/run-$GITHUB_RUN_ID-attempt-$GITHUB_RUN_ATTEMPT"
+          test ! -e "$ROOT"
+          mkdir -p "$ROOT"
+          cp -a /tmp/alp-02b2-shards/. "$ROOT/"
+          python3 - "$ROOT" "$GITHUB_SHA" "${{ needs.matrix.result }}" <<'PY'
+          from pathlib import Path
+          import json,subprocess,sys
+          root=Path(sys.argv[1]);head=sys.argv[2];job=sys.argv[3]
+          expected={k:(43 if k[0]=='1' else 42) for k in ('1H','1W','1P','2H','2W','2P')}
+          accepted={}; missing=[]; issues=[]
+          for key,n in expected.items():
+              d=root/('cr-alp-lean02b2-'+key)
+              if not d.is_dir():
+                  missing.append(key);continue
+              if subprocess.run(['sha256sum','-c','SHA256SUMS'],cwd=d).returncode:
+                  issues.append(key+': hash verification failed');continue
+              if not (d/'receipts.json').is_file():
+                  issues.append(key+': native receipt absent');continue
+              r=json.loads((d/'receipts.json').read_text())
+              m=json.loads((d/'generated/manifest.json').read_text())
+              if not ((d/'source-head.txt').read_text().strip()==head and r['status']=='NATIVE_MATRIX_PASS' and r['matrix']==key and r['dimension']==n and r['kernel_entries']==n*n and r['rows']==n and m['matrix']==key and m['entries']==n*n and m['rows']==n):
+                  issues.append(key+': receipt identity mismatch');continue
+              ns=m['namespace'];names={'CRALP.intWitnessLower',ns+'.allRows',ns+'.matrixLower'}|{ns+'.row_'+str(i) for i in range(n)}
+              if set(r['declarations'])!=names or any(not set(a)<={'propext','Classical.choice','Quot.sound'} for a in r['declarations'].values()):
+                  issues.append(key+': named audit mismatch');continue
+              accepted[key]=r
+          count=sum(r['kernel_entries'] for r in accepted.values())
+          full=job=='success' and not missing and not issues and count==10839 and set(accepted)==set(expected)
+          (root/'receipts.json').write_text(json.dumps({'status':'NATIVE_SIX_MATRICES_PASS' if full else 'PARTIAL_OR_FAILED','source_head':head,'matrix_job_result':job,'kernel_entries':count,'expected_entries':10839,'accepted':accepted,'missing':missing,'issues':issues,'scope':'Six exact finite witness matrices only. No physical analytical enclosure or infinite-dimensional theorem claimed.'},indent=2)+'\n')
+          print('Complete matrices',len(accepted),'kernel entries',count,'full',full)
+          PY
+          (cd "$ROOT"; find . -type f ! -path './SHA256SUMS' -print0 | sort -z | xargs -0 sha256sum > SHA256SUMS; sha256sum -c SHA256SUMS)
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse FETCH_HEAD)" = "$GITHUB_SHA"
+          git add "$ROOT"
+          git commit -m "CR-ALP LEAN-02B2: preserve complete or partial native matrix receipts [skip ci]"
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)"
+          REMOTE="$(mktemp -d)"
+          git archive FETCH_HEAD "$ROOT" | tar -x -C "$REMOTE"
+          (cd "$REMOTE/$ROOT"; sha256sum -c SHA256SUMS)
+          echo 'Remote native evidence readback PASS'
+          python3 - "$ROOT/receipts.json" <<'PY'
+          import json,sys
+          r=json.load(open(sys.argv[1]));assert r['status']=='NATIVE_SIX_MATRICES_PASS',r['status']
+          PY
