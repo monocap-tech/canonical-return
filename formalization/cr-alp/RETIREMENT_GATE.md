@@ -1,0 +1,17 @@
+# CR-ALP — Native formalization and retirement acceptance
+
+Owner instruction 2026-11-27: formalize in Lean; completion and passing count toward CR-ALP's retirement certificate. This adds a required formal verification gate to the locally complete 123AV classical proof assembly and 123AW terminal handoff. Central admission and retirement are not granted by a component proof. Preserve the original mathematical scope (a=11/10, full logarithmic form domain). No arbitrary-support work or RH promotion. Canonical-return is the existing delivery jurisdiction; first component is isolated there, matching Weil-Lab IV103's Lean/Mathlib v4.34.0. No writes to Weil-Lab under this operation.
+
+## Required native closure (not a claim of completion)
+
+1. Scalar direct Schur and inverse budget lemmas; verify exact two-sector rational margins, retaining all physical hypotheses explicitly. LEAN-01 staged Receiver.lean, six named declarations. Compare normalized ceilings to actual authenticated AP3/AQ2 result bytes in preflight. This is only a scalar receiver; no physical positivity yet.
+2. Exact finite certificate data and verified checker: actual 43/42 dimensional corrected-energy/prefix matrices, directed interval and congruence arithmetic, positive pivots and whitening. Prove soundness of the checker and evaluate it on pinned data with kernel-acceptable proofs; do not introduce a trusted Boolean result as an axiom.
+3. Classical analysis bridge: original coefficient formulas, Gamma/prime norm and infinite tail bounds, including rigorous special-function interval enclosure. Reuse existing Lean lemmas where their hypotheses and normalization match, otherwise prove missing lemmas. All physical inputs to receiver must be discharged.
+4. Infinite-dimensional direct Schur / coercivity and two-pole completion on the actual log form domain. Attach to exact original signed explicit formula, with supported Schwartz theorem as a consequence, not as substitute for full domain.
+5. Final named declaration with the actual theorem statement, no undeclared hypotheses supplying positivity, finite matrices or residual estimates; strict native compile, named axiom audit (only propext, Classical.choice, Quot.sound), exact source and toolchain/dependency pins, reproducibility and remote evidence. No sorry, admit, custom axioms or Lean native_decide trust bypass. Distinguish conditional receiver from closed theorem. Independent terminal admission still separate.
+
+## LEAN-01 scope
+
+Source formalization/cr-alp/Receiver.lean commit 1e4de78db6507d1cf89c5f88f142ae41d4f634a1, blob 12cb6c4f52f2837a350b13102d0905787eb2ff34. Normalized u=U/E, x^2 bounds bnew/E and y^2 bounds eta*u, eta=rho/(1-rho). Exact ceilings chosen upward on 10^18 grid from AQ2. Cosh uMax=425975815994492321/10^18, sinh uMax=188882199696291911/(5*10^17); retain original loss ceilings 856897646/10^9 and 667102967/10^9. The kernel arithmetic proves margin only under hphysical and these explicit inequalities. The data extraction preflight is external Python exact arithmetic, not a Lean proof of physical receipt validity. No implication that 83,427 prefix coefficients or special-function intervals have been formally certified.
+
+Retirement certificate status: OPEN, first native component staged; native passing required before credit. Existing terminal candidate remains valid at its prior classical-computer-assisted status, not superseded by incomplete formalization. Further work after LEAN-01 governed by actual native result and dependencies.
