@@ -1,6 +1,6 @@
 {
-  "status": "F-A1 repaired source pins; accepted E; later density stages red-team pending",
-  "manifest_commit": "98a6f14c3622c581dc7f07e3263c43e603a8ea85",
+  "status": "F-A2 source pins; accepted E; density stages red-team pending",
+  "manifest_commit": "203adc6a5ad3ab8ba798a7cf9c7f22ddbdcd8f60",
   "allowed_axioms": [
     "propext",
     "Classical.choice",
@@ -32,7 +32,7 @@
         },
         {
           "module": "WeilDefect.MasterReturn.LogCarrierGammaGrowth",
-          "blob": "3f178d49b961751f4bd1f1b5b38bdb640581712c",
+          "blob": "7d8fadbe27e900505fe6b82aab84780a8c0960be",
           "targets": [
             "WeilDefect.MasterReturn.LogCarrierGammaGrowth.gamma_logWeight_bound"
           ]
