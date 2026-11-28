@@ -1,6 +1,6 @@
 {
-  "status": "revised source pins; unactivated; E admission and remaining red-team/preflight prerequisites",
-  "manifest_commit": "b319cc150e303eb468b49a83eb6dfcde855e71c4",
+  "status": "F-A1 repaired source pins; accepted E; later density stages red-team pending",
+  "manifest_commit": "98a6f14c3622c581dc7f07e3263c43e603a8ea85",
   "allowed_axioms": [
     "propext",
     "Classical.choice",
@@ -20,7 +20,7 @@
         },
         {
           "module": "WeilDefect.MasterReturn.LogCarrierGammaMetric",
-          "blob": "20f71519c91cc8f6f0de5f278ad34ebee27ded02",
+          "blob": "41392fdce787ea0c570c547636c3edbc4103ccb6",
           "targets": [
             "WeilDefect.MasterReturn.LogCarrierGammaMetric.angular_log_gap",
             "WeilDefect.MasterReturn.LogCarrierGammaMetric.receiving_remainder_bounds",
@@ -32,7 +32,7 @@
         },
         {
           "module": "WeilDefect.MasterReturn.LogCarrierGammaGrowth",
-          "blob": "0534bdb38a682b23598f6d833935b1279998d3ba",
+          "blob": "3f178d49b961751f4bd1f1b5b38bdb640581712c",
           "targets": [
             "WeilDefect.MasterReturn.LogCarrierGammaGrowth.gamma_logWeight_bound"
           ]
