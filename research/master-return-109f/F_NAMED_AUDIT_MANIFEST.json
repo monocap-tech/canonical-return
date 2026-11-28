@@ -1,7 +1,7 @@
 {
-  "status": "revised arithmetic and terminal source pins; compiler pending; density red-team pending",
-  "source_commit": "fc71c55f12556b76cbd572bab837f3719177fda9",
-  "accepted_native_head": "109-D",
+  "status": "F-A1 namespace repair; 2 prior F-A declarations clean; 111 candidates, full F audit pending",
+  "source_commit": "4818214399030817e7cfcc2556d71ba1990bca48",
+  "accepted_native_head": "109-E",
   "allowed_axioms": [
     "propext",
     "Classical.choice",
@@ -192,7 +192,7 @@
     },
     {
       "path": "research/master-return-109f/LogCarrierGammaGrowth.lean",
-      "blob": "0534bdb38a682b23598f6d833935b1279998d3ba",
+      "blob": "3f178d49b961751f4bd1f1b5b38bdb640581712c",
       "imports": [
         "WeilDefect.MasterRecon.V08I",
         "WeilDefect.External.Zeta23.Theorems.Thm_Zeta23_WeilEF_digamma_growth_strip",
@@ -204,7 +204,7 @@
     },
     {
       "path": "research/master-return-109f/LogCarrierGammaMetric.lean",
-      "blob": "20f71519c91cc8f6f0de5f278ad34ebee27ded02",
+      "blob": "41392fdce787ea0c570c547636c3edbc4103ccb6",
       "imports": [
         "WeilDefect.MasterRecon.V08I",
         "WeilDefect.Arithmetic.ActualZetaIV071GammaFinitePrelude",
