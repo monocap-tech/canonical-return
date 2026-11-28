@@ -1,0 +1,28 @@
+RationalTrace.lean:21:48: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+RationalTrace.lean:45:82: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+RationalTrace.lean:45:82: warning: Unused tactic linter: `ring` does nothing
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+RationalTrace.lean:49:43: error: unsolved goals
+p q i : ℕ
+⊢ ↑(↑p ^ i) / ↑(↑q ^ i * ↑i.factorial) = ↑p ^ i / (↑q ^ i * ↑i.factorial)
+RationalTrace.lean:50:27: warning: This simp argument is unused:
+  Int.cast_natCast
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [expNum, expDen, Nat.cast_mul, Nat.cast_pow, div_pow, div_div]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+'CRALP.RationalTrace.sumTrace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.RationalTrace.atanTerm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.RationalTrace.expTerm' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'CRALP.RationalTrace.unitEq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.RationalTrace.widenTrace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.RationalTrace.atanTrace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.RationalTrace.expTrace' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+
+real	0m3.372s
+user	0m2.662s
+sys	0m0.973s

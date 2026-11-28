@@ -1,0 +1,19 @@
+ConstAtan239.lean:1:0: error: unknown module prefix 'RationalTrace'
+
+No directory 'RationalTrace' or file 'RationalTrace.olean' in the search path entries:
+/home/runner/work/_temp/alp03b2b1-project/.lake/packages/Cli/.lake/build/lib/lean
+/home/runner/work/_temp/alp03b2b1-project/.lake/packages/batteries/.lake/build/lib/lean
+/home/runner/work/_temp/alp03b2b1-project/.lake/packages/Qq/.lake/build/lib/lean
+/home/runner/work/_temp/alp03b2b1-project/.lake/packages/aesop/.lake/build/lib/lean
+/home/runner/work/_temp/alp03b2b1-project/.lake/packages/proofwidgets/.lake/build/lib/lean
+/home/runner/work/_temp/alp03b2b1-project/.lake/packages/importGraph/.lake/build/lib/lean
+/home/runner/work/_temp/alp03b2b1-project/.lake/packages/LeanSearchClient/.lake/build/lib/lean
+/home/runner/work/_temp/alp03b2b1-project/.lake/packages/plausible/.lake/build/lib/lean
+/home/runner/work/_temp/alp03b2b1-project/.lake/packages/mathlib/.lake/build/lib/lean
+/home/runner/work/_temp/alp03b2b1-project/.lake/build/lib/lean
+/home/runner/.elan/toolchains/leanprover--lean4---v4.34.0/lib/lean
+/home/runner/.elan/toolchains/leanprover--lean4---v4.34.0/lib/lean
+
+real	0m0.709s
+user	0m0.471s
+sys	0m0.248s

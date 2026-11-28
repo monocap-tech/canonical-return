@@ -1,0 +1,118 @@
+{
+  "status": "PARTIAL_OR_FAILED",
+  "source_head": "0e4a7f565a27cbd6159bc29e2b55b6871bbfd69b",
+  "modules": {
+    "RationalTrace": {
+      "status": "FAIL",
+      "expected": 7,
+      "declarations": {
+        "CRALP.RationalTrace.sumTrace": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.RationalTrace.atanTerm": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.RationalTrace.unitEq": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.RationalTrace.widenTrace": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.RationalTrace.atanTrace": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": [
+        "compiler exit 1",
+        "compiler error",
+        "CRALP.RationalTrace.expTerm: forbidden axiom ['sorryAx']",
+        "CRALP.RationalTrace.expTrace: forbidden axiom ['sorryAx']"
+      ]
+    },
+    "ConstAtan5": {
+      "status": "FAIL",
+      "expected": 4,
+      "declarations": {},
+      "issues": [
+        "compiler exit 1",
+        "compiler error",
+        "CRALP.ConstAtan5.allTerms: missing or duplicate audit",
+        "CRALP.ConstAtan5.lowerSum: missing or duplicate audit",
+        "CRALP.ConstAtan5.upperSum: missing or duplicate audit",
+        "CRALP.ConstAtan5.actual: missing or duplicate audit"
+      ]
+    },
+    "ConstAtan239": {
+      "status": "FAIL",
+      "expected": 4,
+      "declarations": {},
+      "issues": [
+        "compiler exit 1",
+        "compiler error",
+        "CRALP.ConstAtan239.allTerms: missing or duplicate audit",
+        "CRALP.ConstAtan239.lowerSum: missing or duplicate audit",
+        "CRALP.ConstAtan239.upperSum: missing or duplicate audit",
+        "CRALP.ConstAtan239.actual: missing or duplicate audit"
+      ]
+    },
+    "ConstExpA": {
+      "status": "FAIL",
+      "expected": 4,
+      "declarations": {},
+      "issues": [
+        "compiler exit 1",
+        "compiler error",
+        "CRALP.ConstExpA.allTerms: missing or duplicate audit",
+        "CRALP.ConstExpA.lowerSum: missing or duplicate audit",
+        "CRALP.ConstExpA.upperSum: missing or duplicate audit",
+        "CRALP.ConstExpA.actual: missing or duplicate audit"
+      ]
+    },
+    "ConstExpHalfA": {
+      "status": "FAIL",
+      "expected": 4,
+      "declarations": {},
+      "issues": [
+        "compiler exit 1",
+        "compiler error",
+        "CRALP.ConstExpHalfA.allTerms: missing or duplicate audit",
+        "CRALP.ConstExpHalfA.lowerSum: missing or duplicate audit",
+        "CRALP.ConstExpHalfA.upperSum: missing or duplicate audit",
+        "CRALP.ConstExpHalfA.actual: missing or duplicate audit"
+      ]
+    },
+    "ConstPi": {
+      "status": "FAIL",
+      "expected": 3,
+      "declarations": {},
+      "issues": [
+        "compiler exit 1",
+        "compiler error",
+        "CRALP.ConstPi.lowerEq: missing or duplicate audit",
+        "CRALP.ConstPi.upperEq: missing or duplicate audit",
+        "CRALP.ConstPi.actual: missing or duplicate audit"
+      ]
+    }
+  },
+  "trace_terms": 1600,
+  "redteam_mutations": 3200,
+  "width_units": {
+    "Atan5": "398",
+    "Atan239": "402",
+    "ExpA": "402",
+    "ExpHalfA": "400",
+    "Pi": "7976"
+  },
+  "independent_replay": "INDEPENDENT_CONSTANT_REPLAY_PASS",
+  "scope": "Actual 046 fixed Machin arctangent inputs, pi and two collar exponentials only; remaining variable-argument evaluations and physical coefficient attachment separate."
+}
