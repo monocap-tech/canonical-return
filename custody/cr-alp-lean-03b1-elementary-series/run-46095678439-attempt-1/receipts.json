@@ -1,0 +1,121 @@
+{
+  "status": "PARTIAL_OR_FAILED",
+  "source_head": "bad0844d137dc81191c5331d0f7127511b8dd496",
+  "modules": {
+    "ElementarySeries": {
+      "status": "FAIL",
+      "expected": 15,
+      "declarations": {
+        "CRALP.ElementarySeries.logLooseGuard": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.ElementarySeries.logHalf": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.ElementarySeries.logDouble": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.ElementarySeries.geomAtan": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.ElementarySeries.atanErrorDerivative": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.ElementarySeries.atanLooseGuard": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.ElementarySeries.atanReduced": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.ElementarySeries.atanQuarterReduction": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.ElementarySeries.machin": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.ElementarySeries.sinPeriod": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.ElementarySeries.cosPeriod": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.ElementarySeries.expLooseGuard": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.ElementarySeries.expReduced": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": [
+        "compiler exit 1",
+        "compiler error",
+        "CRALP.ElementarySeries.logReduced: forbidden axiom ['sorryAx']",
+        "CRALP.ElementarySeries.logM\u00f6bius: forbidden axiom ['sorryAx']"
+      ]
+    },
+    "TrigSeries": {
+      "status": "PASS",
+      "expected": 6,
+      "declarations": {
+        "CRALP.TrigSeries.sinPoly_eq": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.TrigSeries.cosPoly_eq": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.TrigSeries.taylor800": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.TrigSeries.trigGuard": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.TrigSeries.sinReduced": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.TrigSeries.cosReduced": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": []
+    }
+  },
+  "scope": "Elementary log, arctan, exp, sin and cos truncation and range reduction candidates; actual directed evaluation traces, digamma/trigamma, physical coefficient attachment and infinite-dimensional estimates remain separate."
+}
