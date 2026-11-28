@@ -1,0 +1,19 @@
+{
+  "status": "NATIVE_ROW_SELECTIVE_PILOT_PASS",
+  "declarations": {
+    "CRALP.intWitnessLower": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Pilot.pilotRow": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "kernel_entries": 43,
+  "matrix": "1P",
+  "row": 42,
+  "scope": "Same actual row and unchanged soundness bridge; alternative row-selective literal representation. Full six-matrix certification pending."
+}
