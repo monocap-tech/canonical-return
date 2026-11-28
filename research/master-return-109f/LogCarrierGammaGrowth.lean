@@ -17,15 +17,9 @@ theorem gamma_logWeight_bound :
   refine ⟨C + |Real.log Real.pi| / Real.log 2, by positivity, ?_⟩
   intro u
   let r : ℝ := 2 * Real.pi * u
-  let z : ℂ := (1 / 4 : ℂ) + Complex.I * ((r / 2 : ℝ) : ℂ)
-  have hre : z.re = 1 / 4 := by
-    norm_num [z, Complex.add_re, Complex.mul_re, Complex.div_ofNat_re]
-  have him : z.im = r / 2 := by
-    norm_num [z, Complex.add_im, Complex.mul_im, Complex.div_ofNat_im]
-  have hz : (1 / 4 : ℂ) + Complex.I * (r : ℂ) / 2 = z := by
-    dsimp [z]
-    push_cast
-    ring
+  let z : ℂ := 1 / 4 + Complex.I * (r : ℂ) / 2
+  have hre : z.re = 1 / 4 := by simp [z]
+  have him : z.im = r / 2 := by simp [z]
   have hd := h z (by rw [hre]) (by rw [hre]; norm_num)
   have hs : |r / 2| ≤ |r| := by
     rw [abs_div, abs_of_nonneg (by norm_num : (0 : ℝ) ≤ 2)]
@@ -40,9 +34,7 @@ theorem gamma_logWeight_bound :
       _ = (|Real.log Real.pi| / Real.log 2) * Real.log 2 := by
         field_simp [hlog.ne']
       _ ≤ _ := mul_le_mul_of_nonneg_left (V08I.logWeight_lower u) (by positivity)
-  have hg : Zeta23.EF.gammaBracket r = (Complex.digamma z).re - Real.log Real.pi := by
-    unfold Zeta23.EF.gammaBracket
-    rw [hz]
+  have hg : Zeta23.EF.gammaBracket r = (Complex.digamma z).re - Real.log Real.pi := rfl
   change |Zeta23.EF.gammaBracket r| ≤ _
   rw [hg]
   calc
