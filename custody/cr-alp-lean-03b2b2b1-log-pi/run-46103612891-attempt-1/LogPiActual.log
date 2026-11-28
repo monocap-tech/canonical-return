@@ -1,0 +1,82 @@
+LogPiActual.lean:15:24: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Inhabited Grid
+
+Hint: Adding the command `deriving instance Inhabited for CRALP.GridTrace.Grid` may allow Lean to derive the missing instance.
+LogPiActual.lean:416:27: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  Inhabited Grid
+
+Hint: Adding the command `deriving instance Inhabited for CRALP.GridTrace.Grid` may allow Lean to derive the missing instance.
+LogPiActual.lean:818:53: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+LogPiActual.lean:819:84: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+LogPiActual.lean:820:49: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+LogPiActual.lean:821:46: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+LogPiActual.lean:822:62: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+LogPiActual.lean:822:62: error: Tactic `decide` failed for proposition
+  ∀ (i : Fin 400), logStep vBox t term i
+because its `Decidable` instance
+  Nat.decidableForallFin (logStep vBox t term)
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instances `decidable_of_decidable_of_iff`, `decidable_of_iff`, `instDecidableAnd`, `Int.decLe`, `Int.decLt`, `Int.decNonneg`, `Nat.decidableBallLT`, `Nat.decidableForallFin`, `instDecidableDivCornerOK`, `instDecidableDivOK`, and `instDecidableLogStep`, reduction got stuck at the `Decidable` instance
+  match (t ↑⟨0, ⋯⟩).lo * logScale - (term ↑⟨0, ⋯⟩).lo * (point ↑(2 * ↑⟨0, ⋯⟩ + 1)).lo with
+  | Int.ofNat m => isTrue ⋯
+  | Int.negSucc i => isFalse ⋯
+LogPiActual.lean:823:71: error: Tactic `decide` failed for proposition
+  reduced.lo = 2 * ∑ i ∈ range 400, (term i).lo - 1
+because its `Decidable` instance
+  reduced.lo.instDecidableEq (2 * ∑ i ∈ range 400, (term i).lo - 1)
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instances `Int.decEq` and `Int.instDecidableEq`, reduction got stuck at the `Decidable` instance
+  match reduced.lo, 2 * ∑ i ∈ range 400, (term i).lo - 1 with
+  | Int.ofNat a, Int.ofNat b =>
+    match decEq a b with
+    | isTrue h => isTrue ⋯
+    | isFalse h => isFalse ⋯
+  | Int.ofNat a, Int.negSucc a_1 => isFalse ⋯
+  | Int.negSucc a, Int.ofNat a_1 => isFalse ⋯
+  | Int.negSucc a, Int.negSucc b =>
+    match decEq a b with
+    | isTrue h => isTrue ⋯
+    | isFalse h => isFalse ⋯
+LogPiActual.lean:824:71: error: Tactic `decide` failed for proposition
+  reduced.hi = 2 * ∑ i ∈ range 400, (term i).hi + 1
+because its `Decidable` instance
+  reduced.hi.instDecidableEq (2 * ∑ i ∈ range 400, (term i).hi + 1)
+did not reduce to `isTrue` or `isFalse`.
+
+After unfolding the instances `Int.decEq` and `Int.instDecidableEq`, reduction got stuck at the `Decidable` instance
+  match reduced.hi, 2 * ∑ i ∈ range 400, (term i).hi + 1 with
+  | Int.ofNat a, Int.ofNat b =>
+    match decEq a b with
+    | isTrue h => isTrue ⋯
+    | isFalse h => isFalse ⋯
+  | Int.ofNat a, Int.negSucc a_1 => isFalse ⋯
+  | Int.negSucc a, Int.ofNat a_1 => isFalse ⋯
+  | Int.negSucc a, Int.negSucc b =>
+    match decEq a b with
+    | isTrue h => isTrue ⋯
+    | isFalse h => isFalse ⋯
+LogPiActual.lean:839:56: error: Type mismatch
+  mobiusSound
+has type
+  Encl uBox ((Real.pi / 2 - 1) / (Real.pi / 2 + 1))
+but is expected to have type
+  Encl (t 0) ((Real.pi / 2 - 1) / (Real.pi / 2 + 1))
+'CRALP.LogPiActual.halfCheck' depends on axioms: [propext]
+'CRALP.LogPiActual.mobiusCheck' depends on axioms: [propext]
+'CRALP.LogPiActual.squareCheck' depends on axioms: [propext]
+'CRALP.LogPiActual.guardCheck' depends on axioms: [propext]
+'CRALP.LogPiActual.allSteps' depends on axioms: [propext, sorryAx]
+'CRALP.LogPiActual.lowerSum' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'CRALP.LogPiActual.upperSum' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'CRALP.LogPiActual.assemblyCheck' does not depend on any axioms
+'CRALP.LogPiActual.halfSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.LogPiActual.mobiusSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.LogPiActual.squareSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.LogPiActual.reducedSound' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'CRALP.LogPiActual.actual' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+
+real	0m5.011s
+user	0m3.398s
+sys	0m1.856s
