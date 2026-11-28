@@ -42,8 +42,7 @@ theorem atanTerm (p q i : ℕ) :
     (atanNum p i : ℝ)/(atanDen q i : ℝ) =
       (-1:ℝ)^i*((p:ℝ)/q)^(2*i+1)/(2*i+1 : ℕ) := by
   simp only [atanNum,atanDen,Int.cast_mul,Int.cast_pow,Int.cast_neg,Int.cast_one,
-    Int.cast_natCast,Nat.cast_mul,Nat.cast_pow,div_pow,mul_div_assoc,div_div]
-  ring
+    Int.cast_natCast,Nat.cast_mul,Nat.cast_pow,div_pow,mul_div_assoc,div_div] <;> ring
 
 theorem expTerm (p q i : ℕ) :
     (expNum p i : ℝ)/(expDen q i : ℝ) =
