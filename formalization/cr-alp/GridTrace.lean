@@ -10,7 +10,7 @@ structure Grid where
   hi : ℤ
   deriving DecidableEq
 
-def val (z : ℤ) : ℝ := (z:ℝ)/logScale
+noncomputable def val (z : ℤ) : ℝ := (z:ℝ)/logScale
 def Encl (a : Grid) (x : ℝ) : Prop := Contains (val a.lo) (val a.hi) x
 
 theorem scalePos : 0 < logScale := by unfold logScale; decide
@@ -177,6 +177,9 @@ theorem logPolynomialTrace {u : ℝ} (v : Grid) (t term : ℕ → Grid)
   unfold ElementarySeries.logPoly val at *
   push_cast
   rw [Finset.sum_div,Finset.sum_div]
+  have hden (i : ℕ) : ((2*i+1 : ℕ) : ℝ) = 2*(i : ℝ)+1 := by
+    simp only [Nat.cast_add, Nat.cast_mul, Nat.cast_ofNat, Nat.cast_one]
+  simp only [hden] at hl hu
   exact ⟨mul_le_mul_of_nonneg_left hl (by norm_num),mul_le_mul_of_nonneg_left hu (by norm_num)⟩
 
 theorem logTrace {x : ℝ} (v : Grid) (t term : ℕ → Grid) (out : Grid)
