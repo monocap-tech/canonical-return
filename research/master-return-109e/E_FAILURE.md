@@ -1,0 +1,10 @@
+# RETURN109-E terminal dependency failure
+Run 46087028424 / job 140798880456 completed failure at weil-lab@37a6b04dada636db1db3c5bfee718240be7d5017. Authenticated 283-module source closure, pinned dependencies and cache passed; actual local count compiled; accepted D rebuilt. Single required target failed: V10B5d.lean line 77, angular_vertical_deriv, complex module instance mismatch under HasDerivAt.const_add (HasDerivAt.mul_const (hasDerivAt_id ...) ...). Dependent declarations contain sorryAx. New E module's strict audit not reached; no E admission. Complete decoded log research/master-return-109e/run-46087028424-job-140798880456.log, blob 496b04c34f2ddae48654d1cd7d19ae141ff6b087, 548160 characters. Provenance:
+2026-11-28T00:17:05.2817976Z Authenticated closure: 283 modules; 52 overlay modules
+2026-11-28T00:17:05.2825544Z RETURN109-E source SHA256: 9dd1c3c0b82098416c87d17f9b98b8966da2b60c41e857711d091b8cb29d649d
+2026-11-28T00:17:58.6340378Z info: mathlib: checking out revision '5ed2965256430c3649e86755f9576b54eca72435'
+2026-11-28T00:21:35.4676900Z ⚠ [9024/9138] Built WeilDefect.External.Zeta23.Theorems.Thm_Zeta23_RvM_zeta_local_zero_count (3.0s)
+2026-11-28T00:24:26.5259262Z error: WeilDefect/MasterRecon/V10B5d.lean:77:4: Type mismatch: After simplification, term
+2026-11-28T00:31:57.5699345Z SHA256 digest of uploaded artifact zip is 9fa21293c947b4cc8d00ca990abeba4b2f32c60c540bfabfa45ab628c4f8c359
+2026-11-28T00:31:57.9694223Z Artifact return109e-integration.zip successfully finalized. Artifact ID 15240480436
+The original RECON source is immutable at d3067677cad7a0a583ef14b5466018dfad5f0afe, blob 1a71cd96715ae2594b66b9e33745e81ba88c89c8. One scoped statement-preserving repair of the proof in RETURN's deterministic compiler overlay is eligible under revised hold 602d3df44ceb36e374ec91ae0e48cd8450796a71; no supplier branch changes, no assertion of native success until audit. If exact same diagnostic recurs, stop that repair path and record blocker. Artifact receipt only, no ZIP possession or independent rebuild asserted. Accepted native head D, 101 targets. Neutral exclusion remains open.
