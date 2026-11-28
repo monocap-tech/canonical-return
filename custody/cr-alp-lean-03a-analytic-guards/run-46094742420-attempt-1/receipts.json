@@ -1,0 +1,180 @@
+{
+  "status": "NATIVE_ANALYTIC_GUARD_RECEIVERS_PASS",
+  "source_head": "72fb3f31ede8c42772e96660092b2b548303a7a5",
+  "modules": {
+    "AnalyticGuards": {
+      "status": "PASS",
+      "expected": 25,
+      "declarations": {
+        "CRALP.AnalyticGuard.ratio_lt_unit": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.log_400_remainder": [
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.log_400_remainder_real": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.atan_400_remainder": [
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.atan_400_remainder_real": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.sincos_400_remainder": [
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.sincos_400_remainder_real": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.exp_400_remainder": [
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.exp_400_remainder_real": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.digamma_EM_512": [
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.digamma_EM_512_real": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.trigamma_EM_512": [
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.trigamma_EM_512_real": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.digamma_EM_768": [
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.digamma_EM_768_real": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.trigamma_EM_768": [
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.trigamma_EM_768_real": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.reflected_resolvent_K256_remainder": [
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.reflected_resolvent_K256_remainder_real": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.exp_minus_a_lt_2_over_5": [
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.exp_half_a_gt_17_over_10": [
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.exp_half_a_lt_7_over_4": [
+          "propext"
+        ],
+        "CRALP.AnalyticGuard.anchor_cosh_bound": [],
+        "CRALP.AnalyticGuard.anchor_sinh_bound": [],
+        "CRALP.AnalyticGuard.reflected_factor_uniform_bound": []
+      },
+      "issues": []
+    },
+    "DirectedInterval": {
+      "status": "PASS",
+      "expected": 14,
+      "declarations": {
+        "CRALP.DirectedInterval.widen": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedInterval.add": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedInterval.neg": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedInterval.sub": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedInterval.scaleCorners": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedInterval.mulCorners": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedInterval.reciprocalPositive": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedInterval.divCornersPositive": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedInterval.divCornersNegative": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedInterval.squarePositive": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedInterval.squareNegative": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedInterval.squareCrossZero": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedInterval.sqrtRounded": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedInterval.scaledRatio": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": []
+    }
+  },
+  "scope": "15 original exact cross-product guards, nine real remainder budget receivers and generic directed interval semantics. Analytic series identities, actual rounding traces, special-function evaluation, physical matrix attachment and infinite-dimensional estimates remain separate."
+}
