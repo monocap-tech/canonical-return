@@ -1,0 +1,52 @@
+{
+  "base_run": 46090300703,
+  "base_count": 283,
+  "IV": "f2e8ec89ae4bf8687a652b299b730d6d1baa43f7",
+  "RECON": "d3067677cad7a0a583ef14b5466018dfad5f0afe",
+  "added": {
+    "WeilDefect/Arithmetic/ActualZetaFullGraphRawDivisorQuadratic.lean": {
+      "blob": "5070335202dfdb22de66f01b254571c80e24c7dd",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaSourceQuadraticClosure",
+        "WeilDefect.Arithmetic.ActualZetaSmoothLiteralFormulaAutomatic"
+      ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaSmoothCorrelationRegularity.lean": {
+      "blob": "7e93794c922a3275a2d17347556ac7af438c1396",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaSmoothLiteralFormulaAutomatic",
+        "Mathlib.Analysis.Calculus.ContDiff.Convolution"
+      ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaIV071GammaFinitePrelude.lean": {
+      "blob": "d472080290f2da95575f28df1e17050eb6bfbc19",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaOriginalCollarGammaLower",
+        "Mathlib.Tactic"
+      ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaIV085OriginalPrimeFiniteGate.lean": {
+      "blob": "e75aeb9043f65a7d3f1762f48881bfa4cbecf553",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaIV080GammaLinearEnvelopeGate",
+        "Mathlib.Tactic"
+      ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaSourceQuadraticClosure.lean": {
+      "blob": "8d0528f0c30a0cf51a3b88c6205ba2bcf676b05e",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaSelectedBackground"
+      ]
+    }
+  },
+  "pending": [
+    "WeilDefect/Arithmetic/ActualZetaSmoothLiteralFormulaAutomatic.lean",
+    "WeilDefect/Arithmetic/ActualZetaOriginalCollarGammaLower.lean",
+    "WeilDefect/Arithmetic/ActualZetaIV080GammaLinearEnvelopeGate.lean"
+  ],
+  "external": [
+    "Mathlib.Analysis.Calculus.ContDiff.Convolution",
+    "Mathlib.Tactic"
+  ],
+  "status": "partial recursive IV expansion; raw import lines; full lexical verification required"
+}
