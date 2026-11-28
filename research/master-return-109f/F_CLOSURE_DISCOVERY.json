@@ -175,17 +175,55 @@
       "imports": [
         "WeilDefect.Morphology.NeutralLogMultiplierSourceAttachment"
       ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaGreenGraphClosure.lean": {
+      "blob": "0390929f1294b522f82b552ecb7fa0d9ba76f909",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaNativeFormOperator"
+      ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaNativeFormOperator.lean": {
+      "blob": "93beff3a82207f44fd5a431987c39f1aeb7e0092",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaCanonicalNativeEnergy",
+        "WeilDefect.Arithmetic.ActualZetaHilbertSourceGraph"
+      ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaCanonicalNativeEnergy.lean": {
+      "blob": "bda93aa61bc6580197649833f30394aae943d910",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaNativeLogBounds",
+        "WeilDefect.Arithmetic.ActualZetaNativeWeilForm",
+        "WeilDefect.Morphology.NeutralLogBackgroundEnergy"
+      ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaHilbertSourceGraph.lean": {
+      "blob": "595316a5c06f79746a8ac838cef1463d029fc3df",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaSelectedBackground",
+        "Mathlib.Analysis.InnerProductSpace.ProdL2",
+        "Mathlib.Analysis.InnerProductSpace.l2Space"
+      ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaNativeLogBounds.lean": {
+      "blob": "f8728d020bff9d0427ae6e4969da355f37182224",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaArchimedeanTransport",
+        "WeilDefect.External.Zeta23.Theorems.Thm_Zeta23_StirlingVert_digamma_stirling"
+      ]
     }
   },
   "pending": [
-    "WeilDefect/Arithmetic/ActualZetaGreenGraphClosure.lean"
+    "WeilDefect/Morphology/NeutralLogBackgroundEnergy.lean"
   ],
   "external": [
     "Mathlib",
     "Mathlib.Analysis.Calculus.ContDiff.Convolution",
     "Mathlib.Analysis.Complex.ExponentialBounds",
     "Mathlib.Analysis.InnerProductSpace.Adjoint",
+    "Mathlib.Analysis.InnerProductSpace.ProdL2",
     "Mathlib.Analysis.InnerProductSpace.StarOrder",
+    "Mathlib.Analysis.InnerProductSpace.l2Space",
     "Mathlib.Analysis.Normed.Operator.Banach",
     "Mathlib.Analysis.Normed.Operator.Extend",
     "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
