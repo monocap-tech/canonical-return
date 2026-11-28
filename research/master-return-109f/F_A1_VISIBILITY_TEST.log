@@ -1,0 +1,3 @@
+PASS bounded diagnostic visibility and fail-closed receipt: build
+PASS bounded diagnostic visibility and fail-closed receipt: audit
+2/2 PASS
