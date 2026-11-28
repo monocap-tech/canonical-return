@@ -56,7 +56,10 @@ theorem logReduced (u : ℝ) (hu : |u| ≤ 7/20) :
   have hbase : |1/2 * Real.log ((1+u)/(1-u)) -
       ∑ i ∈ range 400, u^(2*i+1)/(2*i+1 : ℕ)| ≤
       |u|^801 / (1-u^2) := by
-    simpa only [Nat.cast_add, Nat.cast_mul, Nat.cast_ofNat] using h
+    have hden (i : ℕ) : ((2*i+1 : ℕ) : ℝ) = 2*(i : ℝ)+1 := by
+      simp only [Nat.cast_add, Nat.cast_mul, Nat.cast_ofNat, Nat.cast_one]
+    rw [show (2*400+1 : ℕ) = 801 by decide] at h
+    simpa only [hden] using h
   calc
     _ ≤ 2 * (2*(7/20 : ℝ)^801) :=
       mul_le_mul_of_nonneg_left (hbase.trans hb) (by norm_num)
