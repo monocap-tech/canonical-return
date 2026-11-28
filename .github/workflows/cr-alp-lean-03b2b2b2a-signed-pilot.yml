@@ -1,4 +1,4 @@
-name: CR-ALP LEAN-03B2B2B2A signed series pilot
+name: CR-ALP LEAN-03B2B2B2A-R1 grid namespace repair
 on:
   push:
     branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
@@ -66,10 +66,15 @@ jobs:
             test "$(git hash-object custody/cr-alp-lean-03b2b2a-prime-logs/run-46100522620-attempt-1/PrimeLog5.lean)" = 7cc1e95aa7f56a8e4b367cdd4c3d8fb1ecae1806
             test "$(git hash-object custody/cr-alp-lean-03b2b2a-prime-logs/run-46100522620-attempt-1/PrimeLog7.lean)" = 822a6b6e66495164146b5ed0555c78589386f666
             test "$(git hash-object custody/cr-alp-lean-03b2b2a-prime-logs/run-46100522620-attempt-1/PrimeLog9.lean)" = b1ae5cc9f26bb8eb7c5057b59b30623e4bd16b38
-            test "$(git hash-object formalization/cr-alp/SignedGridSeries.lean)" = d6f6ac77ccb34e225c8e8706765187c328d83b08
+            test "$(git hash-object formalization/cr-alp/SignedGridSeries.lean)" = fb10b236e1271948f2e7409b0ec045aa0541ba0d
             test "$(git hash-object formalization/cr-alp/generate_signed_pilot.py)" = 7a6a2bf6600842eb64d5db26fb922b6ba4c16ef7
             test "$(git hash-object formalization/cr-alp/redteam_signed_pilot.js)" = 4ab25254d6de629ab59b70b373f7a3c2fbc4b631
             test "$(git hash-object formalization/cr-alp/LEAN-03B2B2B2A_REDTEAM.md)" = 0b5cfb8b92775207e43bab8be03251212628b1b7
+            test "$(git hash-object custody/cr-alp-lean-03b2b2b2a-signed-pilot/run-46105441217-attempt-1/receipts.json)" = ea5b8c964a51446ef10d597b68c47b256518a2e3
+            test "$(git hash-object custody/cr-alp-lean-03b2b2b2a-signed-pilot/run-46105441217-attempt-1/SignedGridSeries.log)" = ac2a2abf4c82c7c36139cfa91ba80a67fcd05466
+            test "$(git hash-object custody/cr-alp-lean-03b2b2b2a-signed-pilot/run-46105441217-attempt-1/signed-pilot.json)" = 976d53b498cc827aebdc91e218a7a9785c41e248
+            test "$(git hash-object custody/cr-alp-lean-03b2b2b2a-signed-pilot/run-46105441217-attempt-1/SignedPilot.lean)" = 904ae5133ccfc79804443c81f99fda8e57df9a7e
+            test "$(git hash-object formalization/cr-alp/LEAN-03B2B2B2A-R1_REDTEAM.md)" = 152c170926c8992d1bc4f44ee2d15631174c750a
             python3 - <<'PY'
           import json
           from pathlib import Path
@@ -99,6 +104,10 @@ jobs:
           node --check formalization/cr-alp/redteam_signed_pilot.js
           python3 formalization/cr-alp/generate_signed_pilot.py src/audits/cr_alp_046_full_finite.py "$P/" custody/cr-alp-lean-03b2b1-constant-traces/run-46099447047-attempt-1/constant-traces.json custody/cr-alp-lean-03b2b2a-prime-logs/run-46100522620-attempt-1/prime-log-traces.json | tee "$E/trace-generation.log"
           node formalization/cr-alp/redteam_signed_pilot.js custody/cr-alp-lean-03b2b1-constant-traces/run-46099447047-attempt-1/constant-traces.json custody/cr-alp-lean-03b2b2a-prime-logs/run-46100522620-attempt-1/prime-log-traces.json "$P/signed-pilot.json" > "$E/redteam-replay.json"
+          cmp "$P/signed-pilot.json" custody/cr-alp-lean-03b2b2b2a-signed-pilot/run-46105441217-attempt-1/signed-pilot.json
+          cmp "$P/SignedPilot.lean" custody/cr-alp-lean-03b2b2b2a-signed-pilot/run-46105441217-attempt-1/SignedPilot.lean
+          cp formalization/cr-alp/LEAN-03B2B2B2A-R1_REDTEAM.md "$E/"
+          echo 'R0 literal numerical trace and generated pilot source identity PASS' | tee "$E/identity.log"
           cp "$P/signed-pilot.json" "$E/"
           cp "$P/"*.lean "$E/"
           python3 - "$P" <<'PY'
