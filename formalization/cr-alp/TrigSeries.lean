@@ -70,7 +70,6 @@ theorem sinReduced (x : ℝ) (hx : |x| ≤ 4) :
   by_cases hz : x=0
   · subst x
     simp [sinPoly,trigUnit]
-    positivity
   · have h := taylor800 Real.sin Real.contDiff_sin (Real.abs_iteratedDeriv_sin_le_one 800) x hz
     rw [show (800:ℕ)=2*400 by decide,sinPoly_eq] at h
     exact lt_of_le_of_lt (h.trans (by gcongr)) trigGuard
