@@ -86,12 +86,27 @@ theorem literalArch_pairing (a : ℝ) (g : V08I.logCarrier a)
     ‖(g : V08I.FullL2) u‖^2 at he
   change gammaOperator K h (g : V08I.FullL2) u =
     gammaRatio u * (g : V08I.FullL2) u at hm
-  rw [hm, RCLike.inner_apply', Complex.conj_mul']
-  rw [gammaRatio, ← mul_assoc (conj ((g : V08I.FullL2) u)) _ _]
-  rw [mul_comm (conj ((g : V08I.FullL2) u)) _, mul_assoc,
-    Complex.conj_mul', ← he]
-  push_cast
-  field_simp [(V08I.logWeight_pos u).ne']
+  let F : ℂ := (𝓕 (V08I.physicalInclusion a g) : V08I.FullL2) u
+  let z : ℂ := (g : V08I.FullL2) u
+  let G : ℝ := Zeta23.EF.gammaBracket (2 * Real.pi * u)
+  let w : ℝ := V08I.logWeight u
+  have hw : w ≠ 0 := (V08I.logWeight_pos u).ne'
+  have henergy : w * ‖F‖^2 = ‖z‖^2 := he
+  have hreal : G * ‖F‖^2 = (G / w) * ‖z‖^2 := by
+    rw [← henergy]
+    field_simp [hw] <;> ring
+  have hF : conj F * F = ((‖F‖^2 : ℝ) : ℂ) := by
+    rw [Complex.conj_mul'] <;> push_cast
+  have hz : conj z * z = ((‖z‖^2 : ℝ) : ℂ) := by
+    rw [Complex.conj_mul']
+    push_cast
+  rw [hm, RCLike.inner_apply']
+  change (G : ℂ) * (conj F * F) = conj z * ((↑(G / w) : ℂ) * z)
+  calc
+    _ = (G : ℂ) * ((‖F‖^2 : ℝ) : ℂ) := by rw [hF]
+    _ = ((G / w : ℝ) : ℂ) * ((‖z‖^2 : ℝ) : ℂ) := by
+      exact_mod_cast hreal
+    _ = conj z * (((G / w : ℝ) : ℂ) * z) := by rw [← hz]; ring
 
 theorem literalArch_continuous (a : ℝ) : Continuous (literalArch a) := by
   obtain ⟨K,hK,h⟩ := gamma_logWeight_bound
