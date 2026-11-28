@@ -1,0 +1,108 @@
+name: CR-ALP-070 original correction custody
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/cr-alp-070-source.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reconstruct frozen source and original correction
+        run: |
+          mkdir -p /tmp/cr-alp070
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/cr-alp070/package.zip
+          python3 -m zipfile -e /tmp/cr-alp070/package.zip /tmp/cr-alp070
+          cd /tmp/cr-alp070
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib,re
+          root=Path.cwd().resolve()
+          for stage in ('cr_alp_056','cr_alp_057','cr_alp_058'):
+              manifest=root/stage/'SHA256SUMS'
+              count=0
+              for line in manifest.read_text().splitlines():
+                  if not line.strip(): continue
+                  m=re.fullmatch(r'([0-9a-fA-F]{64}) [ *](.+)',line)
+                  assert m,line
+                  expected,name=m.groups()
+                  p=Path(name)
+                  assert not p.is_absolute() and '..' not in p.parts,name
+                  candidates={q.resolve() for q in (root/p,root/stage/p) if q.is_file()}
+                  assert len(candidates)==1,(stage,name,candidates)
+                  target=candidates.pop()
+                  assert target.is_relative_to(root),target
+                  assert hashlib.sha256(target.read_bytes()).hexdigest()==expected.lower(),target
+                  print(f'{stage}: {target.relative_to(root)}: OK')
+                  count+=1
+              assert count>0,stage
+              print(f'PASS {stage} manifest: {count} entries')
+          PY
+          python3 cr_alp_056/check_saved.py _extended
+          python3 cr_alp_058/check_saved.py
+          echo 'BEGIN archived files'
+          find cr_alp_057 cr_alp_058 -maxdepth 1 -type f | sort
+          echo 'END archived files'
+          for f in cr_alp_057/assemble.py cr_alp_058/prepare.py cr_alp_058/prepare_result.json; do
+            echo "BEGIN $f"; cat "$f"; echo "END $f"
+          done
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib
+          p=Path('cr_alp_058/input_2.txt')
+          raw=p.read_bytes()
+          print('input_2.txt SHA256',hashlib.sha256(raw).hexdigest())
+          it=iter(raw.decode().split())
+          assert next(it)=='2'
+          f=[next(it),next(it)];db=[next(it),next(it)]
+          n=int(next(it));assert n==425
+          print('BEGIN original_trial_input')
+          print('2')
+          print(*db)
+          print(n)
+          for i in range(n):
+              j=next(it);sl,sh,tl,th=(next(it) for _ in range(4))
+              assert int(j)==2*(i+1)
+              print(j,tl,th)
+          print('END original_trial_input')
+          # The archived input is a contracted midpoint, not the exact X interval.
+          from fractions import Fraction as F
+          import json
+          def load_checked(path,sha):
+              raw=Path(path).read_bytes()
+              assert hashlib.sha256(raw).hexdigest()==sha,path
+              return json.loads(raw)
+          t=load_checked('cr_alp_057/trial.json','6576fb333c7b2fdec6a4c236d70b3257b4bdedcb9208ae77a10e3e1931f512b0')
+          w=load_checked('cr_alp_056/result_extended_2.json','4017c7a656e43fe9fa97da91c37f35a9eda5a78dd3efaa2863b40de71177ac36')
+          S=int(t['scale']);assert S==10**100
+          z=w['comparison_witness']['z'];assert 0<F(sum(v*v for v in z),10**24)<F(1000001,1000000)
+          t=t['sectors']['2'];assert t['ids']==list(range(2,851,2))
+          def contract(row):
+              assert len(row)==len(z)
+              lo=hi=mid=0
+              for (l,h),v in zip(row,z):
+                  l,h=int(l),int(h);assert l<=h
+                  a,b=l*v,h*v
+                  lo+=min(a,b);hi+=max(a,b);mid+=((l+h)//2)*v
+              return F(lo,S*10**12),F(hi,S*10**12),F(mid,S*10**12)
+          def check_mid(pair,row):
+              l,h,m=contract(row)
+              assert l<=m<=h and F(pair[0])<=m<=F(pair[1])
+              return l,h
+          it=iter(raw.decode().split());assert next(it)=='2';next(it);next(it)
+          db=check_mid([next(it),next(it)],t['Db'][0]);assert next(it)=='425'
+          exact=[]
+          for j,row in zip(t['ids'],t['D']):
+              assert int(next(it))==j
+              next(it);next(it)
+              l,h=check_mid([next(it),next(it)],row)
+              exact.append(f'{j} {l} {h}')
+          print('PASS exact interval contraction and all 426 archived midpoint matches')
+          print('BEGIN original_exact_trial')
+          print('2');print(*db);print(425);print('\n'.join(exact))
+          print('END original_exact_trial')
+          PY

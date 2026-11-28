@@ -1,0 +1,97 @@
+name: CR-ALP-063 global fourth moment
+on:
+  pull_request:
+    paths:
+      - 'src/audits/cr_alp_063/**'
+      - '.github/workflows/cr-alp-063.yml'
+  push:
+    branches:
+      - 'research/cr-alp-001-ramp-gram-dictionary'
+    paths:
+      - '.github/workflows/cr-alp-063.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        sector: [1, 2]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install arithmetic libraries
+        run: sudo apt-get update && sudo apt-get install -y libgmp-dev libmpfr-dev
+      - name: Reconstruct and check frozen archive
+        run: |
+          mkdir -p /tmp/cr-alp063
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/cr-alp063/package.zip
+          python3 -m zipfile -e /tmp/cr-alp063/package.zip /tmp/cr-alp063
+          cd /tmp/cr-alp063/cr_alp_058
+          sha256sum -c SHA256SUMS
+          python3 validate_geometry.py
+          python3 check_saved.py
+      - name: Replay third moments and fourth-moment targets
+        run: |
+          set -e
+          A=src/audits
+          O=/tmp/cr-alp063/cr_alp_058/verification_result.json
+          N=$A/cr_alp_059/evidence/second_result.json
+          T=$A/cr_alp_061/evidence/third_result.json
+          C=$A/cr_alp_059/evidence/sharp_scalar_result.json
+          for k in 1 2; do
+            node "$A/cr_alp_061/independent_sector_replay.js" "$O" "$N" "$C" "$A/cr_alp_061/evidence/third_$k.log" "$k" "/tmp/cr-alp063/replay_$k.json"
+          done
+          node "$A/cr_alp_061/fourth_moment_feasibility.js" "$O" "$N" "$T" /tmp/cr-alp063/support.json
+          node "$A/cr_alp_061/fourth_moment_trials.js" "$O" "$N" "$T" /tmp/cr-alp063/targets.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('/tmp/cr-alp063')
+          e=Path('src/audits/cr_alp_061/evidence')
+          def load(x):return json.loads(x.read_text())
+          sharp=load(e/'sharp_four_moment_results.json')
+          for k in ('1','2'): assert load(p/f'replay_{k}.json')==sharp[k]
+          assert load(p/'support.json')==load(e/'fourth_moment_feasibility.json')
+          assert load(p/'targets.json')==load(e/'fourth_moment_trials.json')
+          print('PASS exact predecessor replay and fourth-moment targets')
+          PY
+      - name: Exact coalesced mesh and compile
+        run: |
+          python3 src/audits/cr_alp_059/mesh_second.py /tmp/cr-alp063
+          python3 src/audits/cr_alp_063/mesh_fourth.py /tmp/cr-alp063
+          g++ -O2 -std=gnu++17 -I/tmp/cr-alp063/cr_alp_058 src/audits/cr_alp_063/fourth.cpp -o /tmp/cr-alp063/fourth -lquadmath -l:libmpfr.so.6 -lgmp
+      - name: Global fourth physical integration
+        env:
+          K: ${{ matrix.sector }}
+        run: |
+          set -o pipefail
+          /tmp/cr-alp063/fourth "/tmp/cr-alp063/cr_alp_058/input_$K.txt" /tmp/cr-alp063/cr_alp_058/mesh.txt /tmp/cr-alp063/cr_alp_058/gauss.txt /tmp/cr-alp063/cr_alp_058/second_mesh.txt /tmp/cr-alp063/cr_alp_058/fourth_mesh.txt | tee "/tmp/cr-alp063/fourth_$K.log"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cr-alp063-sector-${{ matrix.sector }}
+          path: /tmp/cr-alp063/fourth_*.log
+          if-no-files-found: warn
+  endpoints:
+    needs: replay
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: cr-alp063-sector-*
+          merge-multiple: true
+          path: /tmp/cr-alp063
+      - name: Independent rational transport and inverse test
+        run: |
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/cr-alp063/package.zip
+          python3 -m zipfile -e /tmp/cr-alp063/package.zip /tmp/cr-alp063
+          python3 src/audits/cr_alp_063/check_fourth.py /tmp/cr-alp063 /tmp/cr-alp063 src/audits
+          cat /tmp/cr-alp063/fourth_result.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cr-alp063-endpoints
+          path: /tmp/cr-alp063/fourth_result.json

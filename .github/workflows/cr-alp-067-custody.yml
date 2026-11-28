@@ -1,0 +1,26 @@
+name: CR-ALP-067 recover weighted trial bank
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/cr-alp-067-custody.yml'
+permissions:
+  actions: read
+  contents: read
+jobs:
+  recover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - name: Recover original rational trial and diagonal without recomputation
+        run: |
+          mkdir -p /tmp/response-custody
+          gh run download 45620048012 --repo monocap-tech/canonical-return --name cr-alp067-weighted --dir /tmp/response-custody
+          cd /tmp/response-custody
+          sha256sum trial.txt diag.txt coeff.log response.log response_result.json
+          for f in trial.txt diag.txt; do
+            echo "BEGIN $f"
+            cat "$f"
+            echo "END $f"
+          done

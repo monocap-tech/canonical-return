@@ -1,0 +1,7 @@
+parity 1 finite margin 1/4 pivots 43 trial residual <1e-26; witness upper -0.42774289703918256 PASS
+parity 2 finite margin 1/8 pivots 42 trial residual <1e-26; witness upper -1.002702252867781 PASS
+degree 4 squared residual contraction 0.11399554344779729 correction penalty coefficient 0.447041346854107
+degree 8 squared residual contraction 0.0036533418965860515 correction penalty coefficient 0.014326830967004123
+degree 12 squared residual contraction 0.00011070648020933877 correction penalty coefficient 0.0004341430596444658
+degree 16 squared residual contraction 3.348950439756366e-06 correction penalty coefficient 1.313313897943673e-05
+PASS: saved matrix acceptance and exact Chebyshev constants; continuum entries not independently reconstructed

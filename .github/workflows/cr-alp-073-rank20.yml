@@ -1,0 +1,29 @@
+name: CR-ALP-073 rank-20 source selection
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/cr-alp-073-rank20.yml'
+      - 'src/audits/cr_alp_073_rank20_candidate.py'
+permissions:
+  contents: read
+jobs:
+  source-selection:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reassemble pinned archive and derive candidate
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp073
+          mkdir -p "$P"
+          python3 src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+          python3 -m zipfile -e "$P/package.zip" "$P"
+          python3 src/audits/cr_alp_073_rank20_candidate.py "$P" "$P/rank20.json"
+          sha256sum "$P/rank20.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CR-ALP-073-rank20-candidate
+          path: /tmp/cr-alp073/rank20.json
+          if-no-files-found: error
+          retention-days: 90

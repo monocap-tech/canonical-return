@@ -1,0 +1,127 @@
+name: CR-ALP-074 balanced physical residual receiver
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/cr-alp-074-physical.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  freeze:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate completed source preflight and independently regenerate bank
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp074
+          mkdir -p "$P/bank"
+          run=45722539906
+          gh api "repos/${{ github.repository }}/actions/runs/$run" > "$P/run.json"
+          jq -e '.conclusion=="success" and .head_sha=="6c549afd7f6921b2181a4005688c89dac68bc5f5"' "$P/run.json"
+          gh api "repos/${{ github.repository }}/actions/runs/$run/artifacts" > "$P/artifacts.json"
+          id=$(jq -er '[.artifacts[]|select(.name=="CR-ALP-074-balanced-source-bank" and .expired==false)]|if length==1 then .[0].id else error("artifact count") end' "$P/artifacts.json")
+          digest=$(jq -er --argjson id "$id" '.artifacts[]|select(.id==$id)|.digest|select(test("^sha256:[a-f0-9]{64}$"))|sub("^sha256:";"")' "$P/artifacts.json")
+          test "$id" = 15074051280
+          test "$digest" = fbf7c66ecdf4f900508c53c2ba499246f974b91b988fab1303c11474d1504980
+          gh api "repos/${{ github.repository }}/actions/artifacts/$id/zip" > "$P/bank.zip"
+          echo "$digest  $P/bank.zip" | sha256sum -c -
+          python3 -m zipfile -e "$P/bank.zip" "$P/bank"
+          (cd "$P/bank"; sha256sum -c SHA256SUMS)
+          python3 src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+          python3 -m zipfile -e "$P/package.zip" "$P"
+          (cd "$P/cr_alp_058"; sha256sum -c SHA256SUMS)
+          python3 src/audits/cr_alp_074_source_bank.py "$P" "$P/rebuilt"
+          for f in "$P"/rebuilt/*; do cmp "$f" "$P/bank/$(basename "$f")"; done
+          echo "PASS independent byte-for-byte regeneration of all selected sources"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CR-ALP-074-authenticated-bank
+          path: /tmp/cr-alp074/bank/
+          if-no-files-found: error
+          retention-days: 90
+  physical:
+    needs: freeze
+    strategy:
+      fail-fast: false
+      matrix:
+        parity: ['1','2']
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: CR-ALP-074-authenticated-bank
+          path: /tmp/cr-alp074/bank
+      - name: Authenticate original geometry and compile norm-only evaluator
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp074
+          (cd "$P/bank"; sha256sum -c SHA256SUMS)
+          python3 src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+          python3 -m zipfile -e "$P/package.zip" "$P"
+          (cd "$P/cr_alp_058"; sha256sum -c SHA256SUMS; python3 validate_geometry.py)
+          g++ -O2 -std=gnu++17 -I"$P/cr_alp_058" src/audits/cr_alp_074_norm.cpp -o "$P/norm" -lquadmath -l:libmpfr.so.6 -lgmp
+      - name: Validate each actual source and integrate projected physical norms
+        env:
+          PARITY: ${{ matrix.parity }}
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp074
+          mkdir -p "$P/logs"
+          cp -a "$P/cr_alp_058" "$P/check"
+          count=0
+          for f in "$P"/bank/input_"${PARITY}"_*.txt; do
+            tag=$(basename "$f" .txt | sed 's/^input_//')
+            cp "$f" "$P/check/input_${PARITY}.txt"
+            python3 "$P/check/validate_geometry.py"
+            "$P/norm" "$f" "$P/cr_alp_058/mesh.txt" "$P/cr_alp_058/gauss.txt" > "$P/logs/norm_${tag}.log" 2> "$P/logs/radius_${tag}.txt"
+            cat "$P/logs/radius_${tag}.txt" "$P/logs/norm_${tag}.log"
+            count=$((count+1))
+          done
+          test "$count" -eq 10
+          (cd "$P/logs"; sha256sum norm_*.log radius_*.txt > SHA256SUMS.${PARITY}; cat SHA256SUMS.${PARITY})
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-074-norms-${{ matrix.parity }}
+          path: /tmp/cr-alp074/logs/
+          if-no-files-found: error
+          retention-days: 90
+  receive:
+    needs: [freeze,physical]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: CR-ALP-074-authenticated-bank
+          path: /tmp/cr-alp074/bank
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: CR-ALP-074-norms-*
+          path: /tmp/cr-alp074/logs
+          merge-multiple: true
+      - name: Exact aggregate receiving comparison
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp074
+          (cd "$P/logs"; sha256sum -c SHA256SUMS.1; sha256sum -c SHA256SUMS.2)
+          python3 src/audits/cr_alp_074_norm_receiver.py "$P/bank" "$P/logs" "$P/result.json"
+          python3 src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+          python3 -m zipfile -e "$P/package.zip" "$P"
+          python3 src/audits/cr_alp_074_full_energy_receiver.py --selftest
+          python3 src/audits/cr_alp_074_full_energy_receiver.py "$P" "$P/result.json" "$P/full_energy_result.json"
+          sha256sum "$P/result.json" "$P/full_energy_result.json"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CR-ALP-074-physical-receiver-result
+          path: |
+            /tmp/cr-alp074/result.json
+            /tmp/cr-alp074/full_energy_result.json
+          if-no-files-found: error
+          retention-days: 90

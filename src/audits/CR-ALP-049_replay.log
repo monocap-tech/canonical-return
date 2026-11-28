@@ -1,0 +1,7 @@
+finite trial margin 1/4 verified: 1 43 pivots
+extended 1 frozen rational witness upper: -4.441650539317954 PASS
+projected 1 frozen rational witness upper: -3.205209193370674 PASS
+finite trial margin 1/4 verified: 2 42 pivots
+extended 2 frozen rational witness upper: -4.111575746627835 PASS
+projected 2 frozen rational witness upper: -2.974708762284958 PASS
+PASS: saved interval matrices, no reconstruction of analytic inputs

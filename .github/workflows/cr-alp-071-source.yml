@@ -1,0 +1,31 @@
+name: CR-ALP-071 two-column source bank
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/cr-alp-071-source.yml'
+      - 'src/audits/cr_alp_071_source_bank.py'
+permissions:
+  contents: read
+jobs:
+  source-bank:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate archive and construct source bank
+        run: |
+          set -euo pipefail
+          mkdir -p /tmp/cr-alp071
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/cr-alp071/package.zip
+          python3 -m zipfile -e /tmp/cr-alp071/package.zip /tmp/cr-alp071
+          python3 src/audits/cr_alp_071_source_bank.py /tmp/cr-alp071 /tmp/cr-alp071/output
+          cd /tmp/cr-alp071/output
+          sha256sum bank.json input_2_*.txt > SHA256SUMS
+          sha256sum -c SHA256SUMS
+          cat SHA256SUMS
+      - uses: actions/upload-artifact@v4
+        with:
+          name: CR-ALP-071-source-bank
+          path: /tmp/cr-alp071/output/
+          if-no-files-found: error
+          retention-days: 90

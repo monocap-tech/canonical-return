@@ -1,0 +1,45 @@
+{
+  "stage": "CR-ALP-040",
+  "status": "EXACT INTEGER SYLVESTER + SPECTRAL INTERVAL CERTIFICATE PASS on genuine original signed E14",
+  "theorem_conditional_on_classical_analytic_premises": "W_original(f,f) > (1/10^14) ||f||_L2^2 for all nonzero f in E14 (original physical pole null basis)",
+  "gamma_lower": "First 30000 individually evaluated positive Gamma kernels + 11689 Jensen midpoint groups over [30000,10000000), remaining PSD kernels omitted on lower side",
+  "matrix_interval_scale": "1/10^25",
+  "method": "Exact midpoint Sylvester minors (fraction-free Bareiss) with full row-sum norm error budget, avoiding interval LDL dependency blowup",
+  "input_sha256": "6f8517df1a00d46eac0b26496f220294b7b82f3571fe600bf6e3ae520092b7a9",
+  "gamma_matrix_sha256": "7434859d33c9b950b969474c0702c967d88df756b2291ab0b63290f1f5745b8c",
+  "blocks": [
+    {
+      "indices": [
+        3,
+        5,
+        7,
+        9,
+        11,
+        13,
+        1
+      ],
+      "positive_centered_principal_minors": 7,
+      "max_row_uncertainty": "58971691800000000000007/2000000000000000000000000000000000000000",
+      "theta": "1/10000000000000000",
+      "lower_physical_shift": "1/100000000000000",
+      "determinants_sha256": "ea59c9c0dda73aa2a3fa0d1de25d21c90882bff3e923cbf76873f9afb02fa924"
+    },
+    {
+      "indices": [
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        2
+      ],
+      "positive_centered_principal_minors": 7,
+      "max_row_uncertainty": "94727432600000000000007/2000000000000000000000000000000000000000",
+      "theta": "1/10000000000000000",
+      "lower_physical_shift": "1/100000000000000",
+      "determinants_sha256": "66034793f135eb849ef956d281c2c90fd60ae38008b2fa93c7a4f20618f1fc43"
+    }
+  ],
+  "not_claimed": "Full 14-mode plus Q15000 mixed Schur, 14-to-15000 shell, whole fixed collar, Lean, RH"
+}

@@ -1,0 +1,89 @@
+{
+  "stage": "CR-ALP-039",
+  "status": "OUTWARD INTEGER EXACT ARITHMETIC PASS on ORIGINAL signed E12 + Q15000 mixed Schur",
+  "conditional_theorem": "W(p+q,p+q) > 1e-12||p||_L2^2 + 1/8||q||_L2^2 for all nonzero p in E12 and q in Q15000(H0) intersect original log form domain",
+  "source": "Original Zeta23.EF.literatureRHS on a=11/10; 2 true Mellin pole nulls, 7 negative prime powers, complete digamma",
+  "certification": "Classical continuum source identities NOT Lean; exact Fraction plus 10^-25 outward-integer LDL",
+  "Gamma_anchor_method": "exact pole cancellation of centered (log(j/N))/j and O(j^-2) entire Gamma remainder",
+  "prime_anchor_method": "paired shifts integration by parts: pole-aligned constant 1/j removed, oscillatory cos(nu_j log n)/j retained",
+  "shifted_interval_matrix_sha256": "a631f3cc7b99e47e4749a7931cd1307af336b5e20fe28b28946aa819ba56af77",
+  "Hmid_sha256": "b6a31e623298272fdceac788fc56626ec704e280903ff6baff1dc8bfe0d45f92",
+  "rational_source_sha256": "bcb6017b9358343dc16fb97cf61c1c340592444d124a0e2e466296d9703f53a2",
+  "anchors": [
+    {
+      "k": 1,
+      "parity": "odd_j_even_function",
+      "gamma_upper": "3/5",
+      "B0": "6/5",
+      "B1": "3/10",
+      "gamma_target": "1/170",
+      "prime_target": "1/30",
+      "joint_target": "1/25",
+      "gamma_exact_rational_upper": "827077884042091/141093750000000000",
+      "prime_exact_rational_upper": "1229520886432427129/42032812500000000000",
+      "combined_exact_rational_upper": "63464265811173552257/1807410937500000000000"
+    },
+    {
+      "k": 2,
+      "parity": "even_j_odd_function",
+      "gamma_upper": "5/3",
+      "B0": "3/5",
+      "B1": "3/5",
+      "gamma_target": "1/120",
+      "prime_target": "1/23",
+      "joint_target": "1/19",
+      "gamma_exact_rational_upper": "827059840167091/101587500000000000",
+      "prime_exact_rational_upper": "409863463886394383/10087875000000000000",
+      "combined_exact_rational_upper": "7051891488209479013/144592875000000000000"
+    }
+  ],
+  "blocks": [
+    {
+      "indices": [
+        3,
+        5,
+        7,
+        9,
+        11,
+        1
+      ],
+      "shifted_LDL_pivots_lower_1e25": [
+        "35130030468775997082569",
+        "347258170162777733893",
+        "22401443519452459110",
+        "30502666027707017283",
+        "7839492274217109422",
+        "71664015340934032282668"
+      ],
+      "alpha_upper_1e25": "13303408345009163704",
+      "beta_squared_upper_1e25": "62168104473",
+      "anchor_complete_original_signed_residual_bound": "1/25",
+      "shifted_physical_coercivity": "1/1000000000000",
+      "positive_pivots": 6
+    },
+    {
+      "indices": [
+        4,
+        6,
+        8,
+        10,
+        12,
+        2
+      ],
+      "shifted_LDL_pivots_lower_1e25": [
+        "14010067593961196973808",
+        "273399099233286262207",
+        "319890093117990607494",
+        "20032803263891287487617",
+        "50488885597104271099",
+        "49884032376053045649668"
+      ],
+      "alpha_upper_1e25": "13303408345009163704",
+      "beta_squared_upper_1e25": "99462019971",
+      "anchor_complete_original_signed_residual_bound": "1/19",
+      "shifted_physical_coercivity": "1/1000000000000",
+      "positive_pivots": 6
+    }
+  ],
+  "not_claimed": "intermediate signed modes 13..15000, full two-pole-null collar, other support radii, Lean formalization, Weil RH"
+}

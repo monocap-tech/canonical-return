@@ -1,0 +1,19 @@
+parity 1 rows 2000
+parity 1 rows 4000
+parity 1 rows 6000
+parity 1 rows 8000
+parity 1 rows 10000
+parity 1 rows 12000
+parity 1 rows 14000
+parity 1 band bound 9/50 min pivot 0.00827796733483193 radius 2.5990104018489688e-20
+parity 1 norms [0.07337449648239834, 0.08490834253055819, 0.01646477377639417] tail 30537/1000000 total 210537/1000000
+parity 2 rows 2000
+parity 2 rows 4000
+parity 2 rows 6000
+parity 2 rows 8000
+parity 2 rows 10000
+parity 2 rows 12000
+parity 2 rows 14000
+parity 2 band bound 4/25 min pivot 0.009001339288236498 radius 1.672433032996895e-21
+parity 2 norms [0.0694161428309797, 0.09278540022689911, 0.003250134170164737] tail 219/8000 total 1499/8000
+PASS E14 plus Q172 mixed certificate, conditional on analytical premises

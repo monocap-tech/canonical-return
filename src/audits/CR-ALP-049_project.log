@@ -1,0 +1,31 @@
+gamma floor 72/25 scalar remainder 51/200
+interval coefficients 20
+interval coefficients 40
+interval coefficients 60
+interval coefficients 80
+interval coefficients 100
+interval coefficients 120
+interval coefficients 140
+interval coefficients 160
+interval coefficients 180
+interval coefficients 200
+interval coefficients 220
+interval coefficients 240
+interval coefficients 260
+interval coefficients 280
+interval coefficients 300
+interval coefficients 320
+interval coefficients 340
+interval coefficients 360
+interval coefficients 380
+interval coefficients 400
+parity 1 energy congruence error 1.6545155741734186e-54
+parity 1 finite corrected energy margin 1/4 pivots 43 in-band fitted residual Gram upper 1.505e-97
+parity 1 exact projected band residual Gram row upper 1.573322759069304 corrected checked-band positive pivots 9
+parity 1 checked-band correction min eigenvalue diagnostic -3.205209193368506
+exact negative projected finite comparison witness -3.205209193370674
+parity 2 energy congruence error 1.7300163492455415e-54
+parity 2 finite corrected energy margin 1/4 pivots 42 in-band fitted residual Gram upper 1.459e-97
+parity 2 exact projected band residual Gram row upper 1.4737674885968683 corrected checked-band positive pivots 9
+parity 2 checked-band correction min eigenvalue diagnostic -2.974708762283172
+exact negative projected finite comparison witness -2.974708762284958

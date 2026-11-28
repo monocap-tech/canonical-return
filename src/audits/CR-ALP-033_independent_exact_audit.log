@@ -1,0 +1,6 @@
+UNRESOLVED/nonpositive LOWER interval pivot (3, 5, 7, 9, 11, 1) 4 -7.897175102056101e-07 -7.73721300019226e-07
+PASS: complete ORIGINAL signed odd 6-mode lower matrix > 1e-11 physical M
+PASS: previous even & odd five-mode 1e-11 lower certificates retained
+NOTE: even six-mode grouped lower matrix has a certified negative fifth pivot; THIS IS NOT NEGATIVE WEIL TEST
+PASS: two-sided refined Gamma remainder <= D/10^12 + T/1,700,000
+CR-ALP-033 INDEPENDENT EXACT FRACTION AUDIT: PARTIAL 11-DIMENSIONAL POSITIVITY PASS

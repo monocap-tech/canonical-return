@@ -1,0 +1,21 @@
+gamma floor 72/25 scalar remainder 51/200
+interval coefficients 20
+interval coefficients 40
+interval coefficients 60
+interval coefficients 80
+interval coefficients 100
+pair 89 95 ratio 0.5373493001210138 0.5373493001210138 energy 1.1999679153029435e-30
+actual q energy per norm 2.565156702921676 actual 2d normalized coupling 0.2094801068133501 actual two-dimensional positive True
+scalar 1/4 sufficient gate falsified? True
+multi-band parity 1 ratio 1.0597908217094756 actual q energy/norm 3.5960706075275746 actual coupling fraction 0.2947080125432018 actual determinant positive True
+complete finite mixed band 1 {'dimension': 52, 'positive_pivots': 52, 'all_positive': True, 'row_radius_units': '52', 'scale': '1e65'}
+structured witness 1 pair 0.22357994835933728 multi 0.3104630226442211
+structured finite band 1 {'dimension': 52, 'positive_pivots': 52, 'all_positive': True, 'row_radius_units': '52', 'scale': '1e65'}
+pair 86 92 ratio 0.1544556439753402 0.1544556439753402 energy 1.330326918002615e-25
+actual q energy per norm 3.8387679767447804 actual 2d normalized coupling 0.04023573315996982 actual two-dimensional positive True
+scalar 1/4 sufficient gate falsified? False
+multi-band parity 2 ratio 0.2795904622255611 actual q energy/norm 3.169447330203926 actual coupling fraction 0.08821426359136625 actual determinant positive True
+complete finite mixed band 2 {'dimension': 51, 'positive_pivots': 51, 'all_positive': True, 'row_radius_units': '51', 'scale': '1e65'}
+structured witness 2 pair 0.04163176784955782 multi 0.09378415291512207
+structured finite band 2 {'dimension': 51, 'positive_pivots': 51, 'all_positive': True, 'row_radius_units': '51', 'scale': '1e65'}
+PASS exact frozen witnesses and 103 finite pivots; no midpoint search in replay

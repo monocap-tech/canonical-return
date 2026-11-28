@@ -1,0 +1,13 @@
+Scheduled 30000 exact terms and 4219 monotone Loewner lower-tail groups through m=1999999
+Summed 5000 certified PSD Gamma kernels
+Summed 10000 certified PSD Gamma kernels
+Summed 15000 certified PSD Gamma kernels
+Summed 20000 certified PSD Gamma kernels
+Summed 25000 certified PSD Gamma kernels
+Summed 30000 certified PSD Gamma kernels
+even physical pivot 0 lower=35130042435318704255947 upper=35130042435318870736224
+even physical pivot 1 lower=347259546827749540324 upper=347259546830342392095
+even physical pivot 2 lower=22397135968414137525 upper=22397136288432834967
+even physical pivot 3 lower=29862442421133429427 upper=29862912875649471894
+even physical pivot 4 lower=-7897175101962523768 upper=-7737213000286070613
+CERTIFICATE FAIL: uncertified nonpositive LDL pivot

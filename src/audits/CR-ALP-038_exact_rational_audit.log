@@ -1,0 +1,18 @@
+PASS independent Fraction regressions: pole-null Gamma resolvent and paired-shift coefficient decomposition
+PASS odd [3,5,7,9,11]
+ rational vector: [(3, '1374421/2000000'), (5, '-841909/1250000'), (7, '2338391/10000000'), (9, '-188293/10000000'), (11, '-1257/625000')]
+ D interval: 0.001726711129543634 0.001726711129543634 (small = retained cancellation)
+ C0,C2,C3 upper: 1.753490415709142 74.20105624466264 580.9132361887279
+ Acoef,Bcoef: 0.007309371839924269 963.8036817296979
+ full infinite signed residual upper: 1.7938507435914582e-08
+ low W lower: 2.94280941780849e-12 4 residual squared upper: 1.287160196113451e-15
+ PASS quantitative mixed-tail Young lower >2.8e-12 on line coefficient, 1/8 on tail norm
+PASS even [4,6,8,10,12]
+ rational vector: [(4, '-1755467/2500000'), (6, '1320833/2000000'), (8, '-483677/2500000'), (10, '-26547/10000000'), (12, '10809/2500000')]
+ D interval: -0.00512119830803982 -0.00512119830803982 (small = retained cancellation)
+ C0,C2,C3 upper: 1.7455984591443876 99.94068806929108 868.4355442179226
+ Acoef,Bcoef: 0.02167863637350126 1328.7369297701232
+ full infinite signed residual upper: 2.8376767065700622e-08
+ low W lower: 2.90001884090454e-12 4 residual squared upper: 3.2209636364041258e-15
+ PASS quantitative mixed-tail Young lower >2.8e-12 on line coefficient, 1/8 on tail norm
+CR-ALP-038 EXACT RATIONAL TWO-LINE INFINITE-TAIL SCHUR AUDIT PASS

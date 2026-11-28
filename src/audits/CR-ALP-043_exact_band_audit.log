@@ -1,0 +1,21 @@
+parity 1 processed 1000
+parity 1 processed 2000
+parity 1 processed 3000
+parity 1 processed 4000
+parity 1 processed 5000
+parity 1 processed 6000
+parity 1 processed 7000
+parity 1 cutoff 172 band upper 0.303771 remainder upper 0.151364 rho upper 0.455135 mu 1/4
+parity 1 cutoff 242 band upper 0.153093 remainder upper 0.144773 rho upper 0.297866 mu 3/5
+parity 1 cutoff 300 band upper 0.10818 remainder upper 0.140713 rho upper 0.248893 mu 3/4
+parity 2 processed 1000
+parity 2 processed 2000
+parity 2 processed 3000
+parity 2 processed 4000
+parity 2 processed 5000
+parity 2 processed 6000
+parity 2 processed 7000
+parity 2 cutoff 172 band upper 0.210782 remainder upper 0.140924 rho upper 0.351706 mu 1/4
+parity 2 cutoff 242 band upper 0.135713 remainder upper 0.13384 rho upper 0.269553 mu 3/5
+parity 2 cutoff 300 band upper 0.103096 remainder upper 0.129484 rho upper 0.23258 mu 3/4
+PASS exact band+remainder inequalities; no full collar or RH claim

@@ -1,0 +1,58 @@
+{
+  "stage": "CR-ALP-040",
+  "mixed_status": "PASS even-indexed physical E14 parity block + its genuine infinite Q15000 parity tail; odd-indexed enlarged conservative comparison FAILS as a sufficient test",
+  "consequence": "Source-signed positivity on (E12 + span{w14}) \u2295 Q15000, with sigma=1e-14 on enlarged even-indexed sector, 1e-12 on retained odd-indexed sector, and 1/8 on both high parity tails",
+  "supporting_analytic_premises": "CR-ALP-027 1/4 positive tail, CR-ALP-038 rank-one residue estimate, CR-ALP-039 boundary-anchor eps; new original signed Jensen lower H14",
+  "warning": "The negative conservative odd-indexed sufficient comparison is NOT a negative complete original Weil witness; cross-terms bounded too loosely",
+  "blocks": [
+    {
+      "indices": [
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        2
+      ],
+      "alpha_exact_rational_upper": "4939/3712310000",
+      "beta_squared_exact_upper": "4357978966059712601151732026612345517767690442639509702923964826037845500771610923075779517828079966894515751715489667041257541447079036542684648016903640894186254583682958615012326626341882355295845094628089771037653/192216796872933751912400625000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "uncertainty_row_sum": "947274333/20000000000000000000000000",
+      "sigma": "1/100000000000000",
+      "anchor_eps": "1/19",
+      "positive_sylvester_minors": 7,
+      "all_stable_minors_positive": true,
+      "minors_sha256": "46c94cd0afb79238cbe9cbd6609d6159575244faa1d84d87255b49e5c1f15cea"
+    },
+    {
+      "indices": [
+        3,
+        5,
+        7,
+        9,
+        11,
+        13,
+        1
+      ],
+      "alpha_exact_rational_upper": "4939/3712310000",
+      "beta_squared_exact_upper": "330174626859559880463169273350288785363057919289486923539515326778003853461734712119811859847022573679123441017351972424415285916725450105677344667310612870688831454756655798663924422161819200293210152545037/21869999999764906884255360000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "uncertainty_row_sum": "23588677/800000000000000000000000",
+      "sigma": "1/100000000000000",
+      "anchor_eps": "1/25",
+      "positive_sylvester_minors": 5,
+      "all_stable_minors_positive": false,
+      "minors_sha256": "5e75e65bd7549429befa86b53895614c43a4931c75b470f82ade8f97618608e1",
+      "sufficient_comparison_negative_witness_integer_vector": [
+        -658928912,
+        698188837,
+        -278385975,
+        28637417,
+        5087748,
+        -546722,
+        -1965
+      ],
+      "sufficient_comparison_quadratic_upper_in_1e25": "-7087232221727941115863047115813"
+    }
+  ],
+  "not_claimed": "E14 \u2295 entire Q15000 mixed positivity; all 14988 intermediate shell directions; original collar positivity; RH; Lean"
+}

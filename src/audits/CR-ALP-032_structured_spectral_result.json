@@ -1,0 +1,42 @@
+{
+  "stage": "CR-ALP-032",
+  "status": "EXACT SOURCE-STRUCTURE / OUTWARD-FRACTION PASS; continuum inequalities analytic, NOT Lean",
+  "previous_signed_lower": "CR-ALP-031 original complete E10 W >= 1/100000000000 M",
+  "all_seven_native_prime_powers": [
+    2,
+    3,
+    4,
+    5,
+    7,
+    8,
+    9
+  ],
+  "prime_displacement_rank_per_parity_at_most": 2,
+  "gamma_single_kernel_form": "diagonal minus rank-one per parity",
+  "gamma_monotone_groups": 617,
+  "individual_gamma_kernels": 30000,
+  "group_coverage": "[30000,350000)",
+  "error_upper_form": "W_full_E10 <= Htilde_031 + (1/180000000000) D + (1/320000) T",
+  "D": "physical interval derivative-stiffness Gram",
+  "T": "rank-two endpoint trace Gram; only u1,u2 nonzero",
+  "certified_even_rational_test_vector": [
+    -727226995401,
+    643702820298,
+    -182669753899,
+    9336596462,
+    37487631
+  ],
+  "certified_odd_rational_test_vector": [
+    -743143741936,
+    620073220342,
+    -145278032240,
+    -1238582207,
+    -82669993
+  ],
+  "vector_denominator": 1000000000000,
+  "certified_even_Rayleigh_upper": "1/2500000000",
+  "certified_odd_Rayleigh_upper": "1/250000000",
+  "complete_E10_min_generalized_eigen_interval": "[1/100000000000,1/2500000000)",
+  "source_attachment_sha256": "19e8280a505cfd5dcb79ca89b58dc861227c2610c25c74b9f51fb26035254e64",
+  "open": "whole 15000 original signed Schur and low-to-Q15000 residual; Lean; RH"
+}

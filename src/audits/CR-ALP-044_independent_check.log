@@ -1,0 +1,3 @@
+PASS parity 1 : seven exact Bareiss determinants; rounded component norm budgets below eta
+PASS parity 2 : seven exact Bareiss determinants; rounded component norm budgets below eta
+PASS saved interval-matrix and rational acceptance-ledger check; conditional analytical result only

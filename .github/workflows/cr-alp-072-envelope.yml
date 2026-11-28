@@ -1,0 +1,63 @@
+name: CR-ALP-072 second-source envelope and pair replay
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/cr-alp-072-envelope.yml'
+permissions:
+  contents: read
+  actions: read
+jobs:
+  envelope:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Recover immutable common-trial artifact and replay pair
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp072
+          mkdir -p "$P"
+          gh api repos/${{ github.repository }}/actions/artifacts/15070700067/zip > "$P/bank.zip"
+          echo 'ebbc51e56e67e7438483928b3570a320b77df06b92a574ad2a0e998fdb4b0ead  /tmp/cr-alp072/bank.zip' | sha256sum -c -
+          python3 src/audits/cr_alp_071_coarse_receiver.py "$P/bank.zip" | tee "$P/pair.json"
+          python3 -m zipfile -e "$P/bank.zip" "$P/bank"
+      - name: Recover authenticated original analytical and numerical sources
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp072
+          python3 src/audits/cr_alp_058_archive/reassemble.py "$P/package.zip"
+          python3 -m zipfile -e "$P/package.zip" "$P"
+          cd "$P/cr_alp_058"
+          sha256sum -c SHA256SUMS
+          for f in VALIDATION.md validate_geometry.py validated.cpp mesh.py; do
+            echo "BEGIN ORIGINAL $f"
+            cat "$f"
+            echo "END ORIGINAL $f"
+          done
+          python3 validate_geometry.py
+      - name: Check second-source coefficient and geometry envelope
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp072
+          cp -a "$P/cr_alp_058" "$P/second"
+          cp "$P/bank/input_2_second.txt" "$P/second/input_2.txt"
+          cd "$P/second"
+          echo '185d9a51218712afa45169b6069856dc360b000f4b66bfd67da08b79270bf3a0  input_2.txt' | sha256sum -c -
+          python3 validate_geometry.py | tee "$P/second_geometry.log"
+          cmp mesh.txt "$P/cr_alp_058/mesh.txt"
+          echo 'SECOND-SOURCE GEOMETRY CHECK COMPLETE; reviewer must inspect applicability of midpoint and quadrature bounds.'
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-072-envelope-audit
+          path: |
+            /tmp/cr-alp072/pair.json
+            /tmp/cr-alp072/second_geometry.log
+            /tmp/cr-alp072/cr_alp_058/VALIDATION.md
+            /tmp/cr-alp072/cr_alp_058/validate_geometry.py
+            /tmp/cr-alp072/cr_alp_058/validated.cpp
+            /tmp/cr-alp072/cr_alp_058/mesh.py
+          if-no-files-found: warn
+          retention-days: 90

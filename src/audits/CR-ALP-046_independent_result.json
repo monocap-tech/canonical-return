@@ -1,0 +1,26 @@
+{
+  "sha256": "d877bf95dd203c9492174afcb48c91a90bb24d9e2f5bbb6ddce5138c83c52a22",
+  "blocks": [
+    {
+      "parity": 1,
+      "dimension": 43,
+      "first_tested_passing_shift_exponent": 40,
+      "trials": {
+        "20": false,
+        "30": false,
+        "40": true
+      },
+      "interval_row_radius_lt": "1e-65"
+    },
+    {
+      "parity": 2,
+      "dimension": 42,
+      "first_tested_passing_shift_exponent": 30,
+      "trials": {
+        "20": false,
+        "30": true
+      },
+      "interval_row_radius_lt": "1e-65"
+    }
+  ]
+}

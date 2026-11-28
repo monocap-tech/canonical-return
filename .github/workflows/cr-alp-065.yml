@@ -1,0 +1,95 @@
+name: CR-ALP-065 even fifth moment recovery
+on:
+  pull_request:
+    paths:
+      - 'src/audits/cr_alp_065/**'
+      - '.github/workflows/cr-alp-065.yml'
+  push:
+    branches:
+      - 'research/cr-alp-001-ramp-gram-dictionary'
+    paths:
+      - '.github/workflows/cr-alp-065.yml'
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    strategy:
+      fail-fast: false
+      matrix:
+        shift: [2, 3, 4, 5, 6]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install arithmetic libraries
+        run: sudo apt-get update && sudo apt-get install -y libgmp-dev libmpfr-dev
+      - name: Reconstruct and check frozen archive
+        run: |
+          mkdir -p /tmp/cr-alp065
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/cr-alp065/package.zip
+          python3 -m zipfile -e /tmp/cr-alp065/package.zip /tmp/cr-alp065
+          cd /tmp/cr-alp065/cr_alp_058
+          sha256sum -c SHA256SUMS
+          python3 validate_geometry.py
+          python3 check_saved.py
+      - name: Exact fourth-moment replay and fifth-moment targets
+        run: |
+          A=src/audits
+          O=/tmp/cr-alp065/cr_alp_058/verification_result.json
+          N=$A/cr_alp_059/evidence/second_result.json
+          T=$A/cr_alp_061/evidence/third_result.json
+          S=$A/cr_alp_063/evidence/fourth_result.json
+          node "$A/cr_alp_064/sharp_five_moments.js" "$O" "$N" "$T" "$S" "$A/cr_alp_061/evidence/fourth_moment_trials.json" "$A/cr_alp_061/evidence/fourth_moment_feasibility.json" "$A/cr_alp_063/evidence/fourth_1.log" "$A/cr_alp_063/evidence/fourth_2.log" /tmp/cr-alp065/sharp.json
+          node "$A/cr_alp_064/fifth_moment_targets.js" "$O" "$N" "$T" "$S" /tmp/cr-alp065/targets.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p=Path('/tmp/cr-alp065')
+          a=Path('src/audits/cr_alp_064')
+          def load(x):return json.loads(x.read_text())
+          assert load(p/'sharp.json')==load(a/'sharp_five_moment_results.json')
+          x,y=load(p/'targets.json'),load(a/'fifth_moment_targets.json')
+          x.pop('decimal');y.pop('decimal')
+          assert x==y
+          print('PASS exact fourth-moment replay and corrected fifth-moment targets')
+          PY
+      - name: Exact overlap mesh and compile
+        run: |
+          python3 src/audits/cr_alp_059/mesh_second.py /tmp/cr-alp065
+          python3 src/audits/cr_alp_063/mesh_fourth.py /tmp/cr-alp065
+          python3 src/audits/cr_alp_065/mesh_fifth.py /tmp/cr-alp065
+          g++ -O2 -std=gnu++17 -I/tmp/cr-alp065/cr_alp_058 src/audits/cr_alp_065/fifth_shard.cpp -o /tmp/cr-alp065/fifth -lquadmath -l:libmpfr.so.6 -lgmp
+      - name: Selected even prime correlation
+        env:
+          SHIFT: ${{ matrix.shift }}
+        run: |
+          set -o pipefail
+          P=/tmp/cr-alp065/cr_alp_058
+          /tmp/cr-alp065/fifth "$P/input_2.txt" "$P/mesh.txt" "$P/gauss.txt" "$P/second_mesh.txt" "$P/fourth_mesh.txt" "$P/fifth_mesh.txt" "$SHIFT" | tee "/tmp/cr-alp065/fifth_shift_$SHIFT.log"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: cr-alp065-shift-${{ matrix.shift }}
+          path: /tmp/cr-alp065/fifth_shift_${{ matrix.shift }}.log
+          if-no-files-found: warn
+  endpoints:
+    needs: replay
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: cr-alp065-shift-*
+          merge-multiple: true
+          path: /tmp/cr-alp065
+      - name: Independent exact fifth-moment transport
+        run: |
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/cr-alp065/package.zip
+          python3 -m zipfile -e /tmp/cr-alp065/package.zip /tmp/cr-alp065
+          python3 src/audits/cr_alp_065/combine_shards.py /tmp/cr-alp065 /tmp/cr-alp065 src/audits
+          cat /tmp/cr-alp065/fifth_sharded_result.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: cr-alp065-endpoints
+          path: /tmp/cr-alp065/fifth_sharded_result.json

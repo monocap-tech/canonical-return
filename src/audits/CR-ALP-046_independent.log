@@ -1,0 +1,8 @@
+physical metric parity 1 PASS 43
+parity 1 shift 1e-20 INCONCLUSIVE at pivot 12
+parity 1 shift 1e-30 INCONCLUSIVE at pivot 30
+parity 1 shift 1e-40 PASS at pivot 43
+physical metric parity 2 PASS 42
+parity 2 shift 1e-20 INCONCLUSIVE at pivot 14
+parity 2 shift 1e-30 PASS at pivot 42
+SHA256 d877bf95dd203c9492174afcb48c91a90bb24d9e2f5bbb6ddce5138c83c52a22

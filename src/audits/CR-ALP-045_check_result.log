@@ -1,0 +1,4 @@
+PASS E14 + Q112: exact determinants and mixed tail margin 1/500
+PASS E14 + Q123: exact determinants and mixed tail margin 1/10
+PASS E14 + Q172: exact determinants and mixed tail margin 67/100
+PASS all saved Gram comparisons, Q66/Q85, simultaneous Q123 weights; no full collar or Lean claim

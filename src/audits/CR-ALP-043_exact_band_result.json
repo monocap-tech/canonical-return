@@ -1,0 +1,79 @@
+{
+  "stage": "CR-ALP-043",
+  "status": "Exact outward-integer coefficient band and analytic infinite remainder PASS at 242,300, conditional on continuum premises",
+  "results": [
+    {
+      "parity": 1,
+      "N": 172,
+      "band_end": 15000,
+      "band_rows": 7414,
+      "band_upper": "303771/1000000",
+      "tail_upper": "37841/250000",
+      "rho_upper": "91027/200000",
+      "mu": "1/4",
+      "pass_positive": false,
+      "max_coefficient_interval_width_units": "837013904"
+    },
+    {
+      "parity": 1,
+      "N": 242,
+      "band_end": 15000,
+      "band_rows": 7414,
+      "band_upper": "153093/1000000",
+      "tail_upper": "144773/1000000",
+      "rho_upper": "148933/500000",
+      "mu": "3/5",
+      "pass_positive": true,
+      "max_coefficient_interval_width_units": "837013904"
+    },
+    {
+      "parity": 1,
+      "N": 300,
+      "band_end": 15000,
+      "band_rows": 7414,
+      "band_upper": "5409/50000",
+      "tail_upper": "140713/1000000",
+      "rho_upper": "248893/1000000",
+      "mu": "3/4",
+      "pass_positive": true,
+      "max_coefficient_interval_width_units": "837013904"
+    },
+    {
+      "parity": 2,
+      "N": 172,
+      "band_end": 15000,
+      "band_rows": 7414,
+      "band_upper": "105391/500000",
+      "tail_upper": "35231/250000",
+      "rho_upper": "175853/500000",
+      "mu": "1/4",
+      "pass_positive": false,
+      "max_coefficient_interval_width_units": "627133608"
+    },
+    {
+      "parity": 2,
+      "N": 242,
+      "band_end": 15000,
+      "band_rows": 7414,
+      "band_upper": "135713/1000000",
+      "tail_upper": "1673/12500",
+      "rho_upper": "269553/1000000",
+      "mu": "3/5",
+      "pass_positive": true,
+      "max_coefficient_interval_width_units": "627133608"
+    },
+    {
+      "parity": 2,
+      "N": 300,
+      "band_end": 15000,
+      "band_rows": 7414,
+      "band_upper": "12887/125000",
+      "tail_upper": "32371/250000",
+      "rho_upper": "11629/50000",
+      "mu": "3/4",
+      "pass_positive": true,
+      "max_coefficient_interval_width_units": "627133608"
+    }
+  ],
+  "not_claimed": "E172 mixed, E242 or E300 full finite section, full collar, arbitrary support, Lean, RH"
+}

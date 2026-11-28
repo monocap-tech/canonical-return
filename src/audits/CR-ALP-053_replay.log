@@ -1,0 +1,2 @@
+parity 1 positive pivots 43 shift 1/8 trial Gram upper 2.1114846632779439e-26 outside Gram witness lower 0.07232491399195541 comparison witness upper -0.08031310054539026 scalar correction falsified True
+parity 2 positive pivots 42 shift 1/16 trial Gram upper 3.191941544080049e-26 outside Gram witness lower 0.04412816652362528 comparison witness upper -0.011651166345354893 scalar correction falsified True

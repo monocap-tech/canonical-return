@@ -1,0 +1,9 @@
+PASS source-signed mixed interior + Q15000 block: [3, 5, 7, 9, 11]
+ alpha upper 1.3303408345009163e-06 beta² sum upper 6.2168104473e-15
+ exact outward LDL lower pivots: [0.003513003846387104, 3.4725923339985115e-05, 2.2401802104144953e-06, 3.0525261394621107e-06, 8.322979157755083e-07]
+ PASS: Hmid -16alpha² D D^T -16sum(beta²)I -10^-12 M is strictly positive
+PASS source-signed mixed interior + Q15000 block: [4, 6, 8, 10, 12]
+ alpha upper 1.3303408345009163e-06 beta² sum upper 9.9462019971e-15
+ exact outward LDL lower pivots: [0.0014010077833434321, 2.7339945664762294e-05, 3.198916206210512e-05, 0.002003498380142228, 5.064903901915329e-06]
+ PASS: Hmid -16alpha² D D^T -16sum(beta²)I -10^-12 M is strictly positive
+CR-ALP-038 EXACT FULL 10-INTERIOR + INFINITE-TAIL PHYSICAL SCHUR AUDIT PASS

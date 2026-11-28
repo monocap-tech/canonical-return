@@ -1,0 +1,17 @@
+{
+  "scale": 10000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000,
+  "gamma": "72/25",
+  "cutoff": 205,
+  "blocks": [
+    {
+      "parity": 2,
+      "finite_test": {
+        "dimension": 101,
+        "positive_pivots": 101,
+        "all_positive": true,
+        "row_radius_units": "101",
+        "scale": "1e65"
+      }
+    }
+  ]
+}

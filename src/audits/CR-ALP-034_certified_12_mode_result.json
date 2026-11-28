@@ -1,0 +1,27 @@
+{
+  "even": {
+    "physical_mass_pivots_positive": 6,
+    "shifted_form_pivots_positive": 6,
+    "shifted_fifth_pivot_lower_rounded_down_1e15": "358318338/10^15",
+    "min_shifted_pivot_lower_rounded_down_1e15": "358318338/10^15"
+  },
+  "odd": {
+    "physical_mass_pivots_positive": 6,
+    "shifted_form_pivots_positive": 6,
+    "shifted_fifth_pivot_lower_rounded_down_1e15": "4969190631/10^15",
+    "min_shifted_pivot_lower_rounded_down_1e15": "4969190631/10^15"
+  },
+  "remainder": {
+    "midpoint_groups": 4219,
+    "index_coverage": "[30000,2000000)",
+    "cD_rational_upper": "62636009953159599/1000000000000000000000000000000",
+    "cT_rational_upper": "500008263973209505225640/1000000000000000000000000000000",
+    "two_sided_form_error": "0 <= W-H_mid <= D/(15e12) + T/1999000 on finite H1 sources"
+  },
+  "stage": "CR-ALP-034",
+  "status": "EXACT 12-MODE POSITIVE, FULL 15000-MODE SCHUR OPEN",
+  "margin": "W(f,f) > (3/10^12)*||f||^2 for nonzero f in original physical E12",
+  "source_input_sha256": "bcb6017b9358343dc16fb97cf61c1c340592444d124a0e2e466296d9703f53a2",
+  "midpoint_matrix_sha256": "b6a31e623298272fdceac788fc56626ec704e280903ff6baff1dc8bfe0d45f92",
+  "not_claimed": "Lean formalization, entire fixed collar, cross-tail Schur, F41 or RH"
+}

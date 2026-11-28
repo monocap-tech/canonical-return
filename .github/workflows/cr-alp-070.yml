@@ -1,0 +1,39 @@
+name: CR-ALP-070 original-form receiver
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/cr-alp-070.yml'
+      - 'src/audits/cr_alp_070*'
+permissions:
+  contents: read
+jobs:
+  receiver:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reassemble frozen physical source archive
+        run: |
+          mkdir -p /tmp/cr-alp070
+          python3 src/audits/cr_alp_058_archive/reassemble.py /tmp/cr-alp070/package.zip
+          python3 -m zipfile -e /tmp/cr-alp070/package.zip /tmp/cr-alp070
+          cd /tmp/cr-alp070/cr_alp_058
+          sha256sum -c SHA256SUMS
+          python3 check_saved.py
+      - name: Preserve exact source attachment construction
+        run: |
+          cd /tmp/cr-alp070
+          sha256sum cr_alp_058/input_2.txt cr_alp_058/prepare.py
+          echo 'BEGIN prepare.py'
+          cat cr_alp_058/prepare.py
+          echo 'END prepare.py'
+          echo 'BEGIN assemble.py'
+          cat cr_alp_057/assemble.py
+          echo 'END assemble.py'
+          echo 'BEGIN input_2.txt correction bank'
+          head -n 428 cr_alp_058/input_2.txt
+          echo 'END input_2.txt correction bank'
+      - name: Exact original-form receiver candidate
+        run: |
+          python3 -m py_compile src/audits/cr_alp_070_receiver.py
+          python3 src/audits/cr_alp_070_receiver.py /tmp/cr-alp070

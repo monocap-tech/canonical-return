@@ -1,0 +1,31 @@
+name: CR-ALP-069 exact even response transfer
+on:
+  pull_request:
+    paths:
+      - '.github/workflows/cr-alp-069.yml'
+      - 'src/audits/cr_alp_069*'
+      - 'src/audits/CR-ALP-069*'
+permissions:
+  contents: read
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reproduce both diagonal audits
+        run: |
+          cd src/audits
+          node cr_alp_066_gamma_diagonal.js /tmp/gamma066.json
+          cmp /tmp/gamma066.json CR-ALP-066_gamma_diagonal_result.json
+          node cr_alp_068_pole_centered_gamma.js /tmp/gamma066.json /tmp/gamma068.json
+          cmp /tmp/gamma068.json CR-ALP-068_pole_centered_gamma_result.json
+      - name: Exact fixed-point response transfer replay
+        run: |
+          cd src/audits
+          E=cr_alp_067/evidence
+          node cr_alp_069_transfer_response.js "$E/weighted_trial.txt" "$E/weighted_diag.txt" "$E/weighted_response.log" /tmp/gamma068.json cr_alp_058_recovery/verification_result.json /tmp/gamma066.json /tmp/transfer069.json
+          cmp /tmp/transfer069.json CR-ALP-069_transfer_response_result.json
+          cat /tmp/transfer069.json
+      - name: Original artifact hashes and independent Fraction replay
+        run: python3 src/audits/cr_alp_069_independent.py

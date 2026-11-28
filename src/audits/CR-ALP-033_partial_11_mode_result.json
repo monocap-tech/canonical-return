@@ -1,0 +1,29 @@
+{
+  "stage": "CR-ALP-033",
+  "status": "PARTIAL EXACT 11-DIMENSIONAL CERTIFICATE; EVEN 12TH DIRECTION UNRESOLVED",
+  "individual_gamma_terms": 30000,
+  "grouped_tail_groups": 4219,
+  "covered_gamma_indices": "[0,2000000)",
+  "true_original_prime_signs": "negative paired seven source von Mangoldt terms",
+  "pole_null_11_dimensional_certificate": {
+    "basis_even": "w3,w5,w7,w9,u1",
+    "basis_odd": "w4,w6,w8,w10,w12,u2",
+    "margin": "1e-11 strict physical generalized lower bound"
+  },
+  "even_12_mode_lower_matrix_fifth_pivot_bounds_rounded_outward_1e15": [
+    "-789717511/10^15",
+    "-773721300/10^15"
+  ],
+  "odd_six_shifted_pivot_lower_rounded_down_1e15": [
+    "1401008276973/10^15",
+    "27339874809/10^15",
+    "31986832021/10^15",
+    "1991235341214/10^15",
+    "4044206369/10^15",
+    "37696581752704/10^15"
+  ],
+  "source_sha256": "bcb6017b9358343dc16fb97cf61c1c340592444d124a0e2e466296d9703f53a2",
+  "matrix_sha256": "7d4458f97326f831e5ad52bff4f9e8d8f43bae67bb0e564079abfdca985a3ab8",
+  "refined_Gamma_two_sided_upper": "W_complete - H_lower <= (1/10^12)D + (1/1700000)T on finite H1 section",
+  "not_claimed": "Negative complete form, full E12 positivity, full E15000 Schur, Lean or RH"
+}

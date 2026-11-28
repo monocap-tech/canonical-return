@@ -1,0 +1,12 @@
+gamma floor 72/25 scalar remainder 51/200
+interval coefficients 20
+interval coefficients 40
+interval coefficients 60
+interval coefficients 80
+interval coefficients 100
+interval coefficients 120
+interval coefficients 140
+interval coefficients 160
+interval coefficients 180
+interval coefficients 200
+structured finite band through 205 1 {'dimension': 102, 'positive_pivots': 102, 'all_positive': True, 'row_radius_units': '102', 'scale': '1e65'}

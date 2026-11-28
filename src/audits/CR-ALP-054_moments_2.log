@@ -1,0 +1,4 @@
+parity 2 affine pivots 42 shift 1/32 frozen witness 0.04388470323925967 0.04388470323925967 penalty row norm 0.15777291274037733
+parity 2 chebyshev_4 pivots 42 shift 1/16 frozen witness 0.08642185753959875 0.08642185753959875 penalty row norm 0.05333356650988051
+parity 2 chebyshev_8 pivots 42 shift 1/16 frozen witness 0.09343092092897085 0.09343092092897085 penalty row norm 0.03687465351148165
+parity 2 chebyshev_12 pivots 42 shift 1/16 frozen witness 0.09409850840636134 0.09409850840636134 penalty row norm 0.034827718364989754
