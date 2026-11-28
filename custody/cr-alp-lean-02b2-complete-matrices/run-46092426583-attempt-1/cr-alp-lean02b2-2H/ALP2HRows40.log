@@ -1,0 +1,6 @@
+'CRALP.Cert2H.row_40' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.Cert2H.row_41' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m18.771s
+user	0m33.279s
+sys	0m1.180s

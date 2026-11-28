@@ -1,0 +1,10 @@
+⚠ [1000/1001] Built MatrixSoundnessR2 (1.7s)
+warning: MatrixSoundnessR2.lean:3:0: 'Mathlib.Data.Real.Basic' has been deprecated: please replace this import by
+
+import Mathlib.Basic.Real.Basic
+info: MatrixSoundnessR2.lean:112:0: 'CRALP.entryLower' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: MatrixSoundnessR2.lean:113:0: 'CRALP.uniformErrorLower' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: MatrixSoundnessR2.lean:114:0: 'CRALP.gramQuadratic' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: MatrixSoundnessR2.lean:115:0: 'CRALP.diagonalQuadratic' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: MatrixSoundnessR2.lean:116:0: 'CRALP.gramResidualLower' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (1001 jobs).

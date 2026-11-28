@@ -1,0 +1,9 @@
+'CRALP.Cert1H.row_15' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.Cert1H.row_16' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.Cert1H.row_17' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.Cert1H.row_18' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.Cert1H.row_19' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m56.392s
+user	1m52.146s
+sys	0m1.759s

@@ -1,0 +1,108 @@
+{
+  "matrix": "2H",
+  "dimension": 42,
+  "entries": 1764,
+  "rows": 42,
+  "namespace": "CRALP.Cert2H",
+  "data": "ALP2HData",
+  "shards": [
+    {
+      "module": "ALP2HRows00",
+      "first": 0,
+      "end_exclusive": 5
+    },
+    {
+      "module": "ALP2HRows05",
+      "first": 5,
+      "end_exclusive": 10
+    },
+    {
+      "module": "ALP2HRows10",
+      "first": 10,
+      "end_exclusive": 15
+    },
+    {
+      "module": "ALP2HRows15",
+      "first": 15,
+      "end_exclusive": 20
+    },
+    {
+      "module": "ALP2HRows20",
+      "first": 20,
+      "end_exclusive": 25
+    },
+    {
+      "module": "ALP2HRows25",
+      "first": 25,
+      "end_exclusive": 30
+    },
+    {
+      "module": "ALP2HRows30",
+      "first": 30,
+      "end_exclusive": 35
+    },
+    {
+      "module": "ALP2HRows35",
+      "first": 35,
+      "end_exclusive": 40
+    },
+    {
+      "module": "ALP2HRows40",
+      "first": 40,
+      "end_exclusive": 42
+    }
+  ],
+  "terminal": "ALP2HTerminal",
+  "files": [
+    {
+      "module": "ALP2HData",
+      "sha256": "fec1572ba68908702f9b22bbe400b6bb59b1eacafd0284f9958d52c516b3b435"
+    },
+    {
+      "module": "ALP2HRows00",
+      "sha256": "38783bbfbc1831bfd5cc02c24cdc08be2a5e9c3775e5d240e62d2f7aa2f00e2f"
+    },
+    {
+      "module": "ALP2HRows05",
+      "sha256": "49acc3ce9e37c48293f5d77640661999f9d5f878df2dc0f4722ca35b6d4e10f2"
+    },
+    {
+      "module": "ALP2HRows10",
+      "sha256": "27429823a051be8729c1b64db5c5a4eaf42d6df7fc66f8e5f8740173a064675c"
+    },
+    {
+      "module": "ALP2HRows15",
+      "sha256": "2d1cc9d2233451a2375ee35f769a2e03a48b76321c153cac2e48727d129c2502"
+    },
+    {
+      "module": "ALP2HRows20",
+      "sha256": "23c2362234164aca422e1e0e35fc0fc94c07d49be60c391c0f764b0056d16a68"
+    },
+    {
+      "module": "ALP2HRows25",
+      "sha256": "f9b64c60a2a706c089ba4181259ed6432206eacf32db4526ba7ebf3b2acf5d85"
+    },
+    {
+      "module": "ALP2HRows30",
+      "sha256": "7074eb6b03d7f88abfae7b73d9d88a5353f27656c897a93581f9fba561768d9b"
+    },
+    {
+      "module": "ALP2HRows35",
+      "sha256": "cb9aee0974c70520008635f43835d74c2184628245d24a7f8285991b8079aad4"
+    },
+    {
+      "module": "ALP2HRows40",
+      "sha256": "1e8cd9937ee05827a6d34fa57c5653904db44e7282add1cc0a1a652cd766476a"
+    },
+    {
+      "module": "ALP2HTerminal",
+      "sha256": "23d7ce40e32b8db1a51e26644c6b923107a7bf583f2919aed325c28e67275aa7"
+    }
+  ],
+  "scales": {
+    "D": "10000000000000000000000000000000000000000",
+    "S": "1000000000000",
+    "d": "2",
+    "p": "1"
+  }
+}

@@ -1,0 +1,4 @@
+84def1a4d7acc6e7af3ff4e19b8c04366cf52677
+Python 3.14.4
+All six matrix literal identities and 10839 exact residual entries PASS
+2H: 1764 entry propositions, 42 rows, 9 shards, terminal coercivity candidate

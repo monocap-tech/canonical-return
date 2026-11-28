@@ -1,0 +1,108 @@
+{
+  "matrix": "1H",
+  "dimension": 43,
+  "entries": 1849,
+  "rows": 43,
+  "namespace": "CRALP.Cert1H",
+  "data": "ALP1HData",
+  "shards": [
+    {
+      "module": "ALP1HRows00",
+      "first": 0,
+      "end_exclusive": 5
+    },
+    {
+      "module": "ALP1HRows05",
+      "first": 5,
+      "end_exclusive": 10
+    },
+    {
+      "module": "ALP1HRows10",
+      "first": 10,
+      "end_exclusive": 15
+    },
+    {
+      "module": "ALP1HRows15",
+      "first": 15,
+      "end_exclusive": 20
+    },
+    {
+      "module": "ALP1HRows20",
+      "first": 20,
+      "end_exclusive": 25
+    },
+    {
+      "module": "ALP1HRows25",
+      "first": 25,
+      "end_exclusive": 30
+    },
+    {
+      "module": "ALP1HRows30",
+      "first": 30,
+      "end_exclusive": 35
+    },
+    {
+      "module": "ALP1HRows35",
+      "first": 35,
+      "end_exclusive": 40
+    },
+    {
+      "module": "ALP1HRows40",
+      "first": 40,
+      "end_exclusive": 43
+    }
+  ],
+  "terminal": "ALP1HTerminal",
+  "files": [
+    {
+      "module": "ALP1HData",
+      "sha256": "60c8cd8c6366af9e9ba8b8f34470a1d31812267992cc2289d6ca990ae9524fe4"
+    },
+    {
+      "module": "ALP1HRows00",
+      "sha256": "2aade7b4909afc5d22975226dd103f290a9a8cfd0a398e8a69e98077303a6038"
+    },
+    {
+      "module": "ALP1HRows05",
+      "sha256": "74009ce7fd3f04226479abc970cbbed3c5328ec2920d0a35438babe0c8effa7c"
+    },
+    {
+      "module": "ALP1HRows10",
+      "sha256": "4badaa4c373bb4e222c7644f8bb03a8477998bb9b6b056279e09143a978da2b0"
+    },
+    {
+      "module": "ALP1HRows15",
+      "sha256": "8de526370eeb75af521474aff7b803f077d36262c353764b0495bcad122ac9c8"
+    },
+    {
+      "module": "ALP1HRows20",
+      "sha256": "362f9e50169be825d12803b7ff5e432fe2ec2ed4fc93e5f1028988ecc1293b29"
+    },
+    {
+      "module": "ALP1HRows25",
+      "sha256": "08b5f4da43ec2fac5171c9c0791c414e53fa76dea39104ac1283b18a0f29b3f5"
+    },
+    {
+      "module": "ALP1HRows30",
+      "sha256": "ca6a81504ec5475986fd9aff1da696c13ea69122b7851abe65e68473ebcb9f81"
+    },
+    {
+      "module": "ALP1HRows35",
+      "sha256": "2f33c1ad9d35f4a74d87d35f8e5fe3ed1f370f07704ed28983edffde2c7827a8"
+    },
+    {
+      "module": "ALP1HRows40",
+      "sha256": "d18de03fb99dc9c31b1c51bbe029e0e5c1e2bf9d083782a05a9d5d5dd102a00c"
+    },
+    {
+      "module": "ALP1HTerminal",
+      "sha256": "b5b07eaa9e90ff29d55862b43d047e1edb265d37a0f0d1729af90cb7f7ef0804"
+    }
+  ],
+  "scales": {
+    "D": "10000000000000000000000000000000000000000",
+    "S": "1000000000000",
+    "d": "1",
+    "p": "1"
+  }
+}

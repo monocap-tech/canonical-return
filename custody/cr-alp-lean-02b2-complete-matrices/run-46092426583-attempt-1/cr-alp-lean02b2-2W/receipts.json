@@ -1,0 +1,235 @@
+{
+  "status": "NATIVE_MATRIX_PASS",
+  "matrix": "2W",
+  "dimension": 42,
+  "kernel_entries": 1764,
+  "rows": 42,
+  "declarations": {
+    "CRALP.intWitnessLower": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_0": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_1": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_2": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_3": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_4": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_5": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_6": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_7": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_8": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_9": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_10": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_11": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_12": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_13": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_14": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_15": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_16": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_17": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_18": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_19": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_20": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_21": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_22": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_23": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_24": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_25": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_26": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_27": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_28": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_29": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_30": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_31": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_32": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_33": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_34": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_35": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_36": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_37": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_38": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_39": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_40": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.row_41": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.allRows": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.Cert2W.matrixLower": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "scope": "Exact integer residual and real coercivity of the authenticated literal matrix; physical analytical attachment separate."
+}

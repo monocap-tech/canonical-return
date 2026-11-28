@@ -1,0 +1,6 @@
+'CRALP.Cert1P.allRows' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.Cert1P.matrixLower' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m2.805s
+user	0m1.871s
+sys	0m0.999s
