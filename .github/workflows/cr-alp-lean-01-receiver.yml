@@ -1,0 +1,126 @@
+name: CR-ALP LEAN-01 native scalar receiver
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-lean-01-receiver.yml']
+permissions:
+  contents: write
+concurrency:
+  group: cr-alp-lean-01-receiver
+  cancel-in-progress: false
+jobs:
+  receiver:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Authenticate exact numerical premises and source
+        run: |
+          set -euo pipefail
+          E=/tmp/cr-alp-lean01-evidence
+          mkdir -p "$E"
+          {
+            git rev-parse HEAD
+            test "$(git hash-object formalization/cr-alp/Receiver.lean)" = 12cb6c4f52f2837a350b13102d0905787eb2ff34
+            python3 - <<'PY'
+          from pathlib import Path
+          from fractions import Fraction as F
+          import hashlib,json,re,sys
+          sys.set_int_max_str_digits(0)
+          s=Path('formalization/cr-alp/Receiver.lean').read_text()
+          names=['directSchurLower','squareCeiling','poleBudget','coshTerminal','sinhTerminal','bothMarginsPositive']
+          assert set(re.findall(r'(?m)^theorem (\w+)',s))==set(names)
+          assert set(re.findall(r'(?m)^#print axioms CRALP\.(\w+)$',s))==set(names)
+          assert not re.search(r'\b(?:sorry|admit|sorryAx|axiom|native_decide)\b',s)
+          def read(path,sha):
+              raw=Path(path).read_bytes()
+              assert hashlib.sha256(raw).hexdigest()==sha
+              return json.loads(raw)['sectors']
+          a=read('custody/cr-alp-123ap3-high-precision/result.json','4b5e879c5a19958c0192bc9f127b3983565309663bbf926d4a51f1660fbca222')
+          q=read('custody/cr-alp-123aq2-frozen-response/result.json','daafe6fb527d6e4cc0a9322bbc1ea8555b502192b826bacefda4a3839b918261')
+          for k,u,b,r,L in [('1',F(425975815994492321,10**18),F(277101,250000000000000000000000000000),F(251443,500000),F(856897646,10**9)),('2',F(188882199696291911,5*10**17),F(170643,10**30),F(108431,250000),F(667102967,10**9))]:
+              E,U=F(q[k]['E']),F(q[k]['U'])
+              assert E>U>0 and U/E<=u
+              assert all(F(q[k][key])==F(a[k][key]) for key in ('E','U','rho_upper','finite_charge_over_E_upper','loss_over_E_upper'))
+              assert F(q[k]['finite_charge_over_E_upper'])==b and F(q[k]['rho_upper'])==r and F(q[k]['loss_over_E_upper'])==L
+              assert 0<r<1 and 0<L<1
+              print(k,'authenticated normalized budget attachment PASS')
+          PY
+          } 2>&1 | tee "$E/preflight.log"
+      - name: Assemble isolated Lean project
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp-lean01-project
+          mkdir -p "$P"
+          cp formalization/cr-alp/Receiver.lean "$P/"
+          printf '%s\n' 'leanprover/lean4:v4.34.0' > "$P/lean-toolchain"
+          cat > "$P/lakefile.toml" <<'TOML'
+          name = "cr_alp_receiver"
+          version = "0.1.0"
+          [[require]]
+          name = "mathlib"
+          git = "https://github.com/leanprover-community/mathlib4.git"
+          rev = "v4.34.0"
+          [[lean_lib]]
+          name = "Receiver"
+          TOML
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+          export PATH="$HOME/.elan/bin:$PATH"
+          cd "$P"
+          { lean --version; lake --version; lake update; lake exe cache get; } 2>&1 | tee /tmp/cr-alp-lean01-evidence/setup.log
+          cp lake-manifest.json lakefile.toml lean-toolchain /tmp/cr-alp-lean01-evidence/
+          git -C .lake/packages/mathlib rev-parse HEAD > /tmp/cr-alp-lean01-evidence/mathlib-commit.txt
+      - name: Native fresh compile and strict named axiom audit
+        run: |
+          set -euo pipefail
+          E=/tmp/cr-alp-lean01-evidence
+          cd /tmp/cr-alp-lean01-project
+          rm -f Receiver.olean
+          lake env lean -o Receiver.olean Receiver.lean 2>&1 | tee "$E/axioms.log"
+          test -s Receiver.olean
+          sha256sum Receiver.olean > "$E/olean.sha256"
+          python3 - "$E" <<'PY'
+          from pathlib import Path
+          import json,re,sys
+          p=Path(sys.argv[1]);t=(p/'axioms.log').read_text()
+          names=['directSchurLower','squareCeiling','poleBudget','coshTerminal','sinhTerminal','bothMarginsPositive']
+          allowed={'propext','Classical.choice','Quot.sound'}
+          found={}
+          for n in names:
+              full='CRALP.'+n
+              pat=re.compile(r"^'"+re.escape(full)+r"' (?:depends on axioms: \[([^\]]*)\]|does not depend on any axioms)\s*$",re.M)
+              hits=list(pat.finditer(t));assert len(hits)==1,(full,len(hits))
+              axioms={a.strip() for a in hits[0].group(1).split(',') if a.strip()} if hits[0].group(1) is not None else set()
+              assert axioms<=allowed,(full,axioms-allowed)
+              found[full]=sorted(axioms)
+          assert not re.search(r'(?m)^\s*(?:error:|.*: error:)',t)
+          (p/'receipts.json').write_text(json.dumps({'status':'NATIVE_SCALAR_RECEIVER_PASS','declarations':found,'scope':'Physical receiver and coefficient bounds remain explicit hypotheses; full fixed-collar positivity not certified.'},indent=2)+'\n')
+          print('Six native scalar receiver declarations PASS')
+          PY
+          (cd "$E"; sha256sum preflight.log setup.log axioms.log lean-toolchain lakefile.toml lake-manifest.json mathlib-commit.txt olean.sha256 receipts.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-LEAN-01-native-receiver
+          path: /tmp/cr-alp-lean01-evidence/
+          if-no-files-found: warn
+      - name: Preserve native verification evidence and read back remote custody
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-lean-01-native-receiver
+          test ! -e "$ROOT"
+          mkdir -p "$ROOT"
+          cp -a /tmp/cr-alp-lean01-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum -c SHA256SUMS)
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$ROOT"
+          git commit -m 'CR-ALP LEAN-01: preserve native scalar receiver evidence [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)"
+          REMOTE="$(mktemp -d)"
+          git archive FETCH_HEAD "$ROOT" | tar -x -C "$REMOTE"
+          (cd "$REMOTE/$ROOT"; sha256sum -c SHA256SUMS)
+          echo 'Remote native receipt readback PASS'
