@@ -1,0 +1,13 @@
+ConstPi.lean:14:14: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+ConstPi.lean:18:14: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+'CRALP.ConstPi.lowerEq' does not depend on any axioms
+'CRALP.ConstPi.upperEq' does not depend on any axioms
+'CRALP.ConstPi.actual' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m5.409s
+user	0m3.280s
+sys	0m2.196s
