@@ -1,4 +1,4 @@
-name: CR-ALP LEAN-03B1 elementary analytic series and reductions
+name: CR-ALP LEAN-03B1-R1 elementary analytic series repair
 on:
   push:
     branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
@@ -29,8 +29,9 @@ jobs:
             test "$(git hash-object formalization/cr-alp/AnalyticGuards.lean)" = b90973adab348c0e673880c3e436f359ed034673
             test "$(git hash-object formalization/cr-alp/DirectedInterval.lean)" = b7efa01d7560f80e9bce521b2d52c02ef21488c7
             test "$(git hash-object custody/cr-alp-lean-03a-analytic-guards/run-46094742420-attempt-1/receipts.json)" = 4e049f4b520c0c6647516717ea81b44dfa2a6e6e
-            test "$(git hash-object formalization/cr-alp/ElementarySeries.lean)" = 83de1c6e58a807475af939356cb8da8104f6860b
-            test "$(git hash-object formalization/cr-alp/TrigSeries.lean)" = d31df9a5fa2c8475b2ce793f8fd378cd74c8856d
+            test "$(git hash-object formalization/cr-alp/ElementarySeries.lean)" = 550b95ed14dff8726894041d4fa1115deffd2309
+            test "$(git hash-object formalization/cr-alp/TrigSeries.lean)" = b8b092604b260ea0b0e0a36aaded778ecd7aa625
+            test "$(git hash-object custody/cr-alp-lean-03b1-elementary-series/run-46095435384-attempt-1/receipts.json)" = 11369e6f41ba94e69a02d00ba0951ebbda73e2d2
             python3 - <<'PY'
           import json,re
           from pathlib import Path
