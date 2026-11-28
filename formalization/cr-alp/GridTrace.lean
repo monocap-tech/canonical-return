@@ -26,7 +26,9 @@ theorem pointSound (z : ℤ) : Encl (point z) (z:ℝ) := by
     unfold val
     push_cast
     field_simp [scalePosReal.ne']
-  exact ⟨by simpa only [point,he],by simpa only [point,he]⟩
+  change val (z*logScale) ≤ (z:ℝ) ∧ (z:ℝ) ≤ val (z*logScale)
+  rw [he]
+  exact ⟨le_rfl,le_rfl⟩
 
 theorem plusSound {a b : Grid} {x y : ℝ} (ha : Encl a x) (hb : Encl b y) :
     Encl (plus a b) (x+y) := by
@@ -185,11 +187,17 @@ theorem logTrace {x : ℝ} (v : Grid) (t term : ℕ → Grid) (out : Grid)
     (hu : out.hi=2*(∑ i ∈ range 400, (term i).hi)+1) :
     Encl out (Real.log x) := by
   have h := logAttach hx hr (logPolynomialTrace v t term ht hv hstep)
-  unfold Encl val
-  rw [hl,hu]
-  push_cast
-  rw [sub_div,add_div,← unitEq]
-  convert h using 1 <;> unfold val <;> push_cast <;> ring
+  have hL : val out.lo = 2*val (∑ i ∈ range 400, (term i).lo)-ElementarySeries.unit := by
+    rw [hl,unitEq]
+    unfold val
+    push_cast <;> ring
+  have hU : val out.hi = 2*val (∑ i ∈ range 400, (term i).hi)+ElementarySeries.unit := by
+    rw [hu,unitEq]
+    unfold val
+    push_cast <;> ring
+  unfold Encl
+  rw [hL,hU]
+  exact h
 
 end CRALP.GridTrace
 #print axioms CRALP.GridTrace.scalePos
