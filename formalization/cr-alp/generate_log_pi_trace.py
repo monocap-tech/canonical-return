@@ -48,8 +48,15 @@ def log2Box : Grid := ⟨CRALP.Log2Actual.L,CRALP.Log2Actual.U⟩
 def xBox : Grid := {box(x)}
 def uBox : Grid := {box(u)}
 def vBox : Grid := {box(v)}
-def t (i : ℕ) : Grid := (#[{arr(powers)}] : Array Grid)[i]!
-def term (i : ℕ) : Grid := (#[{arr(terms)}] : Array Grid)[i]!
+def powers : Array Grid := #[{arr(powers)}]
+def terms : Array Grid := #[{arr(terms)}]
+theorem powersSize : powers.size = 401 := by decide
+theorem termsSize : terms.size = 400 := by decide
+def t (i : ℕ) : Grid :=
+  if h : i < 401 then powers[i]'(by rw [powersSize]; exact h) else ⟨1,0⟩
+def term (i : ℕ) : Grid :=
+  if h : i < 400 then terms[i]'(by rw [termsSize]; exact h) else ⟨1,0⟩
+theorem initialCheck : t 0 = uBox := by decide
 def reduced : Grid := {box(red)}
 def actualBox : Grid := {box(full)}
 theorem halfCheck : divOK piBox (point 2) xBox := by decide
@@ -73,13 +80,13 @@ theorem reducedSound : Encl reduced (Real.log (Real.pi/2)) := by
   have hr' : |(Real.pi/2-1)/(Real.pi/2+1)| ≤ 7/20 := by
     simpa only [Int.cast_ofNat] using hr
   exact logTrace vBox t term reduced (by positivity) hr'
-    (show Encl (t 0) ((Real.pi/2-1)/(Real.pi/2+1)) from mobiusSound)
+    (by rw [initialCheck]; exact mobiusSound)
     squareSound allSteps lowerSum upperSum
 theorem actual : Encl actualBox (Real.log Real.pi) := by
   rw [assemblyCheck,ElementarySeries.logHalf Real.pi Real.pi_pos]
   exact plusSound reducedSound (show Encl log2Box (Real.log 2) from CRALP.Log2Actual.actualLog2)
 end CRALP.LogPiActual
-"""+''.join(f"#print axioms CRALP.LogPiActual.{n}\n" for n in ["halfCheck","mobiusCheck","squareCheck","guardCheck","allSteps","lowerSum","upperSum","assemblyCheck","halfSound","mobiusSound","squareSound","reducedSound","actual"])
+"""+''.join(f"#print axioms CRALP.LogPiActual.{n}\n" for n in ["powersSize","termsSize","initialCheck","halfCheck","mobiusCheck","squareCheck","guardCheck","allSteps","lowerSum","upperSum","assemblyCheck","halfSound","mobiusSound","squareSound","reducedSound","actual"])
 (out/"LogPiActual.lean").write_text(lean)
 trace={"source_blob":blob,"scale":str(S),"pi":ends(pi),"log2":ends(log2),"k":k,"x":ends(x),"u":ends(u),"v":ends(v),"powers":[ends(a) for a in powers],"terms":[ends(a) for a in terms],"reduced":ends(red),"actual":ends(full),"width":str(full.h-full.l),"sha256":hashlib.sha256(lean.encode()).hexdigest()}
 (out/"log-pi-trace.json").write_text(json.dumps(trace,indent=2)+"\n")
