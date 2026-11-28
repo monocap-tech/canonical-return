@@ -103,13 +103,18 @@ theorem graph_signed_of_literal (a : ℝ)
     neutralActualZetaSourceQuadratic a h =
       signedForm a T (neutralActualZetaSourcePhysical a h) := by
   unfold signedForm
-  rw [graph_signed_energy, V10B6c.signedGram_diagonal,
-    ← V10B6d.signed_channel_tsum (T (carrierContinuousEquiv a
-      (neutralActualZetaSourcePhysical a h)))]
+  rw [graph_signed_energy, V10B6c.signedGram_diagonal]
+  change (∑' i : V10A.Index, (posSq a (neutralActualZetaSourcePhysical a h) i -
+    negSq a (neutralActualZetaSourcePhysical a h) i)) =
+    ‖V10B6c.projection true (T (carrierContinuousEquiv a
+      (neutralActualZetaSourcePhysical a h)))‖^2 -
+    ‖V10B6c.projection false (T (carrierContinuousEquiv a
+      (neutralActualZetaSourcePhysical a h)))‖^2
+  rw [← V10B6d.signed_channel_tsum (T (carrierContinuousEquiv a
+    (neutralActualZetaSourcePhysical a h)))]
   apply tsum_congr
   intro i
-  rw [hT (carrierContinuousEquiv a (neutralActualZetaSourcePhysical a h)) i]
-  rfl
+  rw [hT (carrierContinuousEquiv a (neutralActualZetaSourcePhysical a h)) i] <;> rfl
 
 theorem actual_closed_domain_identity (a : ℝ) (ha : 0 < a) :
     ∃ T : V08I.logCarrier a →L[ℂ] V07C.Coeff V10A.Index,
