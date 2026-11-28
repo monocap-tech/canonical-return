@@ -1,0 +1,25 @@
+LogPiActual.lean:825:53: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+LogPiActual.lean:826:84: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+LogPiActual.lean:827:49: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+LogPiActual.lean:828:46: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+LogPiActual.lean:829:62: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+'CRALP.LogPiActual.powersSize' does not depend on any axioms
+'CRALP.LogPiActual.termsSize' does not depend on any axioms
+'CRALP.LogPiActual.initialCheck' does not depend on any axioms
+'CRALP.LogPiActual.halfCheck' depends on axioms: [propext]
+'CRALP.LogPiActual.mobiusCheck' depends on axioms: [propext]
+'CRALP.LogPiActual.squareCheck' depends on axioms: [propext]
+'CRALP.LogPiActual.guardCheck' depends on axioms: [propext]
+'CRALP.LogPiActual.allSteps' depends on axioms: [propext]
+'CRALP.LogPiActual.lowerSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.LogPiActual.upperSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.LogPiActual.assemblyCheck' does not depend on any axioms
+'CRALP.LogPiActual.halfSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.LogPiActual.mobiusSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.LogPiActual.squareSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.LogPiActual.reducedSound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.LogPiActual.actual' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m52.333s
+user	1m2.660s
+sys	0m3.993s

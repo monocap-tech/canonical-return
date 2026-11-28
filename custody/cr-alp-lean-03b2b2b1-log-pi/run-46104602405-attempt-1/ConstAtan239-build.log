@@ -1,0 +1,5 @@
+ConstAtan239.lean:810:78: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+'CRALP.ConstAtan239.allTerms' depends on axioms: [propext]
+'CRALP.ConstAtan239.lowerSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ConstAtan239.upperSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ConstAtan239.actual' depends on axioms: [propext, Classical.choice, Quot.sound]

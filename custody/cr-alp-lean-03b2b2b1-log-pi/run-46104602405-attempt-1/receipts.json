@@ -1,0 +1,150 @@
+{
+  "status": "NATIVE_LOG_PI_TRACE_PASS",
+  "source_head": "c38408547af2c13453a7e8ed2645aed60005de26",
+  "modules": {
+    "GridTrace": {
+      "status": "PASS",
+      "expected": 14,
+      "declarations": {
+        "CRALP.GridTrace.scalePos": [
+          "propext"
+        ],
+        "CRALP.GridTrace.scalePosReal": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.GridTrace.pointSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.GridTrace.plusSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.GridTrace.minusSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.GridTrace.negativeSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.GridTrace.mulCornerSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.GridTrace.mulSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.GridTrace.divCornerSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.GridTrace.divSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.GridTrace.absSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.GridTrace.logPowerTrace": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.GridTrace.logPolynomialTrace": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.GridTrace.logTrace": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": []
+    },
+    "LogPiActual": {
+      "status": "PASS",
+      "expected": 16,
+      "declarations": {
+        "CRALP.LogPiActual.powersSize": [],
+        "CRALP.LogPiActual.termsSize": [],
+        "CRALP.LogPiActual.initialCheck": [],
+        "CRALP.LogPiActual.halfCheck": [
+          "propext"
+        ],
+        "CRALP.LogPiActual.mobiusCheck": [
+          "propext"
+        ],
+        "CRALP.LogPiActual.squareCheck": [
+          "propext"
+        ],
+        "CRALP.LogPiActual.guardCheck": [
+          "propext"
+        ],
+        "CRALP.LogPiActual.allSteps": [
+          "propext"
+        ],
+        "CRALP.LogPiActual.lowerSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.LogPiActual.upperSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.LogPiActual.assemblyCheck": [],
+        "CRALP.LogPiActual.halfSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.LogPiActual.mobiusSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.LogPiActual.squareSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.LogPiActual.reducedSound": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.LogPiActual.actual": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": []
+    }
+  },
+  "trace_terms": 400,
+  "pilot_operations": 803,
+  "synthetic_operations": 270,
+  "redteam_mutations": 2146,
+  "invalid_divisor_cases": 180,
+  "width_units": "5588",
+  "independent_replay": "INDEPENDENT_LOG_PI_REPLAY_PASS",
+  "scope": "Scaled grid arithmetic, logarithm recurrence and actual 046 log(PI) only; other variable arguments and physical coefficient attachment remain separate."
+}
