@@ -1,0 +1,5 @@
+Log2Actual.lean:814:55: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+'CRALP.Log2Actual.allTerms' depends on axioms: [propext]
+'CRALP.Log2Actual.lowerSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.Log2Actual.upperSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.Log2Actual.actualLog2' depends on axioms: [propext, Classical.choice, Quot.sound]

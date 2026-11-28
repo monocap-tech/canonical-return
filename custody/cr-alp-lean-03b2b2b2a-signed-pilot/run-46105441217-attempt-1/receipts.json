@@ -1,0 +1,54 @@
+{
+  "status": "PARTIAL_OR_FAILED",
+  "source_head": "437d43d93ffcc38c323bfdcb455f6ca4030b82a3",
+  "modules": {
+    "SignedGridSeries": {
+      "status": "FAIL",
+      "expected": 8,
+      "declarations": {
+        "CRALP.SignedGridSeries.atanPowerTrace": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedGridSeries.trigTermSucc": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.SignedGridSeries.trigPowerTrace": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": [
+        "compiler exit 1",
+        "compiler error",
+        "CRALP.SignedGridSeries.sumSound: forbidden axiom ['sorryAx']",
+        "CRALP.SignedGridSeries.attachGrid: forbidden axiom ['sorryAx']",
+        "CRALP.SignedGridSeries.atanTrace: forbidden axiom ['sorryAx']",
+        "CRALP.SignedGridSeries.sinTrace: forbidden axiom ['sorryAx']",
+        "CRALP.SignedGridSeries.cosTrace: forbidden axiom ['sorryAx']"
+      ]
+    },
+    "SignedPilot": {
+      "status": "BLOCKED",
+      "expected": 34,
+      "declarations": {},
+      "issues": [
+        "DEPENDENCY_BLOCKED:SignedGridSeries"
+      ]
+    }
+  },
+  "trace_terms": 1200,
+  "pilot_operations": 2406,
+  "redteam_mutations": 4812,
+  "width_units": {
+    "Sin": "14402668",
+    "Cos": "14297535",
+    "Atan": "707"
+  },
+  "independent_replay": "INDEPENDENT_SIGNED_PILOT_PASS",
+  "scope": "Actual 046 sine/cosine j85 n9 and shifted atan j85 pilot only; bulk evaluation and physical coefficients remain separate."
+}
