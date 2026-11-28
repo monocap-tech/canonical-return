@@ -1,0 +1,114 @@
+name: CR-ALP LEAN-02A-R2 matrix soundness
+on:
+  push:
+    branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
+    paths: ['.github/workflows/cr-alp-lean-02ar2-matrix-soundness.yml']
+permissions:
+  contents: write
+concurrency:
+  group: cr-alp-lean-02ar2-matrix-soundness
+  cancel-in-progress: false
+jobs:
+  receiver:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate and check all six exact matrix witnesses
+        run: |
+          set -euo pipefail
+          E=/tmp/cr-alp-lean02ar2-evidence
+          mkdir -p "$E"
+          {
+            git rev-parse HEAD
+            test "$(git hash-object formalization/cr-alp/MatrixSoundnessR2.lean)" = a91282b6bc883380009ecdec589cafc177686fc8
+            test "$(git hash-object formalization/cr-alp/generate_matrix_witnesses.py)" = dcae9202899f196d0c21390ed2256d2f0da962de
+            python3 -m pip install numpy==2.2.6
+            python3 formalization/cr-alp/generate_matrix_witnesses.py "$E/witnesses.json"
+            python3 - <<'PY'
+          from pathlib import Path
+          import re
+          s=Path('formalization/cr-alp/MatrixSoundnessR2.lean').read_text()
+          names=['entryLower','uniformErrorLower','gramQuadratic','diagonalQuadratic','gramResidualLower']
+          assert set(re.findall(r'(?m)^theorem (\w+)',s))==set(names)
+          assert set(re.findall(r'(?m)^#print axioms CRALP\.(\w+)$',s))==set(names)
+          assert not re.search(r'\b(?:sorry|admit|sorryAx|axiom|native_decide)\b',s)
+          PY
+          } 2>&1 | tee "$E/preflight.log"
+      - name: Assemble isolated Lean project
+        run: |
+          set -euo pipefail
+          P=/tmp/cr-alp-lean02ar2-project
+          mkdir -p "$P"
+          cp formalization/cr-alp/MatrixSoundnessR2.lean "$P/"
+          printf '%s\n' 'leanprover/lean4:v4.34.0' > "$P/lean-toolchain"
+          cat > "$P/lakefile.toml" <<'TOML'
+          name = "cr_alp_matrix_soundness"
+          version = "0.1.0"
+          [[require]]
+          name = "mathlib"
+          git = "https://github.com/leanprover-community/mathlib4.git"
+          rev = "5ed2965256430c3649e86755f9576b54eca72435"
+          [[lean_lib]]
+          name = "MatrixSoundnessR2"
+          TOML
+          curl -sSf https://raw.githubusercontent.com/leanprover/elan/master/elan-init.sh | sh -s -- -y
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+          export PATH="$HOME/.elan/bin:$PATH"
+          cd "$P"
+          { lean --version; lake --version; lake update; lake exe cache get; } 2>&1 | tee /tmp/cr-alp-lean02ar2-evidence/setup.log
+          cp lake-manifest.json lakefile.toml lean-toolchain /tmp/cr-alp-lean02ar2-evidence/
+          git -C .lake/packages/mathlib rev-parse HEAD > /tmp/cr-alp-lean02ar2-evidence/mathlib-commit.txt
+      - name: Native fresh compile and strict named axiom audit
+        run: |
+          set -euo pipefail
+          E=/tmp/cr-alp-lean02ar2-evidence
+          cd /tmp/cr-alp-lean02ar2-project
+          rm -f MatrixSoundnessR2.olean
+          lake env lean -o MatrixSoundnessR2.olean MatrixSoundnessR2.lean 2>&1 | tee "$E/axioms.log"
+          test -s MatrixSoundnessR2.olean
+          sha256sum MatrixSoundnessR2.olean > "$E/olean.sha256"
+          python3 - "$E" <<'PY'
+          from pathlib import Path
+          import json,re,sys
+          p=Path(sys.argv[1]);t=(p/'axioms.log').read_text()
+          names=['entryLower','uniformErrorLower','gramQuadratic','diagonalQuadratic','gramResidualLower']
+          allowed={'propext','Classical.choice','Quot.sound'}
+          found={}
+          for n in names:
+              full='CRALP.'+n
+              pat=re.compile(r"^'"+re.escape(full)+r"' (?:depends on axioms: \[([^\]]*)\]|does not depend on any axioms)\s*$",re.M)
+              hits=list(pat.finditer(t));assert len(hits)==1,(full,len(hits))
+              axioms={a.strip() for a in hits[0].group(1).split(',') if a.strip()} if hits[0].group(1) is not None else set()
+              assert axioms<=allowed,(full,axioms-allowed)
+              found[full]=sorted(axioms)
+          assert not re.search(r'(?m)^\s*(?:error:|.*: error:)',t)
+          (p/'receipts.json').write_text(json.dumps({'status':'NATIVE_MATRIX_SOUNDNESS_PASS','declarations':found,'scope':'Generic soundness proof only. Six external integer matrix witnesses generated; kernel entrywise data checking remains pending.'},indent=2)+'\n')
+          print('Five matrix soundness declarations PASS')
+          PY
+          (cd "$E"; sha256sum witnesses.json preflight.log setup.log axioms.log lean-toolchain lakefile.toml lake-manifest.json mathlib-commit.txt olean.sha256 receipts.json > SHA256SUMS; sha256sum -c SHA256SUMS)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: CR-ALP-LEAN-02A-R2-matrix-soundness
+          path: /tmp/cr-alp-lean02ar2-evidence/
+          if-no-files-found: warn
+      - name: Preserve native verification evidence and read back remote custody
+        run: |
+          set -euo pipefail
+          ROOT=custody/cr-alp-lean-02ar2-matrix-soundness
+          test ! -e "$ROOT"
+          mkdir -p "$ROOT"
+          cp -a /tmp/cr-alp-lean02ar2-evidence/. "$ROOT/"
+          (cd "$ROOT"; sha256sum -c SHA256SUMS)
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add "$ROOT"
+          git commit -m 'CR-ALP LEAN-02A-R2: preserve matrix soundness and witness evidence [skip ci]'
+          git push origin "HEAD:refs/heads/$GITHUB_REF_NAME"
+          git fetch origin "refs/heads/$GITHUB_REF_NAME"
+          test "$(git rev-parse HEAD)" = "$(git rev-parse FETCH_HEAD)"
+          REMOTE="$(mktemp -d)"
+          git archive FETCH_HEAD "$ROOT" | tar -x -C "$REMOTE"
+          (cd "$REMOTE/$ROOT"; sha256sum -c SHA256SUMS)
+          echo 'Remote native receipt readback PASS'
