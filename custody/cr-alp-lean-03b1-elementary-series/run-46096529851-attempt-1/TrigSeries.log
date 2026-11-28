@@ -1,0 +1,26 @@
+TrigSeries.lean:27:38: warning: This simp argument is unused:
+  Real.iteratedDeriv_odd_sin
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Real.iteratedDeriv_even_sin]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+TrigSeries.lean:35:38: warning: This simp argument is unused:
+  Real.iteratedDeriv_odd_cos
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Real.iteratedDeriv_even_cos]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+TrigSeries.lean:65:2: warning: exponent 800 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+TrigSeries.lean:72:4: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+'CRALP.TrigSeries.sinPoly_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.TrigSeries.cosPoly_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.TrigSeries.taylor800' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.TrigSeries.trigGuard' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.TrigSeries.sinReduced' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.TrigSeries.cosReduced' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m3.774s
+user	0m3.620s
+sys	0m1.007s

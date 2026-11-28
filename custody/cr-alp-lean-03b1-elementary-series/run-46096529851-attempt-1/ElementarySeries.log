@@ -1,0 +1,26 @@
+ElementarySeries.lean:24:51: warning: exponent 801 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+ElementarySeries.lean:46:8: warning: exponent 801 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+ElementarySeries.lean:80:4: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+ElementarySeries.lean:124:40: warning: exponent 340 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+ElementarySeries.lean:180:58: warning: exponent 400 exceeds the threshold 256, exponentiation operation was not evaluated, use `set_option exponentiation.threshold <num>` to set a new threshold
+'CRALP.ElementarySeries.logLooseGuard' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ElementarySeries.logReduced' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ElementarySeries.logMöbius' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ElementarySeries.logHalf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ElementarySeries.logDouble' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ElementarySeries.geomAtan' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ElementarySeries.atanErrorDerivative' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ElementarySeries.atanLooseGuard' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ElementarySeries.atanReduced' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ElementarySeries.atanQuarterReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ElementarySeries.machin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ElementarySeries.sinPeriod' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ElementarySeries.cosPeriod' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ElementarySeries.expLooseGuard' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.ElementarySeries.expReduced' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m4.461s
+user	0m5.705s
+sys	0m0.967s
