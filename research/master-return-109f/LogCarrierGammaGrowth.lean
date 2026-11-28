@@ -42,7 +42,7 @@ theorem gamma_logWeight_bound :
   calc
     _ ≤ |(Complex.digamma z).re| + |Real.log Real.pi| := abs_sub _ _
     _ ≤ ‖Complex.digamma z‖ + |Real.log Real.pi| :=
-      add_le_add_right (Complex.abs_re_le_norm _) _
+      by linarith [Complex.abs_re_le_norm (Complex.digamma z)]
     _ ≤ C * V08I.logWeight u + (|Real.log Real.pi| / Real.log 2) *
         V08I.logWeight u :=
       add_le_add (hd.trans (mul_le_mul_of_nonneg_left hw hC.le)) hconst
