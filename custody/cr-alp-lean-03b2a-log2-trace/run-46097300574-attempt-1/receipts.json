@@ -1,0 +1,112 @@
+{
+  "status": "NATIVE_LOG2_DIRECTED_TRACE_PASS",
+  "source_head": "52540d83e265e3a32deff20c6ebf1eb0f343d427",
+  "modules": {
+    "DirectedEvaluation": {
+      "status": "PASS",
+      "expected": 14,
+      "declarations": {
+        "CRALP.DirectedEvaluation.attach": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedEvaluation.logAttach": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedEvaluation.atanAttach": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedEvaluation.expAttach": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedEvaluation.sinAttach": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedEvaluation.cosAttach": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedEvaluation.logHalfAttach": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedEvaluation.logDoubleAttach": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedEvaluation.atanQuarterAttach": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedEvaluation.sinPeriodAttach": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedEvaluation.cosPeriodAttach": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedEvaluation.machinAttach": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedEvaluation.log2Term": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.DirectedEvaluation.log2Trace": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": []
+    },
+    "Log2Actual": {
+      "status": "PASS",
+      "expected": 4,
+      "declarations": {
+        "CRALP.Log2Actual.allTerms": [
+          "propext"
+        ],
+        "CRALP.Log2Actual.lowerSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.Log2Actual.upperSum": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ],
+        "CRALP.Log2Actual.actualLog2": [
+          "Classical.choice",
+          "Quot.sound",
+          "propext"
+        ]
+      },
+      "issues": []
+    }
+  },
+  "trace_terms": 400,
+  "width_units": "802",
+  "independent_replay": "INDEPENDENT_LOG2_REPLAY_PASS",
+  "scope": "Generic elementary function interval attachments and exact 400-term original 046 LOG2 trace only; other actual evaluations, digamma/trigamma and physical coefficients remain separate."
+}
