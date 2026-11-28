@@ -84,12 +84,13 @@ theorem primeLiteral_eq_finite (a : ℝ) (N : ℕ)
     (∑' n : ℕ, neutralIV085PrimeSummand
       (neutralWindowCorrelation a (physical a f) (physical a f)) n) =
       primeFinite a N f := by
-  apply neutralIV085PrimeSum_eq_finite _ _ N hN
+  unfold primeFinite
+  apply neutralIV085PrimeSum_eq_finite _ (L := 2*a) _ N hN
   intro u hu
-  apply abs_le.mpr
-  by_contra h
-  apply hu
-  exact neutralWindowCorrelation_supported a _ _ u h
+  have hm : u ∈ Set.Icc (-(2*a)) (2*a) := by
+    by_contra hn
+    exact hu (neutralWindowCorrelation_supported a _ _ u hn)
+  exact abs_le.mpr hm
 
 def poleDiagonal (a : ℝ) (f : NeutralLogHilbertCarrier a) : ℂ :=
   inner ℂ f (neutralLogPoleOperator a f)
@@ -109,6 +110,12 @@ theorem poleLiteral_eq_diagonal (a : ℝ) (f : NeutralLogHilbertCarrier a) :
     push_cast
     ring
   rw [hp, hm]
+  change neutralRawTransform (neutralWindowCorrelation a
+      (neutralLogPhysical f.val) (neutralLogPhysical f.val))
+      (Complex.I * ((1/2 : ℝ) : ℂ)) +
+    neutralRawTransform (neutralWindowCorrelation a
+      (neutralLogPhysical f.val) (neutralLogPhysical f.val))
+      (Complex.I * ((-(1/2) : ℝ) : ℂ)) = inner ℂ f (neutralLogPoleOperator a f)
   exact neutralLogHilbertCorrelation_poleOperator a f f
 
 theorem primePole_continuous (a : ℝ) (N : ℕ) :
