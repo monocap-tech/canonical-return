@@ -1,6 +1,6 @@
 {
-  "status": "unactivated stage plan; E admission prerequisite for final identity",
-  "manifest_commit": "9183f8ca85fa5aa6fe075d28856ef63a2b0647d8",
+  "status": "revised source pins; unactivated; E admission and remaining red-team/preflight prerequisites",
+  "manifest_commit": "b319cc150e303eb468b49a83eb6dfcde855e71c4",
   "allowed_axioms": [
     "propext",
     "Classical.choice",
@@ -20,7 +20,7 @@
         },
         {
           "module": "WeilDefect.MasterReturn.LogCarrierGammaMetric",
-          "blob": "1f932ec79767bea7426cfe558576069ef936fa39",
+          "blob": "20f71519c91cc8f6f0de5f278ad34ebee27ded02",
           "targets": [
             "WeilDefect.MasterReturn.LogCarrierGammaMetric.angular_log_gap",
             "WeilDefect.MasterReturn.LogCarrierGammaMetric.receiving_remainder_bounds",
@@ -32,14 +32,14 @@
         },
         {
           "module": "WeilDefect.MasterReturn.LogCarrierGammaGrowth",
-          "blob": "ade8c09d4a4d16cb520cc6ebcd0771950860c153",
+          "blob": "0534bdb38a682b23598f6d833935b1279998d3ba",
           "targets": [
             "WeilDefect.MasterReturn.LogCarrierGammaGrowth.gamma_logWeight_bound"
           ]
         },
         {
           "module": "WeilDefect.MasterReturn.LogCarrierPrimePole",
-          "blob": "8d5d8e7d7e71251fce2938b29c573635a9356a60",
+          "blob": "a8ea7826607cb3156edfed8f1a02eb568893b6fe",
           "targets": [
             "WeilDefect.MasterReturn.LogCarrierPrimePole.physical_continuous",
             "WeilDefect.MasterReturn.LogCarrierPrimePole.window_eq_ae",
@@ -56,7 +56,7 @@
         },
         {
           "module": "WeilDefect.MasterReturn.LogCarrierFourierAttachment",
-          "blob": "0ca641a51faa4b1167388729e0e7e18fdccb2712",
+          "blob": "2f95a78653471be9838c5915f1867e7463f11502",
           "targets": [
             "WeilDefect.MasterReturn.LogCarrierFourierAttachment.supported_window_ae",
             "WeilDefect.MasterReturn.LogCarrierFourierAttachment.supported_integrable",
@@ -69,7 +69,7 @@
         },
         {
           "module": "WeilDefect.MasterReturn.LogCarrierArchContinuity",
-          "blob": "31b41d6f8c902b28e153390f00a08bb8d3e91f69",
+          "blob": "9cce705e12f0a728403b72d0fb740099d38a4acd",
           "targets": [
             "WeilDefect.MasterReturn.LogCarrierArchContinuity.gammaRatio_measurable",
             "WeilDefect.MasterReturn.LogCarrierArchContinuity.gammaRatio_bound",
@@ -229,7 +229,7 @@
       "modules": [
         {
           "module": "WeilDefect.MasterReturn.LogCarrierClosedDomainIdentity",
-          "blob": "954e70a2e05045f9deef19a71d27a4b68416a744",
+          "blob": "ca950ff2971d8961cea0a89fdb7bfdc5fffffd43",
           "targets": [
             "WeilDefect.MasterReturn.LogCarrierClosedDomainIdentity.ivInteriorCore_dense",
             "WeilDefect.MasterReturn.LogCarrierClosedDomainIdentity.ivCore_window_smooth",
