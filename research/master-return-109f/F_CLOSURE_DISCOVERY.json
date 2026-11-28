@@ -142,17 +142,51 @@
       "imports": [
         "WeilDefect.Arithmetic.ActualZetaGreenGraphPackets"
       ]
+    },
+    "WeilDefect/Screening/Quadratic.lean": {
+      "blob": "293ad2e94fdb004d3de4a7493baa4b9dae767e79",
+      "imports": [
+        "Mathlib.Analysis.InnerProductSpace.Adjoint",
+        "Mathlib.Tactic"
+      ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaGreenGraphPackets.lean": {
+      "blob": "daf2ad553c5a7ebcaa960b4e321679b8bbe21d5e",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaGreenClosedSubspace",
+        "Mathlib.Analysis.Normed.Operator.Banach"
+      ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaGreenClosedSubspace.lean": {
+      "blob": "fca4b0cbe82c109976b2692dbe5d6e60c6309f1c",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaGreenGraphMixed",
+        "WeilDefect.Morphology.NeutralLogSourceDomainRealization"
+      ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaGreenGraphMixed.lean": {
+      "blob": "39f4a571e9b6336aecd6ccc93a4903ed55cffd81",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaGreenGraphClosure"
+      ]
+    },
+    "WeilDefect/Morphology/NeutralLogSourceDomainRealization.lean": {
+      "blob": "e36c1e9c4cbc08ca4092701afaea3329873b738e",
+      "imports": [
+        "WeilDefect.Morphology.NeutralLogMultiplierSourceAttachment"
+      ]
     }
   },
   "pending": [
-    "WeilDefect/Screening/Quadratic.lean",
-    "WeilDefect/Arithmetic/ActualZetaGreenGraphPackets.lean"
+    "WeilDefect/Arithmetic/ActualZetaGreenGraphClosure.lean"
   ],
   "external": [
     "Mathlib",
     "Mathlib.Analysis.Calculus.ContDiff.Convolution",
     "Mathlib.Analysis.Complex.ExponentialBounds",
+    "Mathlib.Analysis.InnerProductSpace.Adjoint",
     "Mathlib.Analysis.InnerProductSpace.StarOrder",
+    "Mathlib.Analysis.Normed.Operator.Banach",
     "Mathlib.Analysis.Normed.Operator.Extend",
     "Mathlib.Analysis.SpecialFunctions.ContinuousFunctionalCalculus.Rpow.Basic",
     "Mathlib.NumberTheory.Harmonic.EulerMascheroni",
