@@ -61,7 +61,7 @@ print("RETURN109-F6 supplier delta authenticated:", len(f_expected))
     marker = "# No source files are written until the entire selected closure passes."
     assert src.count(marker) == 1
     src = src.replace(marker, block + marker)
-    src = 'if not __debug__: raise RuntimeError("verification requires assertions enabled")\\n' + src
+    src = 'if not __debug__: raise RuntimeError("verification requires assertions enabled")\n' + src
     # Append exact staged source bytes, never regenerate theorem text.
     src += f"""\nassert digest(pathlib.Path('WeilDefect/MasterReturn/LogCarrierBoundedAnalysis.lean').read_bytes()) == {E_BLOB!r}\nassert len(manifest) == 314\n"""
     names = set()
@@ -89,7 +89,8 @@ assert digest(f_path.read_bytes()) == {e["blob"]!r}
     assert len(names) == 111
     src += f"""
 f_result = {{"canonical": {CANONICAL!r}, "base_assembler_blob": {BASE_BLOB!r},
-    "supplier_delta": f_expected, "staged": {staged!r},\n    "admitted_E_blob": {E_BLOB!r}, "supplier_count": 314,
+    "supplier_delta": f_expected, "staged": {staged!r},
+    "admitted_E_blob": {E_BLOB!r}, "supplier_count": 314,
     "named_targets": 111, "status": "source assembly only; native audit pending"}}
 pathlib.Path("return109f-closure.json").write_text(json.dumps(f_result, indent=2, sort_keys=True)+"\\n")
 print("RETURN109-F6 staged source assembly PASS 16 modules / 111 names")
