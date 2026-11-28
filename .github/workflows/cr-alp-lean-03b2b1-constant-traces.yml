@@ -1,4 +1,4 @@
-name: CR-ALP LEAN-03B2B1-R1 cast normalization repair
+name: CR-ALP LEAN-03B2B1-R2 terminal cast and Machin repair
 on:
   push:
     branches: ['research/cr-alp-122-fixed-collar-transfer-staged']
@@ -40,10 +40,13 @@ jobs:
             test "$(git hash-object formalization/cr-alp/redteam_log2_trace.js)" = d880113fb1cb6a7afb62cc9eea651792d39ac0d8
             test "$(git hash-object custody/cr-alp-lean-03b2a-log2-trace/run-46097300574-attempt-1/receipts.json)" = b062333e1f0bae692cbd7844ce0207288b6aa1de
             test "$(git hash-object formalization/cr-alp/RationalTrace.lean)" = 3d448b5064c912afc2c0766fac9b5d086bda54d0
-            test "$(git hash-object formalization/cr-alp/generate_constant_traces.py)" = 0b5aa85556cb5c93f33d6547a54850f2d11ecd41
+            test "$(git hash-object formalization/cr-alp/generate_constant_traces.py)" = 0706cd8a57e05a7d563ea9bb584259d369915a6a
             test "$(git hash-object formalization/cr-alp/redteam_constant_traces.js)" = 163a6e939c0779211e6ea7c36074b4e5e02bd2be
             test "$(git hash-object custody/cr-alp-lean-03b2b1-constant-traces/run-46097766440-attempt-1/receipts.json)" = 3e623d75903e505014d268dad3417698846f0ca6
             test "$(git hash-object formalization/cr-alp/LEAN-03B2B1-R1_REDTEAM.md)" = 265ba37995511542a66adda638d0104fcb0dc578
+            test "$(git hash-object custody/cr-alp-lean-03b2b1-constant-traces/run-46098652786-attempt-1/receipts.json)" = 25ea2339969b04af8ca08f6d73a664534d6c0bcd
+            test "$(git hash-object custody/cr-alp-lean-03b2b1-constant-traces/run-46098652786-attempt-1/constant-traces.json)" = a830d50194b80b93306f73b3dc39933b915fe8d2
+            test "$(git hash-object formalization/cr-alp/LEAN-03B2B1-R2_REDTEAM.md)" = fc875716065f39bfbf6ec9e79c5e40ebc5049aa1
             python3 - <<'PY'
           import json,re
           from pathlib import Path
@@ -70,6 +73,29 @@ jobs:
           node --check formalization/cr-alp/redteam_constant_traces.js
           python3 formalization/cr-alp/generate_constant_traces.py src/audits/cr_alp_046_full_finite.py "$P/" | tee "$E/trace-generation.log"
           node formalization/cr-alp/redteam_constant_traces.js "$P/constant-traces.json" > "$E/redteam-replay.json"
+          python3 - "$P" <<'PY'
+          import json,sys,hashlib
+          from pathlib import Path
+          p=Path(sys.argv[1]);old=Path('custody/cr-alp-lean-03b2b1-constant-traces/run-46098652786-attempt-1')
+          a=json.loads((old/'constant-traces.json').read_text())
+          b=json.loads((p/'constant-traces.json').read_text())
+          assert a.keys()==b.keys()
+          assert a['source_blob']==b['source_blob'] and a['scale']==b['scale']
+          assert a['cases'].keys()==b['cases'].keys()
+          for k in a['cases']:
+              assert {f:v for f,v in a['cases'][k].items() if f!='sha256'}=={f:v for f,v in b['cases'][k].items() if f!='sha256'}
+              name='Const'+k+'.lean'
+              prev=(old/name).read_bytes()
+              curr=(p/name).read_bytes()
+              assert hashlib.sha256(prev).hexdigest()==a['cases'][k]['sha256']
+              assert hashlib.sha256(curr).hexdigest()==b['cases'][k]['sha256']
+              if k.startswith('Exp'):
+                  assert prev==curr
+              else:
+                  assert prev.split(b'theorem actual :')[0]==curr.split(b'theorem actual :')[0]
+                  assert prev.split(b'#print axioms ')[1:]==curr.split(b'#print axioms ')[1:]
+          print('R1 numerical trace identity and accepted exponential source identity PASS')
+          PY
           cp "$P/constant-traces.json" "$E/"
           cp "$P/"*.lean "$E/"
           python3 - "$P" <<'PY'
