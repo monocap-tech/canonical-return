@@ -61,6 +61,7 @@ print("RETURN109-F6 supplier delta authenticated:", len(f_expected))
     marker = "# No source files are written until the entire selected closure passes."
     assert src.count(marker) == 1
     src = src.replace(marker, block + marker)
+    src = 'if not __debug__: raise RuntimeError("verification requires assertions enabled")\\n' + src
     # Append exact staged source bytes, never regenerate theorem text.
     src += f"""\nassert digest(pathlib.Path('WeilDefect/MasterReturn/LogCarrierBoundedAnalysis.lean').read_bytes()) == {E_BLOB!r}\nassert len(manifest) == 314\n"""
     names = set()
