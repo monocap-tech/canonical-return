@@ -1,5 +1,7 @@
 # Canonical Return
 
+For a provider-neutral restart, begin with [AGENTS.md](AGENTS.md). It points to the native governing ledgers and exact evidence checks; this README does not replace a live branch/run reconciliation.
+
 **Independent arithmetic–spectral comparison research archive.**
 
 This public repository preserves the Canonical Return investigations from the signed Weil explicit formula through the comparisons with Suzuki, Morishita, Connes–Consani, and Deninger. Its purpose is to preserve exact source dictionaries, admissibility requirements, falsifiable transfer tests, and reproducible finite calculations.
