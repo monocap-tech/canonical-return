@@ -1,0 +1,31 @@
+{
+  "status": "NATIVE_MATRIX_SOUNDNESS_PASS",
+  "declarations": {
+    "CRALP.entryLower": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.uniformErrorLower": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.gramQuadratic": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.diagonalQuadratic": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ],
+    "CRALP.gramResidualLower": [
+      "Classical.choice",
+      "Quot.sound",
+      "propext"
+    ]
+  },
+  "scope": "Generic soundness proof only. Six external integer matrix witnesses generated; kernel entrywise data checking remains pending."
+}

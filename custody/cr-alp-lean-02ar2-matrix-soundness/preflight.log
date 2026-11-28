@@ -1,0 +1,28 @@
+8cbc0028f0be8286c6e8015cb001bbfa14628e2f
+Defaulting to user installation because normal site-packages is not writeable
+Collecting numpy==2.2.6
+  Downloading numpy-2.2.6.tar.gz (20.3 MB)
+     ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 20.3/20.3 MB 78.3 MB/s eta 0:00:00
+  Installing build dependencies: started
+  Installing build dependencies: finished with status 'done'
+  Getting requirements to build wheel: started
+  Getting requirements to build wheel: finished with status 'done'
+  Preparing metadata (pyproject.toml): started
+  Preparing metadata (pyproject.toml): still running...
+  Preparing metadata (pyproject.toml): still running...
+  Preparing metadata (pyproject.toml): still running...
+  Preparing metadata (pyproject.toml): finished with status 'done'
+Building wheels for collected packages: numpy
+  Building wheel for numpy (pyproject.toml): started
+  Building wheel for numpy (pyproject.toml): finished with status 'done'
+  Created wheel for numpy: filename=numpy-2.2.6-cp314-cp314-linux_x86_64.whl size=10795460 sha256=9343e42dcc14d344b66be5042723932233b7358b3b6409bbb7aadd1d233091d4
+  Stored in directory: /home/runner/.cache/pip/wheels/83/be/bb/986b1bdc6955e697e6c56b03ef4aa1d67eb2c9fbeaf8e2804f
+Successfully built numpy
+Installing collected packages: numpy
+Successfully installed numpy-2.2.6
+1 H 43 exact reserve ratio 6.804466634415135e-09 PASS
+1 W 43 exact reserve ratio 9.021762657763937e-08 PASS
+1 P 43 exact reserve ratio 6.53211161284964e-05 PASS
+2 H 42 exact reserve ratio 3.6896846587009766e-09 PASS
+2 W 42 exact reserve ratio 9.009047006016877e-08 PASS
+2 P 42 exact reserve ratio 8.008368866793518e-06 PASS

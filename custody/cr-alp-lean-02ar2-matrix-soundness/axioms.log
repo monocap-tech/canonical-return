@@ -1,0 +1,9 @@
+MatrixSoundnessR2.lean:3:0: warning: 
+'Mathlib.Data.Real.Basic' has been deprecated: please replace this import by
+
+import Mathlib.Basic.Real.Basic
+'CRALP.entryLower' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.uniformErrorLower' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.gramQuadratic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.diagonalQuadratic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CRALP.gramResidualLower' depends on axioms: [propext, Classical.choice, Quot.sound]
