@@ -7,7 +7,7 @@ open scoped BigOperators
 set_option maxRecDepth 20000
 set_option maxHeartbeats 0
 
-def unit : ℝ := 1 / ((10^340 : ℕ) : ℝ)
+noncomputable def unit : ℝ := 1 / ((10^340 : ℕ) : ℝ)
 
 noncomputable def logPoly (u : ℝ) : ℝ :=
   2 * ∑ i ∈ range 400, u ^ (2*i+1) / (2*i+1 : ℕ)
@@ -59,7 +59,13 @@ theorem logMöbius (x : ℝ) (hx : 0 < x)
     (h : |(x-1)/(x+1)| ≤ 7/20) :
     |Real.log x - logPoly ((x-1)/(x+1))| < unit := by
   have he : (1+(x-1)/(x+1))/(1-(x-1)/(x+1)) = x := by
-    field_simp
+    have hn : x+1 ≠ 0 := by linarith
+    have hd : 1-(x-1)/(x+1) ≠ 0 := by
+      intro hz
+      have hq : (x-1)/(x+1)=1 := by linarith
+      have hh := (div_eq_iff hn).1 hq
+      linarith
+    field_simp [hn,hd]
     <;> ring
   simpa only [he] using logReduced ((x-1)/(x+1)) h
 
@@ -132,8 +138,9 @@ theorem atanReduced (x : ℝ) (hx : |x| ≤ 1/3) :
       (show 0 ∈ Icc (-|x|) |x| by simp)
       (show x ∈ Icc (-|x|) |x| by simp [le_abs_self, neg_le, neg_le_abs x])
   have h0 : F 0 = 0 := by simp [F,atanPoly]
-  rw [h0,sub_zero,sub_zero,Real.norm_eq_abs,Real.norm_eq_abs,← pow_succ] at C
-  exact lt_of_le_of_lt (C.trans (pow_le_pow_left₀ (abs_nonneg _) hx 801)) atanLooseGuard
+  have hC : |F x| ≤ |x|^801 := by
+    simpa only [h0, sub_zero, Real.norm_eq_abs, pow_succ] using C
+  exact lt_of_le_of_lt (hC.trans (pow_le_pow_left₀ (abs_nonneg _) hx 801)) atanLooseGuard
 
 theorem atanQuarterReduction (x : ℝ) (hx : 0 ≤ x) :
     Real.arctan x = Real.arctan ((x-1/4)/(1+x/4)) + Real.arctan (1/4) := by
@@ -146,7 +153,7 @@ theorem atanQuarterReduction (x : ℝ) (hx : 0 ≤ x) :
 theorem machin :
     Real.pi = 16*Real.arctan (1/5) - 4*Real.arctan (1/239) := by
   have h := Real.four_mul_arctan_inv_5_sub_arctan_inv_239
-  rw [← one_div, ← one_div] at h
+  simp only [← one_div] at h
   linarith
 
 theorem sinPeriod (x : ℝ) (n : ℤ) :
