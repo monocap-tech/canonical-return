@@ -42,6 +42,9 @@ for key,kind,p,q in cases:
     def arr(k):return ",\n  ".join(str(row[k]) for row in rows)
     fname="Const"+key
     func="arctan" if kind=="atan" else "exp"
+    terminal=f"{kind}Trace {p} {q} lo hi L U (by norm_num) allTerms lowerSum upperSum"
+    if kind=="atan":
+        terminal="by\n  simpa only [Nat.cast_one, Nat.cast_ofNat] using ("+terminal+")"
     lean=f"""import RationalTrace
 namespace CRALP.{fname}
 open Finset
@@ -57,7 +60,7 @@ theorem allTerms : ∀ i : Fin 400, row ({kind}Num {p}) ({kind}Den {q}) lo hi i 
 theorem lowerSum : L = (∑ i ∈ range 400, lo i)-1 := by decide
 theorem upperSum : U = (∑ i ∈ range 400, hi i)+1 := by decide
 theorem actual : Contains ((L:ℝ)/logScale) ((U:ℝ)/logScale) (Real.{func} ({p}/{q})) :=
-  {kind}Trace {p} {q} lo hi L U (by norm_num) allTerms lowerSum upperSum
+  {terminal}
 end CRALP.{fname}
 """+''.join(f"#print axioms CRALP.{fname}.{n}\n" for n in ["allTerms","lowerSum","upperSum","actual"])
     (out/(fname+".lean")).write_text(lean)
@@ -75,9 +78,16 @@ theorem lowerEq : L=16*CRALP.ConstAtan5.L-4*CRALP.ConstAtan239.U := by decide
 theorem upperEq : U=16*CRALP.ConstAtan5.U-4*CRALP.ConstAtan239.L := by decide
 theorem actual : Contains ((L:ℝ)/logScale) ((U:ℝ)/logScale) Real.pi := by
   have h := machinAttach CRALP.ConstAtan5.actual CRALP.ConstAtan239.actual
-  rw [lowerEq,upperEq]
-  push_cast
-  convert h using 1 <;> ring
+  have hL : (L:ℝ)/logScale =
+      16*((CRALP.ConstAtan5.L:ℝ)/logScale)-4*((CRALP.ConstAtan239.U:ℝ)/logScale) := by
+    rw [lowerEq]
+    push_cast <;> ring
+  have hU : (U:ℝ)/logScale =
+      16*((CRALP.ConstAtan5.U:ℝ)/logScale)-4*((CRALP.ConstAtan239.L:ℝ)/logScale) := by
+    rw [upperEq]
+    push_cast <;> ring
+  rw [hL,hU]
+  exact h
 end CRALP.ConstPi
 #print axioms CRALP.ConstPi.lowerEq
 #print axioms CRALP.ConstPi.upperEq
