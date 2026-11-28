@@ -47,7 +47,8 @@ theorem atanTerm (p q i : ℕ) :
 theorem expTerm (p q i : ℕ) :
     (expNum p i : ℝ)/(expDen q i : ℝ) =
       ((p:ℝ)/q)^i/(Nat.factorial i : ℝ) := by
-  simp only [expNum,expDen,Int.cast_natCast,Nat.cast_mul,Nat.cast_pow,div_pow,div_div]
+  simp only [expNum,expDen,Int.cast_mul,Int.cast_pow,Int.cast_natCast,
+    Nat.cast_mul,Nat.cast_pow,div_pow,div_div]
 
 theorem unitEq : ElementarySeries.unit = 1/(logScale:ℝ) := by
   simp only [ElementarySeries.unit,logScale,Nat.cast_pow,Nat.cast_ofNat,
