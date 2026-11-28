@@ -72,14 +72,48 @@
         "WeilDefect.Arithmetic.ActualZetaBackgroundGramTests",
         "Mathlib.NumberTheory.Harmonic.EulerMascheroni"
       ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaBackgroundGramTests.lean": {
+      "blob": "0e270c43820d8a4cde114915af6f8402521bef59",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaBackgroundFiniteTests"
+      ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaBackgroundFiniteTests.lean": {
+      "blob": "7e645f7e523a35be3de00683dfc3a2f5bd866b44",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaCarrierAudit"
+      ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaCarrierAudit.lean": {
+      "blob": "851b6e3fae69117f741e6925eeace5b84b9d3d98",
+      "imports": [
+        "WeilDefect.Screening.CarrierFactorization",
+        "WeilDefect.Arithmetic.ActualZetaGreenCopyObservability"
+      ]
+    },
+    "WeilDefect/Screening/CarrierFactorization.lean": {
+      "blob": "78d390259b0f5d12318f5d783c5a7b33d74afb98",
+      "imports": [
+        "WeilDefect.Screening.ResidualBudget",
+        "Mathlib.Analysis.Normed.Operator.Extend"
+      ]
+    },
+    "WeilDefect/Arithmetic/ActualZetaGreenCopyObservability.lean": {
+      "blob": "8cc0d76d5f9d8bd4d763fa00c6db6e61dec14c37",
+      "imports": [
+        "WeilDefect.Arithmetic.ActualZetaGreenGraphAnalysis"
+      ]
     }
   },
   "pending": [
-    "WeilDefect/Arithmetic/ActualZetaBackgroundGramTests.lean"
+    "WeilDefect/Screening/ResidualBudget.lean",
+    "WeilDefect/Arithmetic/ActualZetaGreenGraphAnalysis.lean"
   ],
   "external": [
     "Mathlib.Analysis.Calculus.ContDiff.Convolution",
     "Mathlib.Analysis.Complex.ExponentialBounds",
+    "Mathlib.Analysis.Normed.Operator.Extend",
     "Mathlib.NumberTheory.Harmonic.EulerMascheroni",
     "Mathlib.Tactic",
     "Mathlib.Topology.Algebra.InfiniteSum.Real"
